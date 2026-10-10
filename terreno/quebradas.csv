@@ -1,0 +1,18 @@
+﻿quebrada_id,nombre,alias,origen,cuenca_id,salida_tipo,confianza_cuenca,salida_lat,salida_lon,area_km2,cuenca_pequena,pendiente_media,cota_max_m,cota_min_m,melton,largo_cauce_km,toca_borde,vec_ge4_pct,vec_c5_pct,vec_media,vec_cobertura_pct,img_ge4_pct,img_c5_pct,img_media,img_cobertura_pct
+carossio,Carossio,Inca Kola; Moyopampa,candidata,41,confluencia,alta,-11.926375,-76.685636,0.528,False,35.6,1679,877,1.103,1.47,False,96.6,3.3,4.0,100.0,28.8,0.0,3.29,100.0
+corrales,Corrales,Rayos de Sol,candidata,42,confluencia,alta,-11.92424,-76.679839,1.259,False,34.4,1927,895,0.92,2.2,False,91.5,0.0,3.91,100.0,15.1,0.0,3.15,100.0
+pedregal,Pedregal,San Antonio de Pedregal,candidata,37,confluencia,alta,-11.938786,-76.696178,9.982,False,29.0,2324,839,0.47,6.47,False,86.9,1.3,3.88,100.0,8.6,0.0,2.99,100.0
+california,California,,candidata,29,confluencia,alta,-11.955935,-76.730162,8.43,False,27.0,1699,742,0.33,6.01,False,91.1,2.4,3.93,100.0,0.0,0.0,2.85,100.0
+la_cantuta,La Cantuta,,candidata,33,confluencia,alta,-11.948189,-76.710834,13.888,False,30.1,2203,797,0.377,7.86,False,91.5,0.6,3.92,100.0,5.0,0.0,2.93,100.0
+la_ronda,La Ronda,,candidata,40,confluencia,alta,-11.929073,-76.687855,8.818,False,31.8,2311,870,0.485,7.63,False,93.0,0.8,3.94,100.0,8.6,0.0,3.0,100.0
+quirio,Quirio,Nicolás de Piérola; Tarazona,candidata,34,confluencia,alta,-11.944949,-76.70861,9.824,False,29.5,2026,804,0.39,6.31,False,88.0,0.6,3.89,100.0,42.4,20.0,3.55,100.0
+santa_maria,Santa María (Yanacoto),Yanacoto,candidata,30,confluencia,alta,-11.953502,-76.729045,4.2,False,28.8,1856,753,0.538,4.39,False,93.5,1.9,3.95,100.0,46.0,26.0,3.68,100.0
+chacrasana,Chacrasana,,ubicada,25,confluencia,alta,-11.964548,-76.740684,4.991,False,28.5,1804,713,0.488,4.82,False,89.0,3.3,3.92,100.0,12.7,0.0,3.05,100.0
+libertad,Libertad,,ubicada,P03,apice,alta,-11.929027,-76.695566,0.408,False,32.9,1527,956,0.894,1.0,False,95.6,0.0,3.96,100.0,0.0,0.0,2.98,100.0
+mariscal_castilla,Mariscal Castilla,,ubicada,P04,apice,alta,-11.935326,-76.685415,0.77,False,35.4,1723,970,0.859,1.42,False,99.7,10.6,4.1,100.0,15.2,0.0,3.15,100.0
+rosario,Rosario,,ubicada,P05,apice,alta,-11.939362,-76.690673,0.135,True,35.6,1576,966,1.659,0.67,False,99.6,0.0,4.0,100.0,34.7,0.0,3.34,100.0
+santo_domingo,Santo Domingo,,ubicada,36,confluencia,alta,-11.943638,-76.701166,3.795,False,30.3,1922,820,0.566,4.57,False,96.4,1.9,3.97,100.0,6.4,0.0,2.94,100.0
+el_vallecito,El Vallecito,,ubicada,P07,apice,alta,-11.953427,-76.784404,0.942,False,28.8,1502,831,0.691,2.33,False,95.9,0.4,3.96,100.0,0.0,0.0,3.0,100.0
+alto_peru,Alto Perú,,ubicada,P09,apice,alta,-11.978683,-76.820927,0.209,True,33.2,1070,572,1.092,1.01,False,97.6,11.9,4.1,100.0,60.8,3.0,3.64,100.0
+buenos_aires,Buenos Aires,,ubicada,P10,apice,alta,-11.931542,-76.683189,0.149,True,31.6,1348,940,1.056,0.72,False,99.4,0.4,4.0,100.0,0.0,0.0,2.82,100.0
+huampani,Huampaní,,ubicada,P11,apice,baja,-11.973081,-76.806568,3.482,False,29.5,1499,620,0.471,3.04,False,87.3,1.4,3.89,100.0,8.4,1.1,2.98,100.0
