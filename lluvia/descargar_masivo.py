@@ -25,6 +25,7 @@ Requisitos: earthaccess, xarray, h5netcdf (psutil es opcional, solo para --medir
 import argparse
 import os
 import re
+import threading
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime
@@ -41,6 +42,8 @@ GRANULOS_DIA = 48
 BLOQUE_KB = 64  # medido con gránulos reales: 64 KB -> 5 % del archivo; por defecto (5 MB) -> 102 %
 REINTENTOS = 6
 ESPERA_INTERNET_SEG = 1800
+MAX_SIN_PROGRESO_SEG = 1200  # si un proceso pasa 20 min sin terminar un solo gránulo, se considera colgado y se mata
+MAX_FALLOS_DIA = 3           # un día que falla 3 veces se aparta hasta que repitas el comando
 HOSTS_INTERNET = ("https://urs.earthdata.nasa.gov", "https://data.gesdisc.earthdata.nasa.gov")
 _ARCHIVO_LOG = None
 
@@ -196,17 +199,21 @@ def _abridor(bloque_kb, url_directa):
 
 
 # --------------------------------------------------------------------------- lectura
-def leer_urls(urls, bbox, abrir, reintentos=REINTENTOS, pausa_base=2):
+def leer_urls(urls, bbox, abrir, reintentos=REINTENTOS, pausa_base=2, latido=None):
     """Lee el recorte de cada URL con reintentos. Se detiene en el primer gránulo imposible de leer
     (el día quedaría incompleto). Devuelve (partes, fallas, n_reintentos)."""
     partes, fallas, n_reint = [], [], 0
     for u in urls:
         nombre = u.rsplit("/", 1)[-1]
+        if latido:
+            latido()
         for intento in range(reintentos):
             f = None
             try:
                 f = abrir(u)
                 partes.append(leer_granulo(f, bbox, nombre=nombre))
+                if latido:
+                    latido()
                 break
             except Exception as e:
                 n_reint += 1
@@ -253,14 +260,50 @@ def guardar_nc(partes, ruta, producto):
     return da
 
 
-def procesar_dia(producto, dia, urls, bbox, bloque_kb, url_directa):
+class Vigilante:
+    """Mata el proceso si pasa `max_seg` sin dar señales de vida (un gránulo leído). Evita que una lectura de red
+    colgada para siempre deje el programa esperando. Antes de morir deja una marca en disco con el día culpable,
+    para que solo ese día cuente como fallo (los días sanos que se pierdan con el proceso se reintentan sin castigo)."""
+
+    def __init__(self, max_seg, marca):
+        self.max_seg, self.marca, self._t = max_seg, marca, None
+
+    def _matar(self):
+        try:
+            self.marca.parent.mkdir(parents=True, exist_ok=True)
+            self.marca.write_text("colgado")
+        finally:
+            os._exit(3)
+
+    def latido(self):
+        self.parar()
+        self._t = threading.Timer(self.max_seg, self._matar)
+        self._t.daemon = True
+        self._t.start()
+
+    def parar(self):
+        if self._t is not None:
+            self._t.cancel()
+            self._t = None
+
+
+def marca_colgado(producto, dia):
+    return ruta_dia(producto, dia).with_suffix(".colgado")
+
+
+def procesar_dia(producto, dia, urls, bbox, bloque_kb, url_directa, max_sin_progreso=0):
     """Lee los gránulos de un día y guarda su caché. NO lanza excepciones: devuelve siempre un diccionario."""
     t0 = time.time()
     try:
         ruta = ruta_dia(producto, dia)
         if ruta.exists():
             return dict(dia=dia, ok=True, n=len(urls), reint=0, seg=0.0)
-        partes, fallas, reint = leer_urls(urls, bbox, _abridor(bloque_kb, url_directa))
+        vig = Vigilante(max_sin_progreso, marca_colgado(producto, dia)) if max_sin_progreso else None
+        try:
+            partes, fallas, reint = leer_urls(urls, bbox, _abridor(bloque_kb, url_directa), latido=vig.latido if vig else None)
+        finally:
+            if vig:
+                vig.parar()
         if fallas:
             return dict(dia=dia, ok=False, error=f"{fallas[0][0]}: {fallas[0][1]}", reint=reint, seg=time.time() - t0)
         if len(partes) != len(urls):
@@ -324,6 +367,16 @@ def evitar_suspension(activar=True):
         pass
 
 
+def _matar_pool(pool):
+    """Termina los procesos trabajadores (también los colgados) para que el programa pueda cerrar."""
+    try:
+        for proc in list(getattr(pool, "_processes", {}).values()):
+            if proc.is_alive():
+                proc.terminate()
+    except Exception:
+        pass
+
+
 def _correr(tareas, procesos):
     """Ejecuta las tareas (clave, args de procesar_dia) y entrega (clave, resultado) a medida que terminan."""
     if procesos <= 1:
@@ -332,7 +385,7 @@ def _correr(tareas, procesos):
         return
     pool = ProcessPoolExecutor(procesos)
     try:
-        futuros = {pool.submit(procesar_dia, *args): (clave, args[1]) for clave, args in tareas}
+        futuros = {pool.submit(procesar_dia, *args, MAX_SIN_PROGRESO_SEG): (clave, args[1]) for clave, args in tareas}
         for fut in as_completed(futuros):
             clave, dia = futuros[fut]
             try:
@@ -341,12 +394,14 @@ def _correr(tareas, procesos):
                 yield clave, dict(dia=dia, ok=False, error=f"proceso caído: {repr(e)[:100]}", reint=0, seg=0.0)
     finally:
         pool.shutdown(wait=False, cancel_futures=True)
+        _matar_pool(pool)
 
 
 def ejecutar(producto, plan, bbox, bloque_kb, url_directa, procesos, rondas, espera_ronda):
     inicio = time.time()
     pendientes = [ym for ym in plan if not ruta_mes(producto, *ym).exists()]
     info = {}  # (a, m) -> dict(por_dia, esperado, encontrados, reint, seg)
+    fallos_dia, solo_caidas = {}, False
     for ronda in range(1, rondas + 1):
         if not pendientes:
             break
@@ -368,10 +423,15 @@ def ejecutar(producto, plan, bbox, bloque_kb, url_directa, procesos, rondas, esp
                 continue
             faltan[ym] = set()
             for dia, us in info[ym]["por_dia"].items():
-                if not ruta_dia(producto, dia).exists():
+                if fallos_dia.get(dia, 0) >= MAX_FALLOS_DIA:
+                    faltan[ym].add(dia)  # apartado: el mes queda pendiente y se avisa al final
+                elif not ruta_dia(producto, dia).exists():
                     tareas.append((ym, (producto, dia, us, bbox, bloque_kb, url_directa)))
                     faltan[ym].add(dia)
-        total, hechos, fallos = len(tareas), 0, 0
+        total, hechos, fallos, caidas = len(tareas), 0, 0, 0
+        apartados = sorted(d for d, n in fallos_dia.items() if n >= MAX_FALLOS_DIA and not ruta_dia(producto, d).exists())
+        if apartados:
+            log(f"  días apartados tras {MAX_FALLOS_DIA} fallos (repite el comando luego para reintentarlos): {', '.join(apartados)}")
         log(f"  {total} días por descargar con {procesos} procesos")
 
         def cerrar_meses_completos():
@@ -394,6 +454,9 @@ def ejecutar(producto, plan, bbox, bloque_kb, url_directa, procesos, rondas, esp
                     faltan[ym].discard(r["dia"])
                 else:
                     fallos += 1
+                    caidas += str(r.get("error", "")).startswith("proceso caído")
+                    if not str(r.get("error", "")).startswith("proceso caído"):
+                        fallos_dia[r["dia"]] = fallos_dia.get(r["dia"], 0) + 1
                     log(f"  FALLÓ día {r['dia']}: {r.get('error', '?')}")
                 if hechos % 10 == 0 or hechos == total:
                     v = hechos / (time.time() - t_ronda)
@@ -402,10 +465,22 @@ def ejecutar(producto, plan, bbox, bloque_kb, url_directa, procesos, rondas, esp
         except KeyboardInterrupt:
             log("Interrumpido por el usuario. Lo ya descargado queda en caché: repite el comando para continuar.")
             raise SystemExit(1)
+        for _, args in tareas:  # días que el vigilante marcó como colgados: esos sí cuentan como fallo
+            marca = marca_colgado(producto, args[1])
+            if marca.exists():
+                fallos_dia[args[1]] = fallos_dia.get(args[1], 0) + 1
+                log(f"  día {args[1]} se colgó (sin respuesta de la red por {MAX_SIN_PROGRESO_SEG // 60} min); fallo {fallos_dia[args[1]]}/{MAX_FALLOS_DIA}")
+                marca.unlink(missing_ok=True)
         pendientes = [ym for ym in plan if not ruta_mes(producto, *ym).exists()]
+        solo_caidas = fallos > 0 and caidas == fallos
+        espera = min(espera_ronda, 30) if solo_caidas else espera_ronda  # un proceso caído no requiere esperar a NASA
+        quedan = [d for ym in pendientes if ym in info for d in info[ym]["por_dia"] if not ruta_dia(producto, d).exists() and fallos_dia.get(d, 0) < MAX_FALLOS_DIA]
+        if pendientes and not quedan and ronda < rondas:
+            log("  solo quedan días apartados; no tiene sentido seguir esperando")
+            break
         if pendientes and ronda < rondas:
-            log(f"  faltan {len(pendientes)} meses; espero {espera_ronda // 60} min y reintento solo lo que falta")
-            time.sleep(espera_ronda)
+            log(f"  faltan {len(pendientes)} meses; espero {max(espera, 1) // 60 if espera >= 60 else espera} {'min' if espera >= 60 else 's'} y reintento solo lo que falta")
+            time.sleep(espera)
     horas = (time.time() - inicio) / 3600
     if pendientes:
         log(f"TERMINADO CON PENDIENTES en {horas:.1f} h: faltan {', '.join(f'{a}-{m:02d}' for a, m in pendientes)}. "
