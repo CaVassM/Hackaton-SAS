@@ -81,6 +81,14 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
 - Las 17 quebradas tocan solo **5 celdas** IMERG (0.1°): quebradas con las mismas celdas comparten la serie de lluvia (el modelo las distingue por terreno).
 - Recorte de descarga = polígonos + 0.1° (12 celdas). IMERG: tasa mm/h por media hora -> mm = valor x 0.5; hora etiquetada = inicio de la hora local (UTC-5).
 - **Lectura remota:** con el bloque por defecto de fsspec (5 MB) se baja el gránulo ENTERO (7.5 MB; ~650 GB en total). Con `block_size=64 KB, cache_type="blockcache"` baja ~5 % (medido con gránulos reales). No quitar esa configuración.
-- PISCOp_h: desfase de +7 h respecto a hora local (coherente con el ciclo diurno, no probado); su hora exacta es poco confiable (referencia gruesa). ERA5 sobrestima mucho: solo validación.
-- Prueba 23/03/2015: Early ve la lluvia ~1 h tarde (0 mm a las 15:00, 1.62 mm a las 16:00) y el huaico fue 15:10: con la latencia de 4 h, estos eventos no se anticipan con lluvia reciente.
+- PISCOp_h: desfase de +7 h respecto a hora local (coherente con el ciclo diurno, no probado); su hora exacta es poco confiable (referencia gruesa). ERA5: solo validación (en 2015 sus 2 puntos dan 500–1400 mm/año vs 70 mm de PISCOp_h en la celda de Quirio: una celda y un año, escalas distintas; indicio, no conclusión).
+- Prueba 23/03/2015: Early marca 0 mm a las 15:00 y 1.62 mm a las 16:00; el huaico fue 15:10. Comparado con Final solo en 3 h (Final: 0 / 0.79 / 1.96 mm a las 14/15/16 h): indicio de que Early llega ~1 h tarde y más débil, no concluyente. Con la latencia de 4 h, eventos así no se anticipan con lluvia reciente.
 - Entorno Windows: el `dask` de `base` está dañado (`Invalid version: 'unknown'`): no usar `print(ds)` de xarray; si molesta, `python -m pip install --upgrade dask`.
+
+## Camino del modelo (en curso, oct 2026)
+- Decisiones: `lluvia_efectiva` con k = 0.84 por DÍA aplicado por hora (0.84**(1/24)); `anomalia_14d` queda FUERA de la v1 (columna en la tabla, no es feature; ver `FEATURES_V1` en `modelo/tabla3.py`).
+- `lluvia/features_lluvia.py`: fila t usa lluvia con etiqueta <= t-5 (latencia 4 h). Ventanas incompletas = NaN. Prueba anti-futuro con `--prueba`.
+- `modelo/diagnostico_senal.py`: QC (no selección de variables): a las 12:00 locales, con huaico vs sin huaico; medianas lluvia_24h 1.9 vs 0.24 mm, lluvia_14d 38 vs 17 mm; solo 15 fechas con huaico. Señal modesta y ruidosa.
+- `modelo/tabla3.py` -> `modelo/tabla3_modelo.parquet` (no va a git): 2 882 561 filas; positivos H3/6/12/24 = 160/316/619/1219; 6 de 12 temporadas con eventos (2014-15 aporta 22 de 51 bloques de H=6).
+- `modelo/auditoria.py`: 12 chequeos independientes (pesos, unidades y huso, features contra sumas directas, convención de etiquetas contra el catálogo, integridad de la tabla). Correr tras cualquier cambio en lluvia/ o modelo/.
+- Aviso de diseño: log10(area) y pendiente identifican la quebrada (hay 17); con validación por temporada el modelo puede aprender la frecuencia histórica de cada quebrada. Es un a priori legítimo, no un conteo explícito, pero hay que tenerlo presente al interpretar.

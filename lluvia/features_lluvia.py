@@ -128,10 +128,10 @@ def features(R):
 
     temporada = np.where(idx.month >= 6, idx.year, idx.year - 1)  # la temporada y va de dic y a abr y+1
     inicio = pd.to_datetime([f"{y}-12-01" for y in temporada])
-    despues = pd.DataFrame(np.broadcast_to(~np.asarray(idx < inicio)[:, None], L.shape), index=idx, columns=L.columns)
-    Lm = L.where(despues, 0.0)  # antes del 1 de dic no cuenta
-    acum = Lm.fillna(0.0).groupby(temporada).cumsum().where(L.notna())
-    out["lluvia_temporada"] = acum
+    # la regla "antes del 1 de dic no cuenta" va sobre la hora en que la lluvia CAYÓ (R), no sobre cuándo queda disponible; luego se aplica la latencia
+    despues = pd.DataFrame(np.broadcast_to(~np.asarray(idx < inicio)[:, None], R.shape), index=idx, columns=R.columns)
+    acum_R = R.where(despues, 0.0).fillna(0.0).groupby(temporada).cumsum().where(R.notna())
+    out["lluvia_temporada"] = acum_R.shift(REZAGO)
 
     off = ((idx - inicio) / pd.Timedelta(hours=1)).to_numpy().astype(int) + 24  # desfase desde el 1 de dic (con 24 h de holgura)
     n_o = 24 + 152 * 24 + 1                       # hasta el 1 de mayo: cubre toda la temporada
