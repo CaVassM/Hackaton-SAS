@@ -291,3 +291,4 @@ V1 = 13 variables | V2 = 30 variables
   V2_semilla2: lift medio 6.15 | detectados 20/204 (N=100) | 1.7 min
   V2_sin_A: lift medio 7.56 | detectados 20/204 (N=100) | 1.7 min
   V2_sin_B: lift medio 4.83 | detectados 25/204 (N=100) | 1.7 min
+  V2_sin_C: lift medio 46.21 | detectados 20/204 (N=100) | 1.7 min
