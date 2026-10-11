@@ -81,6 +81,56 @@ def chequeo_features(n=300, semilla=3):
              "error relativo máx por feature: " + ", ".join(f"{k} {v:.1e}" for k, v in peor.items()))
 
 
+# ---------------------------------------------------------------- 3b. variables nuevas contra una implementación independiente
+def chequeo_features_nuevas(n=300, semilla=11):
+    import features_lluvia as fl
+
+    R = cargar_lluvia_horaria().pivot(index="hora", columns="quebrada_id", values="mm").asfreq("h")
+    Rcel = fl.lluvia_celdas(RAIZ / "lluvia" / "datos" / "early", pd.read_csv(RAIZ / "lluvia" / "pesos_imerg.csv"))
+    F = cargar_features().set_index(["quebrada_id", "hora"])
+    cand = F[F[fl.FEATURES_NUEVAS].notna().all(axis=1)].sample(n, random_state=semilla).index
+    peor = {}
+
+    def pico3(v, ventanas):  # v: lluvia horaria de las horas t-(ventanas+6) ... t-5 ; máximo de las sumas de 3 horas consecutivas
+        return max(v[i:i + 3].sum() for i in range(ventanas))
+
+    for q, t in cand:
+        s, h = R[q], pd.Timedelta(hours=1)
+        d = lambda a, b, ser=s: ser.loc[t - a * h: t - b * h].to_numpy()
+        tramo = s.loc[:t - 5 * h]
+        ini = tramo.index[np.where(tramo.isna().to_numpy())[0].max() + 1] if tramo.isna().any() else tramo.index[0]
+        v = tramo.loc[ini:].to_numpy()[::-1]  # de la hora más reciente hacia atrás
+        s24, s7d = d(28, 5).sum(), d(172, 5).sum()
+        hs = np.where(v >= 2.0)[0]
+        esp = {
+            "max_3h_24h": pico3(d(30, 5), 24), "max_3h_72h": pico3(d(78, 5), 72),
+            "horas_desde_lluvia_fuerte": float(min(hs[0], 336)) if len(hs) else 336.0,
+            "lluvia_48h": d(52, 5).sum(), "lluvia_72h": d(76, 5).sum(),
+            "api_k70": float((v * (0.70 ** (1 / 24)) ** np.arange(len(v))).sum()), "api_k92": float((v * (0.92 ** (1 / 24)) ** np.arange(len(v))).sum()),
+            "dias_lluviosos_7d": float(sum(d(28 + 24 * k, 5 + 24 * k).sum() >= 1.0 - fl.TOL_UMBRAL for k in range(7))),
+            "tendencia_24h": s24 - d(52, 29).sum(), "frac_24h_en_7d": s24 / (s7d + 1.0),
+            "lluvia_24h_sobre_api": s24 / (float((v * (0.84 ** (1 / 24)) ** np.arange(len(v))).sum()) + 1.0),
+            "reg_max_24h": max(d(28, 5, Rcel[c]).sum() for c in Rcel.columns),
+            "reg_max_3h_24h": max(pico3(d(30, 5, Rcel[c]), 24) for c in Rcel.columns),
+        }
+        for k, e in esp.items():
+            dif = abs(float(F.loc[(q, t), k]) - e) / max(1.0, abs(e))
+            peor[k] = max(peor.get(k, 0), dif)
+    reportar(f"Variables nuevas: {n} filas al azar recalculadas con sumas directas coinciden", all(v < 1e-3 for v in peor.values()),
+             "error relativo máx: " + ", ".join(f"{k} {v:.0e}" for k, v in peor.items()))
+
+
+def chequeo_tabla3_nuevas(n=3000, semilla=13):
+    from tabla3 import FEATURES_E, FEATURES_F
+    t = pd.read_parquet(RAIZ / "modelo" / "tabla3_modelo.parquet")
+    s = t.sample(n, random_state=semilla)
+    ang = 2 * np.pi * s.hora.dt.hour / 24
+    ok_e = np.allclose(s.hora_sen, np.sin(ang), atol=1e-5) and np.allclose(s.hora_cos, np.cos(ang), atol=1e-5)
+    ok_f = np.allclose(s.lluvia_24h_x_log10area, s.lluvia_24h * s.log10_area_km2, equal_nan=True, rtol=1e-4) and \
+        np.allclose(s.int3h_x_pendiente, s.max_3h_24h * s.pendiente_media, equal_nan=True, rtol=1e-4)
+    reportar("Tabla 3: ciclo diario e interacciones coinciden con su definición", ok_e and ok_f, f"ciclo diario {ok_e}, interacciones {ok_f}")
+
+
 # ---------------------------------------------------------------- 4. convención de la `hora` de las etiquetas contra el catálogo
 def chequeo_etiquetas():
     c = pd.read_csv(RAIZ / "catalogo_huaicos_chosica" / "catalogo_huaicos_chosica.csv")
@@ -150,7 +200,7 @@ def chequeo_tabla3(n=2000, semilla=5):
 
 
 if __name__ == "__main__":
-    for f in (chequeo_pesos, chequeo_lluvia, chequeo_features, chequeo_etiquetas, chequeo_catalogo, chequeo_tabla3):
+    for f in (chequeo_pesos, chequeo_lluvia, chequeo_features, chequeo_features_nuevas, chequeo_etiquetas, chequeo_catalogo, chequeo_tabla3, chequeo_tabla3_nuevas):
         try:
             f()
         except Exception as e:

@@ -16,6 +16,16 @@ FEATURES_LLUVIA = ["lluvia_3h", "lluvia_6h", "lluvia_24h", "int_max_24h", "tende
                    "lluvia_efectiva", "horas_desde_lluvia", "lluvia_temporada", "anomalia_14d"]
 FEATURES_TERRENO = ["log10_area_km2", "pendiente_media"]
 FEATURES_V1 = [f for f in FEATURES_LLUVIA if f != "anomalia_14d"] + FEATURES_TERRENO
+# --- ingeniería de variables (v2): grupos definidos a priori desde la hidrología (ver lluvia/features_lluvia.py)
+FEATURES_A = ["max_3h_24h", "max_3h_72h", "horas_desde_lluvia_fuerte"]                          # intensidad
+FEATURES_B = ["lluvia_48h", "lluvia_72h", "api_k70", "api_k92", "dias_lluviosos_7d"]            # humedad previa
+FEATURES_C = ["tendencia_24h", "frac_24h_en_7d", "lluvia_24h_sobre_api"]                        # contraste con lo anterior
+FEATURES_D = ["reg_max_24h", "reg_max_3h_24h"]                                                  # regional (5 celdas)
+FEATURES_E = ["hora_sen", "hora_cos"]                                                           # ciclo diario (única NO basada en lluvia: pendiente de confirmar)
+FEATURES_F = ["lluvia_24h_x_log10area", "int3h_x_pendiente"]                                    # interacciones lluvia × terreno
+GRUPOS_NUEVOS = {"A intensidad": FEATURES_A, "B humedad previa": FEATURES_B, "C contraste": FEATURES_C, "D regional": FEATURES_D,
+                 "E ciclo diario": FEATURES_E, "F lluvia x terreno": FEATURES_F}
+FEATURES_V2 = FEATURES_V1 + [f for g in GRUPOS_NUEVOS.values() for f in g]
 RUTA = RAIZ / "modelo" / "tabla3_modelo.parquet"
 
 
@@ -36,11 +46,14 @@ def construir():
     t["dia"] = t.hora.dt.normalize()
     t["temporada"] = temporada_de(t.hora)
     t["H"], t["y"] = t["H"].astype("int8"), t["y"].astype("int8")
-    cols = ["hora", "dia", "temporada", "quebrada_id", "H", "y"] + FEATURES_LLUVIA + FEATURES_TERRENO
-    t = t[cols]
-    for c in FEATURES_LLUVIA + FEATURES_TERRENO:
+    ang = 2 * np.pi * t.hora.dt.hour / 24                      # ciclo diario: la hora del día es conocida al predecir
+    t["hora_sen"], t["hora_cos"] = np.sin(ang), np.cos(ang)
+    t["lluvia_24h_x_log10area"] = t["lluvia_24h"] * t["log10_area_km2"]
+    t["int3h_x_pendiente"] = t["max_3h_24h"] * t["pendiente_media"]
+    for c in FEATURES_V2 + ["anomalia_14d"]:
         t[c] = t[c].astype("float32")
-    return t.sort_values(["H", "quebrada_id", "hora"]).reset_index(drop=True), info
+    cols = ["hora", "dia", "temporada", "quebrada_id", "H", "y", "anomalia_14d"] + FEATURES_V2
+    return t[cols].sort_values(["H", "quebrada_id", "hora"]).reset_index(drop=True), info
 
 
 def bloques(d):
@@ -73,7 +86,7 @@ def main():
     print(f"\nTemporadas con al menos un evento: {len(con)} de {len(seas)} -> {con}")
     pos_h = b.groupby(["temporada", "H"]).bloque.nunique().unstack("H").fillna(0).astype(int)
     print("\nBLOQUES POR TEMPORADA Y H\n" + pos_h.to_string())
-    print("\n% NaN por columna (features):", {c: round(100 * t[c].isna().mean(), 1) for c in FEATURES_LLUVIA + FEATURES_TERRENO if t[c].isna().any()})
+    print("\n% NaN por columna (features):", {c: round(100 * t[c].isna().mean(), 1) for c in FEATURES_V2 + ["anomalia_14d"] if t[c].isna().any()})
     res.to_csv(SALIDA / "tabla3_resumen_por_H.csv"); seas.to_csv(SALIDA / "tabla3_temporadas_H6.csv"); pos_h.to_csv(SALIDA / "tabla3_bloques_por_temporada_H.csv")
 
 

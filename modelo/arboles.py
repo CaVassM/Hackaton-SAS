@@ -28,6 +28,8 @@ from metricas import N_PROPUESTO, metricas_por_temporada, resumen_y_sensibilidad
 from tabla3 import FEATURES_V1, HORIZONTES, RUTA
 
 SEMILLA = 0
+PARAMS_XGB = dict(n_estimators=200, max_depth=3, learning_rate=0.05, subsample=0.8, colsample_bytree=0.8, min_child_weight=20, reg_lambda=10.0,
+                  tree_method="hist", n_jobs=4, verbosity=0)  # fijos de antemano; los reutiliza modelo/ingenieria.py
 
 
 def temporadas_con_evento(d):
@@ -47,8 +49,7 @@ def xgb_loso(t):
         te = (t.temporada == s).to_numpy()
         y_tr = t.y[~te]
         spw = float(np.sqrt((y_tr == 0).sum() / (y_tr == 1).sum()))
-        m = xgb.XGBClassifier(n_estimators=200, max_depth=3, learning_rate=0.05, subsample=0.8, colsample_bytree=0.8, min_child_weight=20, reg_lambda=10.0,
-                              scale_pos_weight=spw, monotone_constraints=mono, tree_method="hist", n_jobs=4, random_state=SEMILLA, verbosity=0)
+        m = xgb.XGBClassifier(**PARAMS_XGB, scale_pos_weight=spw, monotone_constraints=mono, random_state=SEMILLA)
         m.fit(t.loc[~te, cols], y_tr)
         p[te] = m.predict_proba(t.loc[te, cols])[:, 1]
         imp[s] = m.get_booster().get_score(importance_type="total_gain")

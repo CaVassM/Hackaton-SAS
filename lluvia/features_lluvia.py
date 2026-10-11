@@ -22,6 +22,13 @@ Features (R = lluvia horaria disponible, en mm/h)
   anomalia_14d                       percentil (0-100) de lluvia_14d frente a la misma fecha (+-7 días, misma hora) de temporadas ANTERIORES;
                                      NaN si hay menos de 3 temporadas previas (nunca usa años posteriores)
 
+Variables NUEVAS (ingeniería de variables, definidas a priori desde la hidrología de flujos de detritos; mismas reglas de latencia y de NaN)
+  A. Intensidad : max_3h_24h (máximo de lluvia en 3 h consecutivas entre las últimas 24 h), max_3h_72h, horas_desde_lluvia_fuerte (última hora >= 2 mm/h, tope 336)
+  B. Humedad previa: lluvia_48h, lluvia_72h, api_k70 y api_k92 (como lluvia_efectiva con k = 0.70 y 0.92 por día), dias_lluviosos_7d (de los 7 bloques de 24 h, cuántos >= 1 mm)
+  C. Contraste  : tendencia_24h (lluvia_24h(t) - lluvia_24h(t-24 h)), frac_24h_en_7d (lluvia_24h / (lluvia_7d + 1)), lluvia_24h_sobre_api (lluvia_24h / (lluvia_efectiva + 1))
+  D. Regional   : reg_max_24h y reg_max_3h_24h (máximo entre las 5 celdas IMERG de las quebradas; igual para todas las quebradas)
+  (E. ciclo diario y F. interacciones con el terreno se agregan en modelo/tabla3.py, que es donde hay hora y terreno.)
+
 Uso:  python lluvia/features_lluvia.py            # calcula y guarda
       python lluvia/features_lluvia.py --prueba   # además prueba que ninguna feature mira el futuro
 """
@@ -44,11 +51,16 @@ MIN_TEMPORADAS_REF = 3
 VENTANA_DIAS_REF = 7
 FEATURES = ["lluvia_3h", "lluvia_6h", "lluvia_24h", "int_max_24h", "tendencia_3h", "horas_lluvia_24h", "lluvia_7d",
             "lluvia_14d", "lluvia_efectiva", "horas_desde_lluvia", "lluvia_temporada", "anomalia_14d"]
+UMBRAL_FUERTE = 2.0      # mm/h: hora de lluvia intensa
+TOL_UMBRAL = 1e-4        # mm: tolerancia al comparar SUMAS con un umbral (el ruido de coma flotante decide si 1.0 >= 1.0)
+FEATURES_NUEVAS = ["max_3h_24h", "max_3h_72h", "horas_desde_lluvia_fuerte", "lluvia_48h", "lluvia_72h", "api_k70", "api_k92", "dias_lluviosos_7d",
+                   "tendencia_24h", "frac_24h_en_7d", "lluvia_24h_sobre_api", "reg_max_24h", "reg_max_3h_24h"]
+TODAS = FEATURES + FEATURES_NUEVAS
 
 
 # --------------------------------------------------------------------------- lluvia horaria por quebrada
-def lluvia_horaria(carpeta, pesos):
-    """DataFrame (horas locales continuas × quebradas) en mm/h; NaN fuera de las temporadas."""
+def _horario(carpeta):
+    """DataArray (hora local, lat, lon) en mm por hora a partir de los meses de IMERG Early."""
     import xarray as xr
 
     partes = []
@@ -57,9 +69,24 @@ def lluvia_horaria(carpeta, pesos):
             partes.append(ds["mm_h"].load())
     da = xr.concat(partes, dim="time").sortby("time")
     da = da.isel(time=~da.indexes["time"].duplicated())
-    serie = lluvia_por_quebrada(a_horario_local(da), pesos)
+    return a_horario_local(da)
+
+
+def lluvia_horaria(carpeta, pesos):
+    """DataFrame (horas locales continuas × quebradas) en mm/h; NaN fuera de las temporadas."""
+    serie = lluvia_por_quebrada(_horario(carpeta), pesos)
     serie.index = pd.DatetimeIndex(serie.index)
     return serie.astype("float64").asfreq("h")  # float64: las sumas de 14 días no deben acumular error de float32
+
+
+def lluvia_celdas(carpeta, pesos):
+    """DataFrame (horas locales continuas × celdas IMERG que tocan alguna quebrada), mm por hora."""
+    h = _horario(carpeta)
+    cols = {}
+    for r in pesos[["lat_centro", "lon_centro"]].drop_duplicates().itertuples():
+        i, j = np.abs(h.lat.values - r.lat_centro).argmin(), np.abs(h.lon.values - r.lon_centro).argmin()
+        cols[f"{r.lat_centro}_{r.lon_centro}"] = h.values[:, i, j]
+    return pd.DataFrame(cols, index=pd.DatetimeIndex(h.time.values)).astype("float64").asfreq("h")
 
 
 # --------------------------------------------------------------------------- features
@@ -85,6 +112,23 @@ def _recursivas(v, k_h):
     return pa, desde
 
 
+def _horas_desde(v, umbral):
+    """Horas desde la última hora con valor >= umbral (tope LIMITE_HORAS). Misma regla que horas_desde_lluvia."""
+    out = np.full(len(v), np.nan)
+    validas, ultima = 0, None
+    for i, x in enumerate(v):
+        if np.isnan(x):
+            validas, ultima = 0, None
+            continue
+        validas += 1
+        ultima = 0 if x >= umbral else (None if ultima is None else ultima + 1)
+        if ultima is not None:
+            out[i] = min(ultima, LIMITE_HORAS)
+        elif validas >= LIMITE_HORAS:
+            out[i] = LIMITE_HORAS
+    return out
+
+
 def _anomalia(A):
     """A: (temporadas, desfase en horas) de lluvia_14d para una quebrada. Percentil frente a temporadas anteriores."""
     n_s, n_o = A.shape
@@ -104,8 +148,9 @@ def _anomalia(A):
     return res
 
 
-def features(R):
-    """R: DataFrame (horas locales continuas × quebradas), mm por hora. Devuelve dict feature -> DataFrame."""
+def features(R, Rcel=None):
+    """R: DataFrame (horas locales continuas × quebradas), mm por hora. Rcel: lo mismo por celda IMERG (para las variables regionales).
+    Devuelve dict feature -> DataFrame."""
     idx = R.index
     L = R.shift(REZAGO)  # lluvia ya disponible en el instante t (latencia)
     out = {}
@@ -149,6 +194,29 @@ def features(R):
         col[m] = res[sidx[m], off[m]]
         an[c] = col
     out["anomalia_14d"] = pd.DataFrame(an, index=idx)
+
+    # ---------------- variables nuevas (ver docstring del módulo)
+    s24 = out["lluvia_24h"]
+    out["max_3h_24h"] = s3.rolling(24, min_periods=24).max()
+    out["max_3h_72h"] = s3.rolling(72, min_periods=72).max()
+    out["horas_desde_lluvia_fuerte"] = pd.DataFrame({c: _horas_desde(L[c].to_numpy(dtype=float), UMBRAL_FUERTE) for c in L.columns}, index=idx)
+    out["lluvia_48h"] = L.rolling(48, min_periods=48).sum()
+    out["lluvia_72h"] = L.rolling(72, min_periods=72).sum()
+    for nombre, k in (("api_k70", 0.70), ("api_k92", 0.92)):
+        out[nombre] = pd.DataFrame({c: _recursivas(L[c].to_numpy(dtype=float), k ** (1 / 24))[0] for c in L.columns}, index=idx)
+    bloques24 = np.stack([s24.shift(24 * k).to_numpy() for k in range(7)])
+    out["dias_lluviosos_7d"] = pd.DataFrame(np.where((~np.isnan(bloques24)).all(axis=0), (bloques24 >= 1.0 - TOL_UMBRAL).sum(axis=0), np.nan), index=idx, columns=L.columns)
+    out["tendencia_24h"] = s24 - s24.shift(24)
+    out["frac_24h_en_7d"] = s24 / (out["lluvia_7d"] + 1.0)
+    out["lluvia_24h_sobre_api"] = s24 / (out["lluvia_efectiva"] + 1.0)
+    if Rcel is not None:
+        Lc = Rcel.shift(REZAGO)
+        reg24 = Lc.rolling(24, min_periods=24).sum().max(axis=1, skipna=False)
+        reg3 = Lc.rolling(3, min_periods=3).sum().rolling(24, min_periods=24).max().max(axis=1, skipna=False)
+    else:
+        reg24 = reg3 = pd.Series(np.nan, index=idx)
+    out["reg_max_24h"] = pd.DataFrame({c: reg24 for c in L.columns}, index=idx)
+    out["reg_max_3h_24h"] = pd.DataFrame({c: reg3 for c in L.columns}, index=idx)
     return out
 
 
@@ -157,37 +225,41 @@ def a_largo(feats, R):
     ancho = pd.concat(feats, axis=1)
     largo = ancho.stack(level=1, future_stack=True)
     largo.index.names = ["hora", "quebrada_id"]
-    largo = largo[FEATURES].dropna(how="all").astype("float32").reset_index()
+    largo = largo[TODAS].dropna(how="all").astype("float32").reset_index()
     return largo
 
 
 # --------------------------------------------------------------------------- prueba anti-futuro
-def probar_sin_futuro(R, n=30, semilla=7):
-    """Cambia TODA la lluvia posterior a la disponible en t (horas con etiqueta > t-5) y exige que las features de t no cambien."""
+def probar_sin_futuro(R, Rcel, n=30, semilla=7):
+    """Cambia TODA la lluvia posterior a la disponible en t (horas con etiqueta > t-5), en quebradas y en celdas, y exige que las features de t no cambien."""
     rng = np.random.default_rng(semilla)
     col = "quirio" if "quirio" in R.columns else R.columns[0]
-    base = features(R[[col]])
+    base = features(R[[col]], Rcel)
     validas = np.where(base["lluvia_14d"][col].notna().to_numpy() & (R.index.year >= 2018))[0]
     elegidas = rng.choice(validas, size=min(n, len(validas)), replace=False)
     fallos = 0
     for pos in elegidas:
-        Rp = R[[col]].copy()
+        Rp, Rcp = R[[col]].copy(), Rcel.copy()
         futuro = np.arange(len(Rp)) > pos - REZAGO  # etiqueta > t-5: aún no disponible
         Rp.loc[futuro, col] = rng.uniform(0, 60, futuro.sum())  # lluvia inventada, enorme
-        pert = features(Rp)
-        for f in FEATURES:
+        Rcp.loc[futuro, :] = rng.uniform(0, 60, (futuro.sum(), Rcp.shape[1]))
+        pert = features(Rp, Rcp)
+        for f in TODAS:
             a, b = base[f][col].iloc[pos], pert[f][col].iloc[pos]
             if not (np.isclose(a, b, equal_nan=True, atol=1e-9)):
                 fallos += 1
                 print(f"  FUGA en {f} t={R.index[pos]}: {a} != {b}")
     # control positivo: cambiar la lluvia SÍ disponible debe mover las features (si no, la prueba no probaría nada)
     pos = elegidas[0]
-    Rq = R[[col]].copy()
+    Rq, Rcq = R[[col]].copy(), Rcel.copy()
     Rq.iloc[pos - REZAGO, 0] += 25.0
-    movidas = sum(not np.isclose(base[f][col].iloc[pos], features(Rq)[f][col].iloc[pos], equal_nan=True) for f in ("lluvia_3h", "lluvia_24h", "lluvia_7d"))
-    print(f"Prueba anti-futuro: {len(elegidas)} instantes × {len(FEATURES)} features -> {fallos} fugas "
-          f"| control positivo (cambiar la lluvia disponible mueve {movidas}/3 features)")
-    return fallos == 0 and movidas == 3
+    Rcq.iloc[pos - REZAGO, :] += 25.0
+    nuevo = features(Rq, Rcq)
+    ctrl = ("lluvia_3h", "lluvia_24h", "lluvia_7d", "max_3h_24h", "lluvia_72h", "reg_max_24h")
+    movidas = sum(not np.isclose(base[f][col].iloc[pos], nuevo[f][col].iloc[pos], equal_nan=True) for f in ctrl)
+    print(f"Prueba anti-futuro: {len(elegidas)} instantes × {len(TODAS)} features -> {fallos} fugas "
+          f"| control positivo (cambiar la lluvia disponible mueve {movidas}/{len(ctrl)} features)")
+    return fallos == 0 and movidas == len(ctrl)
 
 
 # --------------------------------------------------------------------------- principal
@@ -200,6 +272,7 @@ def main():
 
     pesos = pd.read_csv(a.pesos)
     R = lluvia_horaria(a.datos, pesos)
+    Rcel = lluvia_celdas(a.datos, pesos)
     print(f"Lluvia horaria: {R.shape[1]} quebradas, {int(R.iloc[:, 0].notna().sum()):,} horas con dato "
           f"({R.index.min():%Y-%m-%d %H:%M} -> {R.index.max():%Y-%m-%d %H:%M} hora de Perú)")
     largo = R.stack(future_stack=True).dropna().rename("mm").astype("float32").reset_index()
@@ -207,13 +280,13 @@ def main():
     largo.to_parquet(AQUI / "lluvia_horaria_quebradas.parquet", index=False)
 
     if a.prueba:
-        ok = probar_sin_futuro(R)
+        ok = probar_sin_futuro(R, Rcel)
         if not ok:
             raise SystemExit("La prueba anti-futuro FALLÓ: no se guardan las features.")
-    tabla = a_largo(features(R), R)
+    tabla = a_largo(features(R, Rcel), R)
     tabla.to_parquet(AQUI / "features_lluvia.parquet", index=False)
-    print(f"features_lluvia.parquet: {len(tabla):,} filas × {len(FEATURES)} features")
-    print("% NaN por feature:", {f: round(100 * tabla[f].isna().mean(), 1) for f in FEATURES})
+    print(f"features_lluvia.parquet: {len(tabla):,} filas × {len(TODAS)} features")
+    print("% NaN por feature:", {f: round(100 * tabla[f].isna().mean(), 1) for f in TODAS})
 
 
 if __name__ == "__main__":
