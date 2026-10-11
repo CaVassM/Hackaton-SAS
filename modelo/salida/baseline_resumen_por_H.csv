@@ -1,0 +1,5 @@
+H,temporadas_evaluadas,filas_evaluadas,positivos,AUPRC,base,veces_la_base,AUPRC_media_por_temporada,bloques,detectados,pct_detectados,pct_aleatorio,falsos_episodios_por_temporada,falsas_horas_por_temporada
+3,6,350818,160,0.0022,0.0005,4.7,0.0021,53,2,3.8,3.0,74.0,584
+6,6,350583,316,0.0039,0.0009,4.3,0.0037,51,2,3.9,6.0,61.5,583
+12,6,350113,619,0.0076,0.0018,4.3,0.0078,50,4,8.0,11.7,63.8,580
+24,6,349191,1219,0.0121,0.0035,3.5,0.0137,50,5,10.0,21.7,59.8,572
