@@ -1,4 +1,5 @@
 __pycache__/
 lluvia/datos/
 lluvia/*.parquet
+modelo/*.parquet
 .dodsrc
