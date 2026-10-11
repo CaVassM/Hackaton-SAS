@@ -40,7 +40,7 @@ def lift_fold(y, H, p):
     return float(np.mean(v))
 
 
-def correr(t, cols, nombre, semilla=0, permutar=False, k_sel=None):
+def correr(t, cols, nombre, semilla=0, permutar=False, k_sel=None, mono_extra=None, params=None):
     import xgboost as xgb
 
     ruta = DIR / f"run_{nombre}.json"
@@ -60,8 +60,8 @@ def correr(t, cols, nombre, semilla=0, permutar=False, k_sel=None):
         spw = float(np.sqrt((ytr == 0).sum() / (ytr == 1).sum()))
 
         def ajustar(c):
-            mono = tuple(1 if x == "H" else 0 for x in c + ["H"])
-            m = xgb.XGBClassifier(**PARAMS_XGB, scale_pos_weight=spw, monotone_constraints=mono, random_state=semilla)
+            mono = tuple(1 if x == "H" else (mono_extra or {}).get(x, 0) for x in c + ["H"])
+            m = xgb.XGBClassifier(**{**PARAMS_XGB, **(params or {})}, scale_pos_weight=spw, monotone_constraints=mono, random_state=semilla)
             return m.fit(t.loc[~te, c + ["H"]], ytr)
 
         m, cf = ajustar(cols), cols
@@ -86,7 +86,7 @@ def correr(t, cols, nombre, semilla=0, permutar=False, k_sel=None):
                     caidas.append(base - lift_fold(yte, Hte, m.predict_proba(Xp)[:, 1]))
                 perm.append(dict(nombre=nom, es_grupo=nom in GRUPOS_PERM, temporada=s, caida=float(np.mean(caidas))))
     ev_all = t.assign(p=p)
-    filas, lifts, det100, det50, bloques = [], {}, 0, 0, 0
+    filas, lifts, det100, det50, bloques, det_H, lift_H = [], {}, 0, 0, 0, {}, {}
     for H in HORIZONTES:
         d = ev_all[ev_all.H == H]
         con = temporadas_con_evento(d)
@@ -95,10 +95,11 @@ def correr(t, cols, nombre, semilla=0, permutar=False, k_sel=None):
         for s, v in n[n.N == 100].set_index("temporada").lift.items():
             lifts.setdefault(s, []).append(float(v))
         det100 += int(n[n.N == 100].detectados.sum()); det50 += int(n[n.N == 50].detectados.sum()); bloques += int(n[n.N == 100].bloques.sum())
+        det_H[H] = [int(n[n.N == 100].detectados.sum()), int(n[n.N == 100].bloques.sum())]; lift_H[H] = float(n[n.N == 100].lift.mean())
     por_temp = {s: float(np.mean(v)) for s, v in lifts.items()}
     r = dict(nombre=nombre, n_variables=len(cols) if not k_sel else k_sel, lift_medio=float(np.mean(list(por_temp.values()))), lift_por_temporada=por_temp,
              detectados_N100=det100, detectados_N50=det50, bloques_total=bloques, minutos=round((time.time() - t0) / 60, 1),
-             permutacion=perm, seleccion=dict(sel))
+             permutacion=perm, seleccion=dict(sel), det_por_H=det_H, lift_por_H=lift_H)
     ruta.write_text(json.dumps(r))
     print(f"  {nombre}: lift medio {r['lift_medio']:.2f} | detectados {det100}/{bloques} (N=100) | {r['minutos']} min", flush=True)
     return r
