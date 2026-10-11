@@ -1,1 +1,12 @@
 === 23:08:25 env PYTHONPATH=. python3 /tmp/v1d.py ===
+  V1_mas_D: lift medio 8.67 | detectados 25/204 (N=100) | 1.4 min
+  V1_mas_D_semilla1: lift medio 10.76 | detectados 27/204 (N=100) | 1.4 min
+  V1_mas_D_semilla2: lift medio 13.23 | detectados 26/204 (N=100) | 1.4 min
+=== 23:12:38 python3 restringido.py ===
+  R_MONO_semilla0: lift medio 17.92 | detectados 36/204 (N=100) | 1.3 min
+  R_MONO_semilla1: lift medio 19.49 | detectados 39/204 (N=100) | 1.3 min
+  R_MONO_semilla2: lift medio 21.41 | detectados 41/204 (N=100) | 1.3 min
+  R_CHICO_semilla0: lift medio 11.33 | detectados 22/204 (N=100) | 1.0 min
+  R_CHICO_semilla1: lift medio 14.47 | detectados 22/204 (N=100) | 1.0 min
+  R_CHICO_semilla2: lift medio 11.09 | detectados 18/204 (N=100) | 1.0 min
+  R_AMBAS_semilla0: lift medio 18.43 | detectados 38/204 (N=100) | 1.0 min
