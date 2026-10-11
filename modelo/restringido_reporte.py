@@ -7,7 +7,7 @@ import pandas as pd
 
 from comun import SALIDA
 
-D = SALIDA / "ingenieria"
+from ingenieria import DIR as D
 R = lambda n: json.load(open(D / f"run_{n}.json"))
 filas = []
 for nombre, pref in (("V1 originales (13)", "V1_semilla"), ("V1 + D sin restricciones", "V1_mas_D_semilla"), ("solo monotonía", "R_MONO_semilla"),

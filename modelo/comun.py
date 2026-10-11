@@ -45,6 +45,37 @@ def eventos_catalogo():
             .reset_index(drop=True))
 
 
+FUERA_DEL_PILOTO = {"Huaycoloro", "Rioseco", "Los Laureles"}   # quebradas del catálogo que el piloto ignora (cuenca grande fuera del recorte / probable Chaclacayo)
+
+
+def dias_evento_fuera_del_piloto(incluir_excluidas=True):
+    """Fechas con huaico en el catálogo pero NINGUNO en las 17 quebradas del piloto: en esos días las 17 quedaron y=0 sin saberse si activaron.
+
+    Son fechas con eventos solo en distritos vecinos (Chaclacayo, Santa Eulalia...) o solo en quebradas que el piloto ignora (Huaycoloro, Río Seco...).
+    `incluir_excluidas=False` deja fuera estas últimas (solo distritos vecinos).
+    """
+    c = pd.read_csv(RAIZ / "catalogo_huaicos_chosica" / "catalogo_huaicos_chosica.csv", parse_dates=["fecha"])
+    en_pil = c.en_piloto.astype(bool)
+    if incluir_excluidas:
+        en_pil &= ~c.quebrada.isin(FUERA_DEL_PILOTO)
+    con_piloto = set(c.loc[en_pil, "fecha"])
+    return sorted(set(c.fecha) - con_piloto)
+
+
+def poner_nan_dias_fuera_del_piloto(lab, incluir_excluidas=True):
+    """y=0 -> NaN en filas cuya ventana (t, t+H] toca un día de `dias_evento_fuera_del_piloto`. Los y=1 se conservan. `lab`: hora, quebrada_id, H, y."""
+    y = lab["y"].to_numpy(dtype="float64").copy()
+    t = lab["hora"].to_numpy("datetime64[ns]")
+    H = lab["H"].to_numpy().astype("timedelta64[h]").astype("timedelta64[ns]")
+    marca = np.zeros(len(lab), bool)
+    for d in dias_evento_fuera_del_piloto(incluir_excluidas):
+        d0 = np.datetime64(d, "ns")
+        marca |= (t < d0 + np.timedelta64(24, "h")) & (t + H > d0)
+    n = int(((y == 0) & marca).sum())
+    y[(y == 0) & marca] = np.nan
+    return lab.assign(y=y), n
+
+
 def temporada_de(hora):
     """'2014-15' para dic 2014–abr 2015."""
     y = np.where(hora.dt.month >= 6, hora.dt.year, hora.dt.year - 1)

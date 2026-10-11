@@ -2,6 +2,7 @@
 
 Une etiquetas (hora, quebrada_id, H, y) + features de lluvia (hora, quebrada_id) + terreno (quebrada_id).
   - Solo diciembre–abril. Se excluyen las filas con y = NaN.
+  - Paso 9.2: los y=0 cuya ventana toca un día con huaico SOLO fuera de las 17 quebradas (distritos vecinos, Huaycoloro...) pasan a NaN (ver comun.py).
   - `anomalia_14d` queda como columna pero NO es feature de la v1 (ver FEATURES_V1).
   - `dia` y `temporada` ("2014-15") sirven para agrupar en la validación.
 Salida: modelo/tabla3_modelo.parquet (no va a git; se regenera con: python modelo/tabla3.py)
@@ -9,7 +10,7 @@ Salida: modelo/tabla3_modelo.parquet (no va a git; se regenera con: python model
 import numpy as np
 import pandas as pd
 
-from comun import RAIZ, SALIDA, cargar_etiquetas, cargar_features, temporada_de
+from comun import RAIZ, SALIDA, cargar_etiquetas, cargar_features, poner_nan_dias_fuera_del_piloto, temporada_de
 
 HORIZONTES = (3, 6, 12, 24)
 FEATURES_LLUVIA = ["lluvia_3h", "lluvia_6h", "lluvia_24h", "int_max_24h", "tendencia_3h", "horas_lluvia_24h", "lluvia_7d", "lluvia_14d",
@@ -40,8 +41,10 @@ def construir():
     n0 = len(lab)
     lab = lab[lab.hora.dt.month.isin([12, 1, 2, 3, 4])]
     n_temp = len(lab)
+    n_nan_catalogo = int(lab.y.isna().sum())
+    lab, n_vecinos = poner_nan_dias_fuera_del_piloto(lab)   # paso 9.2: y=0 dudosos (huaico solo fuera de las 17 quebradas) -> NaN
     lab = lab.dropna(subset=["y"])
-    info = dict(filas_etiquetas=n0, filas_dic_abr=n_temp, filas_y_nan_excluidas=n_temp - len(lab))
+    info = dict(filas_etiquetas=n0, filas_dic_abr=n_temp, filas_y_nan_excluidas=n_temp - len(lab), filas_nan_catalogo=n_nan_catalogo, filas_nan_dias_fuera_del_piloto=n_vecinos)
     t = lab.merge(cargar_features(), on=["hora", "quebrada_id"], how="left").merge(terreno(), on="quebrada_id", how="left")
     t["dia"] = t.hora.dt.normalize()
     t["temporada"] = temporada_de(t.hora)

@@ -26,7 +26,7 @@ from comun import SALIDA
 from metricas import metricas_por_temporada
 from tabla3 import FEATURES_TERRENO, FEATURES_V1, FEATURES_V2, GRUPOS_NUEVOS, HORIZONTES, RUTA
 
-DIR = SALIDA / "ingenieria"
+DIR = SALIDA / "ingenieria_nan"   # resultados con las etiquetas del paso 9.2 (los anteriores quedan en salida/ingenieria y salida_antes_nan/)
 DIR.mkdir(exist_ok=True)
 BASE_CORTA = ["lluvia_3h", "lluvia_6h", "lluvia_24h", "int_max_24h", "tendencia_3h", "horas_lluvia_24h"]
 BASE_LARGA = ["lluvia_7d", "lluvia_14d", "lluvia_efectiva", "horas_desde_lluvia", "lluvia_temporada"]

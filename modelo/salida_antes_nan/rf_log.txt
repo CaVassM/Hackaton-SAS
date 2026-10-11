@@ -1,0 +1,66 @@
+  H=3 pliegue 2014-15 listo
+  H=3 pliegue 2016-17 listo
+  H=3 pliegue 2018-19 listo
+  H=3 pliegue 2019-20 listo
+  H=3 pliegue 2022-23 listo
+  H=3 pliegue 2025-26 listo
+  H=6 pliegue 2014-15 listo
+  H=6 pliegue 2016-17 listo
+  H=6 pliegue 2018-19 listo
+  H=6 pliegue 2019-20 listo
+  H=6 pliegue 2022-23 listo
+  H=6 pliegue 2025-26 listo
+  H=12 pliegue 2014-15 listo
+  H=12 pliegue 2016-17 listo
+  H=12 pliegue 2018-19 listo
+  H=12 pliegue 2019-20 listo
+  H=12 pliegue 2022-23 listo
+  H=12 pliegue 2025-26 listo
+  H=24 pliegue 2014-15 listo
+  H=24 pliegue 2016-17 listo
+  H=24 pliegue 2018-19 listo
+  H=24 pliegue 2019-20 listo
+  H=24 pliegue 2022-23 listo
+  H=24 pliegue 2025-26 listo
+rf: LOSO terminado en 4.5 min
+
+RESUMEN POR H (N=100)
+ H  temporadas_evaluadas  filas_evaluadas  positivos  AUPRC   base  veces_la_base  AUPRC_media_por_temporada  bloques  detectados  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3                     6           350818        160 0.0006 0.0005            1.4                     0.0011       53           1             1.9            3.0                           114.8                         585
+ 6                     6           350583        316 0.0013 0.0009            1.5                     0.0022       51           3             5.9            6.0                            98.3                         583
+12                     6           350113        619 0.0026 0.0018            1.4                     0.0040       50           3             6.0           11.7                            73.5                         581
+24                     6           349191       1219 0.0063 0.0035            1.8                     0.0098       50           5            10.0           21.7                            61.3                         578
+
+SENSIBILIDAD A N
+ H   N  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada
+ 3  50             3.8            5.9                           188.3
+ 3 100             1.9            3.0                           114.8
+ 3 200             1.9            1.5                            60.8
+ 3 500             0.0            0.6                            26.7
+ 6  50             9.8           11.8                           160.7
+ 6 100             5.9            6.0                            98.3
+ 6 200             2.0            3.1                            56.2
+ 6 500             2.0            1.2                            25.8
+12  50            12.0           22.1                           128.3
+12 100             6.0           11.7                            73.5
+12 200             4.0            6.0                            43.7
+12 500             0.0            2.4                            19.8
+24  50            20.0           38.9                           103.0
+24 100            10.0           21.7                            61.3
+24 200             4.0           11.5                            40.2
+24 500             0.0            4.8                            23.0
+
+IMPORTANCIAS (solo descriptivas)
+lluvia_temporada      0.142
+lluvia_7d             0.128
+lluvia_efectiva       0.120
+int_max_24h           0.118
+horas_desde_lluvia    0.105
+lluvia_24h            0.096
+lluvia_14d            0.087
+horas_lluvia_24h      0.071
+log10_area_km2        0.043
+pendiente_media       0.035
+tendencia_3h          0.020
+lluvia_6h             0.020
+lluvia_3h             0.017

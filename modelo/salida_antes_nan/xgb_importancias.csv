@@ -1,0 +1,15 @@
+,importancia
+lluvia_temporada,0.2129
+lluvia_7d,0.1819
+int_max_24h,0.1277
+lluvia_efectiva,0.1262
+lluvia_14d,0.0816
+lluvia_24h,0.0744
+H,0.0523
+horas_desde_lluvia,0.0413
+log10_area_km2,0.0397
+pendiente_media,0.0372
+horas_lluvia_24h,0.0213
+lluvia_6h,0.0017
+tendencia_3h,0.0011
+lluvia_3h,0.0006

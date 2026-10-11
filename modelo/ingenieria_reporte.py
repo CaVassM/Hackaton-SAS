@@ -10,9 +10,10 @@ import numpy as np
 import pandas as pd
 
 from comun import SALIDA
+from ingenieria import DIR
 from tabla3 import GRUPOS_NUEVOS
 
-runs = {json.load(open(f))["nombre"]: json.load(open(f)) for f in glob.glob(str(SALIDA / "ingenieria" / "run_*.json"))}
+runs = {json.load(open(f))["nombre"]: json.load(open(f)) for f in glob.glob(str(DIR / "run_*.json"))}
 L = lambda n: runs[n]["lift_medio"]
 D = lambda n: runs[n]["detectados_N100"]
 v1 = [L(f"V1_semilla{s}") for s in range(3)]; v2 = [L(f"V2_semilla{s}") for s in range(3)]

@@ -1,0 +1,27 @@
+fecha,eventos,en_piloto,usables_hora,horas_y1_H24,horas_nan,horas_total,solo_vecino,distritos
+2015-02-09,14,11,10,144,264,408,False,Chaclacayo; Lurigancho-Chosica; Ricardo Palma
+2015-02-20,1,1,1,0,0,408,False,Lurigancho-Chosica
+2015-03-20,2,2,0,20,388,408,False,Lurigancho-Chosica
+2015-03-21,5,5,5,76,332,408,False,Lurigancho-Chosica
+2015-03-23,16,14,13,144,264,408,False,Lurigancho-Chosica; Santa Eulalia
+2017-01-15,2,0,0,0,0,408,True,Chaclacayo; Santa Eulalia
+2017-01-21,1,0,0,0,0,408,True,Chaclacayo
+2017-01-25,5,4,3,36,372,408,False,Chaclacayo; Lurigancho-Chosica
+2017-02-01,1,1,1,0,0,408,False,Lurigancho-Chosica
+2017-03-15,7,7,3,38,106,408,False,Lurigancho-Chosica
+2019-02-25,13,9,9,40,368,408,False,Chaclacayo; Lurigancho-Chosica
+2020-01-23,1,1,1,15,9,408,False,Lurigancho-Chosica
+2020-01-29,1,0,0,0,0,408,True,Chaclacayo
+2021-03-07,1,0,0,0,0,408,True,Santa Eulalia
+2023-02-17,3,0,0,0,0,408,True,Santa Eulalia
+2023-02-19,1,1,0,0,24,408,False,Lurigancho-Chosica
+2023-03-12,8,8,7,84,12,408,False,Lurigancho-Chosica
+2023-03-14,15,13,1,17,271,408,False,Chaclacayo; Lurigancho-Chosica; San Juan de Lurigancho
+2023-03-15,5,2,0,12,270,408,False,"Chaclacayo; Lurigancho-Chosica; SJL / Jicamarca; San Antonio, Huarochirí"
+2023-03-16,3,1,1,12,22,408,False,Chaclacayo; Lurigancho-Chosica
+2023-03-17,2,0,0,33,18,408,True,Chaclacayo
+2023-03-18,8,7,7,63,33,408,False,Lurigancho-Chosica; Santa Eulalia
+2023-04-06,5,5,5,57,39,408,False,Lurigancho-Chosica
+2024-02-08,2,0,0,0,0,408,True,Chaclacayo
+2026-02-24,2,2,1,28,380,408,False,Lurigancho-Chosica
+2026-02-25,6,5,2,36,372,408,False,Ate; Lurigancho-Chosica

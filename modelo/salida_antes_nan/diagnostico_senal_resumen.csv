@@ -1,0 +1,5 @@
+variable,grupo,n_quebrada_dia,fechas_distintas,mediana_mm,p25_mm,p75_mm,pct_cero
+lluvia_24h,con huaico,66,15,1.9,0.81,11.34,0.0
+lluvia_24h,sin huaico,29638,1750,0.24,0.0,1.42,30.1
+lluvia_14d,con huaico,66,15,38.28,18.79,57.01,0.0
+lluvia_14d,sin huaico,27207,1607,17.04,6.66,28.69,0.5

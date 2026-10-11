@@ -1,0 +1,15 @@
+  V1_mas_D_semilla1: lift medio 6.16 | detectados 31/204 (N=100) | 1.4 min
+  V1_mas_D_semilla2: lift medio 5.81 | detectados 23/204 (N=100) | 1.4 min
+  logistica_V1: lift medio 4.38 | detectados 20/204
+  logistica_V1_mas_D: lift medio 5.12 | detectados 18/204
+  rf_V1: lift medio 2.76 | detectados 12/204
+  rf_V1_mas_D: lift medio 3.57 | detectados 9/204
+
+CONFIRMACIÓN GRUPO D (lift medio y bloques detectados con N=100)
+XGBoost  V1       : 3.58 (11/204) | 3.39 (9/204) | 3.31 (7/204)
+XGBoost  V1 + D   : 6.37 (24/204) | 6.16 (31/204) | 5.81 (23/204)
+Logística V1 -> V1 + D : 4.38 (20/204) -> 5.12 (18/204)
+Random Forest V1 -> V1 + D : 2.76 (12/204) -> 3.57 (9/204)
+
+Por temporada (lift), XGBoost semilla 0:  V1 vs V1 + D
+{'2014-15': '2.8 -> 2.5', '2016-17': '2.8 -> 4.0', '2018-19': '2.3 -> 4.3', '2019-20': '2.0 -> 2.4', '2022-23': '6.2 -> 10.9', '2025-26': '5.4 -> 14.1'}

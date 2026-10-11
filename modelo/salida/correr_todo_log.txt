@@ -1,0 +1,285 @@
+=== 22:40:24 python3 auditoria.py ===
+[OK  ] Pesos: Σ área por celda = área de la quebrada (quebradas.csv) — diferencia máxima 0.27 %, 17 quebradas
+[OK  ] Pesos: cada quebrada suma 1
+[OK  ] Lluvia: Σ horaria (mm) de Quirio ene–abr 2016 = 0.5 × Σ tasas IMERG ponderadas — 100 mm vs 100 mm (bordes de 5 h aparte)
+[OK  ] Huso horario: el máximo diario de lluvia cae por la tarde en hora local (típico de la sierra) — hora pico 16:00, 70 % de la lluvia entre 12 y 20 h; mínimo a las 11:00
+[OK  ] Features: 300 filas al azar recalculadas con sumas directas coinciden — error relativo máx por feature: lluvia_3h 1.1e-07, lluvia_6h 1.1e-07, lluvia_24h 1.2e-07, int_max_24h 0.0e+00, tendencia_3h 3.1e-07, horas_lluvia_24h 0.0e+00, lluvia_7d 1.7e-07, lluvia_14d 1.6e-07, lluvia_efectiva 5.6e-08, horas_desde_lluvia 0.0e+00, lluvia_temporada 1.2e-07
+[OK  ] Variables nuevas: 300 filas al azar recalculadas con sumas directas coinciden — error relativo máx: max_3h_24h 1e-07, max_3h_72h 1e-07, horas_desde_lluvia_fuerte 0e+00, lluvia_48h 1e-07, lluvia_72h 2e-07, api_k70 5e-08, api_k92 6e-08, dias_lluviosos_7d 0e+00, tendencia_24h 2e-07, frac_24h_en_7d 1e-07, lluvia_24h_sobre_api 6e-08, reg_max_24h 6e-08, reg_max_3h_24h 6e-08
+[OK  ] Etiquetas H=3: y=1 en las horas t con t < evento <= t+H (hora local, inicio de hora) — 42 eventos aislados: 42 idénticos, 0 con horas extra, 0 distintos
+[OK  ] Etiquetas H=6: y=1 en las horas t con t < evento <= t+H (hora local, inicio de hora) — 42 eventos aislados: 42 idénticos, 0 con horas extra, 0 distintos
+[OK  ] Etiquetas H=24: y=1 en las horas t con t < evento <= t+H (hora local, inicio de hora) — 36 eventos aislados: 35 idénticos, 1 con horas extra, 0 distintos
+[OK  ] Catálogo: todos los nombres de quebrada del piloto (en_piloto=True) tienen fila en alias_catalogo.csv
+       eventos del piloto (fecha, quebrada) sin `dudoso`: 66 en 15 fechas; por quebrada: {'quirio': 9, 'pedregal': 8, 'chacrasana': 7, 'santa_maria': 5, 'carossio': 5, 'california': 4, 'mariscal_castilla': 4, 'corrales': 4, 'libertad': 4, 'rosario': 3, 'santo_domingo': 3, 'la_cantuta': 3, 'la_ronda': 2, 'el_vallecito': 2, 'huampani': 1, 'buenos_aires': 1, 'alto_peru': 1}
+[OK  ] Tabla 3: features, terreno y etiquetas coinciden con sus fuentes en una muestra — 2000 filas: features True, terreno True, y True
+[OK  ] Tabla 3: sin terreno vacío, 17 quebradas, 4 horizontes, solo dic–abr
+[OK  ] Etiquetas: y(H=3) <= y(H=6) <= y(H=12) <= y(H=24) en cada fila (ventanas anidadas) — 711,588 (quebrada, hora) comparadas, 0 violaciones
+[OK  ] Tabla 3: ciclo diario e interacciones coinciden con su definición — ciclo diario True, interacciones True
+
+RESULTADO: 14/14 chequeos OK
+=== 22:42:05 python3 baseline_logistica.py base ===
+Entrenamiento y evaluación LOSO terminados en 63 s
+
+RESUMEN POR H (1 alerta cada N=100 horas por quebrada)
+ H  temporadas_evaluadas  filas_evaluadas  positivos  AUPRC   base  veces_la_base  AUPRC_media_por_temporada  bloques  detectados  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3                     6           347609        160 0.0023 0.0005            5.1                     0.0023       53           4             7.5            3.0                            75.2                         578
+ 6                     6           347005        316 0.0044 0.0009            4.8                     0.0043       51           4             7.8            6.0                            65.3                         575
+12                     6           345797        619 0.0098 0.0018            5.5                     0.0103       50           5            10.0           11.7                            70.7                         568
+24                     6           343431       1219 0.0584 0.0035           16.4                     0.0450       50           6            12.0           21.7                            66.5                         556
+
+SENSIBILIDAD A N
+ H   N  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3  50             9.4            5.9                           140.5                        1157
+ 3 100             7.5            3.0                            75.2                         578
+ 3 200             1.9            1.5                            40.8                         290
+ 3 500             1.9            0.6                            19.8                         116
+ 6  50            13.7           11.8                           112.7                        1152
+ 6 100             7.8            6.0                            65.3                         575
+ 6 200             2.0            3.1                            37.0                         289
+ 6 500             2.0            1.2                            16.2                         115
+12  50            14.0           22.1                           118.3                        1142
+12 100            10.0           11.7                            70.7                         568
+12 200             8.0            6.0                            37.3                         282
+12 500             2.0            2.4                            18.8                         114
+24  50            22.0           38.9                           120.8                        1120
+24 100            12.0           21.7                            66.5                         556
+24 200            10.0           11.5                            38.3                         271
+24 500            10.0            4.8                            17.8                         102
+
+POR TEMPORADA (H=6, N=100)
+temporada  bloques  detectados  AUPRC   base  falsos_episodios  falsas_horas
+  2014-15       22           0 0.0070 0.0029                50           458
+  2016-17        6           0 0.0007 0.0006                62           590
+  2018-19        4           0 0.0005 0.0005               105           608
+  2019-20        1           0 0.0002 0.0001                65           615
+  2022-23       15           4 0.0164 0.0015                52           571
+  2025-26        3           0 0.0012 0.0003                58           607
+
+COEFICIENTES ESTANDARIZADOS (H=6, media de los pliegues)
+                    media  signos_iguales
+lluvia_3h          -0.176            True
+lluvia_6h          -0.188            True
+lluvia_24h          0.056           False
+int_max_24h        -0.385           False
+tendencia_3h       -0.038           False
+horas_lluvia_24h    0.148           False
+lluvia_7d          -0.003           False
+lluvia_14d         -0.882            True
+lluvia_efectiva     1.304            True
+horas_desde_lluvia -4.048            True
+lluvia_temporada    0.185           False
+log10_area_km2      0.430            True
+pendiente_media    -0.081           False
+=== 22:43:12 python3 baseline_logistica.py log1p ===
+Entrenamiento y evaluación LOSO terminados en 71 s
+
+RESUMEN POR H (1 alerta cada N=100 horas por quebrada)
+ H  temporadas_evaluadas  filas_evaluadas  positivos  AUPRC   base  veces_la_base  AUPRC_media_por_temporada  bloques  detectados  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3                     6           347609        160 0.0011 0.0005            2.5                     0.0026       53           3             5.7            3.0                            82.8                         578
+ 6                     6           347005        316 0.0023 0.0009            2.5                     0.0050       51           3             5.9            6.0                            70.5                         576
+12                     6           345797        619 0.0128 0.0018            7.1                     0.0146       50           4             8.0           11.7                            55.3                         569
+24                     6           343431       1219 0.0446 0.0035           12.6                     0.0351       50          10            20.0           21.7                            74.8                         554
+
+SENSIBILIDAD A N
+ H   N  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3  50             9.4            5.9                           146.7                        1157
+ 3 100             5.7            3.0                            82.8                         578
+ 3 200             5.7            1.5                            42.3                         289
+ 3 500             1.9            0.6                            22.2                         116
+ 6  50            13.7           11.8                           125.7                        1153
+ 6 100             5.9            6.0                            70.5                         576
+ 6 200             5.9            3.1                            36.3                         287
+ 6 500             5.9            1.2                            17.5                         114
+12  50            16.0           22.1                            96.0                        1142
+12 100             8.0           11.7                            55.3                         569
+12 200             8.0            6.0                            31.5                         282
+12 500             6.0            2.4                            14.0                         111
+24  50            30.0           38.9                           128.8                        1119
+24 100            20.0           21.7                            74.8                         554
+24 200            12.0           11.5                            45.2                         272
+24 500             8.0            4.8                            20.8                         104
+
+POR TEMPORADA (H=6, N=100)
+temporada  bloques  detectados  AUPRC   base  falsos_episodios  falsas_horas
+  2014-15       22           0 0.0046 0.0029                45           458
+  2016-17        6           0 0.0005 0.0006                76           590
+  2018-19        4           0 0.0031 0.0005                69           608
+  2019-20        1           0 0.0001 0.0001                59           615
+  2022-23       15           3 0.0192 0.0015                99           577
+  2025-26        3           0 0.0022 0.0003                75           607
+
+COEFICIENTES ESTANDARIZADOS (H=6, media de los pliegues)
+                    media  signos_iguales
+lluvia_3h           0.142           False
+lluvia_6h          -0.306           False
+lluvia_24h         -1.933           False
+int_max_24h         1.009            True
+tendencia_3h       -0.174           False
+horas_lluvia_24h    2.105           False
+lluvia_7d           1.056           False
+lluvia_14d         -0.182           False
+lluvia_efectiva    -0.031           False
+horas_desde_lluvia  0.199           False
+lluvia_temporada    0.820            True
+log10_area_km2      0.441            True
+pendiente_media    -0.149           False
+=== 22:44:27 python3 arboles.py xgb ===
+  pliegue 2014-15: scale_pos_weight=45.0
+  pliegue 2016-17: scale_pos_weight=35.8
+  pliegue 2018-19: scale_pos_weight=35.3
+  pliegue 2019-20: scale_pos_weight=33.9
+  pliegue 2022-23: scale_pos_weight=39.8
+  pliegue 2025-26: scale_pos_weight=34.7
+xgb: LOSO terminado en 1.2 min
+
+RESUMEN POR H (N=100)
+ H  temporadas_evaluadas  filas_evaluadas  positivos  AUPRC   base  veces_la_base  AUPRC_media_por_temporada  bloques  detectados  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3                     6           347609        160 0.0017 0.0005            3.6                     0.0044       53           5             9.4            3.0                            69.7                         580
+ 6                     6           347005        316 0.0034 0.0009            3.8                     0.0086       51           5             9.8            6.0                            66.5                         577
+12                     6           345797        619 0.0050 0.0018            2.8                     0.0118       50           6            12.0           11.7                            61.0                         576
+24                     6           343431       1219 0.0105 0.0035            2.9                     0.0278       50           7            14.0           21.7                            59.8                         572
+
+SENSIBILIDAD A N
+ H   N  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada
+ 3  50            11.3            5.9                           107.7
+ 3 100             9.4            3.0                            69.7
+ 3 200             7.5            1.5                            38.5
+ 3 500             3.8            0.6                            20.5
+ 6  50            15.7           11.8                           103.2
+ 6 100             9.8            6.0                            66.5
+ 6 200             5.9            3.1                            36.5
+ 6 500             3.9            1.2                            18.7
+12  50            16.0           22.1                            95.5
+12 100            12.0           11.7                            61.0
+12 200            10.0            6.0                            36.3
+12 500             6.0            2.4                            18.2
+24  50            18.0           38.9                            97.5
+24 100            14.0           21.7                            59.8
+24 200            12.0           11.5                            35.8
+24 500            10.0            4.8                            17.2
+
+IMPORTANCIAS (solo descriptivas)
+lluvia_temporada      0.217
+lluvia_7d             0.178
+int_max_24h           0.132
+lluvia_efectiva       0.129
+lluvia_14d            0.081
+lluvia_24h            0.074
+H                     0.053
+horas_desde_lluvia    0.040
+pendiente_media       0.036
+log10_area_km2        0.036
+horas_lluvia_24h      0.022
+lluvia_6h             0.002
+lluvia_3h             0.001
+tendencia_3h          0.001
+=== 22:45:44 python3 arboles.py rf ===
+  H=3 pliegue 2014-15 listo
+  H=3 pliegue 2016-17 listo
+  H=3 pliegue 2018-19 listo
+  H=3 pliegue 2019-20 listo
+  H=3 pliegue 2022-23 listo
+  H=3 pliegue 2025-26 listo
+  H=6 pliegue 2014-15 listo
+  H=6 pliegue 2016-17 listo
+  H=6 pliegue 2018-19 listo
+  H=6 pliegue 2019-20 listo
+  H=6 pliegue 2022-23 listo
+  H=6 pliegue 2025-26 listo
+  H=12 pliegue 2014-15 listo
+  H=12 pliegue 2016-17 listo
+  H=12 pliegue 2018-19 listo
+  H=12 pliegue 2019-20 listo
+  H=12 pliegue 2022-23 listo
+  H=12 pliegue 2025-26 listo
+  H=24 pliegue 2014-15 listo
+  H=24 pliegue 2016-17 listo
+  H=24 pliegue 2018-19 listo
+  H=24 pliegue 2019-20 listo
+  H=24 pliegue 2022-23 listo
+  H=24 pliegue 2025-26 listo
+rf: LOSO terminado en 4.2 min
+
+RESUMEN POR H (N=100)
+ H  temporadas_evaluadas  filas_evaluadas  positivos  AUPRC   base  veces_la_base  AUPRC_media_por_temporada  bloques  detectados  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3                     6           347609        160 0.0007 0.0005            1.5                     0.0011       53           1             1.9            3.0                           112.7                         580
+ 6                     6           347005        316 0.0012 0.0009            1.4                     0.0020       51           1             2.0            6.0                            98.2                         578
+12                     6           345797        619 0.0026 0.0018            1.5                     0.0041       50           2             4.0           11.7                            76.5                         575
+24                     6           343431       1219 0.0059 0.0035            1.7                     0.0093       50           3             6.0           21.7                            58.8                         569
+
+SENSIBILIDAD A N
+ H   N  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada
+ 3  50             5.7            5.9                           194.7
+ 3 100             1.9            3.0                           112.7
+ 3 200             1.9            1.5                            59.7
+ 3 500             0.0            0.6                            27.2
+ 6  50             5.9           11.8                           159.3
+ 6 100             2.0            6.0                            98.2
+ 6 200             2.0            3.1                            57.8
+ 6 500             2.0            1.2                            27.2
+12  50             4.0           22.1                           128.0
+12 100             4.0           11.7                            76.5
+12 200             4.0            6.0                            46.5
+12 500             2.0            2.4                            20.3
+24  50            18.0           38.9                           100.8
+24 100             6.0           21.7                            58.8
+24 200             2.0           11.5                            36.8
+24 500             0.0            4.8                            21.7
+
+IMPORTANCIAS (solo descriptivas)
+lluvia_temporada      0.143
+lluvia_7d             0.130
+lluvia_efectiva       0.119
+int_max_24h           0.118
+horas_desde_lluvia    0.106
+lluvia_24h            0.096
+lluvia_14d            0.087
+horas_lluvia_24h      0.068
+log10_area_km2        0.042
+pendiente_media       0.034
+tendencia_3h          0.021
+lluvia_6h             0.020
+lluvia_3h             0.016
+=== 22:49:56 python3 referencias_simples.py ===
+ H                   score  AUPRC  veces_base bloques_detectados  recall_filas_pct
+ 3     regresión logística 0.0023         5.1               4/53              7.50
+ 3      lluvia_24h (cruda) 0.0016         3.5               3/53              5.62
+ 3      lluvia_14d (cruda) 0.0015         3.3               3/53              5.62
+ 3 lluvia_efectiva (cruda) 0.0039         8.6               6/53             11.25
+ 3  log10_area_km2 (cruda) 0.0007         1.5               3/53              5.62
+ 6     regresión logística 0.0044         4.8               4/51              7.59
+ 6      lluvia_24h (cruda) 0.0031         3.4               3/51              5.70
+ 6      lluvia_14d (cruda) 0.0030         3.3               3/51              5.70
+ 6 lluvia_efectiva (cruda) 0.0085         9.4               7/51             13.29
+ 6  log10_area_km2 (cruda) 0.0013         1.5               3/51              5.70
+12     regresión logística 0.0098         5.5               5/50              7.92
+12      lluvia_24h (cruda) 0.0051         2.8               4/50              4.04
+12      lluvia_14d (cruda) 0.0057         3.2               3/50              3.72
+12 lluvia_efectiva (cruda) 0.0214        11.9               7/50             12.28
+12  log10_area_km2 (cruda) 0.0026         1.5               3/50              5.82
+24     regresión logística 0.0584        16.4               6/50              8.53
+24      lluvia_24h (cruda) 0.0175         4.9               4/50              3.04
+24      lluvia_14d (cruda) 0.0104         2.9               4/50              2.21
+24 lluvia_efectiva (cruda) 0.0738        20.8               9/50             11.48
+24  log10_area_km2 (cruda) 0.0051         1.4               3/50              5.91
+=== 22:51:03 python3 comparar_modelos.py ===
+BLOQUES DETECTADOS (alerta en 1 de cada 100 horas), de {3: np.int64(53), 6: np.int64(51), 12: np.int64(50), 24: np.int64(50)}
+H                                   3   6   12  24
+modelo                                            
+Regresión logística                  4   4   5   6
+Logística + log1p                    3   3   4  10
+XGBoost                              5   5   6   7
+Random Forest                        1   1   2   3
+lluvia_efectiva cruda (sin modelo)   6   7   7   9
+
+AUPRC MEDIO POR TEMPORADA (base entre paréntesis en la última fila)
+H                                       3       6       12      24
+modelo                                                            
+Regresión logística                 0.0023  0.0043  0.0103  0.0450
+Logística + log1p                   0.0026  0.0050  0.0146  0.0351
+XGBoost                             0.0044  0.0086  0.0118  0.0278
+Random Forest                       0.0011  0.0020  0.0041  0.0093
+lluvia_efectiva cruda (sin modelo)  0.0065  0.0146  0.0254  0.0563
+
+Base (tasa de positivos): {3: 0.0005, 6: 0.0009, 12: 0.0018, 24: 0.0035}
+=== 22:51:09 python3 ingenieria.py ===
+V1 = 13 variables | V2 = 30 variables
