@@ -1,23 +1,33 @@
 """Descarga masiva del recorte de IMERG para diciembre–abril (temporadas 2014-15 a 2025-26).
 
-Un archivo por mes en lluvia/datos/<producto>/imerg_<producto>_AAAA-MM.nc (tasa en mm/h, UTC, 30 min).
-Solo se guarda el recorte (12 celdas); nunca se baja un gránulo completo:
-  - Con el tamaño de bloque por defecto de fsspec (5 MB) se baja el archivo ENTERO (7.5 MB por gránulo
-    = ~650 GB en total). Aquí se lee con bloques de 64 KB: ~0.4 MB por gránulo (~5 %).
-  - Un mes solo se guarda si TODOS los gránulos encontrados se leyeron; si algo falla, no se guarda y al repetir
-    el comando se rehace ese mes. Los meses ya guardados se saltan (se puede cortar y reanudar).
+Salida: un archivo por mes en lluvia/datos/<producto>/imerg_<producto>_AAAA-MM.nc (tasa en mm/h, UTC, 30 min).
+Solo se guarda el recorte (12 celdas); nunca se baja un gránulo completo (bloques de 64 KB + URL directa).
+
+Robustez (pensada para dejarla corriendo toda la noche):
+  - Caché por día: cada día terminado se guarda en lluvia/datos/<producto>/_cache/. Si el programa se corta (internet,
+    NASA, apagón, Ctrl+C), al repetir el comando solo se rehacen los días que faltan.
+  - Reintentos por gránulo (6, con pausas crecientes). Si se cae internet, espera a que vuelva (hasta 30 min por incidente)
+    y reinicia la sesión con NASA. Un día con un gránulo imposible de leer NO se guarda (quedaría incompleto).
+  - Rondas: al terminar, los días que fallaron se reintentan solos hasta N rondas, con pausa entre ellas.
+  - Si un proceso se cae, el programa sigue con otro grupo de procesos en la ronda siguiente.
+  - Un mes solo se escribe cuando todos sus días están completos y verificados. Escrituras atómicas (sin archivos a medias).
+  - En Windows pide que el equipo no se suspenda mientras corre (no impide apagar ni cerrar la tapa si así lo configuraste).
+  - Bitácora: lluvia/datos/<producto>/descarga.log
 
 Uso (desde la raíz del proyecto):
-  python lluvia/descargar_masivo.py --plan                    # qué se va a descargar (no descarga nada)
+  python lluvia/descargar_masivo.py --plan                    # qué falta (no descarga nada)
   python lluvia/descargar_masivo.py --medir                   # mide tu velocidad y estima horas y GB
-  python lluvia/descargar_masivo.py --solo 2015-03            # piloto con un solo mes
-  python lluvia/descargar_masivo.py --procesos 4              # todo (dic 2014 – abr 2026)
-Requisitos: earthaccess, xarray, h5netcdf (y psutil, opcional, para medir el tráfico real).
+  python lluvia/descargar_masivo.py --solo 2015-03            # un solo mes
+  python lluvia/descargar_masivo.py --procesos 24 --url-directa   # todo (dic 2014 – abr 2026)
+  python lluvia/descargar_masivo.py --verificar               # revisa los meses ya guardados
+Requisitos: earthaccess, xarray, h5netcdf (psutil es opcional, solo para --medir).
 """
 import argparse
 import os
+import re
 import time
-from concurrent.futures import ProcessPoolExecutor
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
@@ -29,9 +39,21 @@ from imerg_utils import bbox_quebradas, leer_granulo
 CARPETA = Path(__file__).resolve().parent / "datos"
 GRANULOS_DIA = 48
 BLOQUE_KB = 64  # medido con gránulos reales: 64 KB -> 5 % del archivo; por defecto (5 MB) -> 102 %
+REINTENTOS = 6
+ESPERA_INTERNET_SEG = 1800
+HOSTS_INTERNET = ("https://urs.earthdata.nasa.gov", "https://data.gesdisc.earthdata.nasa.gov")
+_ARCHIVO_LOG = None
 
 
-# --------------------------------------------------------------------------- plan
+def log(msg):
+    linea = f"{datetime.now():%Y-%m-%d %H:%M:%S} {msg}"
+    print(linea, flush=True)
+    if _ARCHIVO_LOG is not None:
+        with open(_ARCHIVO_LOG, "a", encoding="utf-8") as f:
+            f.write(linea + "\n")
+
+
+# --------------------------------------------------------------------------- plan y rutas
 def plan_meses(primera, ultima):
     """[(año, mes)] de las temporadas dic–abr: la temporada `y` va de dic y a abr y+1."""
     out = []
@@ -48,7 +70,47 @@ def ruta_mes(producto, a, m):
     return CARPETA / producto / f"imerg_{producto}_{a}-{m:02d}.nc"
 
 
-# --------------------------------------------------------------------------- lectura
+def ruta_dia(producto, dia):  # dia = 'AAAAMMDD'
+    return CARPETA / producto / "_cache" / f"{dia[:4]}-{dia[4:6]}" / f"imerg_{producto}_{dia}.nc"
+
+
+def agrupar_por_dia(urls):
+    """{'AAAAMMDD': [urls]} según la fecha UTC que lleva el nombre del gránulo."""
+    out = {}
+    for u in urls:
+        m = re.search(r"3IMERG\.(\d{8})-S", u)
+        if m:
+            out.setdefault(m.group(1), []).append(u)
+    return {d: sorted(v) for d, v in sorted(out.items())}
+
+
+# --------------------------------------------------------------------------- red
+def hay_internet(timeout=10):
+    import requests
+
+    for host in HOSTS_INTERNET:
+        try:
+            requests.head(host, timeout=timeout)  # cualquier respuesta HTTP cuenta: hay conexión
+            return True
+        except Exception:
+            continue
+    return False
+
+
+def esperar_internet(max_seg=ESPERA_INTERNET_SEG):
+    """Si no hay conexión, espera (pausas crecientes de 5 a 60 s) hasta que vuelva. Devuelve segundos esperados, -1 si se rindió."""
+    if hay_internet():
+        return 0
+    t0, pausa = time.time(), 5
+    while True:
+        time.sleep(pausa)
+        pausa = min(pausa * 2, 60)
+        if hay_internet():
+            return time.time() - t0
+        if time.time() - t0 > max_seg:
+            return -1
+
+
 def hacer_abridor(fs, fs_plano, sesion, kw, url_directa, respaldo):
     """Arma abrir(url). Modos:
       - normal: fs.open(url) con la sesión autenticada; CADA petición pasa por el servidor de autenticación de NASA
@@ -99,21 +161,46 @@ def crear_abridor(bloque_kb=BLOQUE_KB, url_directa=False):
         sesion = earthaccess.get_requests_https_session() if url_directa else None
     except Exception:
         sesion = None
-    return hacer_abridor(fs, fsspec.filesystem("https"), sesion, kw, url_directa,
+    try:  # el sistema de archivos "plano" no lleva credenciales; se le pone un tiempo máximo por petición
+        import aiohttp
+        fs_plano = fsspec.filesystem("https", client_kwargs={"timeout": aiohttp.ClientTimeout(total=120)})
+    except Exception:
+        fs_plano = fsspec.filesystem("https")
+    return hacer_abridor(fs, fs_plano, sesion, kw, url_directa,
                          lambda url: earthaccess.open([url], open_kwargs=kw)[0])
 
 
-def urls_mes(producto, a, m, bbox):
-    d = dias_mes(a, m)
-    res = buscar(producto, f"{a}-{m:02d}-01", f"{a}-{m:02d}-{d}", bbox)
-    urls = {l for r in res for l in r.data_links()[:1] if l.startswith("https")}
-    return sorted(urls), d
+class Resiliente:
+    """Abridor que se crea al primer uso y se puede reiniciar (nuevo login y nuevas conexiones) tras una caída."""
+
+    def __init__(self, bloque_kb, url_directa):
+        self.bloque_kb, self.url_directa, self._abrir = bloque_kb, url_directa, None
+
+    def __call__(self, url):
+        if self._abrir is None:
+            self._abrir = crear_abridor(self.bloque_kb, self.url_directa)
+        return self._abrir(url)
+
+    def reiniciar(self):
+        self._abrir = None
 
 
-def leer_urls(urls, bbox, abrir, reintentos=3, cada=100):
-    """Lee el recorte de cada URL. Devuelve (lista de DataArray, lista de (nombre, error))."""
-    partes, fallas, t0 = [], [], time.time()
-    for i, u in enumerate(urls, 1):
+_ABRIDORES = {}  # uno por proceso trabajador: el login se hace una sola vez por proceso
+
+
+def _abridor(bloque_kb, url_directa):
+    k = (bloque_kb, url_directa)
+    if k not in _ABRIDORES:
+        _ABRIDORES[k] = Resiliente(bloque_kb, url_directa)
+    return _ABRIDORES[k]
+
+
+# --------------------------------------------------------------------------- lectura
+def leer_urls(urls, bbox, abrir, reintentos=REINTENTOS, pausa_base=2):
+    """Lee el recorte de cada URL con reintentos. Se detiene en el primer gránulo imposible de leer
+    (el día quedaría incompleto). Devuelve (partes, fallas, n_reintentos)."""
+    partes, fallas, n_reint = [], [], 0
+    for u in urls:
         nombre = u.rsplit("/", 1)[-1]
         for intento in range(reintentos):
             f = None
@@ -121,28 +208,39 @@ def leer_urls(urls, bbox, abrir, reintentos=3, cada=100):
                 f = abrir(u)
                 partes.append(leer_granulo(f, bbox, nombre=nombre))
                 break
-            except Exception as e:  # un fallo de red no debe tumbar todo el mes
+            except Exception as e:
+                n_reint += 1
                 if intento == reintentos - 1:
                     fallas.append((nombre, repr(e)[:150]))
                 else:
-                    time.sleep(2 ** intento)
+                    if intento >= 1 and hasattr(abrir, "reiniciar"):
+                        abrir.reiniciar()  # sesión nueva por si la anterior quedó rota
+                    esperar_internet()
+                    time.sleep(min(60, pausa_base * 2 ** intento))
             finally:
                 if f is not None:
                     try:
                         f.close()
                     except Exception:
                         pass
-        if cada and i % cada == 0:
-            v = i / (time.time() - t0)
-            print(f"    {i}/{len(urls)} gránulos | {v:.2f}/s | faltan ~{(len(urls) - i) / v / 60:.0f} min", flush=True)
-    return partes, fallas
+        if fallas:
+            break
+    return partes, fallas, n_reint
 
 
-def _leer_lote(urls, bbox, bloque_kb, url_directa=False):  # se ejecuta dentro de cada proceso
-    return leer_urls(urls, bbox, crear_abridor(bloque_kb, url_directa), cada=0)
+def _reemplazar(tmp, ruta, intentos=8):
+    """os.replace con reintentos: en Windows el antivirus u OneDrive pueden bloquear el archivo un instante."""
+    for i in range(intentos):
+        try:
+            os.replace(tmp, ruta)
+            return
+        except PermissionError:
+            if i == intentos - 1:
+                raise
+            time.sleep(1 + i)
 
 
-def guardar_mes(partes, ruta, producto):
+def guardar_nc(partes, ruta, producto):
     import xarray as xr
 
     da = xr.concat(partes, dim="time").sortby("time")
@@ -151,40 +249,190 @@ def guardar_mes(partes, ruta, producto):
     ruta.parent.mkdir(parents=True, exist_ok=True)
     tmp = ruta.with_name(ruta.name + ".tmp")
     da.to_dataset(name="mm_h").to_netcdf(tmp)
-    os.replace(tmp, ruta)  # el archivo final solo aparece cuando está completo
+    _reemplazar(tmp, ruta)  # el archivo final solo aparece cuando está completo
     return da
 
 
-def procesar_mes(producto, a, m, bbox, bloque_kb, abrir, pool=None, procesos=1, url_directa=False):
-    ruta = ruta_mes(producto, a, m)
-    if ruta.exists():
-        return "ya existe, se salta"
+def procesar_dia(producto, dia, urls, bbox, bloque_kb, url_directa):
+    """Lee los gránulos de un día y guarda su caché. NO lanza excepciones: devuelve siempre un diccionario."""
     t0 = time.time()
-    urls, dias = urls_mes(producto, a, m, bbox)
-    esperado = dias * GRANULOS_DIA
-    if not urls:
-        return "NASA no devolvió gránulos; no se guardó"
-    if pool is None:
-        partes, fallas = leer_urls(urls, bbox, abrir)
-    else:
-        partes, fallas = [], []
-        lotes = [urls[i::procesos] for i in range(procesos)]  # intercalados: cada proceso recorre todo el mes
-        for p, f in pool.map(_leer_lote, lotes, [bbox] * procesos, [bloque_kb] * procesos, [url_directa] * procesos):
-            partes += p
-            fallas += f
-    if fallas:
-        for nombre, err in fallas[:3]:
-            print(f"    falla: {nombre} -> {err}")
-        return f"INCOMPLETO ({len(fallas)} fallas): NO se guardó; repite el comando para rehacerlo"
-    da = guardar_mes(partes, ruta, producto)
-    seg = time.time() - t0
+    try:
+        ruta = ruta_dia(producto, dia)
+        if ruta.exists():
+            return dict(dia=dia, ok=True, n=len(urls), reint=0, seg=0.0)
+        partes, fallas, reint = leer_urls(urls, bbox, _abridor(bloque_kb, url_directa))
+        if fallas:
+            return dict(dia=dia, ok=False, error=f"{fallas[0][0]}: {fallas[0][1]}", reint=reint, seg=time.time() - t0)
+        if len(partes) != len(urls):
+            return dict(dia=dia, ok=False, error=f"leídos {len(partes)} de {len(urls)}", reint=reint, seg=time.time() - t0)
+        guardar_nc(partes, ruta, producto)
+        return dict(dia=dia, ok=True, n=len(partes), reint=reint, seg=time.time() - t0)
+    except Exception as e:  # nada debe tumbar al proceso trabajador
+        return dict(dia=dia, ok=False, error=repr(e)[:150], reint=0, seg=time.time() - t0)
+
+
+def urls_mes(producto, a, m, bbox, reintentos=REINTENTOS):
+    """URLs de los gránulos del mes (consulta a NASA con reintentos)."""
+    d = dias_mes(a, m)
+    for intento in range(reintentos):
+        try:
+            res = buscar(producto, f"{a}-{m:02d}-01", f"{a}-{m:02d}-{d}", bbox)
+            urls = {l for r in res for l in r.data_links()[:1] if l.startswith("https")}
+            return sorted(urls), d
+        except Exception as e:
+            if intento == reintentos - 1:
+                raise
+            log(f"  búsqueda de {a}-{m:02d} falló ({repr(e)[:80]}); reintento {intento + 1}")
+            esperar_internet()
+            time.sleep(min(60, 2 * 2 ** intento))
+
+
+def ensamblar_mes(producto, a, m, dias, encontrados, esperado, reint, seg):
+    """Junta las cachés de los días en el archivo del mes, verificando que no falte ningún gránulo encontrado."""
+    import xarray as xr
+
+    partes = []
+    for d in dias:
+        with xr.open_dataset(ruta_dia(producto, d)) as ds:
+            partes.append(ds["mm_h"].load())
+    da = xr.concat(partes, dim="time").sortby("time")
+    if da.sizes["time"] != encontrados or not da.indexes["time"].is_unique:
+        raise RuntimeError(f"{a}-{m:02d}: {da.sizes['time']} pasos, se esperaban {encontrados}")
+    ruta = ruta_mes(producto, a, m)
+    guardar_nc([da], ruta, producto)
     nan = float(np.isnan(da.values).mean())
-    fila = pd.DataFrame([dict(mes=f"{a}-{m:02d}", esperado=esperado, encontrados=len(urls), leidos=len(partes),
-                              pct_nan=round(100 * nan, 2), segundos=round(seg))])
+    fila = pd.DataFrame([dict(mes=f"{a}-{m:02d}", esperado=esperado, encontrados=encontrados, leidos=da.sizes["time"],
+                              pct_nan=round(100 * nan, 2), segundos=round(seg), reintentos=reint)])
     res = ruta.parent / "resumen.csv"
-    fila.to_csv(res, mode="a", header=not res.exists(), index=False)
-    aviso = "" if len(urls) == esperado else f" | OJO: NASA tiene {len(urls)} de {esperado} gránulos esperados"
-    return f"ok: {len(partes)} gránulos, {nan * 100:.1f} % NaN, {seg / 60:.1f} min{aviso}"
+    if res.exists():
+        fila = pd.concat([pd.read_csv(res), fila]).drop_duplicates("mes", keep="last")
+    fila.to_csv(res, index=False)
+    aviso = "" if encontrados == esperado else f" | OJO: NASA tiene {encontrados} de {esperado} gránulos esperados"
+    log(f"  MES LISTO {a}-{m:02d}: {da.sizes['time']} pasos, {nan * 100:.1f} % NaN, {reint} reintentos{aviso}")
+
+
+# --------------------------------------------------------------------------- ejecución
+def evitar_suspension(activar=True):
+    if os.name != "nt":
+        return
+    try:
+        import ctypes
+
+        ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
+        ctypes.windll.kernel32.SetThreadExecutionState(ES_CONTINUOUS | (ES_SYSTEM_REQUIRED if activar else 0))
+    except Exception:
+        pass
+
+
+def _correr(tareas, procesos):
+    """Ejecuta las tareas (clave, args de procesar_dia) y entrega (clave, resultado) a medida que terminan."""
+    if procesos <= 1:
+        for clave, args in tareas:
+            yield clave, procesar_dia(*args)
+        return
+    pool = ProcessPoolExecutor(procesos)
+    try:
+        futuros = {pool.submit(procesar_dia, *args): (clave, args[1]) for clave, args in tareas}
+        for fut in as_completed(futuros):
+            clave, dia = futuros[fut]
+            try:
+                yield clave, fut.result()
+            except Exception as e:  # p. ej. un proceso trabajador murió: el día se reintenta en la ronda siguiente
+                yield clave, dict(dia=dia, ok=False, error=f"proceso caído: {repr(e)[:100]}", reint=0, seg=0.0)
+    finally:
+        pool.shutdown(wait=False, cancel_futures=True)
+
+
+def ejecutar(producto, plan, bbox, bloque_kb, url_directa, procesos, rondas, espera_ronda):
+    inicio = time.time()
+    pendientes = [ym for ym in plan if not ruta_mes(producto, *ym).exists()]
+    info = {}  # (a, m) -> dict(por_dia, esperado, encontrados, reint, seg)
+    for ronda in range(1, rondas + 1):
+        if not pendientes:
+            break
+        log(f"=== Ronda {ronda}/{rondas}: {len(pendientes)} meses pendientes ===")
+        for ym in pendientes:
+            if ym not in info:
+                try:
+                    urls, d = urls_mes(producto, *ym, bbox)
+                except Exception as e:
+                    log(f"  no pude consultar {ym[0]}-{ym[1]:02d}: {repr(e)[:100]}; queda para la ronda siguiente")
+                    continue
+                if not urls:
+                    log(f"  {ym[0]}-{ym[1]:02d}: NASA no devolvió gránulos; se omite")
+                    continue
+                info[ym] = dict(por_dia=agrupar_por_dia(urls), esperado=d * GRANULOS_DIA, encontrados=len(urls), reint=0, seg=0.0)
+        tareas, faltan = [], {}
+        for ym in pendientes:
+            if ym not in info:
+                continue
+            faltan[ym] = set()
+            for dia, us in info[ym]["por_dia"].items():
+                if not ruta_dia(producto, dia).exists():
+                    tareas.append((ym, (producto, dia, us, bbox, bloque_kb, url_directa)))
+                    faltan[ym].add(dia)
+        total, hechos, fallos = len(tareas), 0, 0
+        log(f"  {total} días por descargar con {procesos} procesos")
+
+        def cerrar_meses_completos():
+            for ym in list(faltan):
+                if not faltan[ym] and not ruta_mes(producto, *ym).exists():
+                    i = info[ym]
+                    try:
+                        ensamblar_mes(producto, *ym, sorted(i["por_dia"]), i["encontrados"], i["esperado"], i["reint"], i["seg"])
+                    except Exception as e:
+                        log(f"  ERROR al ensamblar {ym[0]}-{ym[1]:02d}: {repr(e)[:150]}")
+
+        cerrar_meses_completos()  # meses cuyos días ya estaban en caché
+        t_ronda = time.time()
+        try:
+            for ym, r in _correr(tareas, procesos):
+                hechos += 1
+                info[ym]["reint"] += r["reint"]
+                info[ym]["seg"] += r["seg"]
+                if r["ok"]:
+                    faltan[ym].discard(r["dia"])
+                else:
+                    fallos += 1
+                    log(f"  FALLÓ día {r['dia']}: {r.get('error', '?')}")
+                if hechos % 10 == 0 or hechos == total:
+                    v = hechos / (time.time() - t_ronda)
+                    log(f"  días {hechos}/{total} ({fallos} fallos) | ~{(total - hechos) / v / 60:.0f} min restantes")
+                cerrar_meses_completos()
+        except KeyboardInterrupt:
+            log("Interrumpido por el usuario. Lo ya descargado queda en caché: repite el comando para continuar.")
+            raise SystemExit(1)
+        pendientes = [ym for ym in plan if not ruta_mes(producto, *ym).exists()]
+        if pendientes and ronda < rondas:
+            log(f"  faltan {len(pendientes)} meses; espero {espera_ronda // 60} min y reintento solo lo que falta")
+            time.sleep(espera_ronda)
+    horas = (time.time() - inicio) / 3600
+    if pendientes:
+        log(f"TERMINADO CON PENDIENTES en {horas:.1f} h: faltan {', '.join(f'{a}-{m:02d}' for a, m in pendientes)}. "
+            "Repite el comando para completarlos.")
+    else:
+        log(f"TERMINADO en {horas:.1f} h: {len(plan)} meses completos. Revisa con --verificar.")
+
+
+def verificar(producto, plan):
+    import xarray as xr
+
+    print(f"{'mes':>8s} {'pasos':>6s} {'esperado':>9s} {'saltos':>7s} {'%NaN':>6s}  estado")
+    malos = 0
+    for a, m in plan:
+        r = ruta_mes(producto, a, m)
+        esperado = dias_mes(a, m) * GRANULOS_DIA
+        if not r.exists():
+            print(f"{a}-{m:02d} {'':>6s} {esperado:9d} {'':>7s} {'':>6s}  FALTA")
+            malos += 1
+            continue
+        with xr.open_dataset(r) as ds:
+            t, v = ds["time"].values, ds["mm_h"].values
+        saltos = int((np.diff(t).astype("timedelta64[m]").astype(int) != 30).sum())
+        estado = "ok" if len(t) == esperado and saltos == 0 else "REVISAR"
+        malos += estado != "ok"
+        print(f"{a}-{m:02d} {len(t):6d} {esperado:9d} {saltos:7d} {100 * np.isnan(v).mean():6.1f}  {estado}")
+    print(f"\n{len(plan) - malos}/{len(plan)} meses ok. 'REVISAR' = faltan gránulos o hay saltos distintos de 30 min (puede ser un hueco real de NASA).")
 
 
 # --------------------------------------------------------------------------- medición
@@ -213,7 +461,7 @@ def medir(producto, bbox, total_granulos, procesos, n=4):
         t0 = time.time()
         datos = fs.cat_file(muestra[0], start=0, end=4_000_000)
         mbps = len(datos) * 8 / 1e6 / (time.time() - t0)
-        print(f"Velocidad cruda a NASA: {mbps:.1f} Mbps")
+        print(f"Velocidad cruda a NASA (una conexión): {mbps:.1f} Mbps")
     except Exception as e:
         print("No pude medir la velocidad cruda:", repr(e)[:100])
 
@@ -240,7 +488,7 @@ def medir(producto, bbox, total_granulos, procesos, n=4):
     for kb, directa, seg, mb, mb_pc in filas:
         gb = total_granulos * mb / 1024  # se proyecta con MB leídos (no se contamina con otro tráfico del PC)
         h1 = total_granulos * seg / 3600
-        hp = max(h1 / procesos, (gb * 1024 * 8 / mbps / 3600) if mbps else 0)  # tope: el ancho de banda
+        hp = h1 / procesos  # la velocidad de una conexión no limita al conjunto: se mide con el piloto
         flag = " *" if mb_pc is not None and mb_pc > 3 * mb + 1 else ""
         aviso = aviso or bool(flag)
         etiqueta = f"{kb}KB{' directa' if directa else ''}"
@@ -256,6 +504,7 @@ def medir(producto, bbox, total_granulos, procesos, n=4):
 
 # --------------------------------------------------------------------------- principal
 def main():
+    global _ARCHIVO_LOG
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--producto", choices=PRODUCTOS, default="early")
     ap.add_argument("--primera", type=int, default=2014, help="la temporada 2014 es dic-2014 a abr-2015")
@@ -264,8 +513,11 @@ def main():
     ap.add_argument("--bloque-kb", type=int, default=BLOQUE_KB)
     ap.add_argument("--procesos", type=int, default=4)
     ap.add_argument("--url-directa", action="store_true", help="resolver una vez la URL de almacenamiento por gránulo")
+    ap.add_argument("--rondas", type=int, default=12, help="rondas de reintento de lo que falle (default 12)")
+    ap.add_argument("--espera-ronda", type=int, default=600, help="segundos de pausa entre rondas (default 600: unas 2 h de paciencia en total)")
     ap.add_argument("--plan", action="store_true")
     ap.add_argument("--medir", action="store_true")
+    ap.add_argument("--verificar", action="store_true")
     a = ap.parse_args()
 
     plan = plan_meses(a.primera, a.ultima)
@@ -277,19 +529,25 @@ def main():
     print(f"{PRODUCTOS[a.producto]} | {len(plan)} meses | {total:,} gránulos esperados | {hechos} meses ya guardados")
     if a.plan:
         for y, m in plan:
-            print(f"  {y}-{m:02d}  {dias_mes(y, m) * GRANULOS_DIA:>5d} gránulos  {'LISTO' if ruta_mes(a.producto, y, m).exists() else 'pendiente'}")
+            cdir = CARPETA / a.producto / "_cache" / f"{y}-{m:02d}"
+            cache = len(list(cdir.glob("*.nc"))) if cdir.exists() else 0
+            estado = "LISTO" if ruta_mes(a.producto, y, m).exists() else f"pendiente ({cache} días en caché)"
+            print(f"  {y}-{m:02d}  {dias_mes(y, m) * GRANULOS_DIA:>5d} gránulos  {estado}")
         return
+    if a.verificar:
+        return verificar(a.producto, plan)
     bbox = bbox_quebradas()
     if a.medir:
         return medir(a.producto, bbox, total, a.procesos)
 
-    pool = ProcessPoolExecutor(a.procesos) if a.procesos > 1 else None
-    abrir = None if pool else crear_abridor(a.bloque_kb, a.url_directa)
-    t0 = time.time()
-    for k, (y, m) in enumerate(plan, 1):
-        print(f"[{k}/{len(plan)}] {y}-{m:02d} ...", flush=True)
-        print("   ", procesar_mes(a.producto, y, m, bbox, a.bloque_kb, abrir, pool, a.procesos, a.url_directa), flush=True)
-    print(f"Terminado en {(time.time() - t0) / 3600:.1f} h. Resumen por mes: {CARPETA / a.producto / 'resumen.csv'}")
+    (CARPETA / a.producto).mkdir(parents=True, exist_ok=True)
+    _ARCHIVO_LOG = CARPETA / a.producto / "descarga.log"
+    log(f"INICIO: {len(plan)} meses, {a.procesos} procesos, bloque {a.bloque_kb} KB, url_directa={a.url_directa}")
+    evitar_suspension(True)
+    try:
+        ejecutar(a.producto, plan, bbox, a.bloque_kb, a.url_directa, a.procesos, a.rondas, a.espera_ronda)
+    finally:
+        evitar_suspension(False)
 
 
 if __name__ == "__main__":
