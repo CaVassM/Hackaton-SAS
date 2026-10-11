@@ -6,7 +6,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 5,2022-23,False,,3,amarillo
 6,2014-15,False,,3,amarillo
 7,2014-15,False,,3,amarillo
-8,2016-17,False,,3,amarillo
+8,2016-17,True,2.5,3,amarillo
 9,2022-23,True,2.5,3,amarillo
 10,2014-15,False,,3,amarillo
 11,2014-15,False,,3,amarillo
@@ -16,7 +16,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 15,2025-26,False,,3,amarillo
 16,2025-26,False,,3,amarillo
 17,2014-15,False,,3,amarillo
-18,2016-17,False,,3,amarillo
+18,2016-17,True,2.5,3,amarillo
 19,2022-23,False,,3,amarillo
 20,2019-20,False,,3,amarillo
 21,2014-15,False,,3,amarillo
@@ -59,7 +59,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 5,2022-23,False,,3,naranja
 6,2014-15,False,,3,naranja
 7,2014-15,False,,3,naranja
-8,2016-17,False,,3,naranja
+8,2016-17,True,2.5,3,naranja
 9,2022-23,False,,3,naranja
 10,2014-15,False,,3,naranja
 11,2014-15,False,,3,naranja
@@ -69,7 +69,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 15,2025-26,False,,3,naranja
 16,2025-26,False,,3,naranja
 17,2014-15,False,,3,naranja
-18,2016-17,False,,3,naranja
+18,2016-17,True,2.5,3,naranja
 19,2022-23,False,,3,naranja
 20,2019-20,False,,3,naranja
 21,2014-15,False,,3,naranja
@@ -112,7 +112,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 5,2022-23,False,,3,rojo
 6,2014-15,False,,3,rojo
 7,2014-15,False,,3,rojo
-8,2016-17,False,,3,rojo
+8,2016-17,True,2.5,3,rojo
 9,2022-23,False,,3,rojo
 10,2014-15,False,,3,rojo
 11,2014-15,False,,3,rojo
@@ -122,7 +122,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 15,2025-26,False,,3,rojo
 16,2025-26,False,,3,rojo
 17,2014-15,False,,3,rojo
-18,2016-17,False,,3,rojo
+18,2016-17,True,2.5,3,rojo
 19,2022-23,False,,3,rojo
 20,2019-20,False,,3,rojo
 21,2014-15,False,,3,rojo
@@ -145,7 +145,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 38,2014-15,False,,3,rojo
 39,2014-15,False,,3,rojo
 40,2016-17,False,,3,rojo
-41,2016-17,True,2.5,3,rojo
+41,2016-17,False,,3,rojo
 42,2018-19,False,,3,rojo
 43,2018-19,False,,3,rojo
 44,2022-23,False,,3,rojo
@@ -165,7 +165,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 58,2022-23,False,,6,amarillo
 59,2014-15,False,,6,amarillo
 60,2014-15,False,,6,amarillo
-61,2016-17,False,,6,amarillo
+61,2016-17,True,5.5,6,amarillo
 62,2022-23,True,5.5,6,amarillo
 63,2014-15,False,,6,amarillo
 64,2014-15,False,,6,amarillo
@@ -175,7 +175,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 68,2025-26,False,,6,amarillo
 69,2025-26,False,,6,amarillo
 70,2014-15,False,,6,amarillo
-71,2016-17,False,,6,amarillo
+71,2016-17,True,5.5,6,amarillo
 72,2022-23,False,,6,amarillo
 73,2019-20,False,,6,amarillo
 74,2014-15,False,,6,amarillo
@@ -192,15 +192,15 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 85,2014-15,False,,6,amarillo
 86,2016-17,False,,6,amarillo
 87,2022-23,True,5.5,6,amarillo
-88,2022-23,True,5.5,6,amarillo
-89,2022-23,True,5.5,6,amarillo
+88,2022-23,False,,6,amarillo
+89,2022-23,False,,6,amarillo
 90,2014-15,False,,6,amarillo
 91,2014-15,False,,6,amarillo
 92,2014-15,False,,6,amarillo
 93,2016-17,False,,6,amarillo
 94,2016-17,True,5.5,6,amarillo
 95,2018-19,False,,6,amarillo
-96,2022-23,True,5.5,6,amarillo
+96,2022-23,False,,6,amarillo
 97,2022-23,True,5.5,6,amarillo
 98,2014-15,False,,6,amarillo
 99,2022-23,False,,6,amarillo
@@ -216,7 +216,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 58,2022-23,False,,6,naranja
 59,2014-15,False,,6,naranja
 60,2014-15,False,,6,naranja
-61,2016-17,False,,6,naranja
+61,2016-17,True,5.5,6,naranja
 62,2022-23,False,,6,naranja
 63,2014-15,False,,6,naranja
 64,2014-15,False,,6,naranja
@@ -226,7 +226,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 68,2025-26,False,,6,naranja
 69,2025-26,False,,6,naranja
 70,2014-15,False,,6,naranja
-71,2016-17,False,,6,naranja
+71,2016-17,True,5.5,6,naranja
 72,2022-23,False,,6,naranja
 73,2019-20,False,,6,naranja
 74,2014-15,False,,6,naranja
@@ -267,7 +267,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 58,2022-23,False,,6,rojo
 59,2014-15,False,,6,rojo
 60,2014-15,False,,6,rojo
-61,2016-17,False,,6,rojo
+61,2016-17,True,5.5,6,rojo
 62,2022-23,False,,6,rojo
 63,2014-15,False,,6,rojo
 64,2014-15,False,,6,rojo
@@ -277,7 +277,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 68,2025-26,False,,6,rojo
 69,2025-26,False,,6,rojo
 70,2014-15,False,,6,rojo
-71,2016-17,False,,6,rojo
+71,2016-17,True,5.5,6,rojo
 72,2022-23,False,,6,rojo
 73,2019-20,False,,6,rojo
 74,2014-15,False,,6,rojo
@@ -300,7 +300,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 91,2014-15,False,,6,rojo
 92,2014-15,False,,6,rojo
 93,2016-17,False,,6,rojo
-94,2016-17,True,5.5,6,rojo
+94,2016-17,False,,6,rojo
 95,2018-19,False,,6,rojo
 96,2022-23,False,,6,rojo
 97,2022-23,False,,6,rojo
@@ -318,7 +318,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 109,2022-23,False,,12,amarillo
 110,2014-15,False,,12,amarillo
 111,2014-15,False,,12,amarillo
-112,2016-17,False,,12,amarillo
+112,2016-17,True,6.5,12,amarillo
 113,2022-23,True,11.5,12,amarillo
 114,2014-15,False,,12,amarillo
 115,2014-15,False,,12,amarillo
@@ -328,7 +328,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 119,2025-26,False,,12,amarillo
 120,2025-26,False,,12,amarillo
 121,2014-15,False,,12,amarillo
-122,2016-17,False,,12,amarillo
+122,2016-17,True,6.5,12,amarillo
 123,2022-23,False,,12,amarillo
 124,2019-20,False,,12,amarillo
 125,2014-15,False,,12,amarillo
@@ -351,7 +351,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 142,2014-15,False,,12,amarillo
 143,2016-17,False,,12,amarillo
 144,2016-17,True,10.5,12,amarillo
-145,2018-19,False,,12,amarillo
+145,2018-19,True,16.5,12,amarillo
 146,2022-23,False,,12,amarillo
 147,2022-23,True,11.5,12,amarillo
 148,2014-15,False,,12,amarillo
@@ -368,7 +368,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 109,2022-23,False,,12,naranja
 110,2014-15,False,,12,naranja
 111,2014-15,False,,12,naranja
-112,2016-17,False,,12,naranja
+112,2016-17,True,6.5,12,naranja
 113,2022-23,False,,12,naranja
 114,2014-15,False,,12,naranja
 115,2014-15,False,,12,naranja
@@ -378,7 +378,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 119,2025-26,False,,12,naranja
 120,2025-26,False,,12,naranja
 121,2014-15,False,,12,naranja
-122,2016-17,False,,12,naranja
+122,2016-17,True,6.5,12,naranja
 123,2022-23,False,,12,naranja
 124,2019-20,False,,12,naranja
 125,2014-15,False,,12,naranja
@@ -400,7 +400,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 141,2014-15,False,,12,naranja
 142,2014-15,False,,12,naranja
 143,2016-17,False,,12,naranja
-144,2016-17,True,8.5,12,naranja
+144,2016-17,True,10.5,12,naranja
 145,2018-19,False,,12,naranja
 146,2022-23,False,,12,naranja
 147,2022-23,True,11.5,12,naranja
@@ -418,7 +418,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 109,2022-23,False,,12,rojo
 110,2014-15,False,,12,rojo
 111,2014-15,False,,12,rojo
-112,2016-17,False,,12,rojo
+112,2016-17,True,6.5,12,rojo
 113,2022-23,False,,12,rojo
 114,2014-15,False,,12,rojo
 115,2014-15,False,,12,rojo
@@ -428,7 +428,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 119,2025-26,False,,12,rojo
 120,2025-26,False,,12,rojo
 121,2014-15,False,,12,rojo
-122,2016-17,False,,12,rojo
+122,2016-17,True,6.5,12,rojo
 123,2022-23,False,,12,rojo
 124,2019-20,False,,12,rojo
 125,2014-15,False,,12,rojo
@@ -450,7 +450,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 141,2014-15,False,,12,rojo
 142,2014-15,False,,12,rojo
 143,2016-17,False,,12,rojo
-144,2016-17,True,7.5,12,rojo
+144,2016-17,True,2.5,12,rojo
 145,2018-19,False,,12,rojo
 146,2022-23,False,,12,rojo
 147,2022-23,False,,12,rojo
@@ -468,7 +468,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 159,2022-23,False,,24,amarillo
 160,2014-15,False,,24,amarillo
 161,2014-15,False,,24,amarillo
-162,2016-17,False,,24,amarillo
+162,2016-17,True,6.5,24,amarillo
 163,2022-23,True,23.5,24,amarillo
 164,2014-15,False,,24,amarillo
 165,2014-15,False,,24,amarillo
@@ -478,7 +478,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 169,2025-26,False,,24,amarillo
 170,2025-26,False,,24,amarillo
 171,2014-15,False,,24,amarillo
-172,2016-17,False,,24,amarillo
+172,2016-17,True,6.5,24,amarillo
 173,2022-23,False,,24,amarillo
 174,2019-20,False,,24,amarillo
 175,2014-15,False,,24,amarillo
@@ -495,14 +495,14 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 186,2014-15,False,,24,amarillo
 187,2016-17,False,,24,amarillo
 188,2022-23,True,23.5,24,amarillo
-189,2022-23,True,17.5,24,amarillo
+189,2022-23,False,,24,amarillo
 190,2014-15,False,,24,amarillo
 191,2014-15,False,,24,amarillo
 192,2014-15,False,,24,amarillo
 193,2016-17,False,,24,amarillo
-194,2016-17,True,10.5,24,amarillo
-195,2018-19,False,,24,amarillo
-196,2022-23,True,14.5,24,amarillo
+194,2016-17,True,11.5,24,amarillo
+195,2018-19,True,28.5,24,amarillo
+196,2022-23,False,,24,amarillo
 197,2022-23,True,23.5,24,amarillo
 198,2014-15,False,,24,amarillo
 199,2022-23,False,,24,amarillo
@@ -518,7 +518,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 159,2022-23,False,,24,naranja
 160,2014-15,False,,24,naranja
 161,2014-15,False,,24,naranja
-162,2016-17,False,,24,naranja
+162,2016-17,True,6.5,24,naranja
 163,2022-23,False,,24,naranja
 164,2014-15,False,,24,naranja
 165,2014-15,False,,24,naranja
@@ -528,7 +528,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 169,2025-26,False,,24,naranja
 170,2025-26,False,,24,naranja
 171,2014-15,False,,24,naranja
-172,2016-17,False,,24,naranja
+172,2016-17,True,6.5,24,naranja
 173,2022-23,False,,24,naranja
 174,2019-20,False,,24,naranja
 175,2014-15,False,,24,naranja
@@ -550,7 +550,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 191,2014-15,False,,24,naranja
 192,2014-15,False,,24,naranja
 193,2016-17,False,,24,naranja
-194,2016-17,True,8.5,24,naranja
+194,2016-17,True,10.5,24,naranja
 195,2018-19,False,,24,naranja
 196,2022-23,False,,24,naranja
 197,2022-23,True,23.5,24,naranja
@@ -568,7 +568,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 159,2022-23,False,,24,rojo
 160,2014-15,False,,24,rojo
 161,2014-15,False,,24,rojo
-162,2016-17,False,,24,rojo
+162,2016-17,True,6.5,24,rojo
 163,2022-23,False,,24,rojo
 164,2014-15,False,,24,rojo
 165,2014-15,False,,24,rojo
@@ -578,7 +578,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 169,2025-26,False,,24,rojo
 170,2025-26,False,,24,rojo
 171,2014-15,False,,24,rojo
-172,2016-17,False,,24,rojo
+172,2016-17,True,6.5,24,rojo
 173,2022-23,False,,24,rojo
 174,2019-20,False,,24,rojo
 175,2014-15,False,,24,rojo
@@ -600,7 +600,7 @@ bloque,temporada,detectado,anticipacion_h,H,nivel
 191,2014-15,False,,24,rojo
 192,2014-15,False,,24,rojo
 193,2016-17,False,,24,rojo
-194,2016-17,True,7.5,24,rojo
+194,2016-17,False,,24,rojo
 195,2018-19,False,,24,rojo
 196,2022-23,False,,24,rojo
 197,2022-23,False,,24,rojo

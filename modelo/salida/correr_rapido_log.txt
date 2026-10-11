@@ -10,3 +10,154 @@
   R_CHICO_semilla1: lift medio 14.47 | detectados 22/204 (N=100) | 1.0 min
   R_CHICO_semilla2: lift medio 11.09 | detectados 18/204 (N=100) | 1.0 min
   R_AMBAS_semilla0: lift medio 18.43 | detectados 38/204 (N=100) | 1.0 min
+  R_AMBAS_semilla1: lift medio 19.24 | detectados 42/204 (N=100) | 1.0 min
+  R_AMBAS_semilla2: lift medio 18.33 | detectados 38/204 (N=100) | 1.0 min
+Listo.
+=== 23:25:14 python3 restringido_reporte.py ===
+                    modelo lift_medio detectados_N100 rango_N100 detectados_N50
+        V1 originales (13)  8.9 ± 3.0   21/204 (10 %)      18-23         28/204
+  V1 + D sin restricciones 10.9 ± 2.3   26/204 (13 %)      25-27         37/204
+            solo monotonía 19.6 ± 1.7   39/204 (19 %)      36-41         58/204
+     solo árboles pequeños 12.3 ± 1.9   21/204 (10 %)      18-22         28/204
+AMBAS (modelo restringido) 18.7 ± 0.5   39/204 (19 %)      38-42         51/204
+
+MODELO RESTRINGIDO (AMBAS), bloques detectados por horizonte con 1 alerta cada 100 h (media de 3 semillas) frente al azar esperado
+  H= 3:  9.7 de 53  (18.2 %)   azar esperado 3 %   lift 27.1
+  H= 6:  9.3 de 51  (18.3 %)   azar esperado 6 %   lift 25.7
+  H=12:  9.3 de 50  (18.7 %)   azar esperado 12 %   lift 13.2
+  H=24: 11.0 de 50  (22.0 %)   azar esperado 22 %   lift 8.6
+
+Lift por temporada (media de 3 semillas):
+  V1     {'2014-15': 2.6, '2016-17': 30.8, '2018-19': 2.2, '2019-20': 2.1, '2022-23': 9.4, '2025-26': 6.3}
+  AMBAS  {'2014-15': 3.0, '2016-17': 76.0, '2018-19': 11.6, '2019-20': 3.4, '2022-23': 14.5, '2025-26': 3.5}
+
+BRECHA DE SOBREAJUSTE (lift en entrenamiento -> lift en prueba, semilla 0):
+  V1+D sin restricciones        1056 ->   8.7
+  AMBAS                           55 ->  18.4
+=== 23:25:16 python3 oof.py ===
+OOF (12 temporadas) guardado: 2,861,040 filas, temporadas ['2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24', '2024-25', '2025-26']
+=== 23:27:14 python3 diagnostico_eventos.py ===
+POR TORMENTA (H=6; percentil = qué tan arriba quedó su mejor hora dentro de la temporada; umbral de alerta = percentil 99)
+                      bloques  detectados  pct_mediano  lluvia_6h_vista  mm_6h_real  reg_max_24h  lluvia_14d
+temporada fecha                                                                                             
+2014-15   2015-02-09        9           0         85.7              0.0         0.5          1.3        13.8
+          2015-03-21        4           1         98.1              0.2         1.1          4.5        13.0
+          2015-03-23        9           0         63.4              0.0         0.0          1.1        24.1
+2016-17   2017-01-25        3           0         88.6              1.8         0.1          1.9        38.6
+          2017-03-15        3           3         99.9              0.2         0.0         26.7        77.5
+2018-19   2019-02-25        4           1         95.0              0.0         0.0         13.7        42.0
+2019-20   2020-01-23        1           0         77.3              0.5         0.0          2.3         9.6
+2022-23   2023-03-12        4           0         70.2              0.0        10.4          8.2        37.4
+          2023-03-14        1           0         98.3              0.0         0.5         16.6        54.3
+          2023-03-16        1           1         99.3              0.1         0.0          4.2       103.1
+          2023-03-18        4           3         99.5              0.0         0.0          1.3        94.3
+          2023-04-06        5           0         84.4              0.0         0.0          2.6        17.0
+2025-26   2026-02-24        1           0         86.9              0.0         0.1          4.3        48.7
+          2026-02-25        2           0         83.3              0.1         2.3         10.2        64.3
+
+Resumen: bloques 51 | detectados 9 | tormentas (fechas) 14
+Percentil mediano del mejor puntaje por bloque, por temporada: {'2014-15': 85.7, '2016-17': 94.2, '2018-19': 95.0, '2019-20': 77.3, '2022-23': 95.4, '2025-26': 86.9}
+Huaicos con lluvia real en las 6 h previas: 23/51; de ellos, el modelo vio (lluvia_6h_vista > 0.1 mm) en 7
+=== 23:28:18 python3 umbrales.py ===
+  H=3: pendiente 0.477, intercepto -6.03
+  H=6: pendiente 0.475, intercepto -5.47
+  H=12: pendiente 0.416, intercepto -5.25
+  H=24: pendiente 0.321, intercepto -5.09
+Filas: 2,861,040 | temporadas: 12
+
+CALIBRACIÓN (p_media vs frecuencia observada, por tramo de puntaje)
+ H                               bin  horas  p_media  frecuencia_observada  positivos
+ 3            (-0.0009744, 0.000159] 358595   0.0001                0.0001         30
+ 3              (0.000159, 0.000399] 215158   0.0003                0.0003         62
+ 3              (0.000399, 0.000504]  71725   0.0004                0.0004         30
+ 3              (0.000504, 0.000584]  35852   0.0005                0.0004         16
+ 3              (0.000584, 0.000679]  21528   0.0006                0.0001          3
+ 3              (0.000679, 0.000831]   7171   0.0008                0.0018         13
+ 3               (0.000831, 0.00228]   7160   0.0010                0.0008          6
+ 6            (-0.0009535, 0.000313] 358275   0.0001                0.0002         61
+ 6              (0.000313, 0.000812] 215151   0.0006                0.0006        123
+ 6               (0.000812, 0.00102]  71741   0.0009                0.0008         58
+ 6                (0.00102, 0.00118]  35655   0.0011                0.0008         28
+ 6                (0.00118, 0.00139]  21788   0.0013                0.0003          6
+ 6                (0.00139, 0.00168]   6710   0.0015                0.0042         28
+ 6                (0.00168, 0.00464]   7163   0.0020                0.0017         12
+12             (-0.000898, 0.000636] 357563   0.0003                0.0004        135
+12               (0.000636, 0.00162] 214566   0.0011                0.0011        238
+12                (0.00162, 0.00198]  71616   0.0018                0.0016        112
+12                (0.00198, 0.00226]  35930   0.0021                0.0014         51
+12                 (0.00226, 0.0026]  21853   0.0024                0.0005         12
+12                 (0.0026, 0.00304]   6397   0.0028                0.0078         50
+12                (0.00304, 0.00742]   7146   0.0036                0.0029         21
+24 (-0.0007000000000000001, 0.00135] 356156   0.0007                0.0008        298
+24                (0.00135, 0.00293] 213736   0.0022                0.0023        488
+24                (0.00293, 0.00344]  71392   0.0031                0.0029        204
+24                 (0.00344, 0.0038]  36171   0.0036                0.0028        102
+24                 (0.0038, 0.00425]  20624   0.0039                0.0010         21
+24                (0.00425, 0.00478]   7096   0.0045                0.0107         76
+24                (0.00478, 0.00967]   7122   0.0055                0.0042         30
+
+NIVELES (12 temporadas; bloques de las 6 con eventos)
+ H    nivel  alerta_cada_N_horas  umbral_p  bloques  detectados  pct_detectados  pct_con_1h_o_mas  anticipacion_mediana_h  anticipacion_max_h  horas_alerta_por_temporada  falsos_episodios_por_temporada  precision_horas   base
+ 3 amarillo                   20    0.0006       53           8            15.1              15.1                     2.5                 2.5                        2992                            78.0           0.0006 0.0002
+ 3  naranja                   50    0.0007       53           7            13.2              13.2                     2.5                 2.5                        1197                            30.2           0.0013 0.0002
+ 3     rojo                  100    0.0008       53           2             3.8               3.8                     2.5                 2.5                         598                            16.2           0.0008 0.0002
+ 6 amarillo                   20    0.0012       51           8            15.7              15.7                     5.5                 5.5                        2987                            77.1           0.0013 0.0004
+ 6  naranja                   50    0.0014       51           7            13.7              13.7                     5.5                 5.5                        1226                            31.4           0.0027 0.0004
+ 6     rojo                  100    0.0017       51           2             3.9               3.9                     5.5                 5.5                         598                            16.6           0.0017 0.0004
+12 amarillo                   20    0.0023       50           9            18.0              18.0                    11.5                16.5                        3042                            79.3           0.0026 0.0009
+12  naranja                   50    0.0026       50           7            14.0              14.0                    11.5                11.5                        1198                            31.3           0.0049 0.0009
+12     rojo                  100    0.0030       50           4             8.0               8.0                     6.5                11.5                         597                            16.9           0.0029 0.0009
+24 amarillo                   20    0.0038       50           9            18.0              18.0                    23.5                28.5                        2994                            74.7           0.0041 0.0017
+24  naranja                   50    0.0042       50           7            14.0              14.0                    20.5                23.5                        1187                            29.9           0.0074 0.0017
+24     rojo                  100    0.0048       50           3             6.0               6.0                     6.5                23.5                         596                            15.9           0.0042 0.0017
+
+Guardado en /home/user/Hackaton-SAS/modelo/salida: umbrales_niveles.csv, umbrales_calibracion.csv, umbrales_anticipacion.csv, umbrales_compromiso.png
+=== 23:28:30 python3 verificar_umbrales.py ===
+A. filas 2861040 2861040 | p NaN: 0 | p fuera de [0,1]: 0
+   claves únicas: True | y igual a tabla3: True | temporada igual: True | filas cruzadas: 2861040
+  H=3: pendiente 0.477, intercepto -6.03
+  H=6: pendiente 0.475, intercepto -5.47
+  H=12: pendiente 0.416, intercepto -5.25
+  H=24: pendiente 0.321, intercepto -5.09
+   pc NaN: 0 | orden p vs pc (Spearman) por H: {3: np.float64(1.0), 6: np.float64(1.0), 12: np.float64(1.0), 24: np.float64(1.0)}
+   viola p(H3)<=p(H6)<=p(H12)<=p(H24): 0
+B. detección recalculada vs CSV (H, nivel: recalculado / csv; anticipación mediana)
+  H= 3 amarillo:  8/53 vs 8/53 | anticip. mediana 2.5 vs 2.5 | AZAR mismo reparto: 2.4 ± 1.3
+  H= 3 naranja :  7/53 vs 7/53 | anticip. mediana 2.5 vs 2.5 | AZAR mismo reparto: 0.7 ± 0.8
+  H= 3 rojo    :  2/53 vs 2/53 | anticip. mediana 2.5 vs 2.5 | AZAR mismo reparto: 0.1 ± 0.4
+  H= 6 amarillo:  8/51 vs 8/51 | anticip. mediana 5.5 vs 5.5 | AZAR mismo reparto: 4.8 ± 1.9
+  H= 6 naranja :  7/51 vs 7/51 | anticip. mediana 5.5 vs 5.5 | AZAR mismo reparto: 1.4 ± 1.0
+  H= 6 rojo    :  2/51 vs 2/51 | anticip. mediana 5.5 vs 5.5 | AZAR mismo reparto: 0.2 ± 0.5
+  H=12 amarillo:  9/50 vs 9/50 | anticip. mediana 11.5 vs 11.5 | AZAR mismo reparto: 9.1 ± 2.4
+  H=12 naranja :  7/50 vs 7/50 | anticip. mediana 11.5 vs 11.5 | AZAR mismo reparto: 2.6 ± 1.4
+  H=12 rojo    :  4/50 vs 4/50 | anticip. mediana 6.5 vs 6.5 | AZAR mismo reparto: 0.5 ± 0.8
+  H=24 amarillo:  9/50 vs 9/50 | anticip. mediana 23.5 vs 23.5 | AZAR mismo reparto: 13.5 ± 2.2
+  H=24 naranja :  7/50 vs 7/50 | anticip. mediana 20.5 vs 20.5 | AZAR mismo reparto: 4.6 ± 2.0
+  H=24 rojo    :  3/50 vs 3/50 | anticip. mediana 6.5 vs 6.5 | AZAR mismo reparto: 0.6 ± 0.8
+C. horas de alerta totales H=6: {'amarillo': 35847, 'naranja': 14708, 'rojo': 7174}
+   amarillo: 2024-25 = 17606 de 35847 (49 %)
+   naranja: 2024-25 = 10839 de 14708 (74 %)
+   rojo: 2024-25 = 6208 de 7174 (87 %)
+D. detección con corte DENTRO de cada temporada (estilo 7.1), 6 temporadas con eventos:
+   H=3: 1/20: 19/53 | 1/50: 12/53 | 1/100: 10/53
+   H=6: 1/20: 19/51 | 1/50: 11/51 | 1/100: 9/51
+   H=12: 1/20: 18/50 | 1/50: 13/50 | 1/100: 9/50
+   H=24: 1/20: 20/50 | 1/50: 16/50 | 1/100: 10/50
+=== 23:28:48 python3 diagnostico_era5_ciegos.py ===
+Bloques: 51 | ciegos para IMERG (<0.1 mm en las 6 h hasta el huaico): 32
+ERA5 > 0.1 mm en esas 6 h: en los ciegos 32/32; en los no ciegos 19/19
+Medianas (mm) en los ciegos -> IMERG 6h/24h/día: [0.0, 1.41, 3.33] | ERA5 6h/24h/día: [2.24, 8.21, 7.53]
+Día del huaico con lluvia > 1 mm: IMERG 31 / 51 | ERA5 50 / 51 | ciegos con IMERG_día > 1 mm: 19 / 32
+Correlación (Spearman) entre fuentes en las 24 h previas, por bloque: -0.0
+Contexto, ventanas de 6 h cualquiera (dic-abr): IMERG > 0.1 mm en 26 % | ERA5 en 51 %
+Percentil mediano de la lluvia del huaico frente a todas las ventanas dic-abr (50 = lluvia típica; 99 = excepcional):
+   6 h: IMERG todos 67 | IMERG ciegos 62 | ERA5 todos 94 | ERA5 ciegos 91 | ERA5 >= p90 en 28/51, IMERG >= p90 en 9/51
+  24 h: IMERG todos 78 | IMERG ciegos 71 | ERA5 todos 91 | ERA5 ciegos 91 | ERA5 >= p90 en 30/51, IMERG >= p90 en 13/51
+Igual, pero frente a ventanas que terminan a la MISMA hora del día (control del ciclo diario):
+   6 h: IMERG todos 80 | ERA5 todos 92 | ERA5 >= p90 en 26/51, IMERG >= p90 en 10/51 (azar: ~5)
+  24 h: IMERG todos 78 | ERA5 todos 91 | ERA5 >= p90 en 30/51, IMERG >= p90 en 13/51 (azar: ~5)
+Totales dic-abr por temporada (media de quebradas, mm) IMERG vs ERA5:
+temp    2014   2015   2016   2017   2018   2019   2020   2021   2022   2023   2024   2025
+imerg  143.0  106.0  271.0  204.0  163.0  157.0  171.0  140.0  296.0  244.0  433.0  299.0
+era5   485.0  314.0  733.0  519.0  590.0  410.0  456.0  253.0  344.0  158.0  323.0  309.0
+=== 23:28:51 RAPIDO LISTO ===
