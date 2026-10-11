@@ -60,11 +60,11 @@ TODAS = FEATURES + FEATURES_NUEVAS
 
 # --------------------------------------------------------------------------- lluvia horaria por quebrada
 def _horario(carpeta):
-    """DataArray (hora local, lat, lon) en mm por hora a partir de los meses de IMERG Early."""
+    """DataArray (hora local, lat, lon) en mm por hora a partir de los meses de IMERG (Early o Final: la carpeta trae un solo producto)."""
     import xarray as xr
 
     partes = []
-    for f in sorted(glob.glob(str(Path(carpeta) / "imerg_early_*.nc"))):
+    for f in sorted(glob.glob(str(Path(carpeta) / "imerg_*_????-??.nc"))):
         with xr.open_dataset(f) as ds:
             partes.append(ds["mm_h"].load())
     da = xr.concat(partes, dim="time").sortby("time")
