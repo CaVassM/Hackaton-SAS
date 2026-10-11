@@ -49,9 +49,44 @@ def ruta_mes(producto, a, m):
 
 
 # --------------------------------------------------------------------------- lectura
-def crear_abridor(bloque_kb=BLOQUE_KB):
+def hacer_abridor(fs, fs_plano, sesion, kw, url_directa, respaldo):
+    """Arma abrir(url). Modos:
+      - normal: fs.open(url) con la sesión autenticada; CADA petición pasa por el servidor de autenticación de NASA
+        (que redirige al almacenamiento), con un costo fijo de ~1 s por petición.
+      - url_directa: se resuelve UNA vez la URL de almacenamiento de cada gránulo y las lecturas van directo a ella.
+    Si algo falla en un modo, se cae al siguiente (url_directa -> normal -> respaldo)."""
+    def resolver(url):
+        import requests
+
+        r = sesion.get(url, headers={"Range": "bytes=0-0"}, allow_redirects=False, timeout=60)
+        destino = r.headers.get("Location", "")
+        if r.status_code not in (301, 302, 303, 307, 308) or not destino or "urs.earthdata" in destino:
+            return None
+        r2 = requests.get(destino, headers={"Range": "bytes=0-0"}, timeout=60)  # sin credenciales: la URL ya va firmada
+        return destino, int(r2.headers["Content-Range"].rsplit("/", 1)[1])
+
+    def abrir(url):
+        if url_directa and sesion is not None:
+            try:
+                res = resolver(url)
+                if res:
+                    return fs_plano.open(res[0], mode="rb", size=res[1], **kw)
+            except Exception:
+                pass
+        if fs is not None:
+            try:
+                return fs.open(url, mode="rb", **kw)
+            except Exception:  # p. ej. 401 con el token
+                pass
+        return respaldo(url)
+
+    return abrir
+
+
+def crear_abridor(bloque_kb=BLOQUE_KB, url_directa=False):
     """Devuelve abrir(url) -> archivo remoto que se lee por bloques pequeños (solo trae lo necesario)."""
     import earthaccess
+    import fsspec
 
     _login(earthaccess)
     kw = dict(block_size=bloque_kb * 1024, cache_type="blockcache")
@@ -60,16 +95,12 @@ def crear_abridor(bloque_kb=BLOQUE_KB):
     except Exception as e:
         fs = None
         print("Aviso: sin sesión fsspec propia (", repr(e)[:80], ") -> earthaccess.open")
-
-    def abrir(url):
-        if fs is not None:
-            try:
-                return fs.open(url, mode="rb", **kw)
-            except Exception:  # p. ej. 401 con el token: se prueba la vía de earthaccess
-                pass
-        return earthaccess.open([url], open_kwargs=kw)[0]
-
-    return abrir
+    try:
+        sesion = earthaccess.get_requests_https_session() if url_directa else None
+    except Exception:
+        sesion = None
+    return hacer_abridor(fs, fsspec.filesystem("https"), sesion, kw, url_directa,
+                         lambda url: earthaccess.open([url], open_kwargs=kw)[0])
 
 
 def urls_mes(producto, a, m, bbox):
@@ -107,8 +138,8 @@ def leer_urls(urls, bbox, abrir, reintentos=3, cada=100):
     return partes, fallas
 
 
-def _leer_lote(urls, bbox, bloque_kb):  # se ejecuta dentro de cada proceso
-    return leer_urls(urls, bbox, crear_abridor(bloque_kb), cada=0)
+def _leer_lote(urls, bbox, bloque_kb, url_directa=False):  # se ejecuta dentro de cada proceso
+    return leer_urls(urls, bbox, crear_abridor(bloque_kb, url_directa), cada=0)
 
 
 def guardar_mes(partes, ruta, producto):
@@ -124,7 +155,7 @@ def guardar_mes(partes, ruta, producto):
     return da
 
 
-def procesar_mes(producto, a, m, bbox, bloque_kb, abrir, pool=None, procesos=1):
+def procesar_mes(producto, a, m, bbox, bloque_kb, abrir, pool=None, procesos=1, url_directa=False):
     ruta = ruta_mes(producto, a, m)
     if ruta.exists():
         return "ya existe, se salta"
@@ -138,7 +169,7 @@ def procesar_mes(producto, a, m, bbox, bloque_kb, abrir, pool=None, procesos=1):
     else:
         partes, fallas = [], []
         lotes = [urls[i::procesos] for i in range(procesos)]  # intercalados: cada proceso recorre todo el mes
-        for p, f in pool.map(_leer_lote, lotes, [bbox] * procesos, [bloque_kb] * procesos):
+        for p, f in pool.map(_leer_lote, lotes, [bbox] * procesos, [bloque_kb] * procesos, [url_directa] * procesos):
             partes += p
             fallas += f
     if fallas:
@@ -165,15 +196,16 @@ def _bytes_recibidos():
         return None
 
 
-def medir(producto, bbox, total_granulos, procesos, bloques=(16, 64, 256), n=6):
+def medir(producto, bbox, total_granulos, procesos, n=4):
     """Mide velocidad y tráfico reales con gránulos de un día de temporada y proyecta el total."""
     import earthaccess
 
     _login(earthaccess)
     urls, _ = urls_mes(producto, 2020, 2, bbox)
-    paso = max(1, len(urls) // (n * len(bloques)))
+    configs = [(16, False), (64, False), (256, False), (64, True), (256, True)]
+    paso = max(1, len(urls) // (n * len(configs)))
     muestra = urls[::paso]
-    print(f"Muestra de {len(muestra)} gránulos de feb-2020 (cierra descargas y videos mientras mide).")
+    print(f"Muestra de {min(len(muestra), n * len(configs))} gránulos de feb-2020 (cierra descargas y videos mientras mide).")
 
     mbps = None
     try:  # velocidad cruda: 4 MB de un gránulo
@@ -186,11 +218,11 @@ def medir(producto, bbox, total_granulos, procesos, bloques=(16, 64, 256), n=6):
         print("No pude medir la velocidad cruda:", repr(e)[:100])
 
     filas = []
-    for i, kb in enumerate(bloques):
+    for i, (kb, directa) in enumerate(configs):
         sub = muestra[i * n:(i + 1) * n]
         if not sub:
             break
-        abrir = crear_abridor(kb)
+        abrir = crear_abridor(kb, directa)
         b0, t0, cache = _bytes_recibidos(), time.time(), 0
         for u in sub:
             f = abrir(u)
@@ -198,24 +230,28 @@ def medir(producto, bbox, total_granulos, procesos, bloques=(16, 64, 256), n=6):
             cache += getattr(getattr(f, "cache", None), "total_requested_bytes", 0) or 0
             f.close()
         seg, b1 = (time.time() - t0) / len(sub), _bytes_recibidos()
-        mb = (b1 - b0) / 1e6 / len(sub) if None not in (b0, b1) else cache / 1e6 / len(sub)
-        filas.append((kb, seg, mb))
+        mb_cache = cache / 1e6 / len(sub)
+        mb_pc = (b1 - b0) / 1e6 / len(sub) if None not in (b0, b1) else None
+        filas.append((kb, directa, seg, mb_cache, mb_pc))
 
     print(f"\nTotal a descargar: {total_granulos:,} gránulos")
-    print(f"{'bloque':>8s} {'seg/gránulo':>12s} {'MB/gránulo':>11s} {'GB total':>9s} {'horas (1 proc.)':>16s} {f'horas ({procesos} proc.)':>16s}")
-    mejor = None
-    for kb, seg, mb in filas:
-        gb = total_granulos * mb / 1024
+    print(f"{'config':>14s} {'seg/gránulo':>12s} {'MB leídos':>10s} {'MB red PC':>10s} {'GB total':>9s} {'h (1 proc.)':>12s} {f'h ({procesos} proc.)':>12s}")
+    mejor, aviso = None, False
+    for kb, directa, seg, mb, mb_pc in filas:
+        gb = total_granulos * mb / 1024  # se proyecta con MB leídos (no se contamina con otro tráfico del PC)
         h1 = total_granulos * seg / 3600
         hp = max(h1 / procesos, (gb * 1024 * 8 / mbps / 3600) if mbps else 0)  # tope: el ancho de banda
-        print(f"{kb:>6d}KB {seg:12.2f} {mb:11.2f} {gb:9.1f} {h1:16.1f} {hp:16.1f}")
-        if mejor is None or hp < mejor[1]:
-            mejor = (kb, hp)
+        flag = " *" if mb_pc is not None and mb_pc > 3 * mb + 1 else ""
+        aviso = aviso or bool(flag)
+        etiqueta = f"{kb}KB{' directa' if directa else ''}"
+        print(f"{etiqueta:>14s} {seg:12.2f} {mb:10.2f} {'' if mb_pc is None else f'{mb_pc:.1f}':>10s}{flag:1s} {gb:9.1f} {h1:12.1f} {hp:12.1f}")
+        if mejor is None or hp < mejor[2]:
+            mejor = (kb, directa, hp)
     if mejor:
-        print(f"\nMejor bloque: {mejor[0]} KB  (usa --bloque-kb {mejor[0]}). Estimación: ~{mejor[1]:.1f} h con {procesos} procesos.")
-        if any(mb > 4 for _, _, mb in filas if _ == mejor[0]):
-            print("AVISO: baja más de 4 MB por gránulo; avísame antes de lanzar la descarga completa.")
-    print("(El tráfico se mide con todo el tráfico de tu PC; si usaste internet para otra cosa, sale inflado.)")
+        print(f"\nMejor: bloque {mejor[0]} KB{' + --url-directa' if mejor[1] else ''}. Estimación: ~{mejor[2]:.1f} h con {procesos} procesos "
+              f"(solo si NASA no te limita con tantos procesos en paralelo).")
+    if aviso:
+        print("* 'MB red PC' incluye todo el tráfico de tu PC y salió mucho mayor que lo leído: otra aplicación estaba usando internet.")
 
 
 # --------------------------------------------------------------------------- principal
@@ -227,6 +263,7 @@ def main():
     ap.add_argument("--solo", help="un solo mes, AAAA-MM (piloto)")
     ap.add_argument("--bloque-kb", type=int, default=BLOQUE_KB)
     ap.add_argument("--procesos", type=int, default=4)
+    ap.add_argument("--url-directa", action="store_true", help="resolver una vez la URL de almacenamiento por gránulo")
     ap.add_argument("--plan", action="store_true")
     ap.add_argument("--medir", action="store_true")
     a = ap.parse_args()
@@ -247,11 +284,11 @@ def main():
         return medir(a.producto, bbox, total, a.procesos)
 
     pool = ProcessPoolExecutor(a.procesos) if a.procesos > 1 else None
-    abrir = None if pool else crear_abridor(a.bloque_kb)
+    abrir = None if pool else crear_abridor(a.bloque_kb, a.url_directa)
     t0 = time.time()
     for k, (y, m) in enumerate(plan, 1):
         print(f"[{k}/{len(plan)}] {y}-{m:02d} ...", flush=True)
-        print("   ", procesar_mes(a.producto, y, m, bbox, a.bloque_kb, abrir, pool, a.procesos), flush=True)
+        print("   ", procesar_mes(a.producto, y, m, bbox, a.bloque_kb, abrir, pool, a.procesos, a.url_directa), flush=True)
     print(f"Terminado en {(time.time() - t0) / 3600:.1f} h. Resumen por mes: {CARPETA / a.producto / 'resumen.csv'}")
 
 
