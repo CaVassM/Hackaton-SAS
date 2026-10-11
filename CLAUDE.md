@@ -74,3 +74,13 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
 - Evaluación de riesgos, quebradas Carossio y Libertad: sigrid.cenepred.gob.pe/sigridv3/documento/1610
 - Faja marginal de la quebrada Santo Domingo (R.D. ANA): sigrid.cenepred.gob.pe/sigridv3/storage/biblioteca/19950_resolucion_directoral.pdf
 - FABDEM: data.bris.ac.uk/data/dataset/s5hqmjcdj8yo2ibzi9b4ew3sn (CC BY-NC-SA 4.0, citar)
+
+## Camino de la lluvia (en curso, oct 2026)
+- Scripts en `lluvia/`: `pesos_imerg.py` (-> `pesos_imerg.csv`), `imerg_utils.py`, `descargar_imerg.py` (prueba y `--inspect`),
+  `prueba_23mar2015.py` (Early vs Final vs PISCOp_h vs ERA5), `descargar_masivo.py` (dic 2014 – abr 2026, un .nc por mes en `lluvia/datos/early/`, no va a git).
+- Las 17 quebradas tocan solo **5 celdas** IMERG (0.1°): quebradas con las mismas celdas comparten la serie de lluvia (el modelo las distingue por terreno).
+- Recorte de descarga = polígonos + 0.1° (12 celdas). IMERG: tasa mm/h por media hora -> mm = valor x 0.5; hora etiquetada = inicio de la hora local (UTC-5).
+- **Lectura remota:** con el bloque por defecto de fsspec (5 MB) se baja el gránulo ENTERO (7.5 MB; ~650 GB en total). Con `block_size=64 KB, cache_type="blockcache"` baja ~5 % (medido con gránulos reales). No quitar esa configuración.
+- PISCOp_h: desfase de +7 h respecto a hora local (coherente con el ciclo diurno, no probado); su hora exacta es poco confiable (referencia gruesa). ERA5 sobrestima mucho: solo validación.
+- Prueba 23/03/2015: Early ve la lluvia ~1 h tarde (0 mm a las 15:00, 1.62 mm a las 16:00) y el huaico fue 15:10: con la latencia de 4 h, estos eventos no se anticipan con lluvia reciente.
+- Entorno Windows: el `dask` de `base` está dañado (`Invalid version: 'unknown'`): no usar `print(ds)` de xarray; si molesta, `python -m pip install --upgrade dask`.
