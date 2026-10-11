@@ -25,17 +25,18 @@ def centros_imerg(lon_min, lon_max, lat_min, lat_max):
     return lon, lat
 
 
-def calcular_pesos(gdf, lon_c, lat_c):
+def calcular_pesos(gdf, lon_c, lat_c, res=None):
     """Peso de cada celda en cada quebrada (los pesos de una quebrada suman 1).
 
     `gdf`: quebradas en EPSG:4326 con `quebrada_id`. `lon_c`, `lat_c`: centros de celda.
+    `res`: tamaño de celda en grados (si falta, se saca del espaciado de los centros; con 1 sola columna usa 0.1°).
     Las intersecciones se miden en UTM 18S (m²), no en grados.
     """
     import geopandas as gpd
     from shapely.geometry import box
 
-    dlon = abs(float(np.median(np.diff(lon_c)))) if len(lon_c) > 1 else RES_IMERG
-    dlat = abs(float(np.median(np.diff(lat_c)))) if len(lat_c) > 1 else RES_IMERG
+    dlon = res or (abs(float(np.median(np.diff(lon_c)))) if len(lon_c) > 1 else RES_IMERG)
+    dlat = res or (abs(float(np.median(np.diff(lat_c)))) if len(lat_c) > 1 else RES_IMERG)
     celdas = [
         dict(i_lat=i, i_lon=j, lat_centro=float(la), lon_centro=float(lo),
              geometry=box(lo - dlon / 2, la - dlat / 2, lo + dlon / 2, la + dlat / 2))

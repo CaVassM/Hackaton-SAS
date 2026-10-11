@@ -1,6 +1,6 @@
 """Prueba del 23/03/2015 (huaico de Quirio ~15:10 hora local).
 
-Compara la lluvia horaria de Quirio según IMERG Early, IMERG Final y PISCOp_h.
+Compara la lluvia horaria de Quirio según IMERG Early, IMERG Final, PISCOp_h y ERA5.
 Sirve solo para VALIDAR que Early se comporta como las otras fuentes; ninguna entra al modelo
 salvo Early. Todo en hora de Perú (UTC-5), etiqueta = inicio de la hora.
 
@@ -56,6 +56,23 @@ def leer_piscop(ruta, variable=None):
     return ds[variable].rename({lat: "lat", lon: "lon", tiempo: "time"}).transpose("time", "lat", "lon")
 
 
+def serie_era5(carpeta, anio=2015):
+    """ERA5 (CSV de 2 puntos, tp en metros por hora, `valid_time` UTC = FIN de la hora acumulada).
+
+    Se pasa a mm y a inicio de hora local: t - 1 h (inicio de la hora) - 5 h (UTC-5).
+    Los pesos se calculan con celdas de 0.25° centradas en los puntos del CSV.
+    """
+    e = pd.read_csv(Path(carpeta) / f"era5_lluvia_chosica_{anio}.csv", parse_dates=["valid_time"])
+    e["hora"] = e["valid_time"] - pd.Timedelta(hours=6)
+    da = (e.assign(mm=e["tp"] * 1000).pivot(index="hora", columns=["latitude", "longitude"], values="mm"))
+    lat = np.array(sorted({c[0] for c in da.columns})); lon = np.array(sorted({c[1] for c in da.columns}))
+    arr = xr.DataArray(np.array([[da[(la, lo)].values for lo in lon] for la in lat]).transpose(2, 0, 1),
+                       coords=dict(time=da.index.values, lat=lat, lon=lon), dims=("time", "lat", "lon"))
+    pesos = calcular_pesos(leer_quebradas().query("quebrada_id == @QUEBRADA"), lon, lat, res=0.25)
+    print("ERA5: pesos de Quirio ->", {f"{r.lat_centro}": round(r.peso, 2) for r in pesos.itertuples()})
+    return lluvia_por_quebrada(arr, pesos, tol=0.01)[QUEBRADA]
+
+
 def inspeccionar_piscop(ruta):
     ds = xr.open_dataset(ruta)
     print(ds)  # variables y dimensiones; no imprime arreglos completos
@@ -75,6 +92,8 @@ def serie_piscop(ruta, bbox, offset_h=None, referencia=None):
     pesos = calcular_pesos(leer_quebradas().query("quebrada_id == @QUEBRADA"), da.lon.values, da.lat.values)
     s = lluvia_por_quebrada(da.load(), pesos)[QUEBRADA].astype(float)
     if offset_h is None:
+        if referencia is None or s.index.intersection(referencia.dropna().index).size < 24:
+            raise SystemExit("Con menos de 24 h de traslape no se puede estimar el desfase: pasa --piscop-offset.")
         r = {h: s.shift(freq=pd.Timedelta(hours=h)).corr(referencia) for h in range(-12, 13)}
         offset_h = max(r, key=lambda h: -1 if np.isnan(r[h]) else r[h])
         print("Correlación PISCOp_h vs IMERG Final por desfase (h):",
@@ -86,7 +105,7 @@ def serie_piscop(ruta, bbox, offset_h=None, referencia=None):
 def graficar(tabla, salida):
     import matplotlib.pyplot as plt
 
-    estilos = {"IMERG Early": ("#2a78d6", "-"), "IMERG Final": ("#eb6834", "--"), "PISCOp_h": ("#1baf7a", ":")}
+    estilos = {"IMERG Early": ("#2a78d6", "-"), "IMERG Final": ("#eb6834", "--"), "PISCOp_h": ("#1baf7a", ":"), "ERA5": ("#e87ba4", "-.")}
     fig, ax = plt.subplots(figsize=(10, 4.8), facecolor="#fcfcfb")
     ax.set_facecolor("#fcfcfb")
     t = tabla.loc[VENTANA]
@@ -120,7 +139,7 @@ def resumen(tabla):
     })
     print(fila.to_string())
     print("\nCorrelación horaria (día 23):")
-    print(d.corr().round(2).to_string())
+    print(d.corr(min_periods=12).round(2).to_string())  # NaN = menos de 12 horas en común
 
 
 if __name__ == "__main__":
@@ -128,6 +147,7 @@ if __name__ == "__main__":
     ap.add_argument("--early")
     ap.add_argument("--final-dir")
     ap.add_argument("--piscop")
+    ap.add_argument("--era5-dir", help="carpeta con era5_lluvia_chosica_AAAA.csv (solo validación)")
     ap.add_argument("--piscop-offset", type=int, help="desfase en horas; si falta, se estima")
     ap.add_argument("--inspect-piscop", metavar="RUTA", help="solo mostrar la estructura del NetCDF de PISCOp_h")
     ap.add_argument("--pesos", default=str(AQUI / "pesos_imerg.csv"))
@@ -147,6 +167,8 @@ if __name__ == "__main__":
     if a.piscop:
         ref = series.get("IMERG Final", series.get("IMERG Early"))
         series["PISCOp_h"], _ = serie_piscop(a.piscop, bbox, a.piscop_offset, ref)
+    if a.era5_dir:
+        series["ERA5"] = serie_era5(a.era5_dir)
     if not series:
         raise SystemExit("Pasa al menos --early, --final-dir o --piscop.")
     tabla = pd.DataFrame(series)
