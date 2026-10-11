@@ -52,7 +52,11 @@ def inspeccionar(producto, inicio, bbox):
     f = earthaccess.open(res[:1])[0]
     print("Enlace:", res[0].data_links()[0])
     ds = xr.open_dataset(f, group="Grid", engine="h5netcdf", decode_times=False)
-    print(ds)
+    # print(ds) falla si el `dask` del entorno está dañado; se imprime a mano
+    print("Dimensiones:", dict(ds.sizes))
+    for nombre, v in ds.variables.items():
+        print(f"  {nombre}: dims={v.dims} shape={v.shape} units={v.attrs.get('units')}")
+    print("lon:", float(ds.lon[0]), "->", float(ds.lon[-1]), "| lat:", float(ds.lat[0]), "->", float(ds.lat[-1]))
     for v in ("precipitation", "precipitationCal"):
         if v in ds:
             print(v, "->", ds[v].dims, ds[v].attrs.get("units"), ds[v].attrs.get("_FillValue"))
