@@ -22,10 +22,20 @@ PRODUCTOS = {"early": "GPM_3IMERGHHE", "final": "GPM_3IMERGHH"}  # IMERG V07
 CARPETA = Path(__file__).resolve().parent / "datos"
 
 
+def _login(earthaccess):
+    """Primero .netrc (en Windows se llama `_netrc` y va en C:\\Users\\<usuario>); si no, pide usuario y clave una vez."""
+    try:
+        if earthaccess.login(strategy="netrc").authenticated:
+            return
+    except Exception:
+        pass
+    earthaccess.login(strategy="interactive", persist=True)  # guarda las credenciales para la próxima
+
+
 def buscar(producto, inicio, fin, bbox):
     import earthaccess
 
-    earthaccess.login(strategy="netrc")
+    _login(earthaccess)
     t0 = pd.Timestamp(inicio).strftime("%Y-%m-%dT00:00:00")
     t1 = pd.Timestamp(fin).strftime("%Y-%m-%dT23:59:59")
     return earthaccess.search_data(short_name=PRODUCTOS[producto], version="07",
