@@ -26,12 +26,8 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 from comun import SALIDA
+from metricas import N_LISTA, N_PROPUESTO, episodios_falsos, metricas_por_temporada, resumen_y_sensibilidad
 from tabla3 import FEATURES_TERRENO, FEATURES_V1, HORIZONTES, RUTA, bloques
-
-N_PROPUESTO = 100
-N_LISTA = (50, 100, 200, 500)
-GAP_EPISODIO_H = 6
-
 
 VARIANTES = {  # fijadas de antemano, sin ajustarlas con los resultados de la validación
     "base": dict(prefijo="baseline", C=1.0, log=False),
@@ -42,16 +38,6 @@ VARS_LLUVIA = [f for f in FEATURES_V1 if f not in FEATURES_TERRENO]
 
 def modelo(C=1.0):
     return make_pipeline(SimpleImputer(strategy="median"), StandardScaler(), LogisticRegression(class_weight="balanced", C=C, max_iter=2000))
-
-
-def episodios_falsos(ev, alerta):
-    """(episodios de alerta sin ningún y=1, horas de alerta con y=0)."""
-    a = ev.loc[alerta, ["quebrada_id", "hora", "y"]].sort_values(["quebrada_id", "hora"])
-    if a.empty:
-        return 0, 0
-    dif = a.groupby("quebrada_id").hora.diff()
-    a["ep"] = (dif.isna() | (dif > pd.Timedelta(hours=GAP_EPISODIO_H))).cumsum()
-    return int((a.groupby("ep").y.max() == 0).sum()), int((a.y == 0).sum())
 
 
 def evaluar(t, H, C=1.0):
@@ -66,23 +52,7 @@ def evaluar(t, H, C=1.0):
         coefs[s] = m[-1].coef_[0]
     ev = d[d.temporada.isin(con_evento)].copy()
     ev["p"] = p[ev.index]
-    b = bloques(ev)  # índice conservado: sirve para cruzar con las alertas
-    filas_t, filas_n = [], []
-    for s in con_evento:
-        e = ev[ev.temporada == s]
-        bs = b[b.temporada == s]
-        ap_s = average_precision_score(e.y, e.p)
-        for N in N_LISTA:
-            umbral = np.quantile(e.p, 1 - 1 / N)
-            alerta = e.p >= umbral
-            det = bs.assign(al=alerta.loc[bs.index]).groupby("bloque").al.max()
-            largo = bs.groupby("bloque").size()
-            aleatorio = float((1 - (1 - 1 / N) ** largo).mean())
-            ep, horas = episodios_falsos(e, alerta)
-            filas_n.append(dict(H=H, temporada=s, N=N, bloques=len(det), detectados=int(det.sum()), aleatorio_esperado=aleatorio * len(det),
-                                alertas_horas=int(alerta.sum()), falsas_horas=horas, falsos_episodios=ep, AUPRC=ap_s, base=e.y.mean()))
-    n = pd.DataFrame(filas_n)
-    pr = (ev.y.to_numpy(), ev.p.to_numpy())
+    n, pr = metricas_por_temporada(ev, con_evento, H)
     return dict(H=H, ev=ev, n=n, pr=pr, coefs=pd.DataFrame(coefs, index=FEATURES_V1), con_evento=con_evento)
 
 
@@ -98,21 +68,7 @@ def main(variante="base"):
 
     sens = pd.concat([r["n"] for r in res.values()], ignore_index=True)
     sens.to_csv(SALIDA / f"{pref}_por_temporada.csv", index=False)
-    resumen, sens_N = [], []
-    for H, r in res.items():
-        y, p = r["pr"]
-        auprc, base = average_precision_score(y, p), y.mean()
-        macro = r["n"].drop_duplicates("temporada").AUPRC.mean()
-        for N, g in r["n"].groupby("N"):
-            fila = dict(H=H, N=N, temporadas=g.temporada.nunique(), bloques=int(g.bloques.sum()), detectados=int(g.detectados.sum()),
-                        pct_detectados=round(100 * g.detectados.sum() / g.bloques.sum(), 1), pct_aleatorio=round(100 * g.aleatorio_esperado.sum() / g.bloques.sum(), 1),
-                        falsos_episodios_por_temporada=round(g.falsos_episodios.mean(), 1), falsas_horas_por_temporada=round(g.falsas_horas.mean()))
-            sens_N.append(fila)
-            if N == N_PROPUESTO:
-                resumen.append(dict(H=H, temporadas_evaluadas=len(r["con_evento"]), filas_evaluadas=len(y), positivos=int(y.sum()), AUPRC=round(auprc, 4),
-                                    base=round(base, 4), veces_la_base=round(auprc / base, 1), AUPRC_media_por_temporada=round(macro, 4),
-                                    **{k: fila[k] for k in ("bloques", "detectados", "pct_detectados", "pct_aleatorio", "falsos_episodios_por_temporada", "falsas_horas_por_temporada")}))
-    resumen, sens_N = pd.DataFrame(resumen), pd.DataFrame(sens_N)
+    resumen, sens_N = resumen_y_sensibilidad(res)
     resumen.to_csv(SALIDA / f"{pref}_resumen_por_H.csv", index=False)
     sens_N.to_csv(SALIDA / f"{pref}_sensibilidad_N.csv", index=False)
     pd.set_option("display.width", 220)

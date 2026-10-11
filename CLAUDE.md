@@ -92,3 +92,10 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
 - `modelo/tabla3.py` -> `modelo/tabla3_modelo.parquet` (no va a git): 2 882 561 filas; positivos H3/6/12/24 = 160/316/619/1219; 6 de 12 temporadas con eventos (2014-15 aporta 22 de 51 bloques de H=6).
 - `modelo/auditoria.py`: 12 chequeos independientes (pesos, unidades y huso, features contra sumas directas, convención de etiquetas contra el catálogo, integridad de la tabla). Correr tras cualquier cambio en lluvia/ o modelo/.
 - Aviso de diseño: log10(area) y pendiente identifican la quebrada (hay 17); con validación por temporada el modelo puede aprender la frecuencia histórica de cada quebrada. Es un a priori legítimo, no un conteo explícito, pero hay que tenerlo presente al interpretar.
+- Resultados LOSO (6 temporadas con eventos; alertas 1 cada 100 h por quebrada; bloques detectados H=3/6/12/24 de 53/51/50/50): logística 2/2/4/5; logística+log1p (C=0.1) 3/3/4/10;
+  XGBoost (H como columna, monótono en H) 2/2/3/4; Random Forest 1/3/3/5; `lluvia_efectiva` cruda sin modelo 4/4/4/7. Al azar se esperarían ~3/6/12/22 (optimista: las alertas reales se agrupan en tormentas).
+  Ningún modelo supera con claridad al azar; con 2-10 bloques detectados las diferencias entre modelos son ruido. Hiperparámetros fijados de antemano, sin ajustar.
+- AVISO DE METODOLOGÍA: `lluvia_efectiva` cruda tuvo AUPRC medio por temporada 3-6 veces mayor que cualquier modelo entrenado (0.006/0.014/0.021/0.027 vs 0.001-0.017). Era una de 4 referencias elegidas de antemano,
+  pero es la mejor mirando los resultados: NO se puede declarar "la mejor variable" ni construir un modelo sobre ella sin validarla en datos nuevos o con selección DENTRO de cada pliegue (regla: no elegir variables mirando eventos).
+  Los modelos entrenados (13 variables, ~15 fechas con huaico) probablemente sobreajustan; el límite de los datos y el sobreajuste no se pueden separar con la evidencia actual.
+- `modelo/metricas.py` (métricas comunes), `modelo/baseline_logistica.py [base|log1p]`, `modelo/arboles.py xgb|rf`, `modelo/referencias_simples.py`, `modelo/comparar_modelos.py` (tabla y figura finales).
