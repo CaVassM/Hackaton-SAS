@@ -1,0 +1,14 @@
+Verificación de acceso tras la actualización de dominios permitidos (12/10/2026, ~03:30 UTC). Sin descargas reales; sin pruebas sintéticas nuevas.
+
+curl --proxy del entorno (HTTPS_PROXY=http://127.0.0.1:38885):
+  https://persiann.eng.uci.edu/CHRSdata/PERSIANN-CCS/hrly/            -> CONNECT persiann.eng.uci.edu:443 -> "HTTP/1.1 403 Forbidden" (text/plain); curl: (56) CONNECT tunnel failed, response 403
+  https://persiann.eng.uci.edu/CHRSdata/PERSIANN-CCS/hrly/readme.hrly -> igual
+  https://chrsdata.eng.uci.edu/                                       -> igual (403 al CONNECT)
+  https://www.senamhi.gob.pe/                                         -> igual (403 al CONNECT)
+  https://uci.edu/ y https://eng.uci.edu/                             -> igual (403 al CONNECT)
+  http://persiann.eng.uci.edu/... (puerto 80)                         -> sin respuesta (000)
+  https://pypi.org/ (control)                                         -> 200
+Estado del proxy: recentRelayFailures = "gateway answered 403 to CONNECT (policy denial or upstream failure)" para persiann.eng.uci.edu:443 y chrsdata.eng.uci.edu:443.
+Observación: el puerto del proxy cambió de 37187 a 38885 entre sesiones (el proxy se reinició) y la política sigue denegando.
+Herramienta WebFetch (infraestructura aparte, sin esa lista): getaddrinfo ENOTFOUND persiann.eng.uci.edu.
+Conclusión: la lista de dominios permitidos que se editó NO está aplicada en este contenedor.
