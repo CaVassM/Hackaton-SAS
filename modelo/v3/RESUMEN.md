@@ -150,3 +150,18 @@ Donantes por fuente (corte principal): INDECI 96 (Lima Provincias 75, Arequipa 1
    (no mejoran; catálogo sin hora y con precisión de distrito).
 4. Lo que más podría cambiar el resultado sigue siendo la LLUVIA LOCAL: pluviómetros de SENAMHI/ISAAC (solicitud pendiente) para calibrar el umbral
    I-D con el dato correcto, y CAPE/K/TT del CDS para probar el ambiente convectivo.
+
+## Verificaciones de B1(a) antes de congelar (`B/verificacion_b1.py` -> `verificacion_b1.csv`, `anticipacion_b1.csv`)
+| Verificación | Positivos | TSS (IC 90 %) | POD (IC 90 %) | POFD |
+|---|---|---|---|---|
+| B1(a) completo (referencia) | 13 | 0.49 (0.15, 0.70) | 0.69 (0.33, 0.89) | 0.20 |
+| a) SIN "días desde la última activación" (semillas 0/1/2) | 13 | 0.34 / 0.34 / 0.35 (≈0.00-0.01, 0.54) | 0.69 | 0.35 |
+| b) solo PRIMEROS huaicos (sin activación en los 7 días previos; 5 excluidos) | 8 | 0.30 (0.04, 0.56) | 0.50 (0.25, 0.75) | 0.20 |
+| c) persistencia trivial (activación en 2 días previos Y lluvia > mediana) | 13 | 0.07 (−0.01, 0.19) | 0.08 | 0.01 |
+- B1 le gana con claridad a la persistencia trivial. Sin la variable de rachas el TSS baja a ~0.34 y el IC queda en el límite de 0 (LIMITACIÓN: la
+  variable de rachas aporta ~0.15 de TSS bajando las falsas alarmas de 0.35 a 0.20). En primeros huaicos baja a 0.30 pero el IC sigue > 0.
+- **Anticipación (9 aciertos)**, primera alerta del evento (latencia de 4 h incluida) hasta el huaico: contra el INICIO del rango del huaico mediana **2 h**
+  (rango −4 a 29.5 h; >= 1 h: 6/9, >= 3 h: 3/9, >= 6 h: 1/9); contra el FIN del rango mediana 3 h (>= 1 h: 8/9, >= 3 h: 5/9, >= 6 h: 2/9).
+  La racha continua de alerta empieza mucho antes (mediana 72 h): el estado mantiene la zona en alerta varios días (muchas horas de alerta).
+- **Horizonte honesto para el dashboard: H = 3 h** ("riesgo en las próximas horas"); H = 6 solo como contexto; H = 12/24 = "condición de la zona"
+  (estado), NO como anticipación de un huaico concreto.
