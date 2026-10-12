@@ -9,3 +9,4 @@ modelo/mejoras/**/*.parquet
 modelo/etiquetas_v2/*.parquet
 modelo/v3/datos/raw/
 modelo/v3/**/*.parquet
+modelo/v3_1/**/*.parquet
