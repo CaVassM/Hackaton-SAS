@@ -42,7 +42,7 @@ const gap = () => new Paragraph({ spacing: { after: 60 }, children: [] });
 // ---------- contenido
 const c = [];
 c.push(H1('Diccionario de datos — Modelo de alerta de huaicos (Chosica)'));
-c.push(P('Oct 11, 2026 · @Camilo · versión 2 (actualizada; la primera es del 5 de octubre)'));
+c.push(P('Oct 12, 2026 · @Camilo · versión 2 (actualizada; la primera es del 5 de octubre)'));
 
 c.push(H2('De qué va esto'));
 c.push(P('El modelo responde una sola pregunta: **¿habrá huaico en esta quebrada en las próximas H horas?** Devuelve una probabilidad por quebrada, por hora y por horizonte (3, 6, 12 o 24 h). El riesgo y la exposición los calcula otra parte del equipo; aquí solo predecimos el peligro.'));
@@ -129,6 +129,8 @@ c.push(table([1500, 7860], ['Valor de y', 'Qué significa'], [
   ['vacío (NaN)', 'La hora no se usa: evento sin hora clara, sin nombre o sin ubicar (ese día queda vacío en las 17 quebradas), o la regla del paso 9.2 (abajo).'],
 ]));
 c.push(gap());
+c.push(P('**Ejemplo real: Quirio, 23/03/2015, huaico a las 15:10, H = 6.** La fila de la hora *t* mira la ventana (t, t + 6 h]. Las filas de las 10:00 a las 15:00 incluyen las 15:10, así que valen 1 (6 filas). Las filas de las 16:00 en adelante quedan vacías porque el huaico ya pasó. Con H = 3 son 3 filas con y = 1 (13:00 a 15:00) y con H = 24 son 24 (desde las 16:00 del día anterior). Ese día además hubo otros eventos sin quebrada ubicada, por eso las filas de las 07:00 a las 09:00 también salen vacías.'));
+c.push(P('**El target se arma hora por hora, no por bloques.** Las filas con y = 1 de un mismo huaico quedan seguidas y forman un *bloque* de H horas; el modelo nunca ve el bloque, solo filas sueltas. El bloque se usa después para medir: un huaico cuenta como *detectado* si hubo al menos una alerta dentro de su bloque.'));
 c.push(P('**Regla del paso 9.2.** Hay 10 fechas con huaico en el catálogo pero **ninguno en las 17 quebradas** (solo en Chaclacayo, Santa Eulalia, Huaycoloro…): 2015-02-20, 2017-01-15, 2017-01-21, 2017-02-01, 2020-01-29, 2021-03-07, 2023-02-17, 2023-03-15, 2023-03-17 y 2024-02-08. Esos días llovió fuerte a pocos kilómetros y sobre las mismas celdas de IMERG, así que un `y = 0` en las 17 quebradas sería dudoso. Al armar la tabla 3 los `y = 0` cuya ventana toca uno de esos días pasan a vacío; los `y = 1` se conservan. No se tocan los archivos de etiquetas originales (`comun.py`, función `poner_nan_dias_fuera_del_piloto`).'));
 c.push(table([2340, 3510, 3510], ["Horizonte H", "Horas con y = 1", "Bloques de huaico"], [["3 h", "160", "53"], ["6 h", "316", "51"], ["12 h", "619", "50"], ["24 h", "1 219", "50"]]));
 c.push(gap());
@@ -196,7 +198,7 @@ c.push(table([1300, 1750, 2150, 2760, 1400], ['Grupo', 'Columna', 'Qué es, en s
   ['Contraste (C)', 'tendencia_24h, frac_24h_en_7d, lluvia_24h_sobre_api', 'Si el último día fue mucho o poco comparado con lo anterior', 'Lluvia 24 h menos la de las 24 h previas; lluvia 24 h ÷ (lluvia 7 d + 1); lluvia 24 h ÷ (lluvia efectiva + 1)', 'No (sin efecto claro)'],
 ]));
 c.push(gap());
-c.push(P('**Qué dijo la evidencia (pasos 5 y 6, hecha antes del cambio de etiquetas del paso 9.2, que se está re-corriendo):** el grupo regional ayudó (de ~3.4 a ~6.1 de *lift*, confirmado con 3 semillas y 3 tipos de modelo); la humedad previa perjudicó (el modelo se apoya en ella pero no generaliza entre temporadas); las demás no mostraron efecto claro. Ojo: el grupo regional se identificó mirando las mismas 6 temporadas de prueba; falta validarlo con una temporada nueva.'));
+c.push(P('**Qué dijo la evidencia (pasos 5 y 6, con las etiquetas anteriores al paso 9.2):** el grupo regional ayudó (de ~3.4 a ~6.1 de *lift*, confirmado con 3 semillas y 3 tipos de modelo); la humedad previa perjudicó (el modelo se apoya en ella pero no generaliza entre temporadas); las demás no mostraron efecto claro. Con las etiquetas corregidas solo se repitió el modelo final: agregar el grupo regional a las variables originales sigue sumando (lift 8.9 → 10.9) y lo que más pesa son las restricciones físicas (lift 19.6). Las ablaciones por grupo no se han repetido todavía. Ojo: el grupo regional se identificó mirando las mismas 6 temporadas de prueba; falta validarlo con una temporada nueva.'));
 c.push(P('El contexto se saca de la propia lluvia a propósito: el mes del año o el índice ONI no entran en el modelo base, porque la lluvia ya cuenta si es temporada fuerte. El índice de El Niño costero (ICEN) queda como experimento.'));
 
 // ---- Tabla 3
@@ -310,7 +312,8 @@ for (const [t, d] of [
   ['Descargar IMERG Early 2014–2026 para la zona', true],
   ['Generar etiquetas para 3, 6, 12 y 24 h', true],
   ['Filtrar a diciembre–abril', true],
-  ['Re-correr el modelo con las etiquetas corregidas del paso 9.2 (en curso)', false],
+  ['Re-correr el modelo restringido con las etiquetas corregidas del paso 9.2 (versión rápida)', true],
+  ['Re-correr la cadena completa con las etiquetas corregidas: ablaciones de ingeniería, logística y Random Forest, techo sin latencia (~2 h)', false],
   ['Pedir a INDECI/COEN el registro de emergencias con fecha y revisar los 44 días de lluvia extrema sin evento; cruzar con los 14 eventos de SINPAD', false],
   ['Buscar eventos de 2016, 2018, 2021, 2022, 2024 y 2025 (probable vacío de búsqueda)', false],
   ['Conseguir datos horarios de pluviómetros de SENAMHI en la cuenca del Rímac; confirmar si la estación HID EHMA de Chosica tiene datos horarios desde 2021', false],
