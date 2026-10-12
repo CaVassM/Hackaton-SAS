@@ -191,3 +191,16 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
   R3b HECHO: descarga ampliada terminada (4.8 h, 60 meses, 8 x 10 celdas, 0 fallos); `verificar_ampliado.py`: las 12 celdas originales IDÉNTICAS (1 045 440 valores, dif. 0).
   Cuenca alta = 48 celdas (lon >= -76.55), máx de 3/6/12 h. Bloques de 204 (LOSTO) fijo / entrenamiento (veces azar): B 11.7 / 33.0 (2.2x / 2.4x); AB 9.0 / 29.3 (1.4x / 2.5x) vs V0 13.7 / 33.3 (2.5x / 2.4x). LOSO igual. NO mejora; 2024-25 sigue con ~60-70 % de las horas de alerta.
   CONCLUSIÓN R0-R3: ninguna mejora supera a V0 (pieza 1 de R1) con umbral sin información de la prueba. Modelo a congelar: dos piezas V0 + P2 mezcla. La palanca pendiente es la HORA de los eventos (R2) y el catálogo, no más variables de lluvia.
+- Paso 13 = ETIQUETAS v2 (horas vagas B como rango). Commit previo e676497. `catalogo_huaicos_chosica/horas_B_v2.csv` (27 eventos B que generan positivos: id, texto, rango v1 y v2, decisión, url, cita) y
+  `etiquetas_v2.py` -> `etiquetas_horarias_v2_H{3,6,12,24}.parquet` (v1 intactas; el script reproduce v1 bit a bit). Regla v2: y=1 si (t, t+H] contiene TODO el rango; NaN si lo toca parcialmente (y hasta 24 h después); 0 si no lo toca.
+  Rangos: hora concreta de la fuente se mantiene; vaga -> mañana 06-11:59 / tarde 12-18:59 / noche 19-23:59 / primeras horas 00-05:59, cortado en la hora de PUBLICACIÓN de la fuente; "reporte/alerta a las X" -> [X-1 h, X].
+  Fuentes releídas: ninguna dio hora más precisa; 17 de 27 cambian de rango (sobre todo por cortes en la publicación). Perú21 (EV026) 403. Prohibido usar MERGIR/IMERG para decidir horas (no se usó).
+  Bloques v1 -> v2 (H=3/6/12/24): 53/51/50/50 -> 41/43/50/50 (rangos vagos no caben en ventanas cortas -> NaN). Ceguera H=6: 32/51 -> 24/43 (los 8 bloques perdidos eran todos ciegos).
+  `modelo/etiquetas_v2/correr.py` (mismo código para v1 y v2; v1 reproduce las cifras previas): detectados N=100 sumando los 4 H (% de bloques; veces el azar con el mismo reparto):
+    UMBRAL FIJO: actual v1 18 (8.8 %, 7.8x) -> v2 26 (14.1 %, 6.6x); dos piezas LOSTO 13.7 (6.7 %, 2.5x) -> 17.0 (9.2 %, 2.9x); LOSO 15.7 -> 15.3 (8.3 %, 2.8x). En H=12/24 (mismos bloques): actual 5/5 -> 7/7; dos piezas LOSTO 4/4 -> 4/4.
+    UMBRAL DE ENTRENAMIENTO (ojo, volumen != 1/100: actual 1.7-2.1x, dos piezas 1.2-1.5x): actual 28 -> 32 (17.4 %, 2.6x); dos piezas LOSTO 33.3 -> 31.3 (17.0 %, 3.0x).
+    POR TEMPORADA (secundario): actual 39 -> 30; dos piezas LOSTO 47.7 -> 46.0 (25 %).
+  CON UMBRAL FIJO EL MODELO ACTUAL (por quebrada) SUPERA A DOS PIEZAS en v1 y v2. 2024-25 sigue con 73-83 % de las filas de alerta (fijo, H=6) y 58-69 % (entrenamiento).
+  Paso 3, avisos Senamhi (`modelo/etiquetas_v2/avisos.py`, `avisos_senamhi_2021_2026.csv`): el listado público de senamhi.gob.pe solo tiene 2021-2026 (2 080 avisos; nada de 2015-2020) y NO dice departamentos (están en el mapa de la ficha).
+  Proxy "lluvia en la sierra (no solo norte/sur)": cubre el 64 % de las horas dic-abr y solo la mitad de los bloques (30 de 58 en 2022-23/2025-26): no discrimina. Ranking V0+P2 dentro de días con aviso: 5-8 de 58 bloques (azar 1-2), números demasiado chicos.
+  Para un encuadre operativo real hace falta el aviso por departamento/provincia (Lima, Huarochirí) o los avisos de corto plazo del COEN: pedirlos a Senamhi/INDECI.
