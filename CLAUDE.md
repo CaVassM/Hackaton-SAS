@@ -204,3 +204,12 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
   Paso 3, avisos Senamhi (`modelo/etiquetas_v2/avisos.py`, `avisos_senamhi_2021_2026.csv`): el listado público de senamhi.gob.pe solo tiene 2021-2026 (2 080 avisos; nada de 2015-2020) y NO dice departamentos (están en el mapa de la ficha).
   Proxy "lluvia en la sierra (no solo norte/sur)": cubre el 64 % de las horas dic-abr y solo la mitad de los bloques (30 de 58 en 2022-23/2025-26): no discrimina. Ranking V0+P2 dentro de días con aviso: 5-8 de 58 bloques (azar 1-2), números demasiado chicos.
   Para un encuadre operativo real hace falta el aviso por departamento/provincia (Lima, Huarochirí) o los avisos de corto plazo del COEN: pedirlos a Senamhi/INDECI.
+- Paso 14 = v3 (enfoque por EVENTO, estado, multizona). TODO en `modelo/v3/` y resumido en `modelo/v3/RESUMEN.md` (tabla final en `modelo/v3/tabla_final.csv`).
+  Commit previo b3ad964. NO se congeló el modelo (decisión del usuario). Métrica: TSS por evento de lluvia IMERG (>= 6 h secas; disparador = huaico durante o
+  hasta 3 h después), umbral = máx. TSS en entrenamiento, LOSO, IC 90 % por bootstrap de tormentas; en disparadores solo cuenta lo ANTERIOR al huaico.
+  Resultados: ISAAC (1.57 D^-0.047) sobre IMERG TSS -0.13 (peor que azar); modelo actual 0.15; dos piezas 0.13; A2 solo intensidad 0.01; A2 + 24-72 h 0.23;
+  **B1 = A2 + estado (humedad ERA5-Land 5 d, días desde la última activación, ICEN publicado) 0.49 (0.15-0.70)**, estable entre semillas y sin depender de
+  2017/2023; a nivel día 0.69 (0.53-0.81). ERA5 pasado no suma; techo de pronóstico perfecto 0.51. Modelo diario multizona (IMERG diario + donantes INDECI
+  por similitud Mahalanobis/MESS): los donantes no mejoran (0.32-0.48 vs solo Chosica 0.44).
+  Datos nuevos (no van a git): `modelo/v3/datos/raw/` (IMERG Early DIARIO 2001-2026 lat -30..-8 lon -81..-67; Open-Meteo ERA5/ERA5-Land; ICEN; catálogos).
+  Pendiente del usuario: `.cdsapirc` (CAPE/K/TT) y Earth Engine (AlphaEarth, Sentinel-2). SERNAGEOMIN/Zenodo no responden desde esta red.

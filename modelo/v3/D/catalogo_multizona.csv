@@ -1,0 +1,1004 @@
+fuente,url,fecha,hora,lat,lon,precision_km,tipo,pais,region,distrito,texto
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/244,1977-03-11,,-5.995242999999999,-77.96493174,1.0,None,Perú,AMAZONAS,CHURUJA,"F_EVENTO: Anexo Donce | Puede afectar a las áreas agrícolas, 10 viviendas y la carretera de acceso a la ciudad de Chachapoyas. Según Velazco (2004), en la margen derecha de la quebrada Ushpachaca ocurrió un evento de movimiento en masa (marzo 1977) que destruyó 10 viviendas, fallecieron 7 personas y afectó la carretera y terrenos de cultivo. | Torrentera por donde discurren flujos de detritos (huaicos) excepcionales. Sus nacientes se encuentran en el cerro Tioranta, se observa material suelto en"
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/244,1993-04-02,,-6.37939465,-77.90559768,1.0,None,Perú,AMAZONAS,TINGO,"F_EVENTO: Tingo | Según el diario El Comercio del día 2 de abril de 1993, la inundación de detritos destruyó 480 viviendas. Las familias fueron reubicadas | El área es susceptible a la ocurrencia de flujo de detritos e inundación fluvial. La población de Tingo Viejo está asentada sobre depósitos dejados por flujo de detritos excepcionales en la intersección de los ríos Tingo y Utcubamba"
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4972,1998-01-20,,-15.57592957,-72.12884481,1.0,None,Perú,Arequipa,Choco,"F_EVENTO: Zona urbana Choco | El factor detonante fue la lluvia excepcional que cayó en la microcuenca de la quebrada. En días anteriores se presentaron lluvias prolongadas que humedecieron y saturaron las laderas. | El 22 de enero del 2024 se generó un huaico, que al descender por su cauce afectó a la zona urbana de Choco. El volumen del flujo fue de 2.5 millones de metros cúbicos, este al descender por el cauce del río Challa, arrasó todo lo que encontró a su paso. El factor detonante fue la l"
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/244,1998-05-02,,-5.97183477,-77.94508428,1.0,None,Perú,AMAZONAS,SAN CARLOS,"F_EVENTO: San Carlos | En 1998 afectó 60 familias, destruyó 59 viviendas y 50 ha de cultivo. | Ciudad afectada por deslizamiento rotacional en mayo de 1998. Las causas fueron: filtraciones de agua, fuertes precipitaciones pluviales, comportamiento expansivo de suelos arcillosos. "
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-01-07,,-11.438053213367768,-76.66574811460468,5.8,huayco,Perú,LIMA PROVINCIAS,SAN BUENAVENTURA,SINPAD 65 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-01-20,,-13.017645310982065,-76.11693357455601,12.6,huayco,Perú,LIMA PROVINCIAS,LUNAHUANA,SINPAD 77 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-01-22,,-13.017645310982065,-76.11693357455601,12.6,huayco,Perú,LIMA PROVINCIAS,LUNAHUANA,SINPAD 4685 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-02-17,,-12.51027967146615,-75.70361302715759,13.0,huayco,Perú,LIMA PROVINCIAS,HUANTAN,SINPAD 288 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-03-05,,-11.474259379565146,-76.58440038789684,6.6,huayco,Perú,LIMA PROVINCIAS,CANTA,SINPAD 400 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-03-08,,-11.817430850428225,-76.38011442576848,7.5,huayco,Perú,LIMA PROVINCIAS,MATUCANA,SINPAD 444 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-03-08,,-12.104937223632579,-76.11566285424553,12.0,huayco,Perú,LIMA PROVINCIAS,SAN LORENZO DE QUINTI,SINPAD 445 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2003-03-08,,-11.819769001047243,-76.21797525517407,11.7,huayco,Perú,LIMA PROVINCIAS,SAN MATEO,SINPAD 443 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2004-01-06,,-13.076940601413886,-75.72726402883774,8.3,huayco,Perú,ICA,SAN PEDRO DE HUACARPANA,SINPAD 3351 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2004-02-03,,-17.50243947526041,-69.96206377769178,5.9,huayco,Perú,TACNA,TARUCACHI,SINPAD 4039 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2004-02-11,,-10.774476491184886,-76.9275327256339,7.0,huayco,Perú,LIMA PROVINCIAS,ANDAJES,SINPAD 4283 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2004-02-15,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 4235 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2004-03-10,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 4655 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2004-04-11,,-12.894395643901861,-76.07377818524635,8.5,huayco,Perú,LIMA PROVINCIAS,PACARAN,SINPAD 5197 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2004-04-15,,-13.11877973287436,-75.94281517467842,11.8,huayco,Perú,ICA,CHAVIN,SINPAD 8332 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2005-01-10,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 8347 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2005-01-13,,-15.671349529127165,-72.62026092342177,9.1,huayco,Perú,AREQUIPA,PAMPACOLCA,SINPAD 8513 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2005-01-28,,-16.045386318741855,-72.72102823728997,19.6,huayco,Perú,AREQUIPA,CHUQUIBAMBA,SINPAD 9095 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2005-02-19,,-13.879322326949065,-75.61427718560465,10.5,huayco,Perú,ICA,SAN JOSE DE LOS MOLINOS,SINPAD 9092 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-01-30,,-11.641249724575289,-76.67531367078519,6.5,huayco,Perú,LIMA PROVINCIAS,ARAHUAY,SINPAD 14130 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-04,,-13.879322326949065,-75.61427718560465,10.5,huayco,Perú,ICA,SAN JOSE DE LOS MOLINOS,SINPAD 14227 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-04,,-10.715857593576342,-77.68477810652713,7.0,huayco,Perú,LIMA PROVINCIAS,BARRANCA,SINPAD 14133 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-04,,-11.815385405374535,-76.77360831909373,13.8,huayco,Perú,LIMA PROVINCIAS,SAN ANTONIO,SINPAD 14132 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-04,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 15153 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-05,,-12.864337928050144,-76.34561874954103,12.2,huayco,Perú,LIMA PROVINCIAS,QUILMANA,SINPAD 14492 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-06,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 15673 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-09,,-16.267897491651357,-72.06525333995434,7.7,huayco,Perú,AREQUIPA,SANTA ISABEL DE SIGUAS,SINPAD 18916 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-10,,-16.045386318741855,-72.72102823728997,19.6,huayco,Perú,AREQUIPA,CHUQUIBAMBA,SINPAD 18959 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-02-14,,-16.455755223901686,-70.57311442400436,16.5,huayco,Perú,MOQUEGUA,CHOJATA,SINPAD 15802 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-03-18,,-11.048639270984314,-76.91688328732877,9.6,huayco,Perú,LIMA PROVINCIAS,LEONCIO PRADO,SINPAD 16239 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-04-09,,-11.048639270984314,-76.91688328732877,9.6,huayco,Perú,LIMA PROVINCIAS,LEONCIO PRADO,SINPAD 16240 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2006-04-17,,-11.145641037664541,-76.56709220822636,8.1,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE ANDAMARCA,SINPAD 15549 | HUARAL
+NASA GLC (COOLR),http://my.opera.com/bibberle/blog/index.dml/tag/Landslide,2007-01-03,,-10.3838,-75.4267,,complex | rain,Perú,Pasco,Huancabamba,"Alto Mesapata, in the Pasco province | excess water caused part of a mountain to collapse onto the settlement"
+NASA GLC (COOLR),https://www.cbsnews.com/news/dozens-missing-after-peru-landslides/,2007-01-19,,-11.1295,-75.3587,10.0,landslide | downpour,Perú,Junín,San Ramón,"San Ramon district, 195 miles northeast of the capital, Lima,  | (CBS/AP) At least 10 people died and as many as 80 were still missing Wednesday in central Peru after torrential rains swelled three rivers, forcing them over their banks and causing devastating landslides earlier in the week. "
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2007-02-17,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 19742 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2007-02-17,,-14.488517794695591,-75.13320755584127,6.3,huayco,Perú,ICA,PALPA,SINPAD 19754 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2007-02-17,,-14.347563772321227,-75.14724456279438,9.9,huayco,Perú,ICA,RIO GRANDE,SINPAD 19741 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2007-03-03,,-15.671349529127165,-72.62026092342177,9.1,huayco,Perú,AREQUIPA,PAMPACOLCA,SINPAD 20030 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2008-01-02,,-16.22091530116003,-70.80617374966148,16.7,huayco,Perú,MOQUEGUA,UBINAS,SINPAD 25950 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2008-01-20,,-17.9564425282906,-70.66786808277459,19.0,huayco,Perú,TACNA,SAMA,SINPAD 24861 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2008-02-02,,-14.058436968471302,-75.70704559359511,1.6,huayco,Perú,ICA,PARCONA,SINPAD 25147 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2008-02-06,,-16.455755223901686,-70.57311442400436,16.5,huayco,Perú,MOQUEGUA,CHOJATA,SINPAD 25943 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2008-02-21,,-11.923636920339959,-76.56198360174221,3.1,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE COCACHACRA,SINPAD 25631 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2008-02-21,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 25525 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2008-02-22,,-12.641555056609802,-76.03958875206978,12.6,huayco,Perú,LIMA PROVINCIAS,ALLAUCA,SINPAD 25632 | YAUYOS
+NASA GLC (COOLR),http://news.xinhuanet.com/english/2008-03/06/content_7727748.htm,2008-03-05,,-9.2114,-76.1311,10.0,landslide | rain,Perú,Huanuco,Tingo María,"Sachavaca village, Huanuco state | caused by La Nina"
+NASA GLC (COOLR),http://news.xinhuanet.com/english/2008-04/14/content_7972049.htm,2008-04-11,,-9.2965,-77.6613,,landslide | rain,Perú,Ancash,Carhuaz,"Chuncanaqui site in the region of Ancash, north of Lima | 7 miners that were buried were rescued"
+NASA GLC (COOLR),http://www.guardian.co.uk/football/feedarticle/7537429,2008-05-22,,-34.103,-70.4516,25.0,landslide | downpour,Chile,O'Higgins,Machalí,"El Teniente copper mine, 50 miles (80 km) south of Santiago | blocked entrance to mine in several places, rainfall heavy all the way to Santiago (35.7 mm in 24 hours), spanned from Santiago to 200 km south"
+NASA GLC (COOLR),http://news.smashits.com/302362/Seven-killed-in-Peru-mudslide.htm,2008-10-04,,-14.0,-70.4,25.0,mudslide | downpour,Perú,Puno,Macusani,"Macusani district, Puno | Bus was swept away in a mudslide"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-01-18,,-15.390599672663125,-74.52640675653954,15.7,huayco,Perú,AREQUIPA,ACARI,SINPAD 31348 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-01-18,,-15.343790136314006,-74.72835680848247,22.5,huayco,Perú,AREQUIPA,BELLA UNION,SINPAD 31566 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-02-08,,-16.22091530116003,-70.80617374966148,16.7,huayco,Perú,MOQUEGUA,UBINAS,SINPAD 31415 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-02-13,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 31532 | HUAROCHIRI
+NASA GLC (COOLR),http://www.apakistannews.com/peru-floods-hundreds-left-homeless-105911,2009-02-15,,-11.9374,-76.701,5.0,mudslide | downpour,Perú,Lima,Asentamiento Humano Nicolas de Pierola,"Chosica, 47 kilometres east of Lima | Heavy rains and consequent mudslides started early on Sunday in the district of Chosica, 47 kilometres east of Lima, officials said."
+NASA GLC (COOLR),http://laht.com/article.asp?CategoryId=14095&ArticleId=327943,2009-02-15,,-11.9009,-76.6643,5.0,landslide | downpour,Perú,Lima,Santa Eulalia,"Santa Eulalia | Hundreds of vehicles were stranded on Wednesday along the highway linking Lima with the Peruvian interior because of landslides of mud and stones caused by the heavy rains that have lashed the region in recent weeks, authorities said. Defense Minister Antero Flores-Araoz said Wednesday that about 10"
+NASA GLC (COOLR),http://laht.com/article.asp?CategoryId=14095&ArticleId=327943,2009-02-16,,-11.9202,-76.664,5.0,landslide | downpour,Perú,Lima,Ricardo Palma,"Ricardo Palma | Hundreds of vehicles were stranded on Wednesday along the highway linking Lima with the Peruvian interior because of landslides of mud and stones caused by the heavy rains that have lashed the region in recent weeks, authorities said. Defense Minister Antero Flores-Araoz said Wednesday that about 10"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-02-24,,-16.9987242306662,-70.74014438129763,23.7,huayco,Perú,MOQUEGUA,TORATA,SINPAD 31686 | MARISCAL NIETO
+NASA GLC (COOLR),http://www.presstv.ir/detail.aspx?id=87333&sectionid=351020706,2009-03-02,,-13.917,-70.233,50.0,landslide | downpour,Perú,Puno,Ajoyani,"Huanchumay, Ituata district  in Carabaya Province | At least ten people have died and 30 more are missing after heavy rains and a consequent landslide obliterated a village in southern Peru.   The small rural community of miners in the remote area of Huanchumay far off in the Carabaya province took the brunt of the Monday morning torrential rains and"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-07,,-16.00435088501131,-71.82660582196462,10.9,huayco,Perú,AREQUIPA,HUANCA,SINPAD 32625 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-07,,-16.00435088501131,-71.82660582196462,10.9,huayco,Perú,AREQUIPA,HUANCA,SINPAD 32589 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-07,,-15.969477191489988,-72.02128862900344,19.9,huayco,Perú,AREQUIPA,LLUTA,SINPAD 32629 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-07,,-15.969477191489988,-72.02128862900344,19.9,huayco,Perú,AREQUIPA,LLUTA,SINPAD 32627 | CAYLLOMA
+NASA GLC (COOLR),http://www.ubalert.com/alert/3091/comments,2009-03-07,,-16.3556,-71.4842,50.0,mudslide | rain,Perú,Arequipa,Arequipa,"Urco, Province of Arequipa | At least seven people were injured and about 40 dwellings damaged by a mudslide over the weekend in the southern Peruvian province of Arequipa. The mudslide occurred on Saturday in the town of Urco while residents were celebrating the feast of their patron saint. Two of the victims – a father and hi"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-08,,-15.570168772652881,-73.7312953702845,18.1,huayco,Perú,AREQUIPA,QUICACHA,SINPAD 32590 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-09,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 32592 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-10,,-15.40559310889468,-72.69628381275386,20.0,huayco,Perú,AREQUIPA,SALAMANCA,SINPAD 32571 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-12,,-11.817430850428225,-76.38011442576848,7.5,huayco,Perú,LIMA PROVINCIAS,MATUCANA,SINPAD 32056 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2009-03-13,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 32202 | HUAROCHIRI
+NASA GLC (COOLR),http://rawstory.com/news/afp/Nine_dead_in_Peru_mudslides_04142009.html,2009-04-14,,-7.9589,-77.5239,5.0,mudslide | downpour,Perú,La Libertad,Parcoy,"Chamanacucho towns of La Libertad province. | At least 12 people were killed in a mudslide triggered by torrential rains in Chamanacucho and Aricapampa towns in northern Peru, officials said on Monday. The head of the Indeci national emergency management agency, Eduardo Fiestas, said he planned to travel to La Libertad province Monday to deal w"
+NASA GLC (COOLR),http://rawstory.com/news/afp/Nine_dead_in_Peru_mudslides_04142009.html,2009-04-14,,-7.8058,-77.7172,5.0,mudslide | downpour,Perú,La Libertad,Aricapampa,"Aricapampa towns of La Libertad province. | At least 12 people were killed in a mudslide triggered by torrential rains in Chamanacucho and Aricapampa towns in northern Peru, officials said on Monday. The head of the Indeci national emergency management agency, Eduardo Fiestas, said he planned to travel to La Libertad province Monday to deal w"
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/5007,2009-08-15,,-13.23666589,-75.53433154,1.0,None,Perú,HUANCAVELICA,HUACHOS,"F_EVENTO: Anexo Pichuta y alrededores | Como factor detonante, se tienen la ocurrencia de lluvias intensas y/o excepcionales, así como la presencia de agua subterránea. Grietas aparecieron después del sismo del 15 de agosto de 2007, produjo el asentamiento de terrenos. | El febrero del 2023 se reactivaron los deslizamientos en el anexo Pichuta. Estos fueron de tipo rotacional. El deslizamiento principal presentó una escarpa semicircular de 2190 m., el ancho varía entre 640 a 210 m., con saltos d"
+NASA GLC (COOLR),http://www.laht.com/article.asp?ArticleId=343210&CategoryId=14094,2009-09-06,,-33.3667,-70.5833,5.0,mudslide | downpour,Chile,Santiago Metropolitan,"Villa Presidente Frei, Ñuñoa, Santiago, Chile","Mapocho River in the Lo Curro district, eastern section of Santiago | Occurred around 2:30 p.m. Sunday at kilometer six on the highway connecting the Lo Barnechea district with the mountain pass of Farellones, as a result of heavy rainfall in Santiago. The first slide Sunday buried homes and cars and swept a woman into a river, killing her. Authorities say her 1-year-"
+NASA GLC (COOLR),http://www.bloomberg.com/apps/news?pid=20601086&sid=a6qIYDFq6CNQ,2009-09-07,,-34.2,-71.0167,25.0,mudslide | downpour,Chile,O'Higgins,Rancagua,"Los Bronces, Anglo Mine, Codelco, Sur division | mudslide swept away the security patrol building the victim was in. Ten others were injured and access roads to the mine were closed as of 8 a.m. The accident occurred about 30 kilometers from mine operations and was linked to heavy rains this weekend."
+NASA GLC (COOLR),http://www.santiagotimes.cl/santiagotimes/index.php/2009090817108/news/environmental-news/second-deadly-landslide-in-santiago-area-kills-man.html,2009-09-08,,-36.6203,-72.1287,5.0,landslide | downpour,Chile,Biobío,Chillán,"Marchant municipality, located 30 kilometers north of several ski centers at the Anglo Minerals plant | The landslide hit the Marchant municipality, located 30 kilometers north of several ski centers, claiming the life of Luis Zurita Martel, 52, a security guard at the Anglo Minerals plant. Eight others were wounded at the plant when a boulder that was picked up by the landslide struck their dorm at a"
+NASA GLC (COOLR),http://www.santiagotimes.cl/santiagotimes/index.php/2009090817108/news/environmental-news/second-deadly-landslide-in-santiago-area-kills-man.html,2009-09-08,,-33.35,-70.5167,10.0,landslide | downpour,Chile,Santiago Metropolitan,"Villa Presidente Frei, Ñuñoa, Santiago, Chile","Santiago’s Lo Barnechea neighborhood | The landslides also impacted – though less severely – Santiago’s Lo Barnechea neighborhood, located near the Andean foothills."
+NASA GLC (COOLR),http://laht.com/article.asp?CategoryId=14095&ArticleId=327943,2009-12-16,,-12.15,-76.2333,5.0,mudslide | downpour,Perú,Lima,Sangallaya,"Huarochiri, Huarochiri Province | LIMA – Hundreds of vehicles were stranded on Wednesday along the highway linking Lima with the Peruvian interior because of landslides of mud and stones caused by the heavy rains that have lashed the region in recent weeks, authorities said. The highway is blocked in Huarochiri province, some 70 kil"
+NASA GLC (COOLR),http://laht.com/article.asp?CategoryId=14095&ArticleId=327943,2009-12-16,,-11.9431,-76.7094,5.0,landslide | downpour,Perú,Lima,Chosica,"Chosica | LIMA – Hundreds of vehicles were stranded on Wednesday along the highway linking Lima with the Peruvian interior because of landslides of mud and stones caused by the heavy rains that have lashed the region in recent weeks, authorities said. Defense Minister Antero Flores-Araoz said Wednesday that a"
+NASA GLC (COOLR),http://www.livinginperu.com/news/10946,2009-12-17,,-13.1583,-74.2239,25.0,mudslide | downpour,Perú,Ayacucho,Ayacucho,"Huamanga, Ayacucho, Peru | The Presidency of Peru's Council of Ministers declared today the state of emergency in the province of Huamanga (Ayacucho), after a massive mudslide fell from Picota hill into the city, so far killing 10 people.  The measure will come into effect today and last 60 days, in order to take immediate ac"
+NASA GLC (COOLR),http://www.livinginperu.com/news/11056,2009-12-29,,-15.345,-71.489,5.0,mudslide | downpour,Perú,Arequipa,Tisco,"La Oroya–Huancayo sector, near the town of Chacapalca | Department of Public Works crews are working around the clock during heavy rain as landslides occurred Monday evening and early yesterday morning, but no serious problems have been reported.  Public Works director Taeaotui Punaofo Tilei says his staff received calls late Monday afternoon of landslid"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-01-02,,-11.930108578042873,-77.03976941649954,3.8,huayco,Perú,LIMA METROPOLITANA,COMAS,SINPAD 35933 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-01-08,,-12.172904212772625,-76.9171911980614,4.4,huayco,Perú,LIMA METROPOLITANA,VILLA MARIA DEL TRIUNFO,SINPAD 42056 | LIMA METROPOLITANA
+NASA GLC (COOLR),http://getsomenews.com/2010/01/peru-suffers-fatal-landslides-2879,2010-01-20,,-13.1409,-74.2155,25.0,landslide | downpour,Perú,Ayacucho,Ayacucho,"Ayacucho Region | In Peru, three people have died and three more are reported missing after landslides caused by heavy rain in the south. Archaeologists are working to shore up an ancient Inca wall which was partially destroyed."
+NASA GLC (COOLR),http://en.mercopress.com/2010/01/27/rains-and-mudslides-strand-1.900-tourists-in-machu-picchu,2010-01-23,,-13.2122,-72.3902,25.0,mudslide | downpour,Perú,Cusco,Ollantaytambo,"Inca Trail near Machu Picchu | Local media also reported a 23-year-old Argentine tourist and his 33-year-old Peruvian mountain guide died as they were trekking the Inca Trail, a famous Andean pathway that leads to Machu Picchu. The victim, identified as Lucila Ramballo, 23 years old, died in a spot called Wiñay Huayna, and anothe"
+NASA GLC (COOLR),http://www.livinginperu.com/news/11305,2010-01-23,,-12.7823,-74.9756,25.0,mudslide | downpour,Perú,Huancavelica,Huancavelica,"Huancavelica, | In Huancavelica, some 30 mudslides have cut four spots of the Huancayo-Huancavelica railway, blocking the transit, and the situation in Yauyo, Acoria and Anta districts is getting critical."
+NASA GLC (COOLR),http://www.livinginperu.com/news-11302-natural-disasters-peru-tourists-wait-help-cusco-residents-face-their-own-drama,2010-01-23,,-13.2873,-72.1137,25.0,mudslide | downpour,Perú,Cusco,Urubamba,"province of Urubamba, Cusco | Over 1300 homes have been destroyed because of the flooding and landslides, which have been called the worst in 15 years. A 60-day state of emergency has been declared. The heavy rains triggered up to 40 landslides, one of which blocked the railway between Machu Picchu and Cuzco. Two people are repo"
+NASA GLC (COOLR),http://news.bbc.co.uk/2/hi/americas/8480013.stm,2010-01-23,,-13.1809,-72.5273,50.0,landslide | downpour,Perú,Cusco,Santa Teresa,"Train line between Cuzco and Machu Picchu | Days of heavy rains triggered up to 40 landslides, one of which blocked the railway between Machu Picchu and Cuzco. The train to the city of Cuzco is the only means of transport on the last leg of the trip to the ruins, and has been suspended since Saturday when it was blocked by a landslide.  The t"
+NASA GLC (COOLR),http://news.bbc.co.uk/2/hi/americas/8480013.stm,2010-01-23,,-13.3342,-72.0826,25.0,mudslide | downpour,Perú,Cusco,Yucay,Sacred Valley near Machu Picchu | Two people are reported to have died when a mudslide destroyed their home. That was one of many landslips which have blocked roads and destroyed homes in the region. The heavy rains have caused the deaths of two people - one of them a baby - killed when their home was hit by a mudslide. 
+NASA GLC (COOLR),http://daveslandslideblog.blogspot.com/2010/01/new-images-of-level-of-destruction-in.html,2010-01-28,,-9.3584,-77.5984,1.0,complex | downpour,Perú,Ancash,Anta,"Plaza de Armas, Zurite | The landslide of mud and stones covered the Plaza de Armas, the town’s Church, the main streets of the city and damaged 500 houses. The incident occurred about 3 pm on Thursday after they noticed a crack on a hill and began to take appropriate action, emergency services were able to evacuate the ent"
+NASA GLC (COOLR),https://web.archive.org/web/20101010070137/http://english.ntdtv.com/ntdtv_en/ns_sa/2010-02-08/743802161105.html,2010-02-06,,-13.4459682,-72.26000997,10.0,mudslide | downpour,Perú,Cusco,Zurite,Zurite district | Mud and rocks piled up to three feet high covered Peru's Zurite district on Saturday. This comes just days after tourists visiting the country were stranded by flooding. Those rescued were evacuated from the famous Machu Picchu Incan ruins. Nearly 70 homes were destroyed or damaged by the mudslide. 
+NASA GLC (COOLR),https://web.archive.org/web/20100306073226/http://www2.wnct.com/nct/news/world/article/peru_flooding_continue_to_cause_mudslides/107211,2010-02-09,,-13.44799948,-72.25984911,10.0,mudslide | downpour,Perú,Cusco,Zurite,"Zurite district, near Cusco | Heavy machinery was already working to remove mud and debris from prior slides in the town of Zurite, near Cusco, when more land came loose early on Tuesday. Zurite Mayor Feliciano Pacocha said local residents are desperate as the relentless rains continue to cause problems. Local authorities say Tu"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-02-15,,-13.555908214215641,-75.61099641359272,16.8,huayco,Perú,ICA,HUANCANO,SINPAD 40338 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-02-18,,-13.171106218163537,-76.25728102535142,12.9,huayco,Perú,LIMA PROVINCIAS,SAN VICENTE DE CAÑETE,SINPAD 37233 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-02-23,,-14.941858903440744,-72.54796372310639,21.7,huayco,Perú,AREQUIPA,PUYCA,SINPAD 38047 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-02-25,,-15.40559310889468,-72.69628381275386,20.0,huayco,Perú,AREQUIPA,SALAMANCA,SINPAD 38001 | CONDESUYOS
+NASA GLC (COOLR),http://www.necn.com/03/02/10/At-least-six-dead-after-floods-trigger-m/landing_nation.html?blockID=189337&feedID=4207,2010-02-28,,-15.2086,-72.8973,1.0,mudslide | downpour,Perú,Arequipa,Cotahuasi,"Near Cochahuasi (Cotahuasi) village, Taray District, Cusco region  | Police officials said the downpours caused a mudslide on Sunday near the village of Cochahuasi in the district of Taray.  Calca police said five adults from one family and one girl had perished.  However a government official who traveled to the affected area to deliver humanitarian aid said the num"
+NASA GLC (COOLR),http://www.google.com/hostednews/ap/article/ALeqM5ihjK74ffkS8Fj7XxIhn_33AtBwgAD9EN81AO0,2010-03-26,,-14.1232,-70.1217,,landslide | downpour,Perú,Puno,Ajoyani,"Carabaya Province, Puno region, Southeast Andes | Peruvian police say five people have been killed by a mudslide set off by heavy rains in a remote community of wildcat miners in the southeastern Andes."
+NASA GLC (COOLR),http://www.telegraphindia.com/1100403/jsp/frontpage/story_12297767.jsp,2010-04-01,,-9.7996,-76.1038,50.0,lahar | downpour,Perú,Huanuco,Acomayo,"Cancejos(Cancejo or Chinchao?) village, highway between Huanuco and Tingo Maria, north of Huanucu city | Mud and gravel slides have killed at least 12 people and destroyed parts of the village of Cancejos in a region about 300 kilometres north-east of the capital Lima, media reports said Friday.  An unknown number of people were still missing after about 60 homes were destroyed, the newspaper El Comerc"
+NASA GLC (COOLR),http://www.assamtribune.com/scripts/detailsnew.asp?id=apr0410/oth06,2010-04-02,,-10.1258,-76.2043,5.0,landslide | downpour,Perú,Huanuco,Ambo,"villages of El Arroyito, Porvenir, Ambo, 16 de Noviemeber(sic) south of Huanuco in Ambo province, Huallaga River, Huanoco region | A massive avalanche of mud and rock has buried a small village in northeastern Peru, killing at least 20 people and leaving 25 others missing, authorities said Friday.  ""As of 12:00 pm (1700 GMT)... the death toll stands at 20 people,"" Civil Defense chief of the Huanuco region, Hipolito Cruchaga, to"
+NASA GLC (COOLR),http://picasaweb.google.com/micmuza/Wayqecha,2010-04-05,,-12.9655,-71.4216,10.0,landslide | downpour,Perú,Cusco,Pillcopata,"near Cock-of-the-Rock lodge(?), Tres Cruces | Find link below for some pictures how I said. I took them on May 20-22 in San Pedro in Peru.  I knew which the landslide occurred because rainfall on April 5.  Then, we went to the Cock-of-the-Rock Lodge in San Pedro (see map attached) on May 21th, that is 2 hours from Wayqecha. The return trip to C"
+NASA GLC (COOLR),http://www.cnn.com/2010/WORLD/americas/04/12/brazil.flooding.mudslides/,2010-04-05,,-13.1171,-71.5841,10.0,landslide | downpour,Perú,Cusco,Challabamba,"near Wayqecha Research Center(?), Tres Cruces | Find link below for some pictures how I said. I took them on May 20-22 in San Pedro in Peru.  I knew which the landslide occurred because rainfall on April 5.  I went to those field trips on around Manu National Park in Peru. The group took vans first to the Wayqecha Research Center next """"Tres cruc"
+NASA GLC (COOLR),http://www.laht.com/article.asp?ArticleId=359747&CategoryId=14095,2010-07-02,,-13.3219,-72.2308,25.0,mudslide | rain,Perú,Cusco,Ollantaytambo,"km 49 on rails from Cuzco to Machu Picchu | Two days after the railroad line between the Peruvian city of Cuzco and the Inca citadel of Machu Picchu was reestablished, a new landslide forced a partial suspension of the service for at least 48 hours, the Ferrocarril Transandina railway company said Saturday.  Even so, tourists will be able to "
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-08-02,,-15.169459340446974,-72.71357828461821,7.6,huayco,Perú,AREQUIPA,ALCA,SINPAD 39396 | LA UNION
+NASA GLC (COOLR),http://www.euronews.net/nocomment/2010/10/20/at-least-20-dead-in-peru-mudslides/,2010-10-17,,-13.3042,-72.1167,5.0,mudslide | downpour,Perú,Cusco,Urubamba,"Urubamba, near Cuzco | A huge mudslide destroyed at least fifty homes in southeastern Peru, with residents forced to flee their beds in the middle of the night."
+NASA GLC (COOLR),http://english.peopledaily.com.cn/90001/90777/90852/7191360.html,2010-11-07,,-9.9241,-76.2488,5.0,landslide | downpour,Perú,Huanuco,Huánuco,"Vista Alegre, Huanuco, Huanuco Region | At least two people died and 100 more have been affected due to a landslide provoked by the pouring rains in Peruvian Amazons, the Civil Defense National Institute (Indeci) said on Sunday.  According to the first reports, the victims were a minor and an elder citizen, who died when their house's wal"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2010-12-28,,-15.639676004425006,-71.55026191199974,8.6,huayco,Perú,AREQUIPA,CHIVAY,SINPAD 41836 | CAYLLOMA
+NASA GLC (COOLR),http://www.laht.com/article.asp?ArticleId=383476&CategoryId=14095,2011-01-09,,-12.3325,-73.1219,,landslide | downpour,Perú,Cusco,Pangoa,"road between Kepashiato(?) and Valley of the Apurimac and Ene(?) rivers(VRAE), La Convencion province, Cusco region | LIMA – The flooding, mudslides and highway blockages due to intense rains spread Sunday to the Peruvian regions of Ancash, Cuzco, Huanuco and Pasco with thousands of people reported to be affected, officials said.  Ten kilometers (6.2 miles) of the highway linking the town of Kepashiato with the Val"
+NASA GLC (COOLR),http://www.laht.com/article.asp?ArticleId=383476&CategoryId=14095,2011-01-09,,-8.6252,-77.8341,50.0,mudslide | downpour,Perú,Ancash,Yanac,"roads to Huaylas and Conchucos, Ancash region | Fifty towns in Ancash located on the so-called Huaylas and Conchucos routes have been rendered incommunicado by several mudslides that buried the roads this past week, emergency management officials told the El Comercio newspaper.  ...  LIMA – The flooding, mudslides and highway blockages due to int"
+NASA GLC (COOLR),http://www.resourceintelligence.net/chile%E2%80%99s-andina-copper-mine-resumes-production-as-workers-return-2/15477,2011-02-11,,-32.9563,-70.2129,25.0,landslide | downpour,Chile,Valparaíso,Los Andes,"Los Andes : Codelco’s Andina mine in central Chile is operating normally after heavy rainfall and landslides prevented workers from reaching the site* | Codelco’s Andina mine in central Chile is operating normally after heavy rainfall and landslides prevented workers from reaching the site Feb. 11, an official at the state-owned company said today.  The official, who had been briefed on the matter, declined to be identified, citing company policy.  "
+NASA GLC (COOLR),http://archive.livinginperu.com/news/14170,2011-02-15,,-13.8158,-70.2659,,landslide | downpour,Perú,Puno,Ollachea,"Puno, Interoceánica road between Macusani and Puerto Maldonado | In Puno, two deaths have been reported, and landslides have blocked the Interoceánica road between the cities of Macusani and Puerto Maldonado."
+NASA GLC (COOLR),http://www.livinginperu.com/news/14170,2011-02-15,,-14.0731,-72.9562,,landslide | downpour,Perú,Apurímac,Chapimarca,"Madre di Dios, Arequipa, Puno, Apurimac, Ica, Ucayali, La Libertad and Huancavelica provinces | February 18, 2011  Indeci, Peru’s civil defense unit, has recommended avoiding travel to Manu, the popular jungle tourist destination in the southeast part of the country, due to intense rains causing mudslides and infrastructure collapses.  Heavy rains battering many regions of Peru have not only a"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2011-02-25,,-15.79652074470333,-72.16294887310947,15.2,huayco,Perú,AREQUIPA,HUAMBO,SINPAD 43764 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2011-02-28,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 44418 | LA UNION
+NASA GLC (COOLR),http://latino.foxnews.com/latino/news/2011/04/04/5-dead-3-missing-mudslide-peru/,2011-04-03,,-13.5138,-71.9911,1.0,mudslide | downpour,Perú,Cusco,Cusco,"Ayajuyco hiss(?), Villa Maria Baja neighborhood, Cuzco city | Five people, including a child, were killed and three others were reported missing in a mudslide in the southeastern region of Cuzco, Peruvian emergency management officials said. The mudslide occurred around 1:30 a.m. Sunday following several days of torrential rains in the area. Two dwellings were"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2011-12-29,,-16.00435088501131,-71.82660582196462,10.9,huayco,Perú,AREQUIPA,HUANCA,SINPAD 48785 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-01-05,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 48757 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-01-05,,-17.228007754354607,-71.06228459123577,35.5,huayco,Perú,MOQUEGUA,MOQUEGUA,SINPAD 48756 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-01-06,,-16.464521454398767,-71.59687347745297,3.5,huayco,Perú,AREQUIPA,TIABAYA,SINPAD 49049 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-01-08,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 48801 | HUAROCHIRI
+NASA GLC (COOLR),http://ilovechile.cl/2012/01/17/45241/45241,2012-01-15,,-33.2961,-70.2686,25.0,landslide | downpour,Chile,Santiago Metropolitan,"Villa Presidente Frei, Ñuñoa, Santiago, Chile","Villa Santa Paulina road near Farellones | Heavy rains, hail and avalanches affected pre-Andean areas in the central district, generating landslides leaving one tourist dead in Cajón del Maipo and hundreds of people trapped in the Nature Sanctuary Yerba Loca. Jaime Leyton, head of the forecast office of the Meteorological Office, defines wha"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-02,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 50359 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-05,,-13.646178017736556,-76.01387100563358,9.1,huayco,Perú,ICA,INDEPENDENCIA,SINPAD 49778 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-07,,-16.075615939989547,-73.13553871280318,13.4,huayco,Perú,AREQUIPA,MARIANO NICOLAS VALCARCEL,SINPAD 50010 | CAMANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-07,,-15.483521841132836,-71.75994098035646,11.2,huayco,Perú,AREQUIPA,LARI,SINPAD 51214 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-07,,-15.533941862695423,-72.94562505032849,11.2,huayco,Perú,AREQUIPA,CHICHAS,SINPAD 50617 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-08,,-15.758301266260656,-72.38365651519798,10.4,huayco,Perú,AREQUIPA,UÑON,SINPAD 49947 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-08,,-15.82639382908665,-71.69647830528915,10.8,huayco,Perú,AREQUIPA,ACHOMA,SINPAD 50355 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-08,,-15.82639382908665,-71.69647830528915,10.8,huayco,Perú,AREQUIPA,ACHOMA,SINPAD 50264 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-08,,-15.788205518140467,-71.4537151893731,19.1,huayco,Perú,AREQUIPA,YANQUE,SINPAD 50408 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-09,,-15.70105269770314,-73.03072993929798,18.4,huayco,Perú,AREQUIPA,YANAQUIHUA,SINPAD 50363 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-10,,-16.045386318741855,-72.72102823728997,19.6,huayco,Perú,AREQUIPA,CHUQUIBAMBA,SINPAD 50407 | CONDESUYOS
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/2843,2012-02-10,,-6.25805832,-77.7020531,1.0,None,Perú,AMAZONAS,CHETO,"F_EVENTO: Cerro Cueteurco | El sector de Cueteurco, se encuentra asentado sobre un deslizamiento antiguo, con corona de forma semicircular de longitud 1.2 km y la altura entre la cabecera y el pie del deslizamiento es 100 m. | El sector Cueteurco, se encuentra sentado sobre un deslizamiento antiguo, en cual se reactivó en el 2012 y afectó viviendas e infraestructura."
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-13,,-15.748630613266531,-72.50235168155848,4.1,huayco,Perú,AREQUIPA,TIPAN,SINPAD 49959 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-13,,-15.364031835165328,-71.54596111402603,9.5,huayco,Perú,AREQUIPA,SIBAYO,SINPAD 49948 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-13,,-14.511541416244436,-75.5157510274347,29.8,huayco,Perú,ICA,SANTIAGO,SINPAD 53344 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-14,,-15.639676004425006,-71.55026191199974,8.6,huayco,Perú,AREQUIPA,CHIVAY,SINPAD 51206 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-14,,-15.79652074470333,-72.16294887310947,15.2,huayco,Perú,AREQUIPA,HUAMBO,SINPAD 51217 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-14,,-16.00435088501131,-71.82660582196462,10.9,huayco,Perú,AREQUIPA,HUANCA,SINPAD 51220 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-14,,-15.429304057770402,-71.9360839115013,11.6,huayco,Perú,AREQUIPA,TAPAY,SINPAD 51216 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-14,,-15.48322384820632,-71.59892594265911,8.9,huayco,Perú,AREQUIPA,TUTI,SINPAD 51212 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-14,,-13.646178017736556,-76.01387100563358,9.1,huayco,Perú,ICA,INDEPENDENCIA,SINPAD 49600 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-15,,-15.150021377169574,-71.79652025848675,22.1,huayco,Perú,AREQUIPA,CAYLLOMA,SINPAD 51221 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-15,,-15.969477191489988,-72.02128862900344,19.9,huayco,Perú,AREQUIPA,LLUTA,SINPAD 51227 | CAYLLOMA
+NASA GLC (COOLR),http://www.peruviantimes.com/16/three-missing-after-landslide-hits-mine-camp/15046/,2012-02-15,,-8.5348,-78.0834,5.0,mudslide | downpour,Perú,Ancash,Tauca,"Llapo, San Juan mining company camp | Cesar Alvarez, regional president of Ancash, warned that 252 lakes in the area could overflow due to heavy rains falling in the northern Andean zone. Alvarez said if the lakes located around the Cordillera Blanca overflow, the consequences would be serious. The overflow of lakes could lead to danger"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-16,,-16.267897491651357,-72.06525333995434,7.7,huayco,Perú,AREQUIPA,SANTA ISABEL DE SIGUAS,SINPAD 50476 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-02-19,,-13.879322326949065,-75.61427718560465,10.5,huayco,Perú,ICA,SAN JOSE DE LOS MOLINOS,SINPAD 53346 | ICA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4674,2012-03-05,,-6.23697506,-77.86638846,1.0,None,Perú,AMAZONAS,CHACHAPOYAS,"F_EVENTO: Sector Residencial Derrama Magisterial/ Sector Prolongación Vía de Evitamiento/Sector IV Centenario - Tres Esquinas /Sector IV Centenario - Tres Esquinas | Evaluación del Peligro Geológico por Movimientos en Masa en los Sectores Residencial Derrama Magisterial, Prolongación Vía de Evitamiento y IV Centenario – Tres Esquinas de la Ciudad de Chachapoyas | En el sector Residencial Derrama Magisterial, se han cartografiado dos deslizamientos rotacionales activos, con volúmenes desplazados "
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-08,,-17.228007754354607,-71.06228459123577,35.5,huayco,Perú,MOQUEGUA,MOQUEGUA,SINPAD 50533 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-09,,-15.822742944624224,-73.94740042126017,21.6,huayco,Perú,AREQUIPA,CHAPARRA,SINPAD 50659 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-09,,-15.570168772652881,-73.7312953702845,18.1,huayco,Perú,AREQUIPA,QUICACHA,SINPAD 51411 | CARAVELI
+NASA GLC (COOLR),http://www.laht.com/article.asp?ArticleId=477395&CategoryId=14095,2012-03-09,,-15.746,-73.8721,25.0,mudslide | downpour,Perú,Arequipa,Achanizo,"Cuatro Horas, Chaparra district, Arequipa | Three people disappeared in a mudslide in a remote village in the southern Peruvian region of Arequipa, the national emergency management office said. The mudslide occurred Friday night in Cuatro Horas, damaging 50 dwellings, knocking out water and sewerage service, and affecting farmland. The town "
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-10,,-15.388745341765095,-74.9359591151382,11.8,huayco,Perú,AREQUIPA,LOMAS,SINPAD 52210 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-11,,-15.769740659267258,-74.18922849373979,10.5,huayco,Perú,AREQUIPA,CHALA,SINPAD 52181 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-11,,-15.449551882806158,-74.39834952953429,11.7,huayco,Perú,AREQUIPA,JAQUI,SINPAD 50875 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-11,,-15.533941862695423,-72.94562505032849,11.2,huayco,Perú,AREQUIPA,CHICHAS,SINPAD 50881 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-12,,-15.829293729254529,-73.33149023066873,15.5,huayco,Perú,AREQUIPA,CARAVELI,SINPAD 52260 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-12,,-15.40559310889468,-72.69628381275386,20.0,huayco,Perú,AREQUIPA,SALAMANCA,SINPAD 51090 | CONDESUYOS
+NASA GLC (COOLR),http://www.trust.org/alertnet/news/shelterboxes-en-route-to-peru-for-mudslide-victims,2012-03-18,,-13.6291,-72.8718,5.0,mudslide | downpour,Perú,Apurímac,Abancay,"Abancay, Apurimac District | SRT members John Cordell (US) and Gary Boe (US) travelled to Abancay, a city in Apurimac District, where a landslide happened on 18 March. 'We arrived in Abancay to find around 150 families homeless after heavy rains on Sunday caused the hillside to let go, which produced a mudslide that buried thei"
+NASA GLC (COOLR),http://www.trust.org/alertnet/news/shelterboxes-en-route-to-peru-for-mudslide-victims,2012-03-18,,-13.5168,-73.7262,10.0,mudslide | downpour,Perú,Apurímac,Chincheros,"Choccepuquio, Chincheros | SRT members John Cordell (US) and Gary Boe (US) travelled to Abancay, a city in Apurimac District, where a landslide happened on 18 March. 'We arrived in Abancay to find around 150 families homeless after heavy rains on Sunday caused the hillside to let go, which produced a mudslide that buried thei"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-03-30,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 52365 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-04-01,,-15.481459319370774,-72.37461508960332,12.0,huayco,Perú,AREQUIPA,ANDAGUA,SINPAD 52300 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-04-05,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 51385 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-04-05,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 51384 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-04-05,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 51392 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-04-05,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 51393 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-04-05,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 51394 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-04-05,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 51396 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-05-10,,-10.624181816744343,-76.9935597229443,10.5,huayco,Perú,LIMA PROVINCIAS,GORGOR,SINPAD 52821 | CAJATAMBO
+NASA GLC (COOLR),http://twocircles.net/2012may31/chile_mudslide_leaves_3000_stranded.html,2012-05-29,,-43.1826,-71.8666,1.0,landslide | downpour,Chile,Los Lagos,Futaleufú,"Palena and Futaleufu, Los Lagos | Santiago : Some 3,000 people living in the towns of Palena and Futaleufu, in the southern Chilean region of Los Lagos, were left stranded due to a mudslide that buried the road leading to their area, authorities said.  The mudslide, about 120 meters long and 20 meters deep, occurred late Tuesday dur"
+NASA GLC (COOLR),http://latino.foxnews.com/latino/news/2012/06/17/nearly-30-people-isolated-by-mudslide-in-chile/,2012-06-17,,-33.2968,-70.2492,5.0,landslide | downpour,Chile,Santiago Metropolitan,"Villa Presidente Frei, Ñuñoa, Santiago, Chile","Farellones | Nearly 30 people were cut off early Sunday by a mudslide caused by the torrential rains in central and southern Chile, police said. The mudslide occurred in Farellones, located a few kilometers (miles) from Santiago, the Carabineros militarized police force said. now and heavy rain caused the emerge"
+NASA GLC (COOLR),http://www.cnn.com/2012/10/18/world/americas/peru-landslide/index.html,2012-10-17,,-6.0082,-77.2506,25.0,landslide | downpour,Perú,San Martín,Yuracyacu,"El Porvenir, San Martin, | Several children were among the victims when a mudslide sent a mass of tree and rock debris crashing into homes in Peru's jungle Wednesday, killing at least 11 people. Ten more people are unaccounted for, according to the country's state news agency. Heavy rains set off the natural disaster in the S"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2012-12-16,,-16.2272279913482,-70.6601422368324,5.7,huayco,Perú,MOQUEGUA,YUNGA,SINPAD 55540 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-04,,-15.639676004425006,-71.55026191199974,8.6,huayco,Perú,AREQUIPA,CHIVAY,SINPAD 56199 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-04,,-15.274467967093756,-72.8592374253362,7.1,huayco,Perú,AREQUIPA,COTAHUASI,SINPAD 56300 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-09,,-14.85697788082681,-75.0380168161453,19.1,huayco,Perú,ICA,NASCA,SINPAD 56280 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-09,,-14.928860146541792,-74.83050728907652,12.9,huayco,Perú,ICA,VISTA ALEGRE,SINPAD 56289 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-09,,-14.593994379844457,-75.15945825355493,7.6,huayco,Perú,ICA,LLIPATA,SINPAD 56434 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-10,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 56338 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-10,,-13.224314182877025,-75.8174921163521,11.8,huayco,Perú,ICA,SAN JUAN DE YANAC,SINPAD 56346 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-10,,-13.171106218163537,-76.25728102535142,12.9,huayco,Perú,LIMA PROVINCIAS,SAN VICENTE DE CAÑETE,SINPAD 56322 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-10,,-13.017645310982065,-76.11693357455601,12.6,huayco,Perú,LIMA PROVINCIAS,LUNAHUANA,SINPAD 56350 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-10,,-12.962109848702855,-76.25890228838692,10.0,huayco,Perú,LIMA PROVINCIAS,NUEVO IMPERIAL,SINPAD 56470 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-02-10,,-12.864337928050144,-76.34561874954103,12.2,huayco,Perú,LIMA PROVINCIAS,QUILMANA,SINPAD 56291 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-03-10,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 57438 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-03-13,,-13.171106218163537,-76.25728102535142,12.9,huayco,Perú,LIMA PROVINCIAS,SAN VICENTE DE CAÑETE,SINPAD 57259 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-03-14,,-10.838797609123649,-76.7973582580635,8.9,huayco,Perú,LIMA PROVINCIAS,PACHANGARA,SINPAD 57405 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-03-18,,-13.171106218163537,-76.25728102535142,12.9,huayco,Perú,LIMA PROVINCIAS,SAN VICENTE DE CAÑETE,SINPAD 57272 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-03-18,,-12.475244609924745,-75.95330477894943,10.6,huayco,Perú,LIMA PROVINCIAS,YAUYOS,SINPAD 57311 | YAUYOS
+NASA GLC (COOLR),http://www.ilovechile.cl/2013/08/27/emergency-tocopilla-mudslide/90580,2013-08-25,,-22.0575,-70.1833,1.0,mudslide | downpour,Chile,Antofagasta,Tocopilla,"Tocopilla | On Sunday, an alud that reached 2 meters high produced by a frontal system  affecting Antofagasta Region, interrupting Tocopilla coastal route which also connects with the rest of the Tarapac‡ region, leaving several vehicles trapped. The authorities asked people interested in moving towards Iquique"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2013-12-25,,-17.9564425282906,-70.66786808277459,19.0,huayco,Perú,TACNA,SAMA,SINPAD 62773 | TACNA
+NASA GLC (COOLR),,2014-01-04,,-11.6953,-71.9165,250.0,landslide | downpour,Perú,Cusco,Quebrada Honda,"Quellouno | Heavy rains slammed parts of Bolivia and Peru over the weekend, leaving two people dead and thousands of families affected by flooding, authorities said.The government has declared a state of emergency for 60 days in the Amazonian city of Quellouno, where a river overflowed and caused a mudslide tha"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2014-01-07,,-15.40559310889468,-72.69628381275386,20.0,huayco,Perú,AREQUIPA,SALAMANCA,SINPAD 65899 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2014-01-14,,-15.429304057770402,-71.9360839115013,11.6,huayco,Perú,AREQUIPA,TAPAY,SINPAD 65898 | CAYLLOMA
+NASA GLC (COOLR),http://www.peruthisweek.com/news-landslide-in-huancavelica-peru-leaves-285-injured-1-missing-102047#http://www.peruthisweek.com/news-landslide-in-huancavelica-peru-leaves-285-injured-1-missing-102047,2014-01-20,,-12.432,-75.0369,0.5,landslide | downpour,Perú,Huancavelica,Huancavelica,"cerro Cuenca, entre los kilómetro 56 y 58 de la carretera Huancayo-Huancavelica | A landslide in the Huancavelica region of Peru has injured 285 people and left one person missing. 225 more people have also been affected by the landslide by the various damages to homes, crops, and local infrastructure, Andina news agency reports.According to Andina, the landslide occurred on Mond"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2014-03-02,,-11.763151979294943,-76.55720058375606,5.1,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE CASTA,SINPAD 63497 | HUAROCHIRI
+NASA GLC (COOLR),http://www.ilovechile.cl/2014/08/07/landslide-reaca-evacuation-hotel/116942,2014-08-06,,-32.9747,-71.5376,0.5,mudslide | continuous_rain,Chile,Valparaíso,Viña del Mar,"Apart Hotel in Barros Arana Street | “Thank God no one has been hurt. The damage is inside where there is one and a half meters of mud, and all the furniture is lost. The first and second floor is completely lost,” said the manager of the Apart Hotel, María Hernández."
+NASA GLC (COOLR),http://www.rpp.com.pe/2014-11-19-deslizamiento-de-piedras-y-tierra-bloquea-carretera-en-huari-noticia_743504.html,2014-11-19,,-9.3884,-77.1255,,landslide | downpour,Perú,Ancash,Huachis,"valle Puchca, en el distrito de Rahuapampa, provincia ancashina de Huari | El deslizamiento de tierra y piedras ocasionado por las fuertes lluvias interrumpió 60 metros de la carretera del valle Puchca, en el distrito de Rahuapampa, provincia ancashina de Huari, dejando a decenas de vehículos de transporte de pasajeros y de carga pesada varados."
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-01-10,,-13.171106218163537,-76.25728102535142,12.9,huayco,Perú,LIMA PROVINCIAS,SAN VICENTE DE CAÑETE,SINPAD 68035 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-01-10,,-13.017645310982065,-76.11693357455601,12.6,huayco,Perú,LIMA PROVINCIAS,LUNAHUANA,SINPAD 68036 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-01,,-16.482463803608745,-72.63674803549847,11.2,huayco,Perú,AREQUIPA,NICOLAS DE PIEROLA,SINPAD 68614 | CAMANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-05,,-12.548696855632137,-76.6474506178491,5.5,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE FLORES,SINPAD 71026 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-09,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 69871 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-09,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 74275 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-12,,-16.22091530116003,-70.80617374966148,16.7,huayco,Perú,MOQUEGUA,UBINAS,SINPAD 68474 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-15,,-16.277073257689864,-73.01064516653925,21.3,huayco,Perú,AREQUIPA,OCOÑA,SINPAD 68622 | CAMANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-15,,-14.676976909292634,-75.00381146621356,13.6,huayco,Perú,ICA,EL INGENIO,SINPAD 69362 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-15,,-16.704350045271863,-70.87864700942578,7.8,huayco,Perú,MOQUEGUA,QUINISTAQUILLAS,SINPAD 70137 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-02-16,,-14.48438651147746,-75.77941454535903,21.0,huayco,Perú,ICA,OCUCAJE,SINPAD 69352 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-02,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 70912 | CAJATAMBO
+NASA GLC (COOLR),http://www.independent.ie/videos/world-news/video-landslide-in-peru-kills-three-31045855.html,2015-03-03,,-5.7135,-77.6081,,landslide | downpour,Perú,San Martín,Naranjos,"Peru's vast Amazon region | Three people were killed after being crushed by a mudslide, which was triggered by heavy rainfall in Peru's vast Amazon region on Wednesday."
+NASA GLC (COOLR),http://www.independent.ie/videos/world-news/video-landslide-in-peru-kills-three-31045855.html,2015-03-04,,-6.4859,-76.3867,25.0,mudslide | rain,Perú,San Martín,Tarapoto,Tarapoto | Mudslides and floods destroyed several houses
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-05,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 70832 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-05,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 71823 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-19,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 71818 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-21,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 73807 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-21,,-12.476853748837065,-76.2530349395623,10.0,huayco,Perú,LIMA PROVINCIAS,OMAS,SINPAD 71791 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-22,,-16.408060265582055,-72.16323606906661,2.9,huayco,Perú,AREQUIPA,SAN JUAN DE SIGUAS,SINPAD 69564 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-22,,-16.48797994589419,-71.98593677956335,22.1,huayco,Perú,AREQUIPA,VITOR,SINPAD 69562 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-22,,-10.78355756814802,-77.26764582361396,17.4,huayco,Perú,LIMA PROVINCIAS,AMBAR,SINPAD 71816 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-15.390599672663125,-74.52640675653954,15.7,huayco,Perú,AREQUIPA,ACARI,SINPAD 69655 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-15.449551882806158,-74.39834952953429,11.7,huayco,Perú,AREQUIPA,JAQUI,SINPAD 69615 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-15.639676004425006,-71.55026191199974,8.6,huayco,Perú,AREQUIPA,CHIVAY,SINPAD 70080 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-16.929868115974504,-71.59758216881092,22.4,huayco,Perú,AREQUIPA,COCACHACRA,SINPAD 69648 | ISLAY
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 69402 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-10.624181816744343,-76.9935597229443,10.5,huayco,Perú,LIMA PROVINCIAS,GORGOR,SINPAD 70923 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 71815 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-11.393786426083391,-76.85577504531827,8.7,huayco,Perú,LIMA PROVINCIAS,SUMBILCA,SINPAD 73467 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-11.692829198144604,-76.59279862126309,5.1,huayco,Perú,LIMA PROVINCIAS,HUACHUPAMPA,SINPAD 72252 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 69363 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 69359 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-10.88917338975902,-77.12606745932182,8.9,huayco,Perú,LIMA PROVINCIAS,COCHAMARCA,SINPAD 71809 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-23,,-16.22091530116003,-70.80617374966148,16.7,huayco,Perú,MOQUEGUA,UBINAS,SINPAD 69934 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-24,,-16.023985237266597,-72.56579523127952,14.0,huayco,Perú,AREQUIPA,APLAO,SINPAD 69650 | CASTILLA
+NASA GLC (COOLR),http://trome.pe/actualidad/chosica-y-santa-eulalia-afectados-cinco-huaicos-2043094,2015-03-24,,-11.9161,-76.6791,5.0,mudslide | downpour,Perú,Lima,Santa Eulalia,"anexo Buenos Aires y el sector de Don Bosco | Por otro lado, en Santa Eulalia, en Huarochirí, hubo otra avalancha de lodo que afectó el anexo Buenos Aires y el sector de Don Bosco."
+NASA GLC (COOLR),http://www.ibtimes.com/least-seven-dead-peru-landslide-1857838,2015-03-24,,-11.9233,-76.6853,5.0,debris_flow | downpour,Perú,Lima,Asentamiento Humano Nicolas de Pierola,"Moyopampa | Seven people were killed and more were feared dead in Peru after a massive landslide buried parts of a town amid heavy rains, authorities said on Tuesday."
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-25,,-16.523460660639834,-72.14406943509918,11.8,huayco,Perú,AREQUIPA,SANTA RITA DE SIGUAS,SINPAD 69647 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-25,,-16.075615939989547,-73.13553871280318,13.4,huayco,Perú,AREQUIPA,MARIANO NICOLAS VALCARCEL,SINPAD 69558 | CAMANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-25,,-16.82106896088003,-71.2879024121303,15.8,huayco,Perú,MOQUEGUA,LA CAPILLA,SINPAD 69424 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-25,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 70008 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-25,,-16.704350045271863,-70.87864700942578,7.8,huayco,Perú,MOQUEGUA,QUINISTAQUILLAS,SINPAD 70064 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-26,,-16.482463803608745,-72.63674803549847,11.2,huayco,Perú,AREQUIPA,NICOLAS DE PIEROLA,SINPAD 69479 | CAMANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-26,,-16.9987242306662,-70.74014438129763,23.7,huayco,Perú,MOQUEGUA,TORATA,SINPAD 69526 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-03-26,,-17.38432108764332,-70.57064106621674,18.5,huayco,Perú,TACNA,ILABAYA,SINPAD 69465 | JORGE BASADRE
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/2843,2015-05-03,,-6.25805832,-77.7020531,1.0,None,Perú,AMAZONAS,CHETO,"F_REACTIVACION: Cerro Cueteurco | El sector de Cueteurco, se encuentra asentado sobre un deslizamiento antiguo, con corona de forma semicircular de longitud 1.2 km y la altura entre la cabecera y el pie del deslizamiento es 100 m. | El sector Cueteurco, se encuentra sentado sobre un deslizamiento antiguo, en cual se reactivó en el 2012 y afectó viviendas e infraestructura."
+NASA GLC (COOLR),http://timesofindia.indiatimes.com/world/rest-of-world/Chile-storms-leave-five-dead-Officials/articleshow/48416820.cms,2015-08-10,,-22.0734,-70.1827,,mudslide | downpour,Chile,Antofagasta,Tocopilla,"Tocopilla | Three of the dead were killed in a mudslide unleashed by heavy rains in Tocopilla in the northern region of Antofagasta, the National Emergency Office said."
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-12-27,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 73958 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-12-27,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 73957 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-12-27,,-12.813624059311849,-75.63145934620108,8.1,huayco,Perú,LIMA PROVINCIAS,LINCHA,SINPAD 73955 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2015-12-27,,-12.669249668449357,-75.92445324604246,4.5,huayco,Perú,LIMA PROVINCIAS,PUTINZA,SINPAD 73954 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-05,,-11.817430850428225,-76.38011442576848,7.5,huayco,Perú,LIMA PROVINCIAS,MATUCANA,SINPAD 77732 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-09,,-11.923636920339959,-76.56198360174221,3.1,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE COCACHACRA,SINPAD 74767 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-09,,-10.857527390322915,-77.04687659615404,8.6,huayco,Perú,LIMA PROVINCIAS,NAVAN,SINPAD 76123 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-11,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 74872 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-13,,-12.773319278433503,-75.75249071642764,7.8,huayco,Perú,LIMA PROVINCIAS,CACRA,SINPAD 76697 | YAUYOS
+NASA GLC (COOLR),http://www.peruthisweek.com/news-mudslide-in-junin-leaves-226-homeless-and-isolates-communities-108866,2016-02-17,,-11.5589,-74.1365,100.0,mudslide | downpour,Perú,Junín Region,Puerto Ocopa,"Satipo Province | The central jungle of Peru was hit hard by heavy rains on Wednesday, leaving 226 people homeless and leading to the isolation of five villages in Satipo of the Junín region.  After hours of heavy rains, a mudslide in the district of Pampa Hermosa in the Satipo province caused 31 houses to collapse, "
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-18,,-15.59691928342618,-71.64000017956289,6.0,huayco,Perú,AREQUIPA,COPORAQUE,SINPAD 74981 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-20,,-16.301806767623546,-70.62713264271854,9.2,huayco,Perú,MOQUEGUA,LLOQUE,SINPAD 75055 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-20,,-16.2272279913482,-70.6601422368324,5.7,huayco,Perú,MOQUEGUA,YUNGA,SINPAD 75133 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-21,,-15.79652074470333,-72.16294887310947,15.2,huayco,Perú,AREQUIPA,HUAMBO,SINPAD 75096 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-22,,-16.482463803608745,-72.63674803549847,11.2,huayco,Perú,AREQUIPA,NICOLAS DE PIEROLA,SINPAD 75062 | CAMANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-22,,-16.185506148402833,-70.49861145213188,17.8,huayco,Perú,MOQUEGUA,ICHUÑA,SINPAD 75145 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-23,,-15.29154090606899,-73.06729918809827,6.4,huayco,Perú,AREQUIPA,QUECHUALLA,SINPAD 75571 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-24,,-15.429304057770402,-71.9360839115013,11.6,huayco,Perú,AREQUIPA,TAPAY,SINPAD 75303 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-24,,-15.533941862695423,-72.94562505032849,11.2,huayco,Perú,AREQUIPA,CHICHAS,SINPAD 75970 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-24,,-15.321754728141196,-73.24171364601004,4.6,huayco,Perú,AREQUIPA,SAYLA,SINPAD 75451 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-24,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 75091 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 76560 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-12.154300424245262,-76.46297461483468,4.3,huayco,Perú,LIMA PROVINCIAS,CUENCA,SINPAD 76140 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-12.081301263617723,-76.27642081569662,8.9,huayco,Perú,LIMA PROVINCIAS,HUAROCHIRI,SINPAD 77354 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-12.081301263617723,-76.27642081569662,8.9,huayco,Perú,LIMA PROVINCIAS,HUAROCHIRI,SINPAD 76134 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-10.667601692387004,-76.76124536715217,16.8,huayco,Perú,LIMA PROVINCIAS,OYON,SINPAD 75143 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-10.838797609123649,-76.7973582580635,8.9,huayco,Perú,LIMA PROVINCIAS,PACHANGARA,SINPAD 76124 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 75147 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-12.686365154411838,-75.73036453226071,10.0,huayco,Perú,LIMA PROVINCIAS,TUPE,SINPAD 75161 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-25,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 76133 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-26,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 76517 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-28,,-10.774476491184886,-76.9275327256339,7.0,huayco,Perú,LIMA PROVINCIAS,ANDAJES,SINPAD 78805 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-29,,-10.624181816744343,-76.9935597229443,10.5,huayco,Perú,LIMA PROVINCIAS,GORGOR,SINPAD 76159 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-29,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 76529 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-29,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 76489 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-02-29,,-11.56330529280971,-76.44366719428055,8.3,huayco,Perú,LIMA PROVINCIAS,HUANZA,SINPAD 75884 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-03-03,,-15.40559310889468,-72.69628381275386,20.0,huayco,Perú,AREQUIPA,SALAMANCA,SINPAD 75572 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-03-04,,-12.086412722361452,-76.19575026493477,3.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE HUANCAYRE,SINPAD 78585 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-03-04,,-12.245591248761421,-76.10653823533514,4.8,huayco,Perú,LIMA PROVINCIAS,SAN JOAQUIN,SINPAD 77453 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-03-20,,-11.837794584717207,-76.52915958262514,6.6,huayco,Perú,LIMA PROVINCIAS,SAN MATEO DE OTAO,SINPAD 77516 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-03-20,,-12.032296612437545,-76.19990002604254,5.2,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE ANCHUCAYA,SINPAD 78645 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-03-30,,-12.032296612437545,-76.19990002604254,5.2,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE ANCHUCAYA,SINPAD 76227 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-04-01,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 76221 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-04-06,,-10.624181816744343,-76.9935597229443,10.5,huayco,Perú,LIMA PROVINCIAS,GORGOR,SINPAD 76568 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-04-16,,-12.032296612437545,-76.19990002604254,5.2,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE ANCHUCAYA,SINPAD 77351 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-04-19,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 76362 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2016-04-20,,-12.348244847356973,-76.28732923812643,6.9,huayco,Perú,LIMA PROVINCIAS,QUINOCAY,SINPAD 76448 | YAUYOS
+NASA GLC (COOLR),http://www.msn.com/en-gb/video/headlines/mudslide-blocks-road-near-machu-picchu/vp-BBseFFp,2016-04-23,,-13.1592608,-72.53217241,10.0,mudslide | unknown,Perú,Cusco,Santa Teresa,"Road near Machu Picchu, Peru | Dramatic footage has emerged of a mudslide taking over a road near the tourist site of Machu Picchu in Peru. The video, shot by a tourist on Saturday, shows mud coming down a mountain, blocking a road. ""The mudslide that was seconds away from taking out our colectivo [bus] on the way back from Machu"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-01,,-12.894395643901861,-76.07377818524635,8.5,huayco,Perú,LIMA PROVINCIAS,PACARAN,SINPAD 81450 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-06,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 81065 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-07,,-15.17921885449819,-72.11495351588657,19.5,huayco,Perú,AREQUIPA,CHACHAS,SINPAD 80963 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-12,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89526 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-12,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89527 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-12,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89528 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-13,,-16.31021323536615,-71.57636389200407,7.2,huayco,Perú,AREQUIPA,CERRO COLORADO,SINPAD 80857 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-13,,-15.969477191489988,-72.02128862900344,19.9,huayco,Perú,AREQUIPA,LLUTA,SINPAD 80843 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-13,,-10.766518640590586,-76.9873142759461,5.5,huayco,Perú,LIMA PROVINCIAS,CAUJUL,SINPAD 80844 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-13,,-12.813624059311849,-75.63145934620108,8.1,huayco,Perú,LIMA PROVINCIAS,LINCHA,SINPAD 82995 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-14,,-15.150021377169574,-71.79652025848675,22.1,huayco,Perú,AREQUIPA,CAYLLOMA,SINPAD 80862 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-14,,-13.555908214215641,-75.61099641359272,16.8,huayco,Perú,ICA,HUANCANO,SINPAD 80878 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-14,,-11.641093653201354,-76.38458522226115,8.6,huayco,Perú,LIMA PROVINCIAS,CARAMPOMA,SINPAD 81838 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-14.593994379844457,-75.15945825355493,7.6,huayco,Perú,ICA,LLIPATA,SINPAD 82547 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 80860 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-10.631340152625326,-77.68980823605374,9.4,huayco,Perú,LIMA PROVINCIAS,PATIVILCA,SINPAD 88318 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-11.402284124080845,-76.50410096596546,10.4,huayco,Perú,LIMA PROVINCIAS,HUAROS,SINPAD 80968 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-11.346101025063108,-76.76386816370987,7.3,huayco,Perú,LIMA PROVINCIAS,ATAVILLOS BAJO,SINPAD 85358 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 80824 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-11.837794584717207,-76.52915958262514,6.6,huayco,Perú,LIMA PROVINCIAS,SAN MATEO DE OTAO,SINPAD 81362 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 80825 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-15,,-12.476853748837065,-76.2530349395623,10.0,huayco,Perú,LIMA PROVINCIAS,OMAS,SINPAD 84178 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-16,,-11.663815757194145,-76.24486577401377,8.6,huayco,Perú,LIMA PROVINCIAS,CHICLA,SINPAD 81127 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-17,,-12.829949847863768,-76.01557497566017,6.2,huayco,Perú,LIMA PROVINCIAS,ZUÑIGA,SINPAD 81667 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-17,,-11.641093653201354,-76.38458522226115,8.6,huayco,Perú,LIMA PROVINCIAS,CARAMPOMA,SINPAD 81841 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-17,,-12.587434298673895,-75.84679328074998,10.4,huayco,Perú,LIMA PROVINCIAS,COLONIA,SINPAD 82134 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-17,,-12.51027967146615,-75.70361302715759,13.0,huayco,Perú,LIMA PROVINCIAS,HUANTAN,SINPAD 81464 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-17,,-12.813624059311849,-75.63145934620108,8.1,huayco,Perú,LIMA PROVINCIAS,LINCHA,SINPAD 81124 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-17,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89525 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-18,,-11.641249724575289,-76.67531367078519,6.5,huayco,Perú,LIMA PROVINCIAS,ARAHUAY,SINPAD 81129 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-18,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 81750 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-19,,-14.801581308742321,-75.33314991292106,17.5,huayco,Perú,ICA,CHANGUILLO,SINPAD 81270 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-20,,-12.548696855632137,-76.6474506178491,5.5,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE FLORES,SINPAD 82162 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-20,,-12.261137807488202,-76.36510208143363,7.1,huayco,Perú,LIMA PROVINCIAS,MARIATANA,SINPAD 81090 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-20,,-12.686365154411838,-75.73036453226071,10.0,huayco,Perú,LIMA PROVINCIAS,TUPE,SINPAD 81796 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-21,,-11.66348190175015,-76.82435271146929,10.7,huayco,Perú,LIMA PROVINCIAS,SANTA ROSA DE QUIVES,SINPAD 81024 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 82896 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-13.311899972300338,-76.16951153787369,7.6,huayco,Perú,ICA,GREGORIO PITA,SINPAD 81577 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 82759 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-12.658267415671897,-76.40487846176538,13.6,huayco,Perú,LIMA PROVINCIAS,COAYLLO,SINPAD 81317 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-11.641093653201354,-76.38458522226115,8.6,huayco,Perú,LIMA PROVINCIAS,CARAMPOMA,SINPAD 81842 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-12.921733325580536,-75.92486160289985,8.4,huayco,Perú,LIMA PROVINCIAS,CHOCOS,SINPAD 81121 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 82517 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-17.68108593130058,-70.42494179785236,21.4,huayco,Perú,TACNA,INCLAN,SINPAD 81214 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-22,,-17.334558193119804,-69.96385295029626,10.6,huayco,Perú,TACNA,TICACO,SINPAD 81084 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-23,,-13.922531525285704,-75.87523531218378,14.5,huayco,Perú,ICA,SALAS,SINPAD 81327 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-23,,-14.593994379844457,-75.15945825355493,7.6,huayco,Perú,ICA,LLIPATA,SINPAD 81539 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-23,,-14.347563772321227,-75.14724456279438,9.9,huayco,Perú,ICA,RIO GRANDE,SINPAD 82371 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-23,,-13.744336902070994,-75.81996583857669,17.1,huayco,Perú,ICA,HUMAY,SINPAD 82719 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-23,,-12.032296612437545,-76.19990002604254,5.2,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE ANCHUCAYA,SINPAD 84536 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-23,,-17.68108593130058,-70.42494179785236,21.4,huayco,Perú,TACNA,INCLAN,SINPAD 81501 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-23,,-17.38432108764332,-70.57064106621674,18.5,huayco,Perú,TACNA,ILABAYA,SINPAD 81034 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-24,,-16.523460660639834,-72.14406943509918,11.8,huayco,Perú,AREQUIPA,SANTA RITA DE SIGUAS,SINPAD 82901 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-24,,-14.076002480350793,-75.6543597804937,5.0,huayco,Perú,ICA,LOS AQUIJES,SINPAD 82470 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-24,,-13.511915715364438,-75.91087684085112,15.6,huayco,Perú,ICA,EL CARMEN,SINPAD 90451 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-24,,-12.430614799870753,-76.63018529587899,12.3,huayco,Perú,LIMA PROVINCIAS,CHILCA,SINPAD 90238 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-15.639676004425006,-71.55026191199974,8.6,huayco,Perú,AREQUIPA,CHIVAY,SINPAD 81191 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-15.673781654281372,-71.95863059710751,12.2,huayco,Perú,AREQUIPA,CABANACONDE,SINPAD 81187 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 81173 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-11.949452069101497,-76.97545784539824,6.5,huayco,Perú,LIMA METROPOLITANA,SAN JUAN DE LURIGANCHO,SINPAD 81408 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-10.810291514855047,-77.56415507475158,12.9,huayco,Perú,LIMA PROVINCIAS,SUPE,SINPAD 81656 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-13.017645310982065,-76.11693357455601,12.6,huayco,Perú,LIMA PROVINCIAS,LUNAHUANA,SINPAD 81687 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-11.815385405374535,-76.77360831909373,13.8,huayco,Perú,LIMA PROVINCIAS,SAN ANTONIO,SINPAD 81445 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-11.815385405374535,-76.77360831909373,13.8,huayco,Perú,LIMA PROVINCIAS,SAN ANTONIO,SINPAD 88223 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-11.763151979294943,-76.55720058375606,5.1,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE CASTA,SINPAD 81149 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 81649 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-25,,-12.960338571526984,-75.69945494748815,8.1,huayco,Perú,LIMA PROVINCIAS,MADEAN,SINPAD 82215 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-26,,-16.460105349911363,-71.69356681409533,9.6,huayco,Perú,AREQUIPA,UCHUMAYO,SINPAD 81153 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-26,,-13.744336902070994,-75.81996583857669,17.1,huayco,Perú,ICA,HUMAY,SINPAD 82721 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-26,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 81175 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-26,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 81935 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-14.85697788082681,-75.0380168161453,19.1,huayco,Perú,ICA,NASCA,SINPAD 81668 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-11.346101025063108,-76.76386816370987,7.3,huayco,Perú,LIMA PROVINCIAS,ATAVILLOS BAJO,SINPAD 81698 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-13.005757189203726,-75.82587643149523,4.8,huayco,Perú,LIMA PROVINCIAS,AZANGARO,SINPAD 83002 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 81237 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.921733325580536,-75.92486160289985,8.4,huayco,Perú,LIMA PROVINCIAS,CHOCOS,SINPAD 89459 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.921733325580536,-75.92486160289985,8.4,huayco,Perú,LIMA PROVINCIAS,CHOCOS,SINPAD 81742 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.090938712929358,-75.83508500415677,9.5,huayco,Perú,LIMA PROVINCIAS,HUANCAYA,SINPAD 81794 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.382825949490124,-75.67466542764899,11.3,huayco,Perú,LIMA PROVINCIAS,LARAOS,SINPAD 84294 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.960338571526984,-75.69945494748815,8.1,huayco,Perú,LIMA PROVINCIAS,MADEAN,SINPAD 81654 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 85292 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-27,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 81657 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-28,,-12.234512343511021,-75.89185788317052,8.1,huayco,Perú,LIMA PROVINCIAS,MIRAFLORES,SINPAD 82757 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-28,,-12.165561467063476,-75.70556832439526,9.6,huayco,Perú,LIMA PROVINCIAS,TOMAS,SINPAD 86129 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-29,,-16.419079871766986,-71.4746575095168,3.2,huayco,Perú,AREQUIPA,PAUCARPATA,SINPAD 81285 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-29,,-14.85697788082681,-75.0380168161453,19.1,huayco,Perú,ICA,NASCA,SINPAD 81669 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-29,,-10.88917338975902,-77.12606745932182,8.9,huayco,Perú,LIMA PROVINCIAS,COCHAMARCA,SINPAD 81280 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-30,,-12.154300424245262,-76.46297461483468,4.3,huayco,Perú,LIMA PROVINCIAS,CUENCA,SINPAD 81563 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-31,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 82310 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-31,,-11.949452069101497,-76.97545784539824,6.5,huayco,Perú,LIMA METROPOLITANA,SAN JUAN DE LURIGANCHO,SINPAD 81655 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-31,,-11.38683842715344,-77.16790067413316,14.2,huayco,Perú,LIMA PROVINCIAS,HUARAL,SINPAD 81409 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-31,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 85322 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-01-31,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 82785 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-01,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87208 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-01,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87207 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-01,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 81509 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88155 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-12.077330278529026,-76.7750544248125,8.4,huayco,Perú,LIMA METROPOLITANA,CIENEGUILLA,SINPAD 81425 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 81634 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-12.058303567872143,-76.58790932893176,11.7,huayco,Perú,LIMA PROVINCIAS,ANTIOQUIA,SINPAD 84713 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-11.692829198144604,-76.59279862126309,5.1,huayco,Perú,LIMA PROVINCIAS,HUACHUPAMPA,SINPAD 82170 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-11.815385405374535,-76.77360831909373,13.8,huayco,Perú,LIMA PROVINCIAS,SAN ANTONIO,SINPAD 88225 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-11.819769001047243,-76.21797525517407,11.7,huayco,Perú,LIMA PROVINCIAS,SAN MATEO,SINPAD 81957 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 84460 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-12.348244847356973,-76.28732923812643,6.9,huayco,Perú,LIMA PROVINCIAS,QUINOCAY,SINPAD 81707 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-02,,-12.348244847356973,-76.28732923812643,6.9,huayco,Perú,LIMA PROVINCIAS,QUINOCAY,SINPAD 86947 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-03,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87210 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-03,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 85333 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-03,,-11.763151979294943,-76.55720058375606,5.1,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE CASTA,SINPAD 81477 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-03,,-10.774476491184886,-76.9275327256339,7.0,huayco,Perú,LIMA PROVINCIAS,ANDAJES,SINPAD 81735 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-03,,-12.960338571526984,-75.69945494748815,8.1,huayco,Perú,LIMA PROVINCIAS,MADEAN,SINPAD 84360 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-04,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 83669 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-04,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87209 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-05,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 85335 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-05,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 81986 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-06,,-10.631340152625326,-77.68980823605374,9.4,huayco,Perú,LIMA PROVINCIAS,PATIVILCA,SINPAD 81781 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-06,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 82231 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-06,,-12.261137807488202,-76.36510208143363,7.1,huayco,Perú,LIMA PROVINCIAS,MARIATANA,SINPAD 86543 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-07,,-10.810291514855047,-77.56415507475158,12.9,huayco,Perú,LIMA PROVINCIAS,SUPE,SINPAD 81658 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-07,,-12.286859463741486,-76.19981102653273,3.6,huayco,Perú,LIMA PROVINCIAS,COCHAS,SINPAD 81594 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-07,,-12.27413763019824,-76.07841138433392,3.6,huayco,Perú,LIMA PROVINCIAS,HUAÑEC,SINPAD 88486 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87200 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87202 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 81631 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-11.986190825172269,-76.46057933079335,5.6,huayco,Perú,LIMA PROVINCIAS,SAN ANDRES DE TUPICOCHA,SINPAD 81752 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-11.9057193607804,-76.49957489262268,3.7,huayco,Perú,LIMA PROVINCIAS,SAN BARTOLOME,SINPAD 81627 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-11.719624917819228,-76.46728693857203,6.5,huayco,Perú,LIMA PROVINCIAS,SAN JUAN DE IRIS,SINPAD 81730 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 88759 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-08,,-12.245591248761421,-76.10653823533514,4.8,huayco,Perú,LIMA PROVINCIAS,SAN JOAQUIN,SINPAD 81756 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-10.810291514855047,-77.56415507475158,12.9,huayco,Perú,LIMA PROVINCIAS,SUPE,SINPAD 81699 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87205 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87203 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87201 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87206 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-12.769391705816911,-75.6735058386096,6.2,huayco,Perú,LIMA PROVINCIAS,HONGOS,SINPAD 84734 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88528 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-09,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88516 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-10,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 87204 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-10,,-12.475244609924745,-75.95330477894943,10.6,huayco,Perú,LIMA PROVINCIAS,YAUYOS,SINPAD 81798 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-10,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88515 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-12,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89530 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-14,,-11.692829198144604,-76.59279862126309,5.1,huayco,Perú,LIMA PROVINCIAS,HUACHUPAMPA,SINPAD 81857 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-14,,-17.22677255084491,-70.04459605965218,10.9,huayco,Perú,TACNA,SUSAPAYA,SINPAD 84662 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-15,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 86482 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-15,,-11.474259379565146,-76.58440038789684,6.6,huayco,Perú,LIMA PROVINCIAS,CANTA,SINPAD 86478 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-15,,-10.78355756814802,-77.26764582361396,17.4,huayco,Perú,LIMA PROVINCIAS,AMBAR,SINPAD 84526 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-15,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88525 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-17,,-12.154300424245262,-76.46297461483468,4.3,huayco,Perú,LIMA PROVINCIAS,CUENCA,SINPAD 87579 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-17,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 82779 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-18,,-11.763151979294943,-76.55720058375606,5.1,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE CASTA,SINPAD 82024 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-18,,-12.773319278433503,-75.75249071642764,7.8,huayco,Perú,LIMA PROVINCIAS,CACRA,SINPAD 86314 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-18,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 85309 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-18,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88529 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-18,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 85116 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-19,,-16.929868115974504,-71.59758216881092,22.4,huayco,Perú,AREQUIPA,COCACHACRA,SINPAD 82044 | ISLAY
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-19,,-11.763151979294943,-76.55720058375606,5.1,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE CASTA,SINPAD 82018 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-19,,-12.813624059311849,-75.63145934620108,8.1,huayco,Perú,LIMA PROVINCIAS,LINCHA,SINPAD 83551 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-20,,-12.894395643901861,-76.07377818524635,8.5,huayco,Perú,LIMA PROVINCIAS,PACARAN,SINPAD 88607 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-20,,-12.773319278433503,-75.75249071642764,7.8,huayco,Perú,LIMA PROVINCIAS,CACRA,SINPAD 86315 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-20,,-12.769391705816911,-75.6735058386096,6.2,huayco,Perú,LIMA PROVINCIAS,HONGOS,SINPAD 85875 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-20,,-12.476853748837065,-76.2530349395623,10.0,huayco,Perú,LIMA PROVINCIAS,OMAS,SINPAD 88915 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-20,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88514 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-21,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 83714 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-22,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 88377 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-22,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 83045 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-22,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88517 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-23,,-15.17921885449819,-72.11495351588657,19.5,huayco,Perú,AREQUIPA,CHACHAS,SINPAD 85636 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-23,,-12.641555056609802,-76.03958875206978,12.6,huayco,Perú,LIMA PROVINCIAS,ALLAUCA,SINPAD 82575 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-24,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 87445 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-24,,-12.813624059311849,-75.63145934620108,8.1,huayco,Perú,LIMA PROVINCIAS,LINCHA,SINPAD 83610 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-25,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 84458 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-25,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88508 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-25,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 88510 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-26,,-12.894395643901861,-76.07377818524635,8.5,huayco,Perú,LIMA PROVINCIAS,PACARAN,SINPAD 82931 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-14.85697788082681,-75.0380168161453,19.1,huayco,Perú,ICA,NASCA,SINPAD 82550 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 82687 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 82378 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-12.829949847863768,-76.01557497566017,6.2,huayco,Perú,LIMA PROVINCIAS,ZUÑIGA,SINPAD 88360 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-12.058303567872143,-76.58790932893176,11.7,huayco,Perú,LIMA PROVINCIAS,ANTIOQUIA,SINPAD 84213 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-11.114215625413971,-77.47695085921865,6.3,huayco,Perú,LIMA PROVINCIAS,SANTA MARIA,SINPAD 83428 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-12.773319278433503,-75.75249071642764,7.8,huayco,Perú,LIMA PROVINCIAS,CACRA,SINPAD 82474 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 82385 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88148 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-27,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88163 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.270171916043727,-76.7424549032843,6.2,huayco,Perú,LIMA METROPOLITANA,PUNTA HERMOSA,SINPAD 82425 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.261053136781047,-76.53377181412742,13.6,huayco,Perú,LIMA PROVINCIAS,SANTO DOMINGO DE LOS OLLEROS,SINPAD 82417 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.475244609924745,-75.95330477894943,10.6,huayco,Perú,LIMA PROVINCIAS,YAUYOS,SINPAD 82398 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89529 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88150 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88159 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88152 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88336 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88154 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88383 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-02-28,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88385 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.655205666737448,-76.60192410713074,6.4,huayco,Perú,LIMA PROVINCIAS,MALA,SINPAD 82573 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.773319278433503,-75.75249071642764,7.8,huayco,Perú,LIMA PROVINCIAS,CACRA,SINPAD 82495 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 83153 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 84408 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 85215 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.681993785602181,-76.17910932534065,12.9,huayco,Perú,LIMA PROVINCIAS,TAURIPAMPA,SINPAD 82523 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88158 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88164 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88334 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88146 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88165 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88337 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88162 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88386 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88387 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88389 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88167 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88390 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88382 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-14.801581308742321,-75.33314991292106,17.5,huayco,Perú,ICA,CHANGUILLO,SINPAD 82743 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-14.347563772321227,-75.14724456279438,9.9,huayco,Perú,ICA,RIO GRANDE,SINPAD 87440 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 82565 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-12.270171916043727,-76.7424549032843,6.2,huayco,Perú,LIMA METROPOLITANA,PUNTA HERMOSA,SINPAD 82556 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 86356 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 83046 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 83044 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-12.658267415671897,-76.40487846176538,13.6,huayco,Perú,LIMA PROVINCIAS,COAYLLO,SINPAD 85119 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-12.261137807488202,-76.36510208143363,7.1,huayco,Perú,LIMA PROVINCIAS,MARIATANA,SINPAD 82604 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-02,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 82790 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-03,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 86841 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-03,,-12.829949847863768,-76.01557497566017,6.2,huayco,Perú,LIMA PROVINCIAS,ZUÑIGA,SINPAD 88363 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-03,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 83030 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-04,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87562 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-04,,-11.966394216438372,-76.52419461847893,4.1,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE TUNA,SINPAD 86243 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-04,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 84405 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-04,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 83359 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-05,,-12.797878571378213,-76.5105036003611,9.6,huayco,Perú,LIMA PROVINCIAS,ASIA,SINPAD 86888 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-05,,-12.154300424245262,-76.46297461483468,4.3,huayco,Perú,LIMA PROVINCIAS,CUENCA,SINPAD 87767 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-05,,-11.962641554886364,-76.33253256791087,10.4,huayco,Perú,LIMA PROVINCIAS,SAN DAMIAN,SINPAD 83061 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-05,,-13.005757189203726,-75.82587643149523,4.8,huayco,Perú,LIMA PROVINCIAS,AZANGARO,SINPAD 83124 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-05,,-12.286859463741486,-76.19981102653273,3.6,huayco,Perú,LIMA PROVINCIAS,COCHAS,SINPAD 87508 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-05,,-12.937420512577694,-75.82045273546521,4.0,huayco,Perú,LIMA PROVINCIAS,HUANGASCAR,SINPAD 83095 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-06,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 88033 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-08,,-14.676976909292634,-75.00381146621356,13.6,huayco,Perú,ICA,EL INGENIO,SINPAD 87737 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-08,,-13.051896958263264,-76.43014969846865,3.4,huayco,Perú,LIMA PROVINCIAS,SAN LUIS,SINPAD 86520 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-08,,-11.148403999898274,-76.77442823907863,7.9,huayco,Perú,LIMA PROVINCIAS,VEINTISIETE DE NOVIEMBRE,SINPAD 85039 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-08,,-12.921733325580536,-75.92486160289985,8.4,huayco,Perú,LIMA PROVINCIAS,CHOCOS,SINPAD 87914 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-08,,-12.921733325580536,-75.92486160289985,8.4,huayco,Perú,LIMA PROVINCIAS,CHOCOS,SINPAD 87916 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-08,,-12.313678575857757,-76.09237889916034,6.2,huayco,Perú,LIMA PROVINCIAS,QUINCHES,SINPAD 85303 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-09,,-12.22631963007555,-76.26208120064969,5.5,huayco,Perú,LIMA PROVINCIAS,SANGALLAYA,SINPAD 83874 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-09,,-12.370427987374027,-76.04515571179114,8.8,huayco,Perú,LIMA PROVINCIAS,AYAVIRI,SINPAD 83693 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-10.488367695737107,-77.74320252557858,11.3,huayco,Perú,LIMA PROVINCIAS,PARAMONGA,SINPAD 83048 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 86887 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 86757 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-10.624181816744343,-76.9935597229443,10.5,huayco,Perú,LIMA PROVINCIAS,GORGOR,SINPAD 86402 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 83128 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 86490 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-12.261053136781047,-76.53377181412742,13.6,huayco,Perú,LIMA PROVINCIAS,SANTO DOMINGO DE LOS OLLEROS,SINPAD 82936 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-10.88917338975902,-77.12606745932182,8.9,huayco,Perú,LIMA PROVINCIAS,COCHAMARCA,SINPAD 84614 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-10,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 84163 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-11,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 83084 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-12,,-15.570168772652881,-73.7312953702845,18.1,huayco,Perú,AREQUIPA,QUICACHA,SINPAD 84609 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-12,,-12.077330278529026,-76.7750544248125,8.4,huayco,Perú,LIMA METROPOLITANA,CIENEGUILLA,SINPAD 83100 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-12,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 85293 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-12,,-11.87695693132721,-76.44362463361071,5.5,huayco,Perú,LIMA PROVINCIAS,SURCO,SINPAD 83555 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-12,,-13.005757189203726,-75.82587643149523,4.8,huayco,Perú,LIMA PROVINCIAS,AZANGARO,SINPAD 86519 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-12,,-12.773319278433503,-75.75249071642764,7.8,huayco,Perú,LIMA PROVINCIAS,CACRA,SINPAD 86485 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-13,,-12.430614799870753,-76.63018529587899,12.3,huayco,Perú,LIMA PROVINCIAS,CHILCA,SINPAD 83588 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-13,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 83707 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-13,,-10.88917338975902,-77.12606745932182,8.9,huayco,Perú,LIMA PROVINCIAS,COCHAMARCA,SINPAD 87682 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-13,,-10.88917338975902,-77.12606745932182,8.9,huayco,Perú,LIMA PROVINCIAS,COCHAMARCA,SINPAD 86329 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-13,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 84807 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-13,,-17.68108593130058,-70.42494179785236,21.4,huayco,Perú,TACNA,INCLAN,SINPAD 83737 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-13,,-17.9564425282906,-70.66786808277459,19.0,huayco,Perú,TACNA,SAMA,SINPAD 83797 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-10.624181816744343,-76.9935597229443,10.5,huayco,Perú,LIMA PROVINCIAS,GORGOR,SINPAD 84499 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-11.38683842715344,-77.16790067413316,14.2,huayco,Perú,LIMA PROVINCIAS,HUARAL,SINPAD 83466 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-11.518642817344128,-77.05051011268027,15.3,huayco,Perú,LIMA PROVINCIAS,AUCALLAMA,SINPAD 84744 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-12.058303567872143,-76.58790932893176,11.7,huayco,Perú,LIMA PROVINCIAS,ANTIOQUIA,SINPAD 84598 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-11.641093653201354,-76.38458522226115,8.6,huayco,Perú,LIMA PROVINCIAS,CARAMPOMA,SINPAD 83547 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-11.815385405374535,-76.77360831909373,13.8,huayco,Perú,LIMA PROVINCIAS,SAN ANTONIO,SINPAD 86186 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-11.815385405374535,-76.77360831909373,13.8,huayco,Perú,LIMA PROVINCIAS,SAN ANTONIO,SINPAD 88224 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-12.22631963007555,-76.26208120064969,5.5,huayco,Perú,LIMA PROVINCIAS,SANGALLAYA,SINPAD 86546 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-11.966394216438372,-76.52419461847893,4.1,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE TUNA,SINPAD 83553 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-11.27180948934177,-77.49397939363685,15.1,huayco,Perú,LIMA PROVINCIAS,HUACHO,SINPAD 83557 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-10.78355756814802,-77.26764582361396,17.4,huayco,Perú,LIMA PROVINCIAS,AMBAR,SINPAD 83249 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-13.005757189203726,-75.82587643149523,4.8,huayco,Perú,LIMA PROVINCIAS,AZANGARO,SINPAD 83623 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-12.353141032422315,-75.88255890389625,6.1,huayco,Perú,LIMA PROVINCIAS,CARANIA,SINPAD 83561 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-17.376941458124612,-69.75338611124117,16.7,huayco,Perú,TACNA,TARATA,SINPAD 84663 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-17.49883173859842,-70.21684821886484,10.9,huayco,Perú,TACNA,HEROES ALBARRACIN,SINPAD 83585 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-14,,-17.334558193119804,-69.96385295029626,10.6,huayco,Perú,TACNA,TICACO,SINPAD 83578 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-14.48438651147746,-75.77941454535903,21.0,huayco,Perú,ICA,OCUCAJE,SINPAD 86185 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 83327 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 84548 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.040633625907091,-76.98202537044645,2.4,huayco,Perú,LIMA METROPOLITANA,EL AGUSTINO,SINPAD 83967 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 83304 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.270171916043727,-76.7424549032843,6.2,huayco,Perú,LIMA METROPOLITANA,PUNTA HERMOSA,SINPAD 83295 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.631340152625326,-77.68980823605374,9.4,huayco,Perú,LIMA PROVINCIAS,PATIVILCA,SINPAD 84617 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.810291514855047,-77.56415507475158,12.9,huayco,Perú,LIMA PROVINCIAS,SUPE,SINPAD 83461 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 86203 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 86309 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 84442 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 86621 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.613714794582584,-77.2207865365251,9.5,huayco,Perú,LIMA PROVINCIAS,MANAS,SINPAD 87942 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.797878571378213,-76.5105036003611,9.6,huayco,Perú,LIMA PROVINCIAS,ASIA,SINPAD 83520 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.962109848702855,-76.25890228838692,10.0,huayco,Perú,LIMA PROVINCIAS,NUEVO IMPERIAL,SINPAD 83536 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.38683842715344,-77.16790067413316,14.2,huayco,Perú,LIMA PROVINCIAS,HUARAL,SINPAD 83597 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 86013 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 88232 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 88233 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 88174 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 83836 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.148403999898274,-76.77442823907863,7.9,huayco,Perú,LIMA PROVINCIAS,VEINTISIETE DE NOVIEMBRE,SINPAD 83307 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.095467052651204,-76.39635854309984,5.3,huayco,Perú,LIMA PROVINCIAS,LAHUAYTAMBO,SINPAD 83549 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.162637773521537,-76.37968130485457,4.9,huayco,Perú,LIMA PROVINCIAS,LANGA,SINPAD 85732 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.837794584717207,-76.52915958262514,6.6,huayco,Perú,LIMA PROVINCIAS,SAN MATEO DE OTAO,SINPAD 88913 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.086412722361452,-76.19575026493477,3.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE HUANCAYRE,SINPAD 83552 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.261053136781047,-76.53377181412742,13.6,huayco,Perú,LIMA PROVINCIAS,SANTO DOMINGO DE LOS OLLEROS,SINPAD 83294 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.78355756814802,-77.26764582361396,17.4,huayco,Perú,LIMA PROVINCIAS,AMBAR,SINPAD 84524 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.78355756814802,-77.26764582361396,17.4,huayco,Perú,LIMA PROVINCIAS,AMBAR,SINPAD 89402 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.048639270984314,-76.91688328732877,9.6,huayco,Perú,LIMA PROVINCIAS,LEONCIO PRADO,SINPAD 83336 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 86847 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 86845 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 87722 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 87090 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 87089 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 87720 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 87091 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 83255 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.667601692387004,-76.76124536715217,16.8,huayco,Perú,LIMA PROVINCIAS,OYON,SINPAD 83560 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.857527390322915,-77.04687659615404,8.6,huayco,Perú,LIMA PROVINCIAS,NAVAN,SINPAD 86302 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-10.838797609123649,-76.7973582580635,8.9,huayco,Perú,LIMA PROVINCIAS,PACHANGARA,SINPAD 89233 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.773319278433503,-75.75249071642764,7.8,huayco,Perú,LIMA PROVINCIAS,CACRA,SINPAD 83612 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.354456504472363,-76.19033435975567,4.2,huayco,Perú,LIMA PROVINCIAS,HUAMPARA,SINPAD 83562 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.937420512577694,-75.82045273546521,4.0,huayco,Perú,LIMA PROVINCIAS,HUANGASCAR,SINPAD 88482 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.476853748837065,-76.2530349395623,10.0,huayco,Perú,LIMA PROVINCIAS,OMAS,SINPAD 88047 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.476853748837065,-76.2530349395623,10.0,huayco,Perú,LIMA PROVINCIAS,OMAS,SINPAD 88048 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-15,,-12.245591248761421,-76.10653823533514,4.8,huayco,Perú,LIMA PROVINCIAS,SAN JOAQUIN,SINPAD 83563 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 84399 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-14.801581308742321,-75.33314991292106,17.5,huayco,Perú,ICA,CHANGUILLO,SINPAD 83443 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.958098001415472,-77.07049974997128,1.8,huayco,Perú,LIMA METROPOLITANA,LOS OLIVOS,SINPAD 83899 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 83383 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-10.488367695737107,-77.74320252557858,11.3,huayco,Perú,LIMA PROVINCIAS,PARAMONGA,SINPAD 83953 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 83522 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-12.430614799870753,-76.63018529587899,12.3,huayco,Perú,LIMA PROVINCIAS,CHILCA,SINPAD 83530 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-13.028099839245868,-76.37362700936143,4.4,huayco,Perú,LIMA PROVINCIAS,IMPERIAL,SINPAD 83490 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-13.028099839245868,-76.37362700936143,4.4,huayco,Perú,LIMA PROVINCIAS,IMPERIAL,SINPAD 88092 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.346101025063108,-76.76386816370987,7.3,huayco,Perú,LIMA PROVINCIAS,ATAVILLOS BAJO,SINPAD 83545 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.346101025063108,-76.76386816370987,7.3,huayco,Perú,LIMA PROVINCIAS,ATAVILLOS BAJO,SINPAD 86462 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.817430850428225,-76.38011442576848,7.5,huayco,Perú,LIMA PROVINCIAS,MATUCANA,SINPAD 87836 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 86018 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 87406 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85558 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85560 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85564 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85563 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85565 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85566 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85569 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 86023 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 84889 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 84891 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85377 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 85378 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 84359 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 86017 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.763151979294943,-76.55720058375606,5.1,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE CASTA,SINPAD 85760 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 84402 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-10.78355756814802,-77.26764582361396,17.4,huayco,Perú,LIMA PROVINCIAS,AMBAR,SINPAD 83829 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-10.9199814860553,-76.85579059623964,7.3,huayco,Perú,LIMA PROVINCIAS,CHECRAS,SINPAD 84339 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.114215625413971,-77.47695085921865,6.3,huayco,Perú,LIMA PROVINCIAS,SANTA MARIA,SINPAD 83811 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-16,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 86811 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 83850 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 83519 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-10.624181816744343,-76.9935597229443,10.5,huayco,Perú,LIMA PROVINCIAS,GORGOR,SINPAD 86403 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-12.797878571378213,-76.5105036003611,9.6,huayco,Perú,LIMA PROVINCIAS,ASIA,SINPAD 86954 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-11.346101025063108,-76.76386816370987,7.3,huayco,Perú,LIMA PROVINCIAS,ATAVILLOS BAJO,SINPAD 85369 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-11.145641037664541,-76.56709220822636,8.1,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE ANDAMARCA,SINPAD 88459 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-11.393786426083391,-76.85577504531827,8.7,huayco,Perú,LIMA PROVINCIAS,SUMBILCA,SINPAD 85574 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-11.837794584717207,-76.52915958262514,6.6,huayco,Perú,LIMA PROVINCIAS,SAN MATEO DE OTAO,SINPAD 86632 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-17,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 85035 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-18,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 83596 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-18,,-13.017645310982065,-76.11693357455601,12.6,huayco,Perú,LIMA PROVINCIAS,LUNAHUANA,SINPAD 86470 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-18,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 83932 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-18,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89531 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-12.077330278529026,-76.7750544248125,8.4,huayco,Perú,LIMA METROPOLITANA,CIENEGUILLA,SINPAD 84373 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-12.077330278529026,-76.7750544248125,8.4,huayco,Perú,LIMA METROPOLITANA,CIENEGUILLA,SINPAD 84017 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 83849 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 84147 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 83609 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 83889 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-11.763151979294943,-76.55720058375606,5.1,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE CASTA,SINPAD 85388 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-19,,-11.87695693132721,-76.44362463361071,5.5,huayco,Perú,LIMA PROVINCIAS,SURCO,SINPAD 83591 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-20,,-11.966394216438372,-76.52419461847893,4.1,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE TUNA,SINPAD 85067 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-20,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 85264 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-21,,-16.252521707653504,-71.45957143176496,8.5,huayco,Perú,AREQUIPA,CAYMA,SINPAD 83869 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-21,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89537 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-22,,-13.028099839245868,-76.37362700936143,4.4,huayco,Perú,LIMA PROVINCIAS,IMPERIAL,SINPAD 88100 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-22,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 85140 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-22,,-12.27413763019824,-76.07841138433392,3.6,huayco,Perú,LIMA PROVINCIAS,HUAÑEC,SINPAD 86599 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-23,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 84221 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-23,,-11.936918570730073,-76.6238419188814,3.6,huayco,Perú,LIMA PROVINCIAS,RICARDO PALMA,SINPAD 85871 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-23,,-13.005757189203726,-75.82587643149523,4.8,huayco,Perú,LIMA PROVINCIAS,AZANGARO,SINPAD 84410 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-23,,-12.090938712929358,-75.83508500415677,9.5,huayco,Perú,LIMA PROVINCIAS,HUANCAYA,SINPAD 88375 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-23,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89547 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-24,,-15.969477191489988,-72.02128862900344,19.9,huayco,Perú,AREQUIPA,LLUTA,SINPAD 84962 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-24,,-14.152487479932669,-75.16233707662656,10.5,huayco,Perú,ICA,TIBILLO,SINPAD 89097 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-24,,-10.88917338975902,-77.12606745932182,8.9,huayco,Perú,LIMA PROVINCIAS,COCHAMARCA,SINPAD 85708 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-25,,-12.548696855632137,-76.6474506178491,5.5,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE FLORES,SINPAD 88609 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-25,,-13.005757189203726,-75.82587643149523,4.8,huayco,Perú,LIMA PROVINCIAS,AZANGARO,SINPAD 88222 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-25,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89532 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-26,,-12.040633625907091,-76.98202537044645,2.4,huayco,Perú,LIMA METROPOLITANA,EL AGUSTINO,SINPAD 84746 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-27,,-12.813624059311849,-75.63145934620108,8.1,huayco,Perú,LIMA PROVINCIAS,LINCHA,SINPAD 85506 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-27,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89536 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-28,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 88234 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-28,,-11.474259379565146,-76.58440038789684,6.6,huayco,Perú,LIMA PROVINCIAS,CANTA,SINPAD 86477 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-28,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 85714 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 86881 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87452 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87454 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87428 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87450 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87429 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87439 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 87437 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.51027967146615,-75.70361302715759,13.0,huayco,Perú,LIMA PROVINCIAS,HUANTAN,SINPAD 85965 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-29,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89548 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-30,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 86195 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-03-30,,-12.104937223632579,-76.11566285424553,12.0,huayco,Perú,LIMA PROVINCIAS,SAN LORENZO DE QUINTI,SINPAD 85529 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-01,,-11.55124412078009,-76.84398819904675,12.4,huayco,Perú,LIMA PROVINCIAS,HUAMANTANGA,SINPAD 84925 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-01,,-10.9645731992745,-76.67261887863324,11.0,huayco,Perú,LIMA PROVINCIAS,SANTA LEONOR,SINPAD 85231 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-03,,-12.086412722361452,-76.19575026493477,3.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE HUANCAYRE,SINPAD 85481 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-04,,-12.641555056609802,-76.03958875206978,12.6,huayco,Perú,LIMA PROVINCIAS,ALLAUCA,SINPAD 85175 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-04,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89533 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-06,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89534 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-08,,-12.49479189846856,-76.18359582324445,5.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE PILAS,SINPAD 89535 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-15,,-11.556349348243213,-76.6122250225885,6.4,huayco,Perú,LIMA PROVINCIAS,LACHAQUI,SINPAD 89239 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-04-19,,-11.81212771226126,-76.57617329081224,4.0,huayco,Perú,LIMA PROVINCIAS,CALLAHUANCA,SINPAD 84884 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2017-07-01,,-12.885647747100814,-75.77029988767575,6.9,huayco,Perú,LIMA PROVINCIAS,VIÑAC,SINPAD 88153 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-01-23,,-15.70105269770314,-73.03072993929798,18.4,huayco,Perú,AREQUIPA,YANAQUIHUA,SINPAD 91400 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-03-01,,-10.88917338975902,-77.12606745932182,8.9,huayco,Perú,LIMA PROVINCIAS,COCHAMARCA,SINPAD 92946 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-03-02,,-11.837794584717207,-76.52915958262514,6.6,huayco,Perú,LIMA PROVINCIAS,SAN MATEO DE OTAO,SINPAD 92516 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-03-09,,-12.370427987374027,-76.04515571179114,8.8,huayco,Perú,LIMA PROVINCIAS,AYAVIRI,SINPAD 92859 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-03-13,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 92577 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-03-16,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 92848 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-03-27,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 92910 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-04-03,,-12.086412722361452,-76.19575026493477,3.4,huayco,Perú,LIMA PROVINCIAS,SAN PEDRO DE HUANCAYRE,SINPAD 93353 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2018-11-26,,-15.671349529127165,-72.62026092342177,9.1,huayco,Perú,AREQUIPA,PAMPACOLCA,SINPAD 96846 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-01-20,,-17.396775691392893,-70.15645524902472,8.6,huayco,Perú,TACNA,SITAJARA,SINPAD 97827 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-01-23,,-17.49883173859842,-70.21684821886484,10.9,huayco,Perú,TACNA,HEROES ALBARRACIN,SINPAD 97754 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-01-27,,-17.953731205796768,-70.14520289794244,5.9,huayco,Perú,TACNA,CALANA,SINPAD 97775 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-01-27,,-18.10766803671175,-70.23336151521029,7.3,huayco,Perú,TACNA,CORONEL GREGORIO ALBARRACIN LANCHIPA,SINPAD 98418 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-01-29,,-18.10766803671175,-70.23336151521029,7.3,huayco,Perú,TACNA,CORONEL GREGORIO ALBARRACIN LANCHIPA,SINPAD 98372 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-01,,-17.445841061890256,-71.35729701761761,10.1,huayco,Perú,MOQUEGUA,PACOCHA,SINPAD 98253 | ILO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-02,,-17.164835343409557,-70.43424024730723,12.6,huayco,Perú,TACNA,CAMILACA,SINPAD 98021 | CANDARAVE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-03,,-17.38432108764332,-70.57064106621674,18.5,huayco,Perú,TACNA,ILABAYA,SINPAD 98009 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-05,,-17.604549028254294,-70.73514773907166,16.3,huayco,Perú,TACNA,LOCUMBA,SINPAD 98329 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-05,,-17.604549028254294,-70.73514773907166,16.3,huayco,Perú,TACNA,LOCUMBA,SINPAD 98349 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-05,,-17.604549028254294,-70.73514773907166,16.3,huayco,Perú,TACNA,LOCUMBA,SINPAD 98353 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-05,,-17.604549028254294,-70.73514773907166,16.3,huayco,Perú,TACNA,LOCUMBA,SINPAD 98360 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-05,,-17.604549028254294,-70.73514773907166,16.3,huayco,Perú,TACNA,LOCUMBA,SINPAD 98362 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-07,,-16.023985237266597,-72.56579523127952,14.0,huayco,Perú,AREQUIPA,APLAO,SINPAD 98085 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-08,,-14.347563772321227,-75.14724456279438,9.9,huayco,Perú,ICA,RIO GRANDE,SINPAD 98140 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-08,,-17.804235568129844,-70.9326510033556,16.2,huayco,Perú,TACNA,ITE,SINPAD 98258 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-08,,-17.38432108764332,-70.57064106621674,18.5,huayco,Perú,TACNA,ILABAYA,SINPAD 98309 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-08,,-17.604549028254294,-70.73514773907166,16.3,huayco,Perú,TACNA,LOCUMBA,SINPAD 98381 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-08,,-15.829293729254529,-73.33149023066873,15.5,huayco,Perú,AREQUIPA,CARAVELI,SINPAD 98878 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-08,,-16.575041293642897,-71.04458986673849,8.8,huayco,Perú,MOQUEGUA,COALAQUE,SINPAD 99703 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-09,,-17.445841061890256,-71.35729701761761,10.1,huayco,Perú,MOQUEGUA,PACOCHA,SINPAD 98680 | ILO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-12,,-11.9057193607804,-76.49957489262268,3.7,huayco,Perú,LIMA PROVINCIAS,SAN BARTOLOME,SINPAD 98631 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-25,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 99648 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-25,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 100735 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-02-26,,-10.964936717136972,-76.97029744343051,8.6,huayco,Perú,LIMA PROVINCIAS,PACCHO,SINPAD 99849 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-03-06,,-10.964936717136972,-76.97029744343051,8.6,huayco,Perú,LIMA PROVINCIAS,PACCHO,SINPAD 101143 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-03-10,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 101507 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-03-11,,-11.474259379565146,-76.58440038789684,6.6,huayco,Perú,LIMA PROVINCIAS,CANTA,SINPAD 99829 | CANTA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/3304,2019-03-15,,-8.84830242,-77.14106699,1.0,None,Perú,Huanuco,Canchabamba,"F_EVENTO: La Pauca | El 15 de marzo del presente año en la localidad de Pauca, ocurrió un derrumbe que presentó una longitud de arranque de 52 m y un desnivel de 185 m, este evento afectó dos construcciones de adobe (01 vivienda y 01 servicio higiénico), que se encuentran al pie de la ladera. De generarse otro derrumbe afectaría a otras 07 viviendas que están al pie del talud. | En la localidad Pauca y alrededores, se identificaron peligros geológicos por movimientos en masa de tipo derrumbe, de"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2019-07-24,,-17.9564425282906,-70.66786808277459,19.0,huayco,Perú,TACNA,SAMA,SINPAD 109641 | TACNA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/2558,2019-10-26,,-6.37261401,-77.8947689,1.0,None,Perú,AMAZONAS,MAGDALENA,"F_EVENTO: Guichmal | El deslizamiento reactivado, tiene avance retrogresivo, la corona es de forma circular con una longitud de 55 metros, actualmente abarca 0.28 hectáreas aproximadamente. Este deslizamiento se encuentra activo con probabilidad que en los periodos lluviosos se siga desplazando cuesta abajo, esto contribuye a la generación de huaicos.  | Se generó un deslizamiento y posterior flujo de arena que alcanzó la parte distal del abanico aluvial de la quebrada Guichmal. El flujo se orig"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-20,,-16.455755223901686,-70.57311442400436,16.5,huayco,Perú,MOQUEGUA,CHOJATA,SINPAD 116341 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-20,,-15.556125177854751,-74.06563565494817,15.0,huayco,Perú,AREQUIPA,HUANUHUANU,SINPAD 116512 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-21,,-16.575041293642897,-71.04458986673849,8.8,huayco,Perú,MOQUEGUA,COALAQUE,SINPAD 116574 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-21,,-16.2272279913482,-70.6601422368324,5.7,huayco,Perú,MOQUEGUA,YUNGA,SINPAD 116619 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-23,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 116788 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-24,,-17.9564425282906,-70.66786808277459,19.0,huayco,Perú,TACNA,SAMA,SINPAD 116914 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-24,,-17.68108593130058,-70.42494179785236,21.4,huayco,Perú,TACNA,INCLAN,SINPAD 116989 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-27,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 117032 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-29,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 117231 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-01-29,,-14.593994379844457,-75.15945825355493,7.6,huayco,Perú,ICA,LLIPATA,SINPAD 117849 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-02-11,,-16.704350045271863,-70.87864700942578,7.8,huayco,Perú,MOQUEGUA,QUINISTAQUILLAS,SINPAD 119091 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-02-16,,-15.730878810524333,-71.79874731302104,8.7,huayco,Perú,AREQUIPA,MACA,SINPAD 118888 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-02-19,,-17.804235568129844,-70.9326510033556,16.2,huayco,Perú,TACNA,ITE,SINPAD 119148 | JORGE BASADRE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-02-20,,-16.704350045271863,-70.87864700942578,7.8,huayco,Perú,MOQUEGUA,QUINISTAQUILLAS,SINPAD 120159 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-02-21,,-18.132414227044347,-70.22955863529853,28.2,huayco,Perú,TACNA,TACNA,SINPAD 119366 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-02-21,,-17.85505913738027,-70.18936264282736,7.4,huayco,Perú,TACNA,CIUDAD NUEVA,SINPAD 119414 | TACNA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-03-11,,-17.49883173859842,-70.21684821886484,10.9,huayco,Perú,TACNA,HEROES ALBARRACIN,SINPAD 120941 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-03-15,,-16.455755223901686,-70.57311442400436,16.5,huayco,Perú,MOQUEGUA,CHOJATA,SINPAD 121193 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-10-19,,-15.969477191489988,-72.02128862900344,19.9,huayco,Perú,AREQUIPA,LLUTA,SINPAD 129347 | CAYLLOMA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4990,2020-11-28,,-5.90467825,-77.78498936,1.0,None,Perú,Amazonas,Chisquilla,"F_EVENTO: Sector Conejo | El sector Conejo, está ubicado a 1.5 km al noreste de la localidad de Recta, donde se produjo un movimiento complejo que embalsó parcialmente al río Imasa en noviembre del 2021 | Movimiento complejo tipo deslizamiento-flujo de Recta registrado el 28 de noviembre del 2021, detonado por el sismo de 7.5 Mw. En la parte baja se desplazó como dos brazos que se comportaron como flujos de detritos, sobre los terrenos de moderada a fuerte pendiente (5° a 25°), alcanzando y emba"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2020-12-23,,-15.79652074470333,-72.16294887310947,15.2,huayco,Perú,AREQUIPA,HUAMBO,SINPAD 131895 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-01-01,,-17.334558193119804,-69.96385295029626,10.6,huayco,Perú,TACNA,TICACO,SINPAD 132152 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-01-10,,-11.474259379565146,-76.58440038789684,6.6,huayco,Perú,LIMA PROVINCIAS,CANTA,SINPAD 132608 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-01-16,,-13.555908214215641,-75.61099641359272,16.8,huayco,Perú,ICA,HUANCANO,SINPAD 132960 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-02-05,,-15.673781654281372,-71.95863059710751,12.2,huayco,Perú,AREQUIPA,CABANACONDE,SINPAD 134219 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-02-08,,-16.575041293642897,-71.04458986673849,8.8,huayco,Perú,MOQUEGUA,COALAQUE,SINPAD 134465 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-02-25,,-15.639676004425006,-71.55026191199974,8.6,huayco,Perú,AREQUIPA,CHIVAY,SINPAD 135472 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-02-25,,-15.79652074470333,-72.16294887310947,15.2,huayco,Perú,AREQUIPA,HUAMBO,SINPAD 135480 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-03-02,,-15.730878810524333,-71.79874731302104,8.7,huayco,Perú,AREQUIPA,MACA,SINPAD 135621 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2021-03-23,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 137139 | CAJATAMBO
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/3603,2021-03-29,,-6.2716593,-77.20060262,1.0,None,Perú,AMAZONAS,VISTA ALEGRE,"F_EVENTO: La Palma | La escarpa de estos deslizamientos se localiza principalmente en la ladera, y se extienden a lo largo del caserío La Palma | Se registraron dos deslizmaientos de tipo rotaiconal, con avance progresivo"
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/3585,2021-11-24,,-5.91748013,-77.78896082,1.0,None,Perú,AMAZONAS,RECTA,"F_EVENTO: La Recta | El sismo del 30 de noviembre desestabilizó la ladera y se activaron algunos sectores del deslizamiento y el flujo llegó hasta el río Imasa. | El peligro geológico identificado corresponde a un movimiento complejo conformado por deslizamiento y flujo, que bordeó la localidad de Recta, abarca un área aproximada de 80 hectáreas y se considera reactivado."
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/3626,2021-12-11,,-5.55403043,-78.48220239,1.0,None,Perú,AMAZONAS,LA PECA,"F_EVENTO: San Isidro | El 11 de diciembre del 2021, se produjo un deslizamiento en el centro poblado San Isidro, el cual afectó 35 viviendas (quedando inhabitables), afectó 30 hectáreas de terrenos de cultivo y 420 metros de trocha carrozable. | El deslizamiento es de tipo rotacional, presenta dos escarpes en el flanco derecho tiene 80 m de longitud y en el flanco izquierdo tiene 150 m. Con saltos de 2 m a 6 m"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2022-01-16,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 147246 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2022-01-17,,-13.076940601413886,-75.72726402883774,8.3,huayco,Perú,ICA,SAN PEDRO DE HUACARPANA,SINPAD 147218 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2022-01-20,,-16.2272279913482,-70.6601422368324,5.7,huayco,Perú,MOQUEGUA,YUNGA,SINPAD 147404 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2022-01-20,,-16.22091530116003,-70.80617374966148,16.7,huayco,Perú,MOQUEGUA,UBINAS,SINPAD 147422 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2022-03-02,,-17.61131741025889,-70.11006122551012,7.2,huayco,Perú,TACNA,ESTIQUE-PAMPA,SINPAD 149736 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2022-03-12,,-12.286859463741486,-76.19981102653273,3.6,huayco,Perú,LIMA PROVINCIAS,COCHAS,SINPAD 150501 | YAUYOS
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4375,2022-11-14,,-6.8552452299999995,-77.98884265,1.0,None,Perú,AMAZONAS,BALSAS,"F_EVENTO: Hornopampa | El evento mencionado puede reactivarse por la presencia, principalmente, de lluvias intensas y/o prolongadas | Se identificó un antiguo deslizamiento rotacional, que se activó el 14 de noviembre de 2022, afectando 200 m del camino vecinal que conduce hacia el distrito de Chuquibamba, dos postes de tendido eléctrico. El deslizamiento tiene un escarpe con una longitud de 270 m, de forma semicircular, con salto vertical de 10 a 15 m, el movimiento tiene una longitud de 320 m"
+INGEMMET PERU_ALERTA,https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_PERU_ALERTA/MapServer/4/query,2023-01-05,,-6.24583753,-78.85411395,1.0,A7395 | Deslizamiento rotacional,Perú,CAJAMARCA,SANTO DOMINGO DE LA CAPILLA,F_EVENTO: LOCALIDAD SANTO DOMINGO DE LA CAPILLA |  Evaluación del peligro geológico por deslizamiento en la localidad Santo Domingo de la Capilla | En la localidad de Santo Domingo de la Capilla se identificó un deslizamiento rotacional “activado” en enero 2023 afectando dos viviendas. De continuar el movimiento y/o actividad afectaría la plataforma de concreto del mercado y la zona urbana del sector sureste de la población. 
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-01-28,,-16.2272279913482,-70.6601422368324,5.7,huayco,Perú,MOQUEGUA,YUNGA,SINPAD 161981 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-02,,-15.70105269770314,-73.03072993929798,18.4,huayco,Perú,AREQUIPA,YANAQUIHUA,SINPAD 162311 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-04,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 162466 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-05,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 162513 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-05,,-15.70105269770314,-73.03072993929798,18.4,huayco,Perú,AREQUIPA,YANAQUIHUA,SINPAD 162517 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-05,,-15.405724254262818,-73.01541614953716,12.9,huayco,Perú,AREQUIPA,TORO,SINPAD 162619 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-05,,-16.9987242306662,-70.74014438129763,23.7,huayco,Perú,MOQUEGUA,TORATA,SINPAD 162876 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-07,,-11.346101025063108,-76.76386816370987,7.3,huayco,Perú,LIMA PROVINCIAS,ATAVILLOS BAJO,SINPAD 163025 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-10,,-12.686365154411838,-75.73036453226071,10.0,huayco,Perú,LIMA PROVINCIAS,TUPE,SINPAD 163260 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-11,,-15.169459340446974,-72.71357828461821,7.6,huayco,Perú,AREQUIPA,ALCA,SINPAD 163404 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-11,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 164015 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-12,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 163257 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-12,,-16.575041293642897,-71.04458986673849,8.8,huayco,Perú,MOQUEGUA,COALAQUE,SINPAD 163529 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-14,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 163797 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-15,,-15.17921885449819,-72.11495351588657,19.5,huayco,Perú,AREQUIPA,CHACHAS,SINPAD 163692 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-17,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 163898 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-17,,-10.964936717136972,-76.97029744343051,8.6,huayco,Perú,LIMA PROVINCIAS,PACCHO,SINPAD 164001 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-17,,-12.348244847356973,-76.28732923812643,6.9,huayco,Perú,LIMA PROVINCIAS,QUINOCAY,SINPAD 164053 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-19,,-12.032296612437545,-76.19990002604254,5.2,huayco,Perú,LIMA PROVINCIAS,SANTIAGO DE ANCHUCAYA,SINPAD 164038 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-19,,-16.9987242306662,-70.74014438129763,23.7,huayco,Perú,MOQUEGUA,TORATA,SINPAD 164249 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-02-28,,-15.405724254262818,-73.01541614953716,12.9,huayco,Perú,AREQUIPA,TORO,SINPAD 165314 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-05,,-15.169459340446974,-72.71357828461821,7.6,huayco,Perú,AREQUIPA,ALCA,SINPAD 165601 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-05,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 165610 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-11,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 166454 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-11,,-11.003917251723557,-77.44600002830875,12.5,huayco,Perú,LIMA PROVINCIAS,HUAURA,SINPAD 166520 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-11,,-10.45330486929223,-76.94669792641268,13.2,huayco,Perú,LIMA PROVINCIAS,CAJATAMBO,SINPAD 166543 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-11,,-13.744336902070994,-75.81996583857669,17.1,huayco,Perú,ICA,HUMAY,SINPAD 166557 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-11,,-12.864337928050144,-76.34561874954103,12.2,huayco,Perú,LIMA PROVINCIAS,QUILMANA,SINPAD 166594 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-11,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 166703 | CHINCHA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4926,2023-03-11,,-10.57301935,-77.4255784,1.0,None,Perú,ANCASH,COCHAS,"F_EVENTO: Sector Congon | Flujo de detritos cada año, incluyendo el 2017 y 2023 relacionados al “Fenómeno de El Niño y Yaku” provocaron daños a viviendas asentadas sobre el depósito proluvial, canal de riego, áreas de cultivos y vía de acceso a Huanchay | Flujo de detritos afectó viviendas, vía de acceso a Huanchay y terrenos de cultivo. En la parte baja, el cauce de la quebrada se ensancha en aproximadamente 50 m, debido a la erosión fluvial"
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4926,2023-03-11,,-10.53699004,-77.42324113,1.0,None,Perú,ANCASH,COCHAS,"F_EVENTO: Centro poblado Huanchay | Debido a las lluvias intensas se desbordó el río Huanchay, afectando la captación de agua potable y de la planta de tratamiento de aguas residuales. Así mismo, se produjo el colapso de viviendas y afectación de la Institución Educativa N° 204088 | Actualmente, Huanchay se sitúa a 25 m de altura respecto al nivel del río Huanchay de aproximadamente 10 m de ancho. Según reporte de COEN, 11 de marzo del 2023, a consecuencia de las lluvias intensas se produjo el i"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-12,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 166708 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-12,,-11.048639270984314,-76.91688328732877,9.6,huayco,Perú,LIMA PROVINCIAS,LEONCIO PRADO,SINPAD 166731 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-12,,-10.810291514855047,-77.56415507475158,12.9,huayco,Perú,LIMA PROVINCIAS,SUPE,SINPAD 166917 | BARRANCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-13,,-10.774476491184886,-76.9275327256339,7.0,huayco,Perú,LIMA PROVINCIAS,ANDAJES,SINPAD 166777 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-13,,-12.475244609924745,-75.95330477894943,10.6,huayco,Perú,LIMA PROVINCIAS,YAUYOS,SINPAD 166849 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-13,,-12.058303567872143,-76.58790932893176,11.7,huayco,Perú,LIMA PROVINCIAS,ANTIOQUIA,SINPAD 167073 | HUAROCHIRI
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4674,2023-03-13,,-6.23697506,-77.86638846,1.0,None,Perú,AMAZONAS,CHACHAPOYAS,"F_REACTIVACION: Sector Residencial Derrama Magisterial/ Sector Prolongación Vía de Evitamiento/Sector IV Centenario - Tres Esquinas /Sector IV Centenario - Tres Esquinas | Evaluación del Peligro Geológico por Movimientos en Masa en los Sectores Residencial Derrama Magisterial, Prolongación Vía de Evitamiento y IV Centenario – Tres Esquinas de la Ciudad de Chachapoyas | En el sector Residencial Derrama Magisterial, se han cartografiado dos deslizamientos rotacionales activos, con volúmenes despla"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-11.992861659292094,-76.76868549488124,3.9,huayco,Perú,LIMA METROPOLITANA,CHACLACAYO,SINPAD 167060 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 167187 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-12.658267415671897,-76.40487846176538,13.6,huayco,Perú,LIMA PROVINCIAS,COAYLLO,SINPAD 167223 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 167372 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-11.864289076055112,-76.64909328192763,5.8,huayco,Perú,LIMA PROVINCIAS,SANTA EULALIA,SINPAD 167472 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-12.234279686348184,-76.80306011044932,8.0,huayco,Perú,LIMA METROPOLITANA,LURIN,SINPAD 167550 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-12.370427987374027,-76.04515571179114,8.8,huayco,Perú,LIMA PROVINCIAS,AYAVIRI,SINPAD 167751 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-11.796989864586811,-76.97578170431633,10.6,huayco,Perú,LIMA METROPOLITANA,CARABAYLLO,SINPAD 168843 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-14,,-12.430614799870753,-76.63018529587899,12.3,huayco,Perú,LIMA PROVINCIAS,CHILCA,SINPAD 169342 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-11.518642817344128,-77.05051011268027,15.3,huayco,Perú,LIMA PROVINCIAS,AUCALLAMA,SINPAD 167459 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-14.511541416244436,-75.5157510274347,29.8,huayco,Perú,ICA,SANTIAGO,SINPAD 167509 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-11.815385405374535,-76.77360831909373,13.8,huayco,Perú,LIMA PROVINCIAS,SAN ANTONIO,SINPAD 167521 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-16.575041293642897,-71.04458986673849,8.8,huayco,Perú,MOQUEGUA,COALAQUE,SINPAD 167593 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 167662 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 167674 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-11.949452069101497,-76.97545784539824,6.5,huayco,Perú,LIMA METROPOLITANA,SAN JUAN DE LURIGANCHO,SINPAD 167982 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-14.097369217823873,-75.4368949692075,20.2,huayco,Perú,ICA,YAUCA DEL ROSARIO,SINPAD 168007 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-15,,-12.96506493648492,-76.46684579881226,5.8,huayco,Perú,LIMA PROVINCIAS,CERRO AZUL,SINPAD 168014 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-22,,-12.304720782068719,-76.70881722103569,6.4,huayco,Perú,LIMA METROPOLITANA,PUNTA NEGRA,SINPAD 169109 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-30,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 169979 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-03-31,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 170055 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-04-06,,-11.146945155636077,-77.23486326758176,20.5,huayco,Perú,LIMA PROVINCIAS,SAYAN,SINPAD 170643 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-04-07,,-11.956719752459446,-76.80091341092744,8.7,huayco,Perú,LIMA METROPOLITANA,LURIGANCHO,SINPAD 170786 | LIMA METROPOLITANA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-04-08,,-13.511915715364438,-75.91087684085112,15.6,huayco,Perú,ICA,EL CARMEN,SINPAD 170708 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-04-08,,-10.810291514855047,-77.56415507475158,12.9,huayco,Perú,LIMA PROVINCIAS,SUPE,SINPAD 170879 | BARRANCA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4926,2023-04-09,,-10.60346614,-77.40881006,1.0,None,Perú,ANCASH,ACAS,"F_EVENTO: Sector La Florida | Así mismo, se conoce que, el 9 de abril del 2023, a consecuencia de las lluvias intensas se produjeron caída de rocas, que afectaron cultivos | El 2017, la quebrada Llamachupan se activó generando flujo de detritos, compuesto por bloques con diámetro de hasta 2 m, parte del material se depositó sobre el antiguo abanico proluvial y la otra parte discurrió por el cauce actual generando erosión fluvial, principalmente en la margen derecha del cauce"
+INGEMMET PERU_ALERTA,https://geocatmin.ingemmet.gob.pe/arcgis/rest/services/SERV_PERU_ALERTA/MapServer/4/query,2023-06-12,,-5.82289071,-78.30520304,1.0,None,Perú,AMAZONAS,BAGUA GRANDE,"F_REACTIVACION: Caserío Ñunya Temple-La Torita | Evaluación del Peligro Geológico por Deslizamiento en el Caserío Ñunya Temple y en el Terreno de Acogida La Torita | El deslizamiento Ñunya Temple abarca 52.35 ha y presenta un volumen de 13.3 hm3, ha afectado la vía departamental AM-105 en 3.5 km, terrenos de cultivo en 20 ha y 10 viviendas; en la parte inferior, en dirección del deslizamiento, existen 20 viviendas y 0.3 km de la vía nacional PE-5N que podrían verse afectados, de proseguir el mov"
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4748,2023-06-12,,-5.82289071,-78.30520304,1.0,None,Perú,Amazonas,Bagua Grande,"F_REACTIVACION: Caserío Ñunya Temple | Evaluación del Peligro Geológico por Deslizamiento en el Caserío Ñunya Temple y en el Terreno de Acogida La Torita | El deslizamiento Ñunya Temple abarca 52.35 ha y presenta un volumen de 13.3 hm3, ha afectado la vía departamental AM-105 en 3.5 km, terrenos de cultivo en 20 ha y 10 viviendas; en la parte inferior, en dirección del deslizamiento, existen 20 viviendas y 0.3 km de la vía nacional PE-5N que podrían verse afectados, de proseguir el movimiento. "
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2023-10-19,,-15.169459340446974,-72.71357828461821,7.6,huayco,Perú,AREQUIPA,ALCA,SINPAD 182242 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-22,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 188008 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-22,,-15.17921885449819,-72.11495351588657,19.5,huayco,Perú,AREQUIPA,CHACHAS,SINPAD 188158 | CASTILLA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/4972,2024-01-22,,-15.57592957,-72.12884481,1.0,None,Perú,Arequipa,Choco,"F_REACTIVACION: Zona urbana Choco | El factor detonante fue la lluvia excepcional que cayó en la microcuenca de la quebrada. En días anteriores se presentaron lluvias prolongadas que humedecieron y saturaron las laderas. | El 22 de enero del 2024 se generó un huaico, que al descender por su cauce afectó a la zona urbana de Choco. El volumen del flujo fue de 2.5 millones de metros cúbicos, este al descender por el cauce del río Challa, arrasó todo lo que encontró a su paso. El factor detonante fu"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-23,,-15.671349529127165,-72.62026092342177,9.1,huayco,Perú,AREQUIPA,PAMPACOLCA,SINPAD 187975 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-23,,-15.349374604516736,-72.38389582640845,7.5,huayco,Perú,AREQUIPA,CHILCAYMARCA,SINPAD 188006 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-23,,-11.692829198144604,-76.59279862126309,5.1,huayco,Perú,LIMA PROVINCIAS,HUACHUPAMPA,SINPAD 188095 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-23,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 188141 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-24,,-15.8507525492269,-72.84260045371389,16.1,huayco,Perú,AREQUIPA,ANDARAY,SINPAD 188202 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-24,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 188296 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-24,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 188462 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-25,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 188492 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-25,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 188507 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-26,,-16.374194643830535,-71.35859127428937,8.5,huayco,Perú,AREQUIPA,CHIGUATA,SINPAD 188684 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-27,,-10.667601692387004,-76.76124536715217,16.8,huayco,Perú,LIMA PROVINCIAS,OYON,SINPAD 188779 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-28,,-17.334558193119804,-69.96385295029626,10.6,huayco,Perú,TACNA,TICACO,SINPAD 189002 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-29,,-11.127360440517627,-76.66734688754751,9.9,huayco,Perú,LIMA PROVINCIAS,PACARAOS,SINPAD 188926 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-29,,-10.964936717136972,-76.97029744343051,8.6,huayco,Perú,LIMA PROVINCIAS,PACCHO,SINPAD 189128 | HUAURA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-30,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 189241 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-01-31,,-15.769740659267258,-74.18922849373979,10.5,huayco,Perú,AREQUIPA,CHALA,SINPAD 189491 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-02,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 189736 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-05,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 190073 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-06,,-12.797878571378213,-76.5105036003611,9.6,huayco,Perú,LIMA PROVINCIAS,ASIA,SINPAD 190014 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-06,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 190147 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-15,,-16.2272279913482,-70.6601422368324,5.7,huayco,Perú,MOQUEGUA,YUNGA,SINPAD 190857 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-16,,-15.730878810524333,-71.79874731302104,8.7,huayco,Perú,AREQUIPA,MACA,SINPAD 191149 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-18,,-15.169459340446974,-72.71357828461821,7.6,huayco,Perú,AREQUIPA,ALCA,SINPAD 191199 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-18,,-11.244241793314998,-76.86156124645748,6.9,huayco,Perú,LIMA PROVINCIAS,LAMPIAN,SINPAD 191274 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-18,,-12.090938712929358,-75.83508500415677,9.5,huayco,Perú,LIMA PROVINCIAS,HUANCAYA,SINPAD 191329 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-19,,-14.48438651147746,-75.77941454535903,21.0,huayco,Perú,ICA,OCUCAJE,SINPAD 191326 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-19,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 191513 | GENERAL SANCHEZ CERRO
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/5131,2024-02-19,,-15.04366542,-72.7047302,1.0,None,Perú,Arequipa,Puyca,F_EVENTO: C.P. Suni | EVALUACIÓN DE PELIGRO GEOLÓGICO POR FLUJO DE DETRITOS (HUAICO) OCURRIDO EL 19 DE FEBRERO DEL 2024 EN EL CENTRO POBLADO DE SUNI | 
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-21,,-16.9987242306662,-70.74014438129763,23.7,huayco,Perú,MOQUEGUA,TORATA,SINPAD 191744 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-21,,-11.291544398985849,-76.77052579442238,3.8,huayco,Perú,LIMA PROVINCIAS,SAN MIGUEL DE ACOS,SINPAD 191862 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-23,,-13.017645310982065,-76.11693357455601,12.6,huayco,Perú,LIMA PROVINCIAS,LUNAHUANA,SINPAD 192059 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-27,,-17.042302017010908,-70.2478900577919,21.1,huayco,Perú,TACNA,CANDARAVE,SINPAD 192290 | CANDARAVE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-28,,-17.376941458124612,-69.75338611124117,16.7,huayco,Perú,TACNA,TARATA,SINPAD 192707 | TARATA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-02-29,,-16.704350045271863,-70.87864700942578,7.8,huayco,Perú,MOQUEGUA,QUINISTAQUILLAS,SINPAD 193247 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-02,,-15.730878810524333,-71.79874731302104,8.7,huayco,Perú,AREQUIPA,MACA,SINPAD 193384 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-02,,-14.992312344659751,-72.93252890872247,15.8,huayco,Perú,AREQUIPA,PAMPAMARCA,SINPAD 193465 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-06,,-15.390599672663125,-74.52640675653954,15.7,huayco,Perú,AREQUIPA,ACARI,SINPAD 194379 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-07,,-14.992312344659751,-72.93252890872247,15.8,huayco,Perú,AREQUIPA,PAMPAMARCA,SINPAD 194474 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-11,,-11.393786426083391,-76.85577504531827,8.7,huayco,Perú,LIMA PROVINCIAS,SUMBILCA,SINPAD 194893 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-11,,-14.941858903440744,-72.54796372310639,21.7,huayco,Perú,AREQUIPA,PUYCA,SINPAD 194944 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-13,,-14.941858903440744,-72.54796372310639,21.7,huayco,Perú,AREQUIPA,PUYCA,SINPAD 195223 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-14,,-14.941858903440744,-72.54796372310639,21.7,huayco,Perú,AREQUIPA,PUYCA,SINPAD 195317 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-15,,-15.481459319370774,-72.37461508960332,12.0,huayco,Perú,AREQUIPA,ANDAGUA,SINPAD 195424 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-16,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 195434 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-17,,-14.941858903440744,-72.54796372310639,21.7,huayco,Perú,AREQUIPA,PUYCA,SINPAD 195574 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-03-26,,-11.692829198144604,-76.59279862126309,5.1,huayco,Perú,LIMA PROVINCIAS,HUACHUPAMPA,SINPAD 197659 | HUAROCHIRI
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/5058,2024-06-03,,-12.50185783,-74.99650145,1.0,None,Perú,Huancavelica,Izcuchaca,"F_EVENTO: Zona urbana de Izcuchaca | EVALUACIÓN DE PELIGRO GEOLÓGICO POR CAÍDA DE ROCAS EN EL SECTOR IZCUCHACA | el área evaluada presenta múltiples evidencias de caída de rocas  proveniente de las laderas del Cerro Ccechccamarca, colindante al sector Izcuchaca, con bloques angulosos a subangulosos de roca con tamaños entre 0.35 a 0.80 m, los  cuales llegaron afectar varias viviendas ubicadas al pie de la ladera."
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/5086,2024-08-31,,-13.6040123,-74.23667905,1.0,None,Perú,Ayacucho,Maria Parado De Bellido,"F_EVENTO: barrios de Pomabamba, Ccoriacc, Llulucha Chata, San Miguel de Acco, Huascarpamapa y San José de Ccachccara. | Evaluación de peligro geológico por deslizamiento y efectos geológicos post-sismo del 31 de agosto del 2024 en el poblado dePomabamba | La zona presenta multiples peligros geologicos. El barrio San Jose de Ccochccara se encuentra en un deslizamiento inactivo latente"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-11-29,,-15.639676004425006,-71.55026191199974,8.6,huayco,Perú,AREQUIPA,CHIVAY,SINPAD 214920 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2024-11-30,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 214978 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-01-03,,-16.301806767623546,-70.62713264271854,9.2,huayco,Perú,MOQUEGUA,LLOQUE,SINPAD 216703 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-01-03,,-10.667601692387004,-76.76124536715217,16.8,huayco,Perú,LIMA PROVINCIAS,OYON,SINPAD 216699 | OYON
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-01-26,,-16.2272279913482,-70.6601422368324,5.7,huayco,Perú,MOQUEGUA,YUNGA,SINPAD 219230 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-01-30,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 219656 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-01-30,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 219627 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-01,,-15.616170104660373,-72.56937389375697,6.5,huayco,Perú,AREQUIPA,VIRACO,SINPAD 219773 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-01,,-16.9987242306662,-70.74014438129763,23.7,huayco,Perú,MOQUEGUA,TORATA,SINPAD 219910 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-03,,-11.556349348243213,-76.6122250225885,6.4,huayco,Perú,LIMA PROVINCIAS,LACHAQUI,SINPAD 219895 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-04,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 220136 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-05,,-16.455755223901686,-70.57311442400436,16.5,huayco,Perú,MOQUEGUA,CHOJATA,SINPAD 220364 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-05,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 220283 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-06,,-15.758301266260656,-72.38365651519798,10.4,huayco,Perú,AREQUIPA,UÑON,SINPAD 220410 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-06,,-14.676976909292634,-75.00381146621356,13.6,huayco,Perú,ICA,EL INGENIO,SINPAD 220375 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-07,,-15.570168772652881,-73.7312953702845,18.1,huayco,Perú,AREQUIPA,QUICACHA,SINPAD 220479 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-08,,-15.592442858636847,-71.7024451028283,4.8,huayco,Perú,AREQUIPA,ICHUPAMPA,SINPAD 220559 | CAYLLOMA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-09,,-16.132154583207157,-71.60610988674522,24.8,huayco,Perú,AREQUIPA,YURA,SINPAD 220613 | AREQUIPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-09,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 220645 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-09,,-15.671349529127165,-72.62026092342177,9.1,huayco,Perú,AREQUIPA,PAMPACOLCA,SINPAD 220702 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-09,,-16.529627711046047,-70.83760789570407,13.2,huayco,Perú,MOQUEGUA,MATALAQUE,SINPAD 220586 | GENERAL SANCHEZ CERRO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-09,,-17.042302017010908,-70.2478900577919,21.1,huayco,Perú,TACNA,CANDARAVE,SINPAD 220603 | CANDARAVE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-10,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 220983 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-10,,-15.748630613266531,-72.50235168155848,4.1,huayco,Perú,AREQUIPA,TIPAN,SINPAD 220982 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-10,,-15.616170104660373,-72.56937389375697,6.5,huayco,Perú,AREQUIPA,VIRACO,SINPAD 220994 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-11,,-15.829293729254529,-73.33149023066873,15.5,huayco,Perú,AREQUIPA,CARAVELI,SINPAD 221070 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-11,,-15.343790136314006,-74.72835680848247,22.5,huayco,Perú,AREQUIPA,BELLA UNION,SINPAD 221203 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-11,,-15.769740659267258,-74.18922849373979,10.5,huayco,Perú,AREQUIPA,CHALA,SINPAD 221039 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-11,,-15.481459319370774,-72.37461508960332,12.0,huayco,Perú,AREQUIPA,ANDAGUA,SINPAD 221695 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-11,,-15.17921885449819,-72.11495351588657,19.5,huayco,Perú,AREQUIPA,CHACHAS,SINPAD 221411 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-11,,-13.879322326949065,-75.61427718560465,10.5,huayco,Perú,ICA,SAN JOSE DE LOS MOLINOS,SINPAD 221052 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-11,,-14.593994379844457,-75.15945825355493,7.6,huayco,Perú,ICA,LLIPATA,SINPAD 221262 | PALPA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-12,,-15.822742944624224,-73.94740042126017,21.6,huayco,Perú,AREQUIPA,CHAPARRA,SINPAD 221454 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-12,,-14.48438651147746,-75.77941454535903,21.0,huayco,Perú,ICA,OCUCAJE,SINPAD 221498 | ICA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-12,,-14.801581308742321,-75.33314991292106,17.5,huayco,Perú,ICA,CHANGUILLO,SINPAD 221428 | NASCA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-12,,-13.744336902070994,-75.81996583857669,17.1,huayco,Perú,ICA,HUMAY,SINPAD 221630 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-12,,-12.829949847863768,-76.01557497566017,6.2,huayco,Perú,LIMA PROVINCIAS,ZUÑIGA,SINPAD 221443 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-12,,-12.750203527641526,-75.8886555831419,6.4,huayco,Perú,LIMA PROVINCIAS,CATAHUASI,SINPAD 221360 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-13,,-15.769740659267258,-74.18922849373979,10.5,huayco,Perú,AREQUIPA,CHALA,SINPAD 221906 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-13,,-15.388745341765095,-74.9359591151382,11.8,huayco,Perú,AREQUIPA,LOMAS,SINPAD 221680 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-13,,-13.38222583177039,-75.93599333055276,10.8,huayco,Perú,ICA,ALTO LARAN,SINPAD 221823 | CHINCHA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-13,,-12.829949847863768,-76.01557497566017,6.2,huayco,Perú,LIMA PROVINCIAS,ZUÑIGA,SINPAD 222122 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-13,,-12.829949847863768,-76.01557497566017,6.2,huayco,Perú,LIMA PROVINCIAS,ZUÑIGA,SINPAD 222156 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-14,,-15.876540800791101,-73.12616909324609,12.9,huayco,Perú,AREQUIPA,RIO GRANDE,SINPAD 222062 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-14,,-13.555908214215641,-75.61099641359272,16.8,huayco,Perú,ICA,HUANCANO,SINPAD 222093 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-14,,-13.744336902070994,-75.81996583857669,17.1,huayco,Perú,ICA,HUMAY,SINPAD 222168 | PISCO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-14,,-11.66348190175015,-76.82435271146929,10.7,huayco,Perú,LIMA PROVINCIAS,SANTA ROSA DE QUIVES,SINPAD 222094 | CANTA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-14,,-12.487062569764952,-76.45580240357735,13.1,huayco,Perú,LIMA PROVINCIAS,CALANGO,SINPAD 222250 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-15,,-15.40559310889468,-72.69628381275386,20.0,huayco,Perú,AREQUIPA,SALAMANCA,SINPAD 222302 | CONDESUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-16,,-15.829293729254529,-73.33149023066873,15.5,huayco,Perú,AREQUIPA,CARAVELI,SINPAD 222341 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-18,,-16.9987242306662,-70.74014438129763,23.7,huayco,Perú,MOQUEGUA,TORATA,SINPAD 223635 | MARISCAL NIETO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-20,,-15.829293729254529,-73.33149023066873,15.5,huayco,Perú,AREQUIPA,CARAVELI,SINPAD 224154 | CARAVELI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-20,,-15.640863617226946,-72.28850638219643,9.4,huayco,Perú,AREQUIPA,AYO,SINPAD 223922 | CASTILLA
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-20,,-14.941858903440744,-72.54796372310639,21.7,huayco,Perú,AREQUIPA,PUYCA,SINPAD 223909 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-22,,-15.169459340446974,-72.71357828461821,7.6,huayco,Perú,AREQUIPA,ALCA,SINPAD 224460 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-23,,-12.430614799870753,-76.63018529587899,12.3,huayco,Perú,LIMA PROVINCIAS,CHILCA,SINPAD 224719 | CAÑETE
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-23,,-12.261137807488202,-76.36510208143363,7.1,huayco,Perú,LIMA PROVINCIAS,MARIATANA,SINPAD 224943 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-23,,-12.348244847356973,-76.28732923812643,6.9,huayco,Perú,LIMA PROVINCIAS,QUINOCAY,SINPAD 224678 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-24,,-12.348244847356973,-76.28732923812643,6.9,huayco,Perú,LIMA PROVINCIAS,QUINOCAY,SINPAD 225316 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-25,,-11.990003335903813,-76.15809797525027,6.8,huayco,Perú,LIMA PROVINCIAS,SAN JUAN DE TANTARANCHE,SINPAD 225445 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-27,,-15.210762189400473,-72.78851475486772,5.6,huayco,Perú,AREQUIPA,TOMEPAMPA,SINPAD 226056 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-27,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 226095 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-27,,-11.692829198144604,-76.59279862126309,5.1,huayco,Perú,LIMA PROVINCIAS,HUACHUPAMPA,SINPAD 226002 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-02-27,,-12.813624059311849,-75.63145934620108,8.1,huayco,Perú,LIMA PROVINCIAS,LINCHA,SINPAD 225831 | YAUYOS
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-03-04,,-10.364931554884508,-77.02714252803817,7.8,huayco,Perú,LIMA PROVINCIAS,COPA,SINPAD 227200 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-03-04,,-11.145641037664541,-76.56709220822636,8.1,huayco,Perú,LIMA PROVINCIAS,SANTA CRUZ DE ANDAMARCA,SINPAD 227032 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-03-06,,-16.00435088501131,-71.82660582196462,10.9,huayco,Perú,AREQUIPA,HUANCA,SINPAD 228004 | CAYLLOMA
+INGEMMET PERU_ALERTA,https://hdl.handle.net/20.500.12544/5262,2025-03-06,,-9.59807041,-77.53118904,1.0,None,Perú,Ancash,Huaraz,"F_EVENTO: centro poblado Huallcor | Evaluación de Peligros geológicos por movimientos en masa, entre loscentros poblados de Huallcor y San Pedro | Los peligros geológicos identificados entre la vía de Huallcor y San Pedro, corresponden a movimientos en masa de tipo: derrumbes, deslizamiento, flujo de detritos y erosión de ladera (cárcava)"
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-03-17,,-15.29154090606899,-73.06729918809827,6.4,huayco,Perú,AREQUIPA,QUECHUALLA,SINPAD 230467 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-03-21,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 231407 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-03-29,,-15.169459340446974,-72.71357828461821,7.6,huayco,Perú,AREQUIPA,ALCA,SINPAD 232651 | LA UNION
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-03-31,,-10.522559874461164,-77.11059821727117,7.0,huayco,Perú,LIMA PROVINCIAS,HUANCAPON,SINPAD 232890 | CAJATAMBO
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-04-03,,-11.817430850428225,-76.38011442576848,7.5,huayco,Perú,LIMA PROVINCIAS,MATUCANA,SINPAD 233694 | HUAROCHIRI
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-04-04,,-11.187354221354623,-76.96241745860937,12.3,huayco,Perú,LIMA PROVINCIAS,IHUARI,SINPAD 233622 | HUARAL
+INDECI SINPAD,BD_2003-2025_EMERGENCIAS.csv (INDECI),2025-04-07,,-15.29154090606899,-73.06729918809827,6.4,huayco,Perú,AREQUIPA,QUECHUALLA,SINPAD 234173 | LA UNION

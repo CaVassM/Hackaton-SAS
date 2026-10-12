@@ -1,0 +1,4 @@
+metodo,TSS,TSS_ic90,POD,POFD,aciertos,fallos,falsas,pct_alertas_2024_25,TSS_sin_2017_2023,positivos_sin_2017_2023
+"B1 (referencia, misma corrida)",0.49,"(0.15, 0.7)",0.69,0.199,9,4,316,14,0.5,6
+B2 pasado,0.49,"(0.15, 0.7)",0.69,0.197,9,4,314,14,0.49,6
+B2 techo (futuro),0.51,"(0.26, 0.69)",0.69,0.187,9,4,297,13,0.67,6

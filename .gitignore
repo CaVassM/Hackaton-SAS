@@ -7,3 +7,5 @@ modelo/dos_piezas/*.parquet
 modelo/mejoras/*/datos/
 modelo/mejoras/**/*.parquet
 modelo/etiquetas_v2/*.parquet
+modelo/v3/datos/raw/
+modelo/v3/**/*.parquet

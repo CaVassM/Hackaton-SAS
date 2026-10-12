@@ -1,0 +1,12 @@
+metodo,TSS,TSS_ic90,POD,POFD,aciertos,fallos,falsas,pct_alertas_2024_25
+"donantes principal (M<=3, MESS>=-25), relativa",0.32,"(0.02, 0.6)",0.61,0.288,11,7,506,17
+"donantes estricto (M<=2, MESS>=0), relativa",0.48,"(0.19, 0.74)",0.61,0.135,11,7,237,24
+"donantes amplio (M<=4), relativa",0.33,"(0.05, 0.56)",0.67,0.339,12,6,596,17
+"donantes todos, relativa",0.39,"(0.09, 0.63)",0.61,0.223,11,7,392,16
+"donantes principal, cruda",0.48,"(0.2, 0.71)",0.61,0.13,11,7,228,25
+"donantes principal ponderados, relativa",0.48,"(0.18, 0.74)",0.61,0.136,11,7,238,23
+"solo Chosica, relativa",0.44,"(0.12, 0.72)",0.61,0.169,11,7,297,19
+"solo Chosica, cruda",0.42,"(0.11, 0.69)",0.61,0.19,11,7,334,17
+ISAAC_dia,0.23,"(0.04, 0.37)",0.44,0.21,8,10,369,13
+A2_estado_B1,0.69,"(0.53, 0.81)",0.89,0.195,16,2,342,14
+actual,0.22,"(-0.09, 0.53)",0.5,0.284,9,9,498,20
