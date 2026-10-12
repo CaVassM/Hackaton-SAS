@@ -12,7 +12,7 @@ Pregunta: ¿se puede mejorar la resolución espacial (y la calidad) de la lluvia
 | `docs/senamhi_estaciones.md` | ISAAC, las 9 estaciones pedidas, vías oficiales de acceso y costos |
 | `docs/solicitud_senamhi.md` | Qué estaciones y periodos solicitar y borrador de la solicitud |
 | `inventario/` | Archivos del proyecto relevantes y estaciones ya investigadas |
-| `scripts/` | `01_inventario.py`, `02_descargar_persiann_ccs.py`, `03_cobertura_espacial.py`, `04_comparar_temporal.py`, `test_sintetico_decodificador.py` |
+| `scripts/` | `01_inventario.py`, `02_descargar_persiann_ccs.py`, `03_cobertura_espacial.py`, `04_comparar_temporal.py`, `05_verificar_prueba_persiann.py`, `06_ciegos_persiann.py`, `test_sintetico_decodificador.py` |
 | `salida/` | Tablas de cobertura espacial, celdas por cuenca, mapa y la prueba sintética del decodificador |
 | `datos/` | (no va a git) PERSIANN-CCS recortado y series de pluviómetros cuando existan |
 
@@ -21,9 +21,9 @@ Pregunta: ¿se puede mejorar la resolución espacial (y la calidad) de la lluvia
 |---|---|
 | 1. Inventario del proyecto | **Hecho** |
 | 2. Pluviómetros SENAMHI | Investigado en fuentes públicas; **sin datos descargados** (el entorno bloquea senamhi.gob.pe); solicitud preparada |
-| 3. PERSIANN-CCS horario | Procedimiento escrito y **probado solo con datos sintéticos**; **sin datos reales** (el entorno bloquea persiann.eng.uci.edu) |
+| 3. PERSIANN-CCS horario | **Descargado y verificado con datos reales** (en el PC del usuario): README leído, 63 días de los huaicos + 3 ventanas, zona horaria UTC verificada. Las 12 temporadas (84 GB) NO se bajaron |
 | 4. Cobertura espacial | **Hecho** (geometría de grillas con los polígonos reales) |
-| 5. Comparación temporal | Script listo; **no se pudo ejecutar** (faltan PERSIANN-CCS y pluviómetros) |
+| 5. Comparación temporal | Hecho para los huaicos (`06_ciegos_persiann.py`): PERSIANN-CCS ve lluvia en 1 de los 32 huaicos «ciegos» de IMERG. Con pluviómetros: pendiente |
 | 6/7. Informe | **Hecho**, con las conclusiones que sí se sostienen |
 
 ## Cómo continuar (en una máquina con acceso a internet)

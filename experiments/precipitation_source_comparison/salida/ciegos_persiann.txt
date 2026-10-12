@@ -1,0 +1,11 @@
+Bloques: 51 (tormentas: 14 fechas) | ciegos para IMERG (<0.1 mm en 6 h): 32 | sin dato PERSIANN: 0
+IMERG Early   6h >= 0.1 mm: 19/51 | 6h >= 1 mm:  9/51 | 24h >= 1 mm: 34/51 | 24h >= 5 mm: 13/51 | mediana 6h 0.00 mm, 24h 1.86 mm
+PERSIANN-CCS  6h >= 0.1 mm: 10/51 | 6h >= 1 mm:  8/51 | 24h >= 1 mm: 25/51 | 24h >= 5 mm: 16/51 | mediana 6h 0.00 mm, 24h 0.78 mm
+En los 32 bloques ciegos de IMERG: PERSIANN-CCS 6h >= 0.1 mm en 1, >= 1 mm en 1; 24h >= 1 mm en 13; mediana 6h 0.00 mm
+En los 19 no ciegos: PERSIANN-CCS 6h >= 0.1 mm en 9, >= 1 mm en 7
+Cualquiera de los dos productos (6 h): >= 0.1 mm en 20/51 bloques (IMERG solo: 19); >= 1 mm en 12/51 (IMERG solo: 9)
+Bloques donde PERSIANN-CCS marca >= 1 mm en 6 h e IMERG < 0.5 mm: 3 (carossio 2023-03-14, chacrasana 2026-02-24, mariscal_castilla 2026-02-25)
+Bloques donde IMERG marca >= 1 mm en 6 h y PERSIANN-CCS < 0.5 mm: 4 (chacrasana 2015-03-21, chacrasana 2023-03-18, pedregal 2015-03-21, quirio 2015-03-21)
+IMERG: la ventana de 6 h del huaico es más lluviosa que la misma hora del día anterior Y del siguiente en 16/51 bloques
+PERSIANN: la ventana de 6 h del huaico es más lluviosa que la misma hora del día anterior Y del siguiente en 7/51 bloques
+Correlación (Spearman) entre IMERG y PERSIANN-CCS en la lluvia de 24 h hasta el huaico: 0.78; en la de 6 h: 0.67

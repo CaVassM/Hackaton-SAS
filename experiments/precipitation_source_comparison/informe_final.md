@@ -5,11 +5,31 @@
 ## Qué se logró y qué no (leer primero)
 | | Estado |
 |---|---|
-| **Descargado y procesado** | Nada de PERSIANN-CCS real ni de pluviómetros. Sí: geometría de grillas contra los 17 polígonos reales, y un decodificador de PERSIANN-CCS **probado con archivos sintéticos** (valida el código, no los datos). |
-| **Visible en una plataforma (sin descargar)** | Nada pudo verificarse: este entorno bloquea `persiann.eng.uci.edu`, `chrsdata.eng.uci.edu`, `www.senamhi.gob.pe` y `www.datosabiertos.gob.pe` (403 de la política de red). La información sobre ISAAC y las estaciones viene de notas de prensa y de resúmenes de búsqueda. |
-| **Pendiente de autorización o de acceso de red** | Todo lo horario de pluviómetros (SENAMHI) y la descarga de PERSIANN-CCS (permitir los hosts en el entorno o correr los scripts en una máquina con internet). |
+| **Descargado y procesado** | **PERSIANN-CCS horario REAL** (bajado en el PC del usuario, el entorno de nube sigue sin alcanzar el servidor): los 63 días alrededor de las 26 fechas del catálogo de huaicos (el día anterior, el día y el siguiente; 1 512 archivos de ~1.9 MB, recortados a 5 × 7 píxeles) más 2024-12-02, 2025-02-12 y 2026-10-10/11; README horario leído; zona horaria verificada. Además la geometría de grillas contra los 17 polígonos reales. **Pluviómetros: nada.** |
+| **Visible en una plataforma (sin descargar)** | El índice de PERSIANN-CCS (2000-02-07 a hoy, ~40 min de retraso). De SENAMHI/ISAAC solo hay notas de prensa y resúmenes: este entorno bloquea `www.senamhi.gob.pe` y `www.datosabiertos.gob.pe`. |
+| **Pendiente de autorización o de decisión** | Todo lo horario de pluviómetros (solicitud a SENAMHI). Las 12 temporadas de PERSIANN-CCS (84 GB) **no se descargaron**: se decidió esperar a ver si lo de los huaicos lo justificaba (ver abajo: no). |
 
-La prioridad que pediste («primero demostrar que podemos obtener y procesar PERSIANN-CCS y los pluviómetros») **no se pudo cumplir desde este entorno**; lo que sigue es lo que sí se puede afirmar y lo que quedó listo para correr.
+La prioridad que pediste («primero demostrar que podemos obtener y procesar PERSIANN-CCS y los pluviómetros») se cumplió **para PERSIANN-CCS** y **no para los pluviómetros**.
+
+## Resultados con datos reales de PERSIANN-CCS (12/10/2026)
+**Formato y calidad (`scripts/05_verificar_prueba_persiann.py`, `salida/verificacion_prueba_persiann.txt`):** int16 big-endian en mm/h × 100; sin datos faltantes; máximo 38.4 mm/h en un píxel; todos los valores múltiplos de 0.01. **Zona horaria: UTC, inicio de la hora**: en las 15 ventanas con lluvia suficiente el mejor desfase contra IMERG (que está en UTC) fue 0 h en 6, +1 h en 4, −1 h en 2, +2 h en 1 y −3 h en 2; nunca ±5 o ±6 h (lo que daría una hora local). Esto es una verificación burda (ventanas de 1 a 9 días), no una calibración al minuto: puede haber ±1 h de diferencia entre productos.
+
+**¿PERSIANN-CCS ve lluvia en los huaicos que IMERG no ve? (`scripts/06_ciegos_persiann.py`, `salida/ciegos_persiann.txt`; diagnóstico sin retraso, 51 bloques = 14 tormentas, no independientes):**
+| | IMERG Early | PERSIANN-CCS |
+|---|---|---|
+| Bloques con ≥ 0.1 mm en las 6 h hasta el huaico | 19 / 51 | 10 / 51 |
+| Bloques con ≥ 1 mm en 6 h | 9 / 51 | 8 / 51 |
+| Bloques con ≥ 1 mm en 24 h | 34 / 51 | 25 / 51 |
+| Bloques con ≥ 5 mm en 24 h | 13 / 51 | 16 / 51 |
+| Mediana de la lluvia de 24 h | 1.86 mm | 0.78 mm |
+
+- **De los 32 bloques «ciegos» de IMERG (< 0.1 mm en 6 h), PERSIANN-CCS ve ≥ 0.1 mm solo en 1.** En 24 h, ≥ 1 mm en 13 de 32.
+- Cualquiera de los dos productos marca ≥ 0.1 mm en 20 de 51 bloques (IMERG solo, 19) y ≥ 1 mm en 12 (IMERG solo, 9): **la ganancia al combinarlos es de 1 y 3 bloques**.
+- Los productos **coinciden bastante**: correlación (Spearman) de 0.78 en la lluvia de 24 h y 0.67 en la de 6 h hasta el huaico. Hay discrepancias por tormenta en ambos sentidos (PERSIANN-CCS ve más en 2023-03-14, 2026-02-24 y 2026-02-25; IMERG ve más en 2015-03-21 y 2023-03-18).
+- La ventana del huaico es más lluviosa que la misma hora del día anterior y del siguiente en 16/51 bloques con IMERG y en 7/51 con PERSIANN-CCS.
+- **Quirio, 23/03/2015** (huaico a las 15:10 locales = 20:10 UTC): ambos productos marcan 0 mm a las 20:00 UTC y empiezan a ver lluvia una hora después (21:00 UTC: PERSIANN-CCS 1.02 mm, IMERG Early 1.62 mm). PERSIANN-CCS no se adelanta a IMERG.
+
+**Lectura:** con estos 14 episodios, **PERSIANN-CCS no recupera la lluvia que IMERG pierde en los huaicos** y por sí solo detecta menos horas con lluvia que IMERG. La lluvia de los huaicos «ciegos» parece ser local (celdas pequeñas de la cuenca alta) y escapa a **ambos** satélites (ERA5, un reanálisis, sí la ordena mejor, pero no está disponible en tiempo real). Su ventaja práctica sería la latencia (~40 min frente a ~4 h), pero el análisis del paso 8.1 mostró que quitar toda la latencia de IMERG sube la detección solo ~4 puntos. **Límites:** 14 tormentas; sin pluviómetros no se puede decir cuál de los dos se acerca más a la lluvia real; solo se descargaron los días de los eventos (no hay estadísticas de toda la temporada ni percentil del ciclo diario); se comparó sin retraso, no con la disponibilidad operativa.
 
 ## Respuestas a las 7 preguntas
 **1. ¿Es posible obtener lluvia horaria de SENAMHI y para qué periodos?**
@@ -19,7 +39,7 @@ No verificado. Según fuentes públicas (resúmenes, no las páginas oficiales):
 No puedo confirmarlo con códigos ni coordenadas. Por nombre, las nueve pedidas se relacionan así: Carosio → carossio; Libertad → libertad; Pedregal Koica → pedregal; La Cantuta → la_cantuta; Castilla → probablemente mariscal_castilla; Río Seco, Quebrada Molle, Los Cóndores y Vizcachera → ninguna segura (Río Seco está excluida del piloto y «Los Molles» está sin ubicar en el catálogo). Además aparecen citadas Quirio (SENAMHI, marzo 2023), Chosica, Ñaña y Santa Eulalia. Ver `inventario/estaciones_objetivo.csv`.
 
 **3. ¿PERSIANN-CCS aporta más series espaciales distintas que IMERG Early?**
-Sí **en geometría**: el píxel de PERSIANN-CCS (0.04°, ~19 km²) es ~6 veces menor que el de IMERG (0.1°, ~120 km²).
+Sí **en geometría** (y la geometría se confirmó con el README horario real): el píxel de PERSIANN-CCS (0.04°, ~19 km²) es ~6 veces menor que el de IMERG (0.1°, ~120 km²).
 
 | | IMERG Early | PERSIANN-CCS |
 |---|---|---|
@@ -37,13 +57,13 @@ Sí **en geometría**: el píxel de PERSIANN-CCS (0.04°, ~19 km²) es ~6 veces 
 - **Demasiado pequeñas para resolverse** (menos del 5 % de un píxel de PERSIANN, ~1 km²): rosario (0.14 km²), buenos_aires (0.15), alto_peru (0.21), libertad (0.41), carossio (0.53), mariscal_castilla (0.77) y el_vallecito (0.94). Con ninguna de las dos fuentes se puede asegurar que su lluvia propia se esté midiendo.
 
 **5. ¿PERSIANN-CCS mejora realmente la estimación frente a las observaciones terrestres?**
-**No se puede responder todavía**: no hay datos de PERSIANN-CCS ni de pluviómetros en el repositorio. El script `04_comparar_temporal.py` calcula sesgo, MAE, correlación, POD/FAR de horas lluviosas e intensas, observaciones válidas y faltantes, y marca `concluyente` solo con ≥ 300 horas válidas y ≥ 10 horas con lluvia. Se probó solo con un producto sintético (para ver que corra), sin guardar resultados.
+**Contra pluviómetros, no se puede responder**: no hay series de pluviómetros. Contra IMERG, con datos reales y sin pluviómetros: **no hay evidencia de mejora** en los huaicos (ver resultados arriba: ve lluvia en solo 1 de los 32 huaicos que IMERG no vio; detecta menos horas con lluvia que IMERG; coinciden en lo demás, Spearman 0.78 a 24 h). `04_comparar_temporal.py` queda listo para el resto de la comparación (acumulados de 1, 3, 6 y 24 h, horas con lluvia e intensas, y pluviómetros con sesgo, MAE, correlación, POD/FAR y `concluyente` solo con ≥ 300 horas válidas y ≥ 10 con lluvia) cuando haya temporadas completas y estaciones.
 
 **6. ¿Qué datos necesitamos solicitar formalmente a SENAMHI?**
 Precipitación horaria (o del intervalo original) de las 9 estaciones nombradas, más Quirio, Chosica, Ñaña, Santa Eulalia y las demás de ISAAC en el Rímac medio y bajo, **del historial completo**, con códigos, coordenadas, altitud, sensor, marcas de calidad y convención de la marca de tiempo; y preguntar por el acceso en tiempo real a ISAAC y por el historial de SILVIA. Detalle y borrador en `docs/solicitud_senamhi.md`.
 
 **7. ¿Mantener IMERG, sustituirlo o desarrollar una fusión satélite–estación?**
-**Mantener IMERG Early como entrada del modelo por ahora** (no hay evidencia para sustituirlo). Mi recomendación, condicionada a lo que falta verificar: (1) pedir los pluviómetros a SENAMHI ya; (2) correr la prueba de PERSIANN-CCS en una máquina con acceso y confirmar formato, latencia y cobertura; (3) **si se consiguen pluviómetros, desarrollar una fusión o corrección de sesgo satélite–estación** en lugar de cambiar un satélite por otro: ambos productos son estimaciones con el mismo problema de fondo (en 32 de 51 huaicos IMERG marcó menos de 0.1 mm en las 6 h previas y ERA5 ordena mejor los días de huaico), y una fuente adicional de estimación satelital no resuelve eso por sí sola. Además PERSIANN-CCS es una de las tres entradas del SAT de PISCOp_h, así que no es independiente de IMERG Early.
+**Mantener IMERG Early como entrada del modelo** y **no sustituirlo por PERSIANN-CCS**: con los datos reales, PERSIANN-CCS no ve la lluvia que IMERG pierde en los huaicos, detecta menos horas con lluvia y sus series coinciden bastante con las de IMERG. Además es una de las tres entradas del SAT de PISCOp_h, así que no es independiente. **No recomiendo bajar las 12 temporadas (84 GB) por ahora**: solo valdría la pena para evaluarlo como variable complementaria por su latencia (~40 min) o para ver la temporada 2024-25. Lo que sí puede cambiar el resultado es **conseguir pluviómetros de SENAMHI** y, si llegan, desarrollar una **corrección de sesgo o fusión satélite–estación**; es la única vía que corrige el problema de fondo (ningún satélite ve la lluvia local de los huaicos «ciegos»).
 
 ## Tabla de cobertura espacial (polígonos reales; `salida/cobertura_espacial.csv`)
 | quebrada | área_km2 | celdas_IMERG | series_IMERG_compartidas | celdas_PERSIANN | series_PERSIANN_compartidas | peso de la celda dominante (PERSIANN) |
@@ -70,6 +90,6 @@ Precipitación horaria (o del intervalo original) de las 9 estaciones nombradas,
 
 ## Limitaciones y archivos que no pudieron obtenerse
 - Sin acceso a `persiann.eng.uci.edu`, `chrsdata.eng.uci.edu`, `www.senamhi.gob.pe`, `www.datosabiertos.gob.pe`: el entorno los bloquea. Para destrabarlo hay que añadir esos hosts en *Network access* del entorno (o correr los scripts en otra máquina).
-- **No se obtuvieron:** el README horario de PERSIANN-CCS; los archivos horarios de las tres ventanas de prueba (Quirio 2015-03-23, 2024-25, reciente); el índice (cobertura histórica y si sigue actualizándose); cualquier serie de pluviómetro; la lista oficial de estaciones de ISAAC.
-- **Sin confirmar:** tipo de dato/escala y convención de la hora del producto horario; latencia declarada de PERSIANN-CCS; el peso de cada archivo (los archivos son globales y gzip, no se pueden recortar por red: dic–abr de 12 temporadas son 43 512 archivos); la vigencia del tarifario TUSNE y de la gratuidad para investigación.
+- **No se obtuvieron:** cualquier serie de pluviómetro; la lista oficial de estaciones de ISAAC; PERSIANN-CCS de las temporadas completas (solo los días de los huaicos y 3 ventanas de prueba). El README horario, el índice y los archivos de prueba SÍ se obtuvieron (en el PC del usuario).
+- **Sin confirmar:** la latencia *declarada* de PERSIANN-CCS (observada ~40 min; el README no la da); el comportamiento de la versión «en tiempo real» frente a la reprocesada tras 2 días; la vigencia del tarifario TUSNE y de la gratuidad para investigación. Medido: ~1.9 MB por archivo, 43 488 archivos = ~84 GB para dic–abr de 12 temporadas (no recortables por red).
 - Comparación justa en el tiempo: el script solo usa lluvia con etiqueta ≤ t − latencia − 1 para la comparación «operativa» y exige declarar la latencia de PERSIANN-CCS; la comparación sin retraso se marca como diagnóstica.
