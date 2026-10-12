@@ -213,3 +213,7 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
   por similitud Mahalanobis/MESS): los donantes no mejoran (0.32-0.48 vs solo Chosica 0.44).
   Datos nuevos (no van a git): `modelo/v3/datos/raw/` (IMERG Early DIARIO 2001-2026 lat -30..-8 lon -81..-67; Open-Meteo ERA5/ERA5-Land; ICEN; catálogos).
   Pendiente del usuario: `.cdsapirc` (CAPE/K/TT) y Earth Engine (AlphaEarth, Sentinel-2). SERNAGEOMIN/Zenodo no responden desde esta red.
+- Paso 15 = verificación y modelo final v3 (commits 95b4a6a, f99427b, 673ced5). B1 sin "días desde activación" 0.34 (IC ~0.00-0.54); primeros huaicos (8) 0.30
+  (0.04-0.56); persistencia trivial 0.07 -> B1 le gana. Anticipación mediana 2 h (>= 3 h en 3 de 9): solo H = 3 es promesa. Modelo final = P1 (B1, zona)
+  + P2 en `modelo/v3/final/` (p1_b1.json, metadatos_final.json, p2_final.csv, predecir.py, ejemplo_2022_23.csv fuera de muestra). Rojo = máx. TSS (POD 0.77,
+  POFD 0.20, ~15 % de horas en rojo); amarillo = máx. POD alcanzable (0.85; POD >= 0.9 imposible). Ficha: `modelo/v3/model_card_datos.md`.
