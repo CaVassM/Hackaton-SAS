@@ -1,0 +1,18 @@
+quebrada,area_km2,celdas_IMERG,series_IMERG_compartidas,series_IMERG_compartidas_con,mismas_celdas_pesos_distintos_IMERG,mayor_peso_IMERG,celdas_efectivas_IMERG,celda_dominante_IMERG,comparten_celda_dominante_IMERG,celdas_PERSIANN,series_PERSIANN_compartidas,series_PERSIANN_compartidas_con,mismas_celdas_pesos_distintos_PERSIANN,mayor_peso_PERSIANN,celdas_efectivas_PERSIANN,celda_dominante_PERSIANN,comparten_celda_dominante_PERSIANN,cuenca_menor_que_celda_IMERG,cuenca_menor_que_celda_PERSIANN
+rosario,0.135,1,6,buenos_aires; carossio; corrales; la_ronda; libertad; mariscal_castilla,,1.0,1,-11.95|-76.65,8,1,0,,,1.0,1,-11.94|-76.7,5,True,True
+buenos_aires,0.149,1,6,carossio; corrales; la_ronda; libertad; mariscal_castilla; rosario,,1.0,1,-11.95|-76.65,8,2,0,,mariscal_castilla; santo_domingo,0.971,1,-11.94|-76.7,5,True,True
+alto_peru,0.209,1,1,huampani,,1.0,1,-11.95|-76.85,1,1,0,,,1.0,1,-11.98|-76.82,1,True,True
+libertad,0.408,1,6,buenos_aires; carossio; corrales; la_ronda; mariscal_castilla; rosario,,1.0,1,-11.95|-76.65,8,2,0,,carossio,0.985,1,-11.94|-76.7,5,True,True
+carossio,0.528,1,6,buenos_aires; corrales; la_ronda; libertad; mariscal_castilla; rosario,,1.0,1,-11.95|-76.65,8,2,0,,libertad,0.52,2,-11.94|-76.7,5,True,True
+mariscal_castilla,0.77,1,6,buenos_aires; carossio; corrales; la_ronda; libertad; rosario,,1.0,1,-11.95|-76.65,8,2,0,,buenos_aires; santo_domingo,0.909,1,-11.94|-76.7,5,True,True
+el_vallecito,0.942,1,3,chacrasana; quirio; santa_maria,,1.0,1,-11.95|-76.75,5,1,0,,,1.0,1,-11.94|-76.78,0,True,True
+corrales,1.259,1,6,buenos_aires; carossio; la_ronda; libertad; mariscal_castilla; rosario,,1.0,1,-11.95|-76.65,8,3,0,,,0.925,1,-11.9|-76.7,1,True,True
+huampani,3.482,1,1,alto_peru,,1.0,1,-11.95|-76.85,1,2,0,,,0.536,2,-11.98|-76.82,1,True,True
+santo_domingo,3.795,2,0,,california; la_cantuta,0.997,1,-11.95|-76.65,8,2,0,,buenos_aires; mariscal_castilla,0.603,2,-11.94|-76.7,5,True,True
+santa_maria,4.2,1,3,chacrasana; el_vallecito; quirio,,1.0,1,-11.95|-76.75,5,1,0,,,1.0,1,-11.94|-76.74,1,True,True
+chacrasana,4.991,1,3,el_vallecito; quirio; santa_maria,,1.0,1,-11.95|-76.75,5,3,0,,,0.95,1,-11.94|-76.74,1,True,True
+california,8.43,2,0,,la_cantuta; santo_domingo,0.964,1,-11.95|-76.75,5,4,0,,,0.835,1,-11.98|-76.7,1,True,True
+la_ronda,8.818,1,6,buenos_aires; carossio; corrales; libertad; mariscal_castilla; rosario,,1.0,1,-11.95|-76.65,8,3,0,,,0.813,2,-11.94|-76.66,0,True,True
+quirio,9.824,1,3,chacrasana; el_vallecito; santa_maria,,1.0,1,-11.95|-76.75,5,4,0,,,0.443,3,-11.9|-76.74,0,True,True
+pedregal,9.982,4,0,,,0.588,3,-11.95|-76.75,5,3,0,,,0.769,2,-11.9|-76.7,1,True,True
+la_cantuta,13.888,2,0,,california; santo_domingo,0.89,2,-11.95|-76.65,8,4,0,,,0.498,3,-11.98|-76.7,1,True,True

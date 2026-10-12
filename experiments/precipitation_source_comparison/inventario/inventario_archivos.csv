@@ -1,0 +1,17 @@
+ruta,archivos,tamano_mb,que_es,formato,en_git,nota
+terreno/quebradas.geojson,1,0.2,"Polígonos de las 17 cuencas/quebradas (nombres en quebrada_id, nombre, alias)","GeoJSON, EPSG:4326",True,Los pesos se miden en UTM 18S (EPSG:32718); la lista de quebradas está en CLAUDE.md
+terreno/quebradas.csv,1,0.0,"Atributos de las 17 quebradas (área, pendiente, salida, etc.)",CSV,True,
+terreno/alias_catalogo.csv,1,0.0,Nombre del catálogo -> quebrada_id,CSV,True,
+catalogo_huaicos_chosica/catalogo_huaicos_chosica.csv,1,0.1,"Inventario de huaicos (130 filas, 26 fechas, 2015-02 a 2026-02)",CSV,True,
+catalogo_huaicos_chosica/etiquetas_horarias_H*.parquet,4,4.3,Etiquetas horarias por quebrada y horizonte,Parquet,True,
+lluvia/datos/early/imerg_early_*.nc,60,6.0,"IMERG Early V07 recortado (60 meses dic-abr, dic 2014 a abr 2026): tasa mm/h por 30 min, UTC","NetCDF (var mm_h; time, lat, lon)",True,"Recorte = polígonos + 0.1° (12 celdas); ya descargado, no repetir"
+lluvia/imerg_utils.py,1,0.0,"Lectura de gránulos, pesos por celda, conversión a mm/hora local",Python,True,"calcular_pesos(), a_horario_local(), lluvia_por_quebrada()"
+lluvia/descargar_masivo.py,1,0.0,Descarga masiva y robusta de IMERG (Early o Final) con caché y reintentos,Python,True,--producto early|final
+lluvia/pesos_imerg.csv,1,0.0,Pesos de las 17 quebradas sobre las 5 celdas IMERG que las tocan,CSV,True,Este experimento los reproduce y coinciden
+lluvia/features_lluvia.py,1,0.0,Variables de lluvia del modelo (25) a partir de IMERG Early,Python,True,NO se modifica
+lluvia/lluvia_horaria_quebradas.parquet,1,0.8,"Lluvia horaria por quebrada (mm, hora local)",Parquet,False,Generado; no va a git
+imerg_data/*.HDF5,7,53.1,IMERG Final V07B: 7 gránulos del 23/03/2015 (19:00-22:30 UTC),HDF5 (grupo Grid),True,Solo la prueba de Quirio
+lluvia/salida/comparar_early_final.csv,1,0.0,"Comparación mensual Early/Final/ERA5 (4 meses: 2019-02, 2021-02, 2023-03, 2024-02)",CSV,True,Los meses de Final no están en el repositorio (los bajó el usuario)
+PISCOp_h/PISCOp_h_2015.nc,1,96.3,"PISCOp_h (SENAMHI) horario, solo 2015","NetCDF (var p: time 8760, lat 198, lon 133; 0.1°, centros x.x5)",True,Desfase horario sin confirmar (+7 h probable)
+era5_data/era5_lluvia_chosica_*.csv,16,11.6,"ERA5 horario de 2 puntos (-11.75,-76.75) y (-12.0,-76.75); 2010-2012 y 2014-2026 (falta 2013)","CSV (valid_time UTC = fin de hora, tp en m)",True,Solo validación
+modelo/,1,314.8,Modelo y resultados,Python/CSV,True,NO se modifica
