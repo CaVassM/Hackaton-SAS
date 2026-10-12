@@ -6,7 +6,10 @@ donde se escribió bloquea persiann.eng.uci.edu (error 403 de la política de re
 Lo que SÍ se sabe (readmes diario y 6-horario de CHRS, que comparten grilla con el horario):
   - grilla global 0.04°, 3000 filas x 9000 columnas, 60N-60S, 0-360E; primer valor = píxel noroeste centrado en 0.02E y 59.98N; filas hacia el sur, columnas hacia el este.
   - diario: float32 big-endian en mm/día, NODATA -9999 (archivo rgccs1d + YYDDD, .bin.gz). 6-horario: int16 big-endian en mm/6h x 100, NODATA -9999 (YYDDDHH).
-Lo que NO se pudo confirmar (README horario no accesible): tipo de dato y escala del horario, patrón del nombre (se asume rgccs1h + YYDDDHH), si la hora del nombre marca
+README HORARIO LEÍDO el 12/10/2026 (lo pegó el usuario; el servidor no es accesible desde el entorno de nube): CONFIRMA nombre rgccs1h + YYDDDHH, subcarpetas por año,
+int16 big-endian en mm/h x 100, 3000 x 9000, primer píxel NW en 0.02E/59.98N, HH = INICIO de la hora (HH:00 a HH:59; el README no dice la zona horaria: se asume UTC y se
+verifica con el ciclo diario), datos «realtime» que se reprocesan tras 2 días (el reprocesado puede tardar hasta 24 h). El prefijo cambia entre años (2000: 'rgccs…').
+(Lo que sigue en este párrafo era la lista de dudas ANTES de leer el README: queda como referencia.) Lo que NO se pudo confirmar antes del README horario: tipo de dato y escala del horario, patrón del nombre (se asume rgccs1h + YYDDDHH), si la hora del nombre marca
 el INICIO o el FIN de la hora acumulada, y la latencia declarada. Se resuelven leyendo el README (--readme) y pasando --dtype/--escala/--convencion si hace falta.
 
 Los archivos son globales y gzip: NO se puede leer solo un recorte por red; cada archivo se baja entero y se recorta al llegar (guarda solo ~10 x 10 píxeles).
@@ -28,7 +31,7 @@ import re
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import numpy as np
@@ -115,9 +118,26 @@ def explorar(base):
     raise SystemExit("No reconozco ningún archivo con el patrón esperado (prefijo + YYDDD[HH] + .bin[.gz]) ni subcarpetas por año. Pégame el DIAGNÓSTICO de arriba y adapto el script.")
 
 
+def info_anio(cfg, year):
+    """(prefijo, nombre_con_hora) de los archivos de UN año, leído del listado de su subcarpeta. El prefijo cambia entre años
+    (p. ej. 2000 usa 'rgccs…' y 2015 'rgccs1h…'): nunca se asume el del primer archivo del índice."""
+    cache = cfg.setdefault("_anios", {})
+    if year not in cache:
+        capa = cfg["capa"].format(yyyy=year, yy=f"{year % 100:02d}") if cfg["capa"] else ""
+        r = get(cfg["base"] + capa)
+        nombres = sorted({_nombre(h) for h in _hrefs(r.text) if PATRON.match(_nombre(h))}) if r.status_code == 200 else []
+        if nombres:
+            _, pref, con_hora = fecha_de(nombres[len(nombres) // 2])
+            cache[year] = (pref, con_hora, len(nombres))
+        else:
+            cache[year] = (cfg["pref"], cfg["con_hora"], 0)
+    return cache[year]
+
+
 def url_archivo(cfg, t):
     capa = cfg["capa"].format(yyyy=t.year, yy=f"{t.year % 100:02d}") if cfg["capa"] else ""
-    return cfg["base"] + capa + nombre_de(t, cfg["pref"], cfg["con_hora"])
+    pref, con_hora, _ = info_anio(cfg, t.year)
+    return cfg["base"] + capa + nombre_de(t, pref, con_hora)
 
 
 def fecha_de(nombre):
@@ -169,6 +189,7 @@ def dia_a_npz(base, dia, cfg, hilos):
     if ruta.exists():
         return True, []
     horas = [datetime(dia.year, dia.month, dia.day, h) for h in range(24)]
+    info_anio(cfg, dia.year)   # antes de lanzar los hilos: así el listado del año se lee una sola vez
     with ThreadPoolExecutor(hilos) as ex:
         res = list(ex.map(lambda t: bajar_hora(url_archivo(cfg, t), cfg["dtype"], cfg["escala"], cfg["sl_f"], cfg["sl_c"]), horas))
     ny, nx = cfg["sl_f"].stop - cfg["sl_f"].start, cfg["sl_c"].stop - cfg["sl_c"].start
@@ -237,7 +258,7 @@ def modo_indice(a):
     print(f"Estructura: {'archivos en la carpeta' if not ex['capa'] else 'subcarpetas por año (' + ex['capa'] + ') ' + str(ex.get('subcarpetas', [])[:3]) + '…'}")
     print(f"Archivos leídos en el último listado: {len(ex['nombres'])} | muestra: {ex['nombres'][:3]} … {ex['nombres'][-3:]}")
     print(f"Primero: {ex['primero']} ({f0}) | último: {ex['ultimo']} ({f1})")
-    print(f"Hoy (UTC) es {datetime.utcnow():%Y-%m-%d %H:%M}: el último archivo tiene {(datetime.utcnow() - f1).total_seconds() / 3600:.0f} h de antigüedad (latencia aparente, a verificar contra el README).")
+    print(f"Hoy (UTC) es {datetime.now(timezone.utc).replace(tzinfo=None):%Y-%m-%d %H:%M}: el último archivo tiene {(datetime.now(timezone.utc).replace(tzinfo=None) - f1).total_seconds() / 3600:.0f} h de antigüedad (latencia aparente, a verificar contra el README).")
 
 
 def modo_crudo(a):
@@ -246,18 +267,19 @@ def modo_crudo(a):
 
 
 def modo_medir(a, cfg):
-    nombres = cfg["nombres_muestra"]
-    if not nombres:
-        raise SystemExit("El índice no devolvió archivos que medir. Corre --crudo y pásame la salida.")
-    idx = np.linspace(0, len(nombres) - 1, min(a.medir, len(nombres))).astype(int)
+    """HEAD de un archivo por año de muestra (febrero, 18 UTC) para estimar el peso total. El tamaño puede variar entre años."""
+    anios = [2014, 2016, 2019, 2022, 2025][:max(a.medir, 1)]
     tam = []
-    for i in idx:
-        t, _, _ = fecha_de(nombres[i])
+    for y in anios:
+        t = datetime(y, 2, 15, 18)
         url = url_archivo(cfg, t)
         r = requests.head(url, timeout=60, allow_redirects=True)
         tam.append(int(r.headers.get("Content-Length", 0)))
-        print(f"  {url.rsplit('/', 1)[-1]} -> HTTP {r.status_code}, {tam[-1] / 1e6:.2f} MB")
-    mb = np.mean(tam) / 1e6
+        print(f"  {url.rsplit('/', 1)[-1]} ({t:%Y-%m-%d %H} UTC) -> HTTP {r.status_code}, {tam[-1] / 1e6:.2f} MB")
+    ok = [x for x in tam if x]
+    if not ok:
+        raise SystemExit("Ningún HEAD devolvió Content-Length. Prueba con --prueba (descarga 2 días) y mira el tamaño real.")
+    mb = np.mean(ok) / 1e6
     horas = 12 * 151 * 24
     print(f"Promedio {mb:.2f} MB/archivo. Dic-abr de 12 temporadas = {horas:,} archivos = {mb * horas / 1e3:.0f} GB a bajar (se descartan al recortar).")
 

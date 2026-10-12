@@ -29,6 +29,9 @@ def hacer_servidor(raiz, formato, capa="plano"):
     sl_f, sl_c, lat, lon = desc.indices_recorte(desc.bbox())
     carpeta = raiz / "2015" if capa == "anio" else raiz
     carpeta.mkdir(exist_ok=True)
+    if capa == "anio":   # el índice real tiene 2000/ con archivos 'rgccs0003820.bin.gz' (otro prefijo) además de 2015/ con 'rgccs1h…'
+        (raiz / "2000").mkdir(exist_ok=True)
+        (raiz / "2000" / "rgccs0003820.bin.gz").write_bytes(gzip.compress(b"x"))
     for h in range(24):
         if formato == "i2x100":
             a = np.zeros((desc.NFIL, desc.NCOL), ">i2"); a[:] = desc.NODATA
@@ -53,6 +56,10 @@ def correr(formato, capa="plano"):
     class A: url_base = base; dtype = None; escala = None; prefijo = "rgccs1h"; convencion = "inicio"
     cfg = desc.configurar(A)
     say(f"[{formato}/{capa}] estructura del índice: {'subcarpetas por año' if cfg['capa'] else 'archivos en la carpeta'} | formato inferido del README de ejemplo: {cfg['dtype']} escala {cfg['escala']} | prefijo {cfg['pref']} | nombre con hora {cfg['con_hora']} | primer archivo {cfg['primero']}")
+    if capa == "anio":
+        u = desc.url_archivo(cfg, datetime(2015, 3, 23, 5))
+        say(f"[{formato}/{capa}] prefijo del año 2015 (el primer archivo del índice es de 2000 con otro prefijo): {u.rsplit('/', 1)[-1]}")
+        assert u.endswith("2015/rgccs1h1508205.bin.gz"), u
     ok, faltan = desc.dia_a_npz(base, datetime(2015, 3, 23).date(), cfg, 4)
     say(f"[{formato}] día 2015-03-23: completo={ok}, horas faltantes={faltan}")
     ruta, n = desc.ensamblar_mes(2015, 3, cfg)
@@ -70,6 +77,37 @@ def correr(formato, capa="plano"):
     say(f"[{formato}] valores: mínimo {float(da.min()):.2f}, máximo {float(da.max()):.2f} mm/h, NaN {float(da.isnull().mean()) * 100:.1f} % (esperado 0 dentro del recorte)")
     srv.shutdown()
     return all(pruebas)
+
+
+README_REAL = """hrly global ccs data is in row centric format.
+
+name scheme:
+        rgccs1h0934923.bin.gz
+w/ YYDDDHH  date/time
+The HH represents the beginning of the hrly time period like so:
+        HH:00 to HH:59
+
+data are organized into YYYY subdirectories.
+
+Format is:
+    binary in row centric format.
+    short integer
+    data are big-endian.
+    units mm/hr *100
+
+coverage is:
+60N to 60S and 0 to 360 Longitude
+3000 rows x 9000 cols
+
+first value is NW most pixel centered at .02 lon and 59.98 N lat.
+"""   # texto REAL de readme.hrly (lo pegó el usuario el 12/10/2026)
+
+
+def readme_real():
+    d, e = desc.inferir_formato(README_REAL)
+    ok = (d, e) == (">i2", 100)
+    say(f"[README real] formato inferido: {d} escala {e} (esperado >i2 escala 100): {ok}")
+    return ok
 
 
 def indice_no_reconocido():
@@ -92,5 +130,6 @@ def indice_no_reconocido():
 if __name__ == "__main__":
     r1, r2, r3 = correr("i2x100"), correr("f4"), correr("i2x100", "anio")
     r4 = indice_no_reconocido()
-    say(f"RESULTADO: {'OK' if r1 and r2 and r3 and r4 else 'FALLÓ'} (esto valida el código, NO los datos de PERSIANN-CCS)")
+    r5 = readme_real()
+    say(f"RESULTADO: {'OK' if r1 and r2 and r3 and r4 and r5 else 'FALLÓ'} (esto valida el código, NO los datos de PERSIANN-CCS)")
     (AQUI / "salida" / "prueba_sintetica_decodificador.txt").write_text("\n".join(log) + "\n")
