@@ -14,7 +14,7 @@ Usa --medir antes de bajar nada para ver cuánto pesan.
 
 Uso (desde la raíz del repositorio):
   python experiments/precipitation_source_comparison/scripts/02_descargar_persiann_ccs.py --readme
-  ... --indice                      # primer/último archivo y fecha del último (¿se sigue actualizando?)
+   ... --indice                      # primer/último archivo y fecha del último (¿se sigue actualizando?)
   ... --medir 6                     # tamaño de 6 archivos de ejemplo y estimación del total
   ... --prueba                      # 3 ventanas: Quirio 23/03/2015, 2024-25 (2 días), reciente (2 últimos días del índice)
   ... --temporadas 2014 2025        # dic-abr de cada temporada (la 2014 es dic-2014 a abr-2015); reanuda lo ya guardado
@@ -76,12 +76,48 @@ def get(url, intentos=5, espera=3, **kw):
     raise RuntimeError(f"no se pudo obtener {url}: {err if 'err' in dir() else 'reintentos agotados'}")
 
 
-def listar(base):
+def _hrefs(html):
+    return re.findall(r"""href=["']([^"'#?]+)""", html)
+
+
+def _nombre(h):
+    return h.rstrip("/").split("/")[-1]
+
+
+def diagnostico(base, r, n=40):
+    hs = _hrefs(r.text)
+    print(f"--- DIAGNÓSTICO del índice {base}\nestado {r.status_code} | content-type {r.headers.get('Content-Type')} | {len(r.content):,} bytes | {len(hs)} enlaces")
+    print("primeros enlaces:", hs[:n])
+    print("primeros 1500 caracteres del HTML:\n" + r.text[:1500])
+
+
+def explorar(base):
+    """Devuelve dict(nombres=[...], capa='' | '{yyyy}/' | '{yy}/', primero=nombre, ultimo=nombre). Entiende archivos en la carpeta o en subcarpetas por año.
+    Si no reconoce ningún archivo, imprime el contenido real del índice y se detiene (para adaptar PATRON)."""
     r = get(base)
     if r.status_code != 200:
         raise SystemExit(f"El índice {base} respondió {r.status_code}.")
-    nombres = sorted(set(re.findall(r'href="([^"?/][^"]*)"', r.text)))
-    return [n for n in nombres if PATRON.match(n)]
+    hs = _hrefs(r.text)
+    nombres = sorted({_nombre(h) for h in hs if PATRON.match(_nombre(h))})
+    if nombres:
+        return dict(nombres=nombres, capa="", primero=nombres[0], ultimo=nombres[-1])
+    dirs = sorted({_nombre(h) for h in hs if h.endswith("/")})
+    for fmt, rx in (("{yyyy}/", r"(19|20)\d{2}"), ("{yy}/", r"\d{2}")):
+        anios = [d for d in dirs if re.fullmatch(rx, d)]
+        if anios:
+            ext = {}
+            for d in (anios[0], anios[-1]):
+                r2 = get(base + d + "/")
+                ext[d] = sorted({_nombre(h) for h in _hrefs(r2.text) if PATRON.match(_nombre(h))}) if r2.status_code == 200 else []
+            if ext[anios[-1]]:
+                return dict(nombres=ext[anios[-1]], capa=fmt, primero=(ext[anios[0]] or ext[anios[-1]])[0], ultimo=ext[anios[-1]][-1], subcarpetas=anios)
+    diagnostico(base, r)
+    raise SystemExit("No reconozco ningún archivo con el patrón esperado (prefijo + YYDDD[HH] + .bin[.gz]) ni subcarpetas por año. Pégame el DIAGNÓSTICO de arriba y adapto el script.")
+
+
+def url_archivo(cfg, t):
+    capa = cfg["capa"].format(yyyy=t.year, yy=f"{t.year % 100:02d}") if cfg["capa"] else ""
+    return cfg["base"] + capa + nombre_de(t, cfg["pref"], cfg["con_hora"])
 
 
 def fecha_de(nombre):
@@ -119,8 +155,8 @@ def decodificar(datos, dtype, escala):
     return out
 
 
-def bajar_hora(base, t, pref, con_hora, dtype, escala, sl_f, sl_c):
-    r = get(base + nombre_de(t, pref, con_hora))
+def bajar_hora(url, dtype, escala, sl_f, sl_c):
+    r = get(url)
     if r.status_code != 200:
         return None, r.status_code, 0
     crudo = gzip.decompress(r.content)
@@ -134,7 +170,7 @@ def dia_a_npz(base, dia, cfg, hilos):
         return True, []
     horas = [datetime(dia.year, dia.month, dia.day, h) for h in range(24)]
     with ThreadPoolExecutor(hilos) as ex:
-        res = list(ex.map(lambda t: bajar_hora(base, t, cfg["pref"], cfg["con_hora"], cfg["dtype"], cfg["escala"], cfg["sl_f"], cfg["sl_c"]), horas))
+        res = list(ex.map(lambda t: bajar_hora(url_archivo(cfg, t), cfg["dtype"], cfg["escala"], cfg["sl_f"], cfg["sl_c"]), horas))
     ny, nx = cfg["sl_f"].stop - cfg["sl_f"].start, cfg["sl_c"].stop - cfg["sl_c"].start
     arr = np.stack([r[0] if r[0] is not None else np.full((ny, nx), np.nan, "float32") for r in res])
     faltan = [f"{t:%H}" for t, r in zip(horas, res) if r[0] is None]
@@ -170,16 +206,9 @@ def configurar(a):
     sl_f, sl_c, lat, lon = indices_recorte(bbox())
     cfg = dict(base=base, sl_f=sl_f, sl_c=sl_c, lat=lat, lon=lon, convencion=a.convencion)
     dtype, escala = a.dtype, a.escala
-    nombres = None
-    try:
-        nombres = listar(base)
-    except SystemExit:
-        pass
-    if nombres:
-        t0, pref, con_hora = fecha_de(nombres[0])
-        cfg.update(pref=pref, con_hora=con_hora, primero=t0, ultimo=fecha_de(nombres[-1])[0], n_archivos=len(nombres))
-    else:
-        cfg.update(pref=a.prefijo, con_hora=True)
+    ex = explorar(base)
+    t0, pref, con_hora = fecha_de(ex["primero"])
+    cfg.update(pref=pref, con_hora=con_hora, capa=ex["capa"], primero=t0, ultimo=fecha_de(ex["ultimo"])[0], nombres_muestra=ex["nombres"])
     if dtype is None:
         r = get(base + "readme.hrly")
         if r.status_code == 200:
@@ -203,19 +232,31 @@ def modo_readme(a):
 
 
 def modo_indice(a):
-    nombres = listar(a.url_base.rstrip("/") + "/")
-    print(f"{len(nombres)} archivos | primero: {nombres[0]} ({fecha_de(nombres[0])[0]}) | último: {nombres[-1]} ({fecha_de(nombres[-1])[0]})")
-    print(f"Hoy (UTC) es {datetime.utcnow():%Y-%m-%d %H:%M}: el último archivo del índice tiene {(datetime.utcnow() - fecha_de(nombres[-1])[0]).total_seconds() / 3600:.0f} h de antigüedad (latencia aparente, a verificar contra el README).")
+    ex = explorar(a.url_base.rstrip("/") + "/")
+    f0, f1 = fecha_de(ex["primero"])[0], fecha_de(ex["ultimo"])[0]
+    print(f"Estructura: {'archivos en la carpeta' if not ex['capa'] else 'subcarpetas por año (' + ex['capa'] + ') ' + str(ex.get('subcarpetas', [])[:3]) + '…'}")
+    print(f"Archivos leídos en el último listado: {len(ex['nombres'])} | muestra: {ex['nombres'][:3]} … {ex['nombres'][-3:]}")
+    print(f"Primero: {ex['primero']} ({f0}) | último: {ex['ultimo']} ({f1})")
+    print(f"Hoy (UTC) es {datetime.utcnow():%Y-%m-%d %H:%M}: el último archivo tiene {(datetime.utcnow() - f1).total_seconds() / 3600:.0f} h de antigüedad (latencia aparente, a verificar contra el README).")
+
+
+def modo_crudo(a):
+    base = a.url_base.rstrip("/") + "/"
+    diagnostico(base, get(base))
 
 
 def modo_medir(a, cfg):
-    nombres = listar(cfg["base"])
-    idx = np.linspace(0, len(nombres) - 1, a.medir).astype(int)
+    nombres = cfg["nombres_muestra"]
+    if not nombres:
+        raise SystemExit("El índice no devolvió archivos que medir. Corre --crudo y pásame la salida.")
+    idx = np.linspace(0, len(nombres) - 1, min(a.medir, len(nombres))).astype(int)
     tam = []
     for i in idx:
-        r = requests.head(cfg["base"] + nombres[i], timeout=60, allow_redirects=True)
+        t, _, _ = fecha_de(nombres[i])
+        url = url_archivo(cfg, t)
+        r = requests.head(url, timeout=60, allow_redirects=True)
         tam.append(int(r.headers.get("Content-Length", 0)))
-        print(f"  {nombres[i]}: {tam[-1] / 1e6:.2f} MB")
+        print(f"  {url.rsplit('/', 1)[-1]} -> HTTP {r.status_code}, {tam[-1] / 1e6:.2f} MB")
     mb = np.mean(tam) / 1e6
     horas = 12 * 151 * 24
     print(f"Promedio {mb:.2f} MB/archivo. Dic-abr de 12 temporadas = {horas:,} archivos = {mb * horas / 1e3:.0f} GB a bajar (se descartan al recortar).")
@@ -256,6 +297,7 @@ def main():
     ap.add_argument("--url-base", default=BASE_DEFECTO)
     ap.add_argument("--readme", action="store_true")
     ap.add_argument("--indice", action="store_true")
+    ap.add_argument("--crudo", action="store_true", help="imprime el HTML real del índice (para diagnosticar si el script no entiende su formato)")
     ap.add_argument("--medir", type=int, default=0)
     ap.add_argument("--prueba", action="store_true")
     ap.add_argument("--temporadas", type=int, nargs=2, metavar=("PRIMERA", "ULTIMA"))
@@ -269,6 +311,8 @@ def main():
     CARPETA.mkdir(parents=True, exist_ok=True)
     if a.readme:
         return modo_readme(a)
+    if a.crudo:
+        return modo_crudo(a)
     if a.indice:
         return modo_indice(a)
     cfg = configurar(a)

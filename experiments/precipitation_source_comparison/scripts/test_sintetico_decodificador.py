@@ -24,9 +24,11 @@ def say(s):
     print(s); log.append(s)
 
 
-def hacer_servidor(raiz, formato):
+def hacer_servidor(raiz, formato, capa="plano"):
     """formato: 'i2x100' o 'f4'. Crea 24 horas del 2015-03-23 (día juliano 82) con un patrón conocido."""
     sl_f, sl_c, lat, lon = desc.indices_recorte(desc.bbox())
+    carpeta = raiz / "2015" if capa == "anio" else raiz
+    carpeta.mkdir(exist_ok=True)
     for h in range(24):
         if formato == "i2x100":
             a = np.zeros((desc.NFIL, desc.NCOL), ">i2"); a[:] = desc.NODATA
@@ -34,14 +36,14 @@ def hacer_servidor(raiz, formato):
         else:
             a = np.full((desc.NFIL, desc.NCOL), desc.NODATA, ">f4")
             a[sl_f, sl_c] = (((np.arange(sl_f.start, sl_f.stop)[:, None] * 7 + np.arange(sl_c.start, sl_c.stop)[None, :] * 13 + h) % 2000) / 100).astype(">f4")
-        (raiz / f"rgccs1h1508{2:01d}{h:02d}.bin.gz").write_bytes(gzip.compress(a.tobytes(), 1))
+        (carpeta / f"rgccs1h1508{2:01d}{h:02d}.bin.gz").write_bytes(gzip.compress(a.tobytes(), 1))
     (raiz / "readme.hrly").write_text("hrly global ccs data, row centric format. big-endian short integers, units mm/hr x 100, NODATA -9999. 3000 x 9000" if formato == "i2x100"
                                       else "hrly ccs: 4-byte floats big-endian in mm/hr, NODATA -9999")
 
 
-def correr(formato):
+def correr(formato, capa="plano"):
     tmp = Path(tempfile.mkdtemp())
-    hacer_servidor(tmp, formato)
+    hacer_servidor(tmp, formato, capa)
     handler = lambda *a, **k: http.server.SimpleHTTPRequestHandler(*a, directory=str(tmp), **k)
     handler.log_message = lambda *a: None
     srv = socketserver.ThreadingTCPServer(("127.0.0.1", 0), handler)
@@ -50,7 +52,7 @@ def correr(formato):
     desc.CARPETA = Path(tempfile.mkdtemp())   # la salida sintética NO se mezcla con datos reales
     class A: url_base = base; dtype = None; escala = None; prefijo = "rgccs1h"; convencion = "inicio"
     cfg = desc.configurar(A)
-    say(f"[{formato}] formato inferido del README de ejemplo: {cfg['dtype']} escala {cfg['escala']} | prefijo {cfg['pref']} | nombre con hora {cfg['con_hora']} | primer archivo {cfg['primero']}")
+    say(f"[{formato}/{capa}] estructura del índice: {'subcarpetas por año' if cfg['capa'] else 'archivos en la carpeta'} | formato inferido del README de ejemplo: {cfg['dtype']} escala {cfg['escala']} | prefijo {cfg['pref']} | nombre con hora {cfg['con_hora']} | primer archivo {cfg['primero']}")
     ok, faltan = desc.dia_a_npz(base, datetime(2015, 3, 23).date(), cfg, 4)
     say(f"[{formato}] día 2015-03-23: completo={ok}, horas faltantes={faltan}")
     ruta, n = desc.ensamblar_mes(2015, 3, cfg)
@@ -70,7 +72,25 @@ def correr(formato):
     return all(pruebas)
 
 
+def indice_no_reconocido():
+    """Un índice con nombres que no siguen el patrón debe DETENERSE e imprimir el HTML real (diagnóstico), no fallar con IndexError."""
+    tmp = Path(tempfile.mkdtemp()); (tmp / "datos_raros_20150323.txt").write_text("x")
+    handler = lambda *a, **k: http.server.SimpleHTTPRequestHandler(*a, directory=str(tmp), **k)
+    handler.log_message = lambda *a: None
+    srv = socketserver.ThreadingTCPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    try:
+        desc.explorar(f"http://127.0.0.1:{srv.server_address[1]}/")
+        ok = False
+    except SystemExit as e:
+        ok = "DIAGNÓSTICO" in str(e) or "No reconozco" in str(e)
+    srv.shutdown()
+    say(f"[índice no reconocido] se detiene con mensaje de diagnóstico: {ok}")
+    return ok
+
+
 if __name__ == "__main__":
-    r1, r2 = correr("i2x100"), correr("f4")
-    say(f"RESULTADO: {'OK' if r1 and r2 else 'FALLÓ'} (esto valida el código, NO los datos de PERSIANN-CCS)")
+    r1, r2, r3 = correr("i2x100"), correr("f4"), correr("i2x100", "anio")
+    r4 = indice_no_reconocido()
+    say(f"RESULTADO: {'OK' if r1 and r2 and r3 and r4 else 'FALLÓ'} (esto valida el código, NO los datos de PERSIANN-CCS)")
     (AQUI / "salida" / "prueba_sintetica_decodificador.txt").write_text("\n".join(log) + "\n")

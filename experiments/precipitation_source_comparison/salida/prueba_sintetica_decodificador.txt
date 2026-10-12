@@ -1,9 +1,14 @@
-[i2x100] formato inferido del README de ejemplo: >i2 escala 100 | prefijo rgccs1h | nombre con hora True | primer archivo 2015-03-23 00:00:00
+[i2x100/plano] estructura del índice: archivos en la carpeta | formato inferido del README de ejemplo: >i2 escala 100 | prefijo rgccs1h | nombre con hora True | primer archivo 2015-03-23 00:00:00
 [i2x100] día 2015-03-23: completo=True, horas faltantes=[]
 [i2x100] recorte 5 x 7 píxeles, lat -12.02..-11.86, lon -76.86..-76.62 | 24 horas | píxeles verificados contra la fórmula: 9/9
 [i2x100] valores: mínimo 5.86, máximo 7.15 mm/h, NaN 0.0 % (esperado 0 dentro del recorte)
-[f4] formato inferido del README de ejemplo: >f4 escala 1 | prefijo rgccs1h | nombre con hora True | primer archivo 2015-03-23 00:00:00
+[f4/plano] estructura del índice: archivos en la carpeta | formato inferido del README de ejemplo: >f4 escala 1 | prefijo rgccs1h | nombre con hora True | primer archivo 2015-03-23 00:00:00
 [f4] día 2015-03-23: completo=True, horas faltantes=[]
 [f4] recorte 5 x 7 píxeles, lat -12.02..-11.86, lon -76.86..-76.62 | 24 horas | píxeles verificados contra la fórmula: 9/9
 [f4] valores: mínimo 5.86, máximo 7.15 mm/h, NaN 0.0 % (esperado 0 dentro del recorte)
+[i2x100/anio] estructura del índice: subcarpetas por año | formato inferido del README de ejemplo: >i2 escala 100 | prefijo rgccs1h | nombre con hora True | primer archivo 2015-03-23 00:00:00
+[i2x100] día 2015-03-23: completo=True, horas faltantes=[]
+[i2x100] recorte 5 x 7 píxeles, lat -12.02..-11.86, lon -76.86..-76.62 | 24 horas | píxeles verificados contra la fórmula: 9/9
+[i2x100] valores: mínimo 5.86, máximo 7.15 mm/h, NaN 0.0 % (esperado 0 dentro del recorte)
+[índice no reconocido] se detiene con mensaje de diagnóstico: True
 RESULTADO: OK (esto valida el código, NO los datos de PERSIANN-CCS)
