@@ -21,7 +21,8 @@ Uso (desde la raíz del repositorio):
   ... --medir 6                     # tamaño de 6 archivos de ejemplo y estimación del total
   ... --prueba                      # 3 ventanas: Quirio 23/03/2015, 2024-25 (2 días), reciente (2 últimos días del índice)
   ... --temporadas 2014 2025        # dic-abr de cada temporada (la 2014 es dic-2014 a abr-2015); reanuda lo ya guardado
-  ... --solo 2015-03                # un solo mes
+  ... --solo 2015-03                # un solo mes (~1.4 GB): úsalo para MEDIR tu velocidad real antes de lo grande
+  ... --eventos                     # solo los días del catálogo de huaicos ±1 día (~3 GB)
 Salida: datos/persiann_ccs/persiann_ccs_AAAA-MM.nc (mm por hora, UTC, etiqueta = convención declarada) y caché diaria en datos/persiann_ccs/_cache/.
 """
 import argparse
@@ -192,6 +193,7 @@ def dia_a_npz(base, dia, cfg, hilos):
     info_anio(cfg, dia.year)   # antes de lanzar los hilos: así el listado del año se lee una sola vez
     with ThreadPoolExecutor(hilos) as ex:
         res = list(ex.map(lambda t: bajar_hora(url_archivo(cfg, t), cfg["dtype"], cfg["escala"], cfg["sl_f"], cfg["sl_c"]), horas))
+    cfg["_bytes"] = cfg.get("_bytes", 0) + sum(r[2] for r in res)
     ny, nx = cfg["sl_f"].stop - cfg["sl_f"].start, cfg["sl_c"].stop - cfg["sl_c"].start
     arr = np.stack([r[0] if r[0] is not None else np.full((ny, nx), np.nan, "float32") for r in res])
     faltan = [f"{t:%H}" for t, r in zip(horas, res) if r[0] is None]
@@ -299,19 +301,50 @@ def modo_prueba(a, cfg):
             print("  guardado", r[0].name, f"({r[1]} horas)")
 
 
+def progreso(cfg, t0, hechos, total):
+    seg = time.time() - t0
+    mb = cfg.get("_bytes", 0) / 1e6
+    if hechos and seg > 0:
+        resta = seg / hechos * (total - hechos)
+        print(f"   [{hechos}/{total} días] {mb / 1e3:.1f} GB bajados en {seg / 60:.1f} min ({mb / seg:.1f} MB/s = {mb * 8 / seg:.0f} Mbit/s) | faltan ~{resta / 60:.0f} min", flush=True)
+
+
+def modo_eventos(a, cfg):
+    """Solo los días UTC alrededor de cada fecha del catálogo de huaicos (día anterior, día y día siguiente). Las 26 fechas dan ~3 GB en vez de 84 GB."""
+    cat = pd.read_csv(RAIZ / "catalogo_huaicos_chosica" / "catalogo_huaicos_chosica.csv", parse_dates=["fecha"])
+    dias = sorted({(f + timedelta(days=k)).date() for f in cat.fecha for k in (-1, 0, 1)})
+    print(f"{len(cat.fecha.unique())} fechas del catálogo -> {len(dias)} días ({len(dias) * 24:,} archivos, ~{len(dias) * 24 * 1.94 / 1000:.1f} GB a bajar)")
+    t0, malos = time.time(), []
+    for k, d in enumerate(dias, 1):
+        ok, faltan = dia_a_npz(cfg["base"], d, cfg, a.hilos)
+        if not ok:
+            malos.append(f"{d}({','.join(faltan)})")
+        if k % 5 == 0 or k == len(dias):
+            progreso(cfg, t0, k, len(dias))
+    for ym in sorted({(d.year, d.month) for d in dias}):
+        r = ensamblar_mes(*ym, cfg)
+        print(f"{ym[0]}-{ym[1]:02d}: {r[1] if r else 0} horas guardadas")
+    if malos:
+        print("Días incompletos:", malos)
+
+
 def modo_temporadas(a, cfg):
     meses = [(y, 12) for y in range(a.temporadas[0], a.temporadas[1] + 1)] + [(y + 1, m) for y in range(a.temporadas[0], a.temporadas[1] + 1) for m in (1, 2, 3, 4)]
     if a.solo:
         meses = [tuple(map(int, a.solo.split("-")))]
+    total = sum(pd.Period(f"{y}-{m:02d}").days_in_month for y, m in meses)
+    t0, hechos = time.time(), 0
     for anio, mes in sorted(meses):
         dias = pd.date_range(f"{anio}-{mes:02d}-01", periods=pd.Period(f"{anio}-{mes:02d}").days_in_month).date
         malos = []
         for d in dias:
             ok, faltan = dia_a_npz(cfg["base"], d, cfg, a.hilos)
+            hechos += 1
             if not ok:
                 malos.append(f"{d}({','.join(faltan)})")
         r = ensamblar_mes(anio, mes, cfg)
         print(f"{anio}-{mes:02d}: {r[1] if r else 0} horas guardadas" + (f" | días incompletos: {malos}" if malos else ""), flush=True)
+        progreso(cfg, t0, hechos, total)
 
 
 def main():
@@ -324,6 +357,7 @@ def main():
     ap.add_argument("--prueba", action="store_true")
     ap.add_argument("--temporadas", type=int, nargs=2, metavar=("PRIMERA", "ULTIMA"))
     ap.add_argument("--solo")
+    ap.add_argument("--eventos", action="store_true", help="solo los días alrededor de las fechas del catálogo de huaicos (±1 día): ~3 GB en vez de ~84 GB")
     ap.add_argument("--hilos", type=int, default=6)
     ap.add_argument("--dtype", help="tipo del binario si el README no se puede leer: '>i2' o '>f4'")
     ap.add_argument("--escala", type=float)
@@ -342,6 +376,8 @@ def main():
         return modo_medir(a, cfg)
     if a.prueba:
         return modo_prueba(a, cfg)
+    if a.eventos:
+        return modo_eventos(a, cfg)
     if a.temporadas or a.solo:
         a.temporadas = a.temporadas or (2014, 2025)
         return modo_temporadas(a, cfg)
