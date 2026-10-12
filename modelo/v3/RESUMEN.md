@@ -179,3 +179,7 @@ Donantes por fuente (corte principal): INDECI 96 (Lima Provincias 75, Arequipa 1
 - Ejemplo para el dashboard: `final/ejemplo_2022_23.csv` (246 432 filas = 3 624 h x 4 H x 17 quebradas), FUERA DE MUESTRA (modelo, P2 y umbrales sin
   2022-23). Rojo en 297-350 h por H (~9 %); sin banda amarilla (sin 2022-23 el POD máximo ya lo alcanza el rojo). Antes de los huaicos: 12/03 4 h rojas
   en las 12 h previas, 14/03, 16/03 y 18/03 en rojo las 12 h previas; 19/02 y 06/04 sin alerta (fallos).
+
+## Ficha del modelo
+`model_card_datos.md`: datos, periodo, variables, validación, métricas con IC, comparación (azar, ISAAC, modelo anterior, persistencia), limitaciones
+(13 positivos, IMERG no ve el golpe corto, rachas, dependencia del catálogo en tiempo real, muchas horas en alerta) y datos que lo mejorarían.
