@@ -42,21 +42,35 @@ const gap = () => new Paragraph({ spacing: { after: 60 }, children: [] });
 // ---------- contenido
 const c = [];
 c.push(H1('Diccionario de datos — Modelo de alerta de huaicos (Chosica)'));
-c.push(P('Oct 12, 2026 · @Camilo · versión 2 (actualizada; la primera es del 5 de octubre)'));
+c.push(P('Oct 12, 2026 · @Camilo · versión 3 (modelo v3 y entrega al dashboard; la versión 2 es del 12 de octubre y la primera del 5 de octubre)'));
 
 c.push(H2('De qué va esto'));
 c.push(P('El modelo responde una sola pregunta: **¿habrá huaico en esta quebrada en las próximas H horas?** Devuelve una probabilidad por quebrada, por hora y por horizonte (3, 6, 12 o 24 h). El riesgo y la exposición los calcula otra parte del equipo; aquí solo predecimos el peligro.'));
-c.push(P('Para entrenarlo armamos cuatro tablas y una auxiliar. **Las cinco ya están hechas.**'));
+c.push(P('**Modelo vigente: v3, en dos piezas.** P1 (*cuándo*) estima el riesgo de la **zona** con la intensidad de lluvia IMERG y el **estado** de la zona (humedad del suelo, días desde la última activación, El Niño costero). P2 (*dónde*) ordena las 17 quebradas por su historia y su terreno. Las tablas 0 a 3 siguen vigentes como base; las tablas 4 a 6 son las del modelo v3 y de la entrega al dashboard.'));
+c.push(P('**Todas las tablas están hechas.**'));
 c.push(table([1900, 2300, 1500, 1500, 2160], ['Tabla', 'Una fila es…', '¿Cambia en el tiempo?', 'Estado', 'Para qué sirve'], [
   ['0. Catálogo de eventos', 'Una quebrada que se activó en un evento', 'No (se le agregan filas)', 'Hecha, versión 1 (130 filas)', 'Fuente de verdad: de aquí salen las etiquetas'],
   ['1. Quebradas', 'Una quebrada', 'No', 'Hecha (17 quebradas)', 'Terreno de cada quebrada'],
   ['Auxiliar: pesos IMERG', 'Una quebrada × una celda de IMERG', 'No', 'Hecha (23 filas, 5 celdas)', 'Promediar la lluvia sobre la quebrada'],
   ['2. Lluvia horaria', 'Una quebrada en una hora', 'Sí, cada hora', 'Hecha (740 mil filas)', 'Lluvia reciente, suelo mojado y contexto de la temporada'],
-  ['3. Tabla del modelo', 'Una quebrada, una hora y un horizonte', 'Sí', 'Hecha (2.86 millones de filas)', 'Lo que entra al modelo: tabla 2 + tabla 1 + etiquetas'],
+  ['3. Tabla del modelo anterior', 'Una quebrada, una hora y un horizonte', 'Sí', 'Hecha (2.86 millones de filas)', 'Modelo por quebrada (v1/v2); queda como referencia'],
+  ['4. Eventos de lluvia (v3)', 'Un evento de lluvia IMERG en la zona', 'Sí (cada evento)', 'Hecha (1 626 eventos)', 'Unidad de evaluación del v3 (TSS por evento)'],
+  ['5. Zona horaria (v3, P1)', 'La zona en una hora y un horizonte', 'Sí, cada hora', 'Hecha (171 mil filas)', 'Lo que entra a P1: intensidad + estado + etiqueta de zona'],
+  ['6. Salida al dashboard (v3)', 'Una quebrada, una hora y un horizonte', 'Sí, cada hora', 'Hecha (script y ejemplo 2022-23)', 'Lo que recibe el dashboard: probabilidad, índice y nivel'],
 ]));
 c.push(gap());
 
-c.push(H2('Qué cambió desde la primera versión'));
+c.push(H2('Qué cambió en la versión 3 (modelo v3)'));
+for (const t of [
+  '**Nuevo modelo en dos piezas.** P1 = la ZONA (no cada quebrada), con la intensidad de lluvia IMERG (máximos de 1/3/6 h y lluvia de 24–72 h) más tres variables de **estado** conocidas en *t*: humedad del suelo ERA5-Land (con 5 días de retraso), días desde la última activación catalogada y el último ICEN publicado. P2 = historia + terreno de cada quebrada.',
+  '**Se mide como la literatura: por EVENTO de lluvia** (tabla 4), con el TSS (aciertos − falsas alarmas). Resultado fuera de muestra: TSS 0.49 (IC 90 % 0.15–0.70); el umbral ISAAC de SENAMHI aplicado a IMERG da −0.13 y el modelo anterior 0.15.',
+  '**Etiquetas v2:** las horas vagas del catálogo («la tarde») se tratan como un rango; archivos `etiquetas_horarias_v2_H*.parquet` (las v1 no se tocan).',
+  '**Salida al dashboard (tabla 6)** con dos niveles: **M3 por defecto** (rojo solo si además hubo lluvia IMERG reciente) y el nivel original de v3 como referencia.',
+  '**Datos nuevos:** ERA5-Land y ERA5 vía Open-Meteo (sin credenciales), ICEN (IGP/ENFEN), IMERG Early diario 2001–2026 (Perú y norte de Chile), catálogo multizona (INDECI, INGEMMET, NASA COOLR).',
+  '**Probado y descartado:** umbral por régimen de El Niño, ERA5 como variable, modelo diario con eventos de otras zonas (donantes), más positivos de quebradas vecinas (M1). Detalle en `modelo/v3/RESUMEN.md` y `modelo/v3_1/RESUMEN.md`.',
+]) c.push(B(t));
+
+c.push(H2('Qué cambió en la versión 2'));
 for (const t of [
   '**Todas las tablas están hechas.** Antes las tablas 1, 2, 3 y la de pesos figuraban como «por hacer».',
   '**17 quebradas finales** (antes «unas 20»). Quedaron fuera Huaycoloro y Río Seco (cuenca grande fuera del recorte), Los Laureles (probable Chaclacayo) y tres sin ubicación.',
@@ -135,6 +149,15 @@ c.push(P('**Regla del paso 9.2.** Hay 10 fechas con huaico en el catálogo pero 
 c.push(table([2340, 3510, 3510], ["Horizonte H", "Horas con y = 1", "Bloques de huaico"], [["3 h", "160", "53"], ["6 h", "316", "51"], ["12 h", "619", "50"], ["24 h", "1 219", "50"]]));
 c.push(gap());
 c.push(P('Un **bloque** es una racha de horas seguidas con y = 1 en una quebrada: equivale a un huaico. Solo **6 de las 12 temporadas** tienen al menos un evento (2014-15, 2016-17, 2018-19, 2019-20, 2022-23, 2025-26); 2014-15 aporta 22 de los 51 bloques de H = 6. Los 51 bloques son unas 14 tormentas, así que no son independientes.'));
+c.push(H3('Etiquetas v2 (etiquetas_horarias_v2_H3 / H6 / H12 / H24.parquet) — las que usa el v3'));
+c.push(P('Mismo formato que las anteriores (`hora`, `quebrada_id`, `H`, `y`). Cambia solo el trato de los **27 eventos con hora vaga** (`conf_temporal` = B) que generan positivos: se releyó cada fuente y se guardó un **rango** [hora_inicio, hora_fin] en `catalogo_huaicos_chosica/horas_B_v2.csv` (con url y cita). Reglas del rango: la hora concreta de la fuente se mantiene; si es vaga, mañana 06:00–11:59, tarde 12:00–18:59, noche 19:00–23:59, primeras horas 00:00–05:59, recortado en la hora de publicación de la nota; «reporte a las X» = [X − 1 h, X]. Nunca se usó lluvia satelital para decidir horas.'));
+c.push(table([1700, 7660], ['Valor de y (v2)', 'Regla para un evento con rango [inicio, fin]'], [
+  ['1', 'La ventana (t, t + H] contiene **todo** el rango'],
+  ['vacío (NaN)', 'La ventana toca el rango solo en parte, o la hora está entre el inicio del rango y 24 h después del fin'],
+  ['0', 'La ventana no toca el rango'],
+]));
+c.push(gap());
+c.push(P('Para eventos con hora exacta, v2 da lo mismo que v1 (el script `etiquetas_v2.py` reproduce v1 bit a bit). Bloques de huaico (H = 3/6/12/24): v1 53/51/50/50 → v2 41/43/50/50: un rango vago de 7 h no cabe en una ventana de 3 o 6 h y esas horas pasan a vacío.'));
 
 // ---- Tabla 1
 c.push(H2('Tabla 1 — Quebradas (terreno, fija)'));
@@ -224,6 +247,65 @@ c.push(table([2300, 3200, 3860], ['Columnas', 'Cuáles', 'Para qué'], [
 c.push(gap());
 c.push(P('**Cómo se evalúa:** *validación dejando una temporada afuera* (LOSO): se entrena con 11 temporadas y se prueba en la que quedó fuera, solo en las 6 con eventos (las tranquilas entran siempre al entrenamiento). El modelo es XGBoost con árboles pequeños (profundidad 2, 150 árboles) y pesos para compensar que los huaicos son muy raros.'));
 
+// ---- Tabla 4 (v3)
+c.push(H2('Tabla 4 — Eventos de lluvia (modelo v3)'));
+c.push(P('**Estado: hecha** (`modelo/v3/A/fase_a_eventos.parquet`; se arma con `modelo/v3/comun_v3.py`). **Una fila = un evento de lluvia en la zona.** Es la unidad con que se evalúa el v3, como en la literatura de umbrales de lluvia. 1 626 eventos (diciembre–abril, 2014-15 a 2025-26), **12 disparadores**, 24 desconocidos y 1 día «ciego».'));
+c.push(table([1900, 4200, 3260], ['Columna', 'Qué es', 'Cómo se calcula'], [
+  ['inicio, fin', 'Primera y última hora lluviosa del evento (hora local)', 'Lluvia de la zona = máximo horario entre las 5 celdas IMERG; hora lluviosa = al menos 0.1 mm; un evento termina tras 6 h secas'],
+  ['duracion_h, total_mm', 'Cuánto duró y cuánto llovió', 'Del evento'],
+  ['max1, max3, max6', 'El golpe más fuerte en 1, 3 y 6 h', 'Máximo de las sumas móviles'],
+  ['temporada', '«2022-23» = diciembre 2022 a abril 2023', '—'],
+  ['disparador', '1 si hubo huaico de las 17 quebradas durante el evento o hasta 3 h después', 'Cruce con las etiquetas v2 (rangos)'],
+  ['huaico_fin', 'Fin del rango del huaico (en disparadores)', 'La alerta solo puede usar lo anterior a esta hora'],
+  ['tormenta', 'Agrupa huaicos de fechas a ≤ 2 días', 'Unidad del *bootstrap* para los intervalos'],
+  ['desconocido', 'Evento sin huaico que toca un día con huaico sin hora o solo en vecinos: «sin huaico» no es confiable', 'Se excluye de la evaluación'],
+]));
+c.push(gap());
+c.push(P('**Día ciego:** un día con huaico en el que IMERG no registró ningún evento de lluvia (23/01/2020). Cuenta como fallo obligatorio para cualquier método.'));
+
+// ---- Tabla 5 (v3)
+c.push(H2('Tabla 5 — Zona horaria (P1 del modelo v3)'));
+c.push(P('**Estado: hecha** (se arma en `modelo/v3/final/modelo_final.py`, función `tabla_zona`). **Una fila = la zona en una hora y un horizonte H** (diciembre–abril; 42 816 horas × 4 H). La etiqueta de zona vale 1 si **alguna** de las 17 quebradas tiene y = 1 (v2), vacío si alguna está vacía y ninguna vale 1, y 0 si no.'));
+c.push(table([1800, 3700, 2560, 1300], ['Columna', 'Qué es, en simple', 'Fuente y retraso', 'Monotonía'], [
+  ['i1h, i3h, i6h', 'Lluvia de la última 1, 3 y 6 h disponible (máximo entre las 5 celdas)', 'IMERG Early; latencia 4 h (etiqueta ≤ t − 5)', '+'],
+  ['i1h_max6, i3h_max6, i6h_max6', 'El máximo de las anteriores en las últimas 6 h disponibles', 'IMERG Early; latencia 4 h', '+'],
+  ['p24h, p48h, p72h', 'Lluvia de 24, 48 y 72 h (máximo entre celdas)', 'IMERG Early; latencia 4 h', '+'],
+  ['hum_suelo_5d', 'Humedad del suelo superficial (0–7 cm, m³/m³), media de las 5 celdas', 'ERA5-Land vía Open-Meteo; valor de t − 5 días (retraso real)', '+'],
+  ['dias_activ', 'Días desde la última activación catalogada en las 17 quebradas (tope 3650)', 'Catálogo; solo fechas anteriores al día de t', 'sin restricción'],
+  ['icen', 'Índice Costero El Niño (último publicado)', 'IGP/ENFEN; mes M − 2 desde el día 10, M − 3 antes', '+'],
+  ['H', 'Horizonte (3, 6, 12, 24)', '—', '+'],
+  ['y', 'Huaico en la zona en (t, t + H]', 'Etiquetas v2 de las 17 quebradas', '—'],
+]));
+c.push(gap());
+c.push(P('**Por qué estas variables:** con IMERG, la intensidad sola no supera al azar (TSS 0.01–0.23); la combinación con el **estado** sí (TSS 0.49). Sin `dias_activ` el TSS baja a 0.34: parte de la señal son las **rachas** de huaicos. Hiperparámetros fijados de antemano (profundidad 2, 150 árboles).'));
+
+// ---- Tabla 6 (v3)
+c.push(H2('Tabla 6 — Salida al dashboard (modelo v3, nivel M3 por defecto)'));
+c.push(P('**Estado: hecha.** Script: `modelo/v3_1/entrega/entrega_dashboard.py` (usa el modelo v3 sin cambios de `modelo/v3/final/`). Ejemplo fuera de muestra: `modelo/v3_1/entrega/ejemplo_2022_23_m3.csv` (temporada 2022-23 completa, 246 432 filas). **Una fila = una quebrada en una hora y un horizonte.**'));
+c.push(table([1800, 4600, 2960], ['Columna', 'Qué es', 'Ejemplo'], [
+  ['quebrada_id', 'Una de las 17 quebradas', 'quirio'],
+  ['hora', 'Hora local (UTC−5) de inicio en que se emite la predicción', '2023-03-14 13:00'],
+  ['H', 'Horizonte en horas', '3'],
+  ['p_zona', 'P1: probabilidad de huaico en la zona en (t, t + H]', '0.7047'],
+  ['p2_quebrada', 'P2: propensión de la quebrada (fija): (activaciones + 4 × p_terreno) ÷ (tormentas + 4)', '0.6250'],
+  ['score', 'p_zona × p2_quebrada (para ordenar quebradas)', '0.4404'],
+  ['indice_0_100', '100 × min(1, p_zona ÷ umbral rojo) × p2 ÷ máx(p2)', '100'],
+  ['lluvia_6h_mm', 'Lluvia IMERG de las últimas 6 h disponibles (máximo entre celdas)', '0.53'],
+  ['nivel', '**Nivel por defecto (M3)**: verde / amarillo / rojo', 'rojo'],
+  ['nivel_v3', 'Nivel original del v3 (referencia)', 'rojo'],
+]));
+c.push(gap());
+c.push(P('**Los dos niveles** (de la zona; las quebradas se ordenan por `score`):'));
+c.push(table([1700, 4030, 3630], ['', '`nivel` = M3 (por defecto)', '`nivel_v3` (original)'], [
+  ['Rojo', 'p_zona ≥ umbral rojo **y** lluvia_6h_mm > 0.1', 'p_zona ≥ umbral rojo'],
+  ['Amarillo', 'p_zona ≥ umbral rojo sin lluvia reciente («condiciones favorables»), o umbral amarillo ≤ p_zona < umbral rojo', 'umbral amarillo ≤ p_zona < umbral rojo'],
+  ['Verde', 'El resto', 'El resto'],
+  ['Acierto del rojo (por evento)', '0.62 (8 de 13); TSS 0.44', '0.69 (9 de 13); TSS 0.49'],
+  ['Horas en rojo (dic–abr)', '11.4 %', '15.0 %'],
+]));
+c.push(gap());
+c.push(P('Umbrales por H en `modelo/v3/final/metadatos_final.json`: el rojo maximiza el TSS por evento; el amarillo es el de máximo acierto alcanzable (0.85; 0.9 es imposible porque un huaico no tuvo lluvia IMERG y otro no tuvo horas útiles). **Solo H = 3 h es una promesa de anticipación** (mediana 2 h antes del huaico); H = 6/12/24 describen la condición de la zona.'));
+
 // ---- archivos derivados
 c.push(H2('Archivos que genera el modelo'));
 c.push(table([3300, 4560, 1500], ['Archivo', 'Qué contiene', '¿Va a git?'], [
@@ -237,6 +319,13 @@ c.push(table([3300, 4560, 1500], ['Archivo', 'Qué contiene', '¿Va a git?'], [
   ['modelo/salida/auditoria_etiquetas_*.csv', 'Cómo quedó cada fecha del catálogo en las etiquetas y los 44 días de lluvia extrema sin evento registrado', 'Sí'],
   ['modelo/salida/ingenieria_nan/', 'Resultados de cada corrida con las etiquetas corregidas (los anteriores quedan en `ingenieria/` y `salida_antes_nan/`)', 'Sí'],
   ['lluvia/salida/comparar_early_final.csv', 'Comparación mensual de IMERG Early, IMERG Final y ERA5 (4 meses)', 'Sí'],
+  ['catalogo_huaicos_chosica/horas_B_v2.csv y etiquetas_horarias_v2_H*.parquet', 'Rangos de las horas vagas (con url y cita) y etiquetas v2', 'Sí'],
+  ['modelo/v3/final/p1_b1.json, metadatos_final.json, p2_final.csv', '**Modelo v3 final**: P1 (XGBoost), variables en orden, fuentes, umbrales por H; P2 por quebrada', 'Sí'],
+  ['modelo/v3_1/entrega/ejemplo_2022_23_m3.csv', 'Ejemplo para el dashboard (tabla 6), fuera de muestra', 'Sí'],
+  ['modelo/v3/tabla_final.csv, RESUMEN.md, model_card_datos.md', 'Comparación de todos los métodos con IC 90 %, resumen por fase y ficha del modelo', 'Sí'],
+  ['modelo/v3/D/catalogo_multizona.csv', 'Catálogo de flujos en Perú y Chile (INDECI 911, INGEMMET 27, NASA COOLR 65)', 'Sí'],
+  ['modelo/v3_1/M1/casos_nuevos_zona.csv', '67 activaciones de quebradas vecinas e INDECI en la zona, para revisión', 'Sí'],
+  ['modelo/v3/datos/raw/', 'IMERG Early diario 2001–2026 (Perú y norte de Chile), ERA5/ERA5-Land (Open-Meteo), ICEN, catálogos crudos', 'No (se regenera)'],
 ]));
 c.push(gap());
 
@@ -254,6 +343,8 @@ c.push(table([1500, 1650, 2050, 3000, 1160], ['Fuente', 'Quién · grilla · cad
   ['**Estación SENAMHI Chosica**', 'SENAMHI (MET PLU y HID EHMA; la HID HLG solo mide nivel del río) · un punto · 1 día', 'mm por día', 'Desde 1989. La columna horaria existe pero está vacía. **Pendiente pedir datos horarios de pluviómetros de la cuenca del Rímac**: es lo que más ayudaría a corregir IMERG', 'Validar IMERG día por día'],
   ['**Estaciones automáticas (CSV público)**', 'SENAMHI · puntos · 1 hora', 'mm por hora', 'No incluye Chosica; la más cercana es Matucana', 'Referencia; poco útil'],
   ['**CHIRPS**', 'UCSB / USGS · 0.05° ≈ 5 km · 1 día', 'mm por día', 'Grilla más fina, pero solo diaria. No se usó', 'Posible validación'],
+  ['**ERA5 / ERA5-Land vía Open-Meteo** (v3)', 'ECMWF re-servido por Open-Meteo, sin credenciales · 0.25° / 0.1° · 1 hora', 'mm en la hora previa al *timestamp* (se re-etiqueta al inicio de la hora); humedad en m³/m³', 'Humedad del suelo 0–7 cm: **entra al v3** con 5 días de retraso. Precipitación, convectiva y agua precipitable: no mejoran ni como pronóstico perfecto (TSS 0.51). CAPE, índice K y Total Totals no están en Open-Meteo: requieren CDS', '**Humedad: entra al modelo**'],
+  ['**IMERG V07 Early diario** (v3)', 'NASA · 0.1° · 1 día UTC', 'mm por día', '2001–2026 en Perú y norte de Chile, leído por rangos (9 249 días). Para la ficha de similitud y el modelo diario multizona (descartado)', 'Experimento'],
   ['**Open-Meteo pronóstico (IFS)**', 'ECMWF vía Open-Meteo · ~9 km · 1 hora', 'mm por hora', 'Es pronóstico, con su propio error; no hay archivo histórico para entrenar', 'Posible variable futura'],
   ['**GOES-16** (idea)', 'NOAA · ~2 km · 10 min', 'Temperatura de la nube (infrarrojo), no lluvia directa', 'No se usó. Veríamos tormentas que IMERG pierde y llega en minutos, pero solo existe desde 2017 (se perdería 2014-15)', 'Idea para después'],
 ]));
@@ -266,8 +357,13 @@ c.push(table([1800, 1800, 3660, 2100], ['Fuente', 'Qué da', 'Lo que encontramos
   ['**INGEMMET, mapa de susceptibilidad**', 'Qué tan propenso es cada lugar, en 5 niveles', 'Regional; satura. Fuera de la v1 (ver tabla 1)', 'Columnas `vec_*` e `img_*`'],
   ['**FABDEM**', 'Altura del suelo sin edificios ni árboles', '30 × 30 m. Licencia CC BY-NC-SA 4.0: hay que citarlo. Reemplazó a Copernicus DEM GLO-30', 'Polígonos, área, pendiente (tabla 1)'],
   ['**ANA** (red hidrográfica) y láminas de **SIGRID/CENEPRED**', 'Cauces y mapas de peligros de referencia', 'Son referencias, no verdad absoluta. La capa correcta de ANA es la ALA Chillón-Rímac-Lurín. Documentos SIGRID 123, 14474, 6441, 1610 y 19950 (ubican Pedregal, Carossio, Corrales)', 'Ubicar y validar las quebradas'],
-  ['**AlphaEarth** (Google)', '64 números que resumen cómo se ve cada lugar desde el satélite', 'No se usó en la v1: con 17 quebradas el modelo memorizaría', 'Experimento (no hecho)'],
-  ['**ICEN** (ENFEN)', 'Índice de El Niño costero', 'Más adecuado que el ONI para Chosica (2017 y 2023 fueron Niño costero)', 'Experimento (no hecho)'],
+  ['**AlphaEarth** (Google)', '64 números que resumen cómo se ve cada lugar desde el satélite', 'No se usó: requiere Earth Engine autenticado (pendiente)', 'Experimento (no hecho)'],
+  ['**ICEN** (IGP/ENFEN)', 'Índice de El Niño costero, mensual', 'Archivo oficial `met.igp.gob.pe/datos/ICEN.txt`. Llega con 2–3 meses de retraso. Como umbral por régimen no sirve; como variable de estado sí suma', '**Entra al v3**'],
+  ['**SINPAD / INDECI (base 2003–2025)**', 'Emergencias por distrito y fecha', 'CSV local `BD_2003-2025_EMERGENCIAS.csv`: 911 huaicos en la vertiente árida, sin hora y con ubicación de distrito; las fechas pueden ser de registro', 'Catálogo multizona y M1 (descartados)'],
+  ['**INGEMMET PERU_ALERTA**', 'Zonas críticas por activación de quebradas', 'Servicio en geocatmin.ingemmet.gob.pe (el de geocatminapp ya no existe); 1 585 puntos, solo 27 con fecha de evento', 'Catálogo multizona'],
+  ['**NASA COOLR** (Global Landslide Catalog)', 'Deslizamientos con fecha y punto', '65 en Perú y Chile (2007–2016), sin hora', 'Catálogo multizona'],
+  ['**SRTM 90 m** (OpenTopoData)', 'Altura del suelo', 'Relieve y pendiente por celda de 0.1° para la ficha de similitud', 'Experimento'],
+  ['**GPM_MERGIR** (temperatura de nubes)', 'Infrarrojo 4 km cada 30 min', 'Prueba por OPeNDAP: antes de los huaicos «ciegos» no hay nubes frías; sí después de horas del catálogo que estaban mal asignadas. Llega con ~24 h de retraso', 'Prueba (no entra)'],
 ]));
 c.push(gap());
 
@@ -299,6 +395,15 @@ c.push(table([2400, 6960], ['Término', 'En simple'], [
   ['*Train/serve skew*', 'Entrenar con un dato que no existirá al momento de predecir. Por eso PISCOp_h, ERA5 e IMERG Final no entran al modelo'],
   ['*Data leakage*', 'Darle al modelo una pista que ya contiene la respuesta, como el número de huaicos de cada quebrada'],
   ['Pre-entrenamiento', 'Enseñarle primero al modelo con huaicos de lugares parecidos y después ajustarlo con Chosica'],
+  ['Evento de lluvia', 'Racha de horas con lluvia (al menos 0.1 mm) en la zona, separada de la siguiente por 6 h secas'],
+  ['Evento disparador', 'Evento de lluvia con un huaico durante el evento o hasta 3 h después'],
+  ['TSS', 'Aciertos menos falsas alarmas (POD − POFD): 0 = azar, 1 = perfecto. Es la métrica de la literatura de umbrales de lluvia'],
+  ['POD / POFD', 'POD: % de huaicos con alerta (acierto). POFD: % de eventos sin huaico con alerta (falsas alarmas)'],
+  ['Variables de estado', 'Lo que describe cómo está la zona antes de la lluvia: humedad del suelo, días desde la última activación, El Niño costero'],
+  ['Umbral rojo / amarillo', 'Rojo: el que maximiza el TSS. Amarillo: el que logra el máximo acierto posible'],
+  ['Nivel M3', 'Nivel por defecto del dashboard: el rojo exige además lluvia IMERG reciente; si no hay, se muestra amarillo («condiciones favorables»)'],
+  ['Umbral ISAAC', 'Curva intensidad–duración de SENAMHI para Cusipata (I = 1.57 D^−0.047 mm/h), calibrada con pluviómetro; con IMERG no funciona'],
+  ['Donantes / MESS', 'Donantes: eventos de otras zonas parecidas usados para entrenar. MESS: índice que dice si una zona cae dentro del rango de condiciones de Chosica'],
 ]));
 c.push(gap());
 
@@ -313,7 +418,14 @@ for (const [t, d] of [
   ['Generar etiquetas para 3, 6, 12 y 24 h', true],
   ['Filtrar a diciembre–abril', true],
   ['Re-correr el modelo restringido con las etiquetas corregidas del paso 9.2 (versión rápida)', true],
-  ['Re-correr la cadena completa con las etiquetas corregidas: ablaciones de ingeniería, logística y Random Forest, techo sin latencia (~2 h)', false],
+  ['Re-correr la cadena completa del modelo anterior con las etiquetas corregidas (reemplazado por el v3)', false],
+  ['Modelo v3 por evento con estado (humedad, días desde activación, ICEN); verificaciones; modelo final y entrega al dashboard con nivel M3', true],
+  ['Etiquetas v2 (horas vagas como rango)', true],
+  ['Probar ICEN, ERA5 y eventos de otras zonas (donantes)', true],
+  ['Revisar los 67 casos de quebradas vecinas e INDECI (`modelo/v3_1/M1/casos_nuevos_zona.csv`)', false],
+  ['Credenciales del CDS (`.cdsapirc`) para probar CAPE, índice K y Total Totals', false],
+  ['Earth Engine para AlphaEarth y suelo desnudo (Sentinel-2)', false],
+  ['Flujo en tiempo real de activaciones (INDECI o municipio): lo necesita la variable `dias_activ` en operación', false],
   ['Pedir a INDECI/COEN el registro de emergencias con fecha y revisar los 44 días de lluvia extrema sin evento; cruzar con los 14 eventos de SINPAD', false],
   ['Buscar eventos de 2016, 2018, 2021, 2022, 2024 y 2025 (probable vacío de búsqueda)', false],
   ['Conseguir datos horarios de pluviómetros de SENAMHI en la cuenca del Rímac; confirmar si la estación HID EHMA de Chosica tiene datos horarios desde 2021', false],
@@ -322,7 +434,7 @@ for (const [t, d] of [
   ['Decidir si el ciclo diario (hora del día) entra al modelo', false],
   ['Validar con una temporada nueva (2026-27) o contra SILVIA', false],
   ['Pasar el entrenamiento y la tabla a SAS Viya (los entornos cierran a fin de octubre)', false],
-  ['Armar el catálogo regional para el pre-entrenamiento (después del modelo base)', false],
+  ['Armar el catálogo regional para el pre-entrenamiento (hecho en v3: no mejora con los datos disponibles)', true],
 ]) c.push(CHK(t, d));
 
 const doc = new Document({

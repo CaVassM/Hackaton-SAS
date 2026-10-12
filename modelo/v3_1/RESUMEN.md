@@ -44,3 +44,9 @@ Rojo = p_zona ≥ umbral rojo **y** IMERG > 0.1 mm en las últimas 6 h disponibl
   (11 % de las horas en vez de 15 %) y el resto como "amarillo: condiciones favorables". El POD de "rojo o amarillo" no cambia (0.69); el del rojo baja a
   0.62. Es decisión de comunicación del equipo.
 - Validación extra a favor de v3 (M1-b2): detecta 31 de 35 días con activación en la zona, incluidas quebradas vecinas que nunca vio.
+
+## Entrega al dashboard con M3 por defecto (`entrega/entrega_dashboard.py`)
+- Usa el modelo v3 SIN cambios (`modelo/v3/final/`) y agrega `lluvia_6h_mm`, `nivel` (M3, por defecto) y `nivel_v3` (original). Ejemplo fuera de muestra:
+  `entrega/ejemplo_2022_23_m3.csv` (H=3: rojo 275 h con M3 vs 350 h con v3; las 75 h restantes pasan a amarillo). Ambas versiones documentadas en el
+  `README.md` de la raíz y en el diccionario de datos (versión 3, tablas 4-6: `docs/Diccionario_de_datos_Modelo_de_alerta_de_huaicos_Chosica.docx`,
+  generado con `docs/fuente_diccionario/gen.js`).

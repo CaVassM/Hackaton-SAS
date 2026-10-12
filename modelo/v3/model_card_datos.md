@@ -79,7 +79,7 @@ Modelo: XGBoost con restricciones físicas de monotonía (más lluvia, humedad o
 - **Escala entre temporadas.** IMERG Early sobrestima ~2.3 veces frente a IMERG Final. La temporada 2024-25 fue muy lluviosa según el satélite y no tiene huaicos catalogados (revisado en prensa: solo hubo alertas).
 
 ## 7. Qué datos lo mejorarían
-1. **Pluviómetros de SENAMHI/ISAAC** (Lima Este, horarios o subhorarios). Son la única vía para ver el golpe corto de lluvia y calibrar un umbral I–D local. La solicitud está en `docs/solicitud_senamhi.md`.
+1. **Pluviómetros de SENAMHI/ISAAC** (Lima Este, horarios o subhorarios). Son la única vía para ver el golpe corto de lluvia y calibrar un umbral I–D local. La solicitud está en `experiments/precipitation_source_comparison/docs/solicitud_senamhi.md`.
 2. **CAPE, índice K y Total Totals de ERA5** (CDS), o de pronóstico, para el ambiente convectivo. Con Open-Meteo, un pronóstico perfecto de la lluvia de ERA5 solo sube el TSS a 0.51.
 3. **Registro oficial de emergencias con hora** (INDECI/COEN) y avisos de SENAMHI por provincia, para completar el catálogo y la variable de rachas.
 4. **Earth Engine** (AlphaEarth, Sentinel-2), para describir el material suelto de los cauces.

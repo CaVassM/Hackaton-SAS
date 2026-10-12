@@ -217,3 +217,7 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
   (0.04-0.56); persistencia trivial 0.07 -> B1 le gana. Anticipación mediana 2 h (>= 3 h en 3 de 9): solo H = 3 es promesa. Modelo final = P1 (B1, zona)
   + P2 en `modelo/v3/final/` (p1_b1.json, metadatos_final.json, p2_final.csv, predecir.py, ejemplo_2022_23.csv fuera de muestra). Rojo = máx. TSS (POD 0.77,
   POFD 0.20, ~15 % de horas en rojo); amarillo = máx. POD alcanzable (0.85; POD >= 0.9 imposible). Ficha: `modelo/v3/model_card_datos.md`.
+- Paso 16 = v3.1 (`modelo/v3_1/`): M1 (zona ampliada con vecinas + INDECI) no mejora; M2 no hecha (sin `.cdsapirc`); M3 (rojo solo con lluvia IMERG > 0.1 mm en
+  las últimas 6 h) baja horas en rojo 15 % -> 11 % a cambio de 1 acierto (queda en amarillo). DECISIÓN DEL USUARIO: modelo = v3 sin cambios y **nivel M3 por
+  defecto en la entrega al dashboard** (`modelo/v3_1/entrega/entrega_dashboard.py`, columnas `nivel` = M3 y `nivel_v3`). README de la raíz y diccionario de
+  datos (versión 3, tablas 4-6) actualizados. Para regenerar el .docx: `npm install docx` (no está global) y `node gen.js` en `docs/fuente_diccionario/`.
