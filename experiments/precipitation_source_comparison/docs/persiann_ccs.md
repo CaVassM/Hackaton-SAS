@@ -30,13 +30,16 @@
 | Tiempo real y reprocesado | los datos «realtime» se reprocesan tras 2 días (hasta 24 h de proceso); el README avisa que pueden quedar datos «realtime» sin reprocesar en el archivo | **riesgo** (ver abajo) |
 | Cobertura | índice desde 2000-02-07 hasta 2026-10-12; el 2026 tiene 6 819 archivos (de ~6 843 posibles: faltan unas 24 horas) | observada |
 | Fecha del README | 17/12/2009 (D. Braithwaite, CHRS) | — |
-| Peso por archivo | no medido todavía | `--medir` |
+| Peso por archivo | **medido en el PC del usuario (12/10/2026): 1.83 / 1.94 / 2.08 / 1.85 / 2.00 MB** (feb de 2014, 2016, 2019, 2022 y 2025; media 1.94 MB). Dic-abr de 12 temporadas = 43 488 archivos = **~84 GB a bajar** (se descartan al recortar; el recorte guardado pesa unos KB) | medido |
 
 ## Riesgos a tener presentes
 1. **Los archivos son globales y comprimidos con gzip: no se puede pedir solo un recorte por red.** Cada hora exige bajar el archivo completo y recortarlo al llegar. Dic–abr de 2014-15 a 2025-26 son 43 512 archivos; el peso total depende del tamaño de cada uno (usa `--medir` antes). Si es demasiado, la alternativa a evaluar es la extracción por región del propio portal CHRS (no verificada).
 2. **Reprocesamiento:** el archivo histórico es (en su mayor parte) la versión reprocesada con entradas más consistentes, y la operación usaría la versión «en tiempo real» (~40 minutos de latencia). Es la misma trampa de IMERG Early frente a Final: antes de entrenar con el archivo hay que comparar versión en tiempo real y reprocesada. Los días más recientes del índice (últimas ~48 h) todavía son de tiempo real.
 3. Según el diccionario del proyecto, PERSIANN-CCS es una de las tres entradas que PISCOp_h promedia en su producto SAT (junto con IMERG Early y GSMaP): no es independiente de las fuentes que ya usamos.
 4. El píxel de 0.04° es el tamaño de la grilla; la resolución efectiva de la lluvia estimada la fija el infrarrojo de los satélites geoestacionarios. Una grilla más fina **no** es evidencia de mayor precisión.
+
+## Resultado de la prueba real (en el PC del usuario, 12/10/2026)
+`--prueba` descargó sin errores las 3 ventanas: Quirio 2015-03-23/24, 2024-12-02 y 2025-02-12, y 2026-10-10/11 (últimos días completos del índice): 4 meses guardados (48 + 24 + 24 + 48 horas, recorte de 5 × 7 píxeles). **Los archivos están en el PC del usuario (`datos/` no va a git); falta subirlos para verificar zona horaria y compararlos con IMERG** (`scripts/05_verificar_prueba_persiann.py`).
 
 ## Procedimiento (en una máquina con acceso)
 ```
