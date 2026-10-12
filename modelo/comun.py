@@ -17,8 +17,10 @@ def cargar_features(forzar=False):
     if forzar or not ruta.exists():
         import features_lluvia as fl
 
-        R = fl.lluvia_horaria(RAIZ / "lluvia" / "datos" / "early", pd.read_csv(RAIZ / "lluvia" / "pesos_imerg.csv"))
-        fl.a_largo(fl.features(R), R).to_parquet(ruta, index=False)
+        datos, pesos = RAIZ / "lluvia" / "datos" / "early", pd.read_csv(RAIZ / "lluvia" / "pesos_imerg.csv")
+        R = fl.lluvia_horaria(datos, pesos)
+        # sin la lluvia por celda las variables regionales (reg_max_*) quedan 100 % NaN
+        fl.a_largo(fl.features(R, fl.lluvia_celdas(datos, pesos)), R).to_parquet(ruta, index=False)
         R.stack(future_stack=True).dropna().rename("mm").astype("float32").reset_index().set_axis(
             ["hora", "quebrada_id", "mm"], axis=1).to_parquet(RAIZ / "lluvia" / "lluvia_horaria_quebradas.parquet", index=False)
     return pd.read_parquet(ruta)

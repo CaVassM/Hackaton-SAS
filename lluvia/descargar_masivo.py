@@ -69,12 +69,17 @@ def dias_mes(a, m):
     return pd.Period(f"{a}-{m:02d}").days_in_month
 
 
+def carpeta(producto):
+    """lluvia/datos/<producto>, o lluvia/datos/<--destino> (variable IMERG_DESTINO: la heredan los procesos hijos)."""
+    return CARPETA / os.environ.get("IMERG_DESTINO", producto)
+
+
 def ruta_mes(producto, a, m):
-    return CARPETA / producto / f"imerg_{producto}_{a}-{m:02d}.nc"
+    return carpeta(producto) / f"imerg_{producto}_{a}-{m:02d}.nc"
 
 
 def ruta_dia(producto, dia):  # dia = 'AAAAMMDD'
-    return CARPETA / producto / "_cache" / f"{dia[:4]}-{dia[4:6]}" / f"imerg_{producto}_{dia}.nc"
+    return carpeta(producto) / "_cache" / f"{dia[:4]}-{dia[4:6]}" / f"imerg_{producto}_{dia}.nc"
 
 
 def agrupar_por_dia(urls):
@@ -593,7 +598,11 @@ def main():
     ap.add_argument("--plan", action="store_true")
     ap.add_argument("--medir", action="store_true")
     ap.add_argument("--verificar", action="store_true")
+    ap.add_argument("--bbox", type=float, nargs=4, metavar=("LON0", "LAT0", "LON1", "LAT1"), help="recorte distinto al de las quebradas (+0.1°)")
+    ap.add_argument("--destino", help="subcarpeta de lluvia/datos/ (default: el nombre del producto); úsala con --bbox para no mezclar recortes")
     a = ap.parse_args()
+    if a.destino:
+        os.environ["IMERG_DESTINO"] = a.destino
 
     plan = plan_meses(a.primera, a.ultima)
     if a.solo:
@@ -604,19 +613,19 @@ def main():
     print(f"{PRODUCTOS[a.producto]} | {len(plan)} meses | {total:,} gránulos esperados | {hechos} meses ya guardados")
     if a.plan:
         for y, m in plan:
-            cdir = CARPETA / a.producto / "_cache" / f"{y}-{m:02d}"
+            cdir = carpeta(a.producto) / "_cache" / f"{y}-{m:02d}"
             cache = len(list(cdir.glob("*.nc"))) if cdir.exists() else 0
             estado = "LISTO" if ruta_mes(a.producto, y, m).exists() else f"pendiente ({cache} días en caché)"
             print(f"  {y}-{m:02d}  {dias_mes(y, m) * GRANULOS_DIA:>5d} gránulos  {estado}")
         return
     if a.verificar:
         return verificar(a.producto, plan)
-    bbox = bbox_quebradas()
+    bbox = tuple(a.bbox) if a.bbox else bbox_quebradas()
     if a.medir:
         return medir(a.producto, bbox, total, a.procesos)
 
-    (CARPETA / a.producto).mkdir(parents=True, exist_ok=True)
-    _ARCHIVO_LOG = CARPETA / a.producto / "descarga.log"
+    carpeta(a.producto).mkdir(parents=True, exist_ok=True)
+    _ARCHIVO_LOG = carpeta(a.producto) / "descarga.log"
     log(f"INICIO: {len(plan)} meses, {a.procesos} procesos, bloque {a.bloque_kb} KB, url_directa={a.url_directa}")
     evitar_suspension(True)
     try:

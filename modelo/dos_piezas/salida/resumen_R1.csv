@@ -1,0 +1,5 @@
+H,bloques,actual_fijo,dos_piezas_loso_fijo,dos_piezas_losto_fijo,actual_temporada,dos_piezas_loso_temporada,dos_piezas_losto_temporada,lift_actual,lift_dos_piezas_loso
+3,53,4 (azar 0.2),2 [2-3] (azar 0.5),1 [1-2] (azar 0.4),10 (azar 1.8),14 [12-14] (azar 1.6),13 [11-13] (azar 1.6),25.2,159.5
+6,51,4 (azar 0.5),4 [3-4] (azar 0.9),4 [3-4] (azar 0.8),9 (azar 3.5),12 [11-12] (azar 3.1),12 [11-12] (azar 3.1),22.8,119.6
+12,50,5 (azar 0.6),4 [4-5] (azar 1.5),4 [4-5] (azar 1.5),9 (azar 6.6),12 [12-14] (azar 5.9),12 [12-12] (azar 5.9),12.4,59.2
+24,50,5 (azar 1.0),5 [5-6] (azar 3.0),4 [4-5] (azar 2.9),11 (azar 12.1),16 [16-16] (azar 11.0),13 [12-13] (azar 11.0),8.7,22.2

@@ -3,3 +3,6 @@ lluvia/datos/
 lluvia/*.parquet
 modelo/*.parquet
 .dodsrc
+modelo/dos_piezas/*.parquet
+modelo/mejoras/*/datos/
+modelo/mejoras/**/*.parquet

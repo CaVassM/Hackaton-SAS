@@ -1,0 +1,11 @@
+grilla 3298 x 9896 | recuadro 16 x 20 píxeles
+  tormentas: 0/182 horas (3 s)
+mergir_tormentas.npz: (14, 26, 16, 20), NaN 0.00 %, 61 s
+  controles: 0/3500 horas (3 s)
+  controles: 500/3500 horas (146 s)
+  controles: 1000/3500 horas (288 s)
+  controles: 1500/3500 horas (435 s)
+  controles: 2000/3500 horas (596 s)
+  controles: 2500/3500 horas (751 s)
+  controles: 3000/3500 horas (887 s)
+mergir_controles.npz: (500, 14, 16, 20), NaN 2.17 %, 1021 s

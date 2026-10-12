@@ -1,0 +1,115 @@
+V0: 23 variables, 1.6 min | % NaN de variables: {'lluvia_14d_max': 8.6, 'lluvia_14d_media': 8.6, 'lluvia_efectiva_max': 8.6, 'lluvia_efectiva_media': 8.6}
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+A_reemplazo: 24 variables, 1.7 min | % NaN de variables: {'lluvia_3h_p30_max': 9.3, 'lluvia_3h_p30_media': 9.3, 'lluvia_6h_p30_max': 9.4, 'lluvia_6h_p30_media': 9.4, 'lluvia_24h_p30_max': 9.8, 'lluvia_24h_p30_media': 9.8, 'int_max_24h_p30_max': 9.8, 'int_max_24h_p30_media': 9.8, 'lluvia_7d_p30_max': 13.5, 'lluvia_7d_p30_media': 13.5}
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\mejoras\R3\escala.py:113: RuntimeWarning: All-NaN slice encountered
+  out[f"{v}_pclim_max"] = np.nanmax(np.where(np.isnan(P).any(axis=1, keepdims=True), np.nan, P), axis=1)
+A_agregado: 43 variables, 2.3 min | % NaN de variables: {'lluvia_14d_max': 8.6, 'lluvia_14d_media': 8.6, 'lluvia_efectiva_max': 8.6, 'lluvia_efectiva_media': 8.6, 'lluvia_3h_p30_max': 9.3, 'lluvia_3h_p30_media': 9.3, 'lluvia_6h_p30_max': 9.4, 'lluvia_6h_p30_media': 9.4, 'lluvia_24h_p30_max': 9.8, 'lluvia_24h_p30_media': 9.8, 'int_max_24h_p30_max': 9.8, 'int_max_24h_p30_media': 9.8, 'lluvia_7d_p30_max': 13.5, 'lluvia_7d_p30_media': 13.5}
