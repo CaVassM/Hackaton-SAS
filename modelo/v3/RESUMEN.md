@@ -165,3 +165,17 @@ Donantes por fuente (corte principal): INDECI 96 (Lima Provincias 75, Arequipa 1
   La racha continua de alerta empieza mucho antes (mediana 72 h): el estado mantiene la zona en alerta varios días (muchas horas de alerta).
 - **Horizonte honesto para el dashboard: H = 3 h** ("riesgo en las próximas horas"); H = 6 solo como contexto; H = 12/24 = "condición de la zona"
   (estado), NO como anticipación de un huaico concreto.
+
+## Modelo final v3 = dos piezas (`final/modelo_final.py`, `final/predecir.py`)
+- P1 = B1(a) en la zona, reentrenado con TODAS las temporadas (`final/p1_b1.json`); P2 = historia + terreno con las 10 tormentas (`final/p2_final.csv`).
+  Variables en orden, fuentes operativas, parámetros y umbrales en `final/metadatos_final.json`.
+- Umbrales por H, calibrados con los puntajes FUERA DE MUESTRA por evento y trasladados al modelo final por cuantil:
+  rojo = máximo TSS (POD 0.77, POFD 0.20, TSS 0.56-0.57 al elegirlo sobre los mismos puntajes: optimista; el validado LOSO es 0.49);
+  amarillo = POD >= 0.9 es INALCANZABLE (un día ciego y un huaico sin horas útiles; máx. 11/13 = 0.85) -> umbral del máximo POD (POD 0.85, POFD 0.42-0.46).
+  Costo: el rojo cubre ~15 % de las horas de dic-abr y el amarillo ~35 % (la alerta por evento deja la zona en alerta muchas horas).
+- Traducción a H: P1 estima p_zona(t, H) para H = 3/6/12/24 (H es columna monótona del modelo); cada H tiene su umbral calibrado con el mismo esquema por
+  evento. Nivel = el de la ZONA (lo validado); P2 ordena las quebradas; indice_0_100 = 100 * min(1, p_zona/umbral rojo) * p2/max(p2).
+  Solo H = 3 es una promesa de anticipación (mediana 2 h); H = 6-24 = condición de la zona.
+- Ejemplo para el dashboard: `final/ejemplo_2022_23.csv` (246 432 filas = 3 624 h x 4 H x 17 quebradas), FUERA DE MUESTRA (modelo, P2 y umbrales sin
+  2022-23). Rojo en 297-350 h por H (~9 %); sin banda amarilla (sin 2022-23 el POD máximo ya lo alcanza el rojo). Antes de los huaicos: 12/03 4 h rojas
+  en las 12 h previas, 14/03, 16/03 y 18/03 en rojo las 12 h previas; 19/02 y 06/04 sin alerta (fallos).

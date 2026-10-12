@@ -1,0 +1,107 @@
+{
+  "modelo": "P1 = B1(a): XGBoost restringido en la zona (intensidad IMERG + estado); P2 = historia + terreno (k = 4)",
+  "entrenado_con": "dic-abr 2014-15..2025-26 (filas de zona con etiqueta v2), semilla 0",
+  "filas_entrenamiento": 167689,
+  "positivos_por_H": {
+    "3": 32,
+    "6": 68,
+    "12": 158,
+    "24": 326
+  },
+  "variables_en_orden": [
+    "i1h",
+    "i3h",
+    "i6h",
+    "i1h_max6",
+    "i3h_max6",
+    "i6h_max6",
+    "p24h",
+    "p48h",
+    "p72h",
+    "hum_suelo_5d",
+    "dias_activ",
+    "icen",
+    "H"
+  ],
+  "fuentes_operativas": {
+    "i1h, i3h, i6h": "IMERG Early (GPM_3IMERGHHE V07, 30 min), máximo entre las 5 celdas de las quebradas de la lluvia de 1/3/6 h con etiqueta <= t-5 (latencia 4 h)",
+    "i1h_max6, i3h_max6, i6h_max6": "máximo de i1h/i3h/i6h en las últimas 6 horas disponibles (IMERG Early, latencia 4 h)",
+    "p24h, p48h, p72h": "IMERG Early: máximo entre celdas de la lluvia de 24/48/72 h (latencia 4 h)",
+    "hum_suelo_5d": "ERA5-Land soil_moisture_0_to_7cm (Open-Meteo archive API, sin credenciales), media de las 5 celdas, valor de t - 5 días (retraso real de ERA5-Land)",
+    "dias_activ": "catálogo de activaciones (17 quebradas; fechas < día de t; en operación: registro en tiempo real de INDECI/municipio), tope 3650",
+    "icen": "ICEN oficial (IGP/ENFEN, met.igp.gob.pe/datos/ICEN.txt): mes M-2 desde el día 10 del mes M, M-3 antes",
+    "H": "horizonte en horas (3, 6, 12, 24)"
+  },
+  "parametros": {
+    "n_estimators": 150,
+    "max_depth": 2,
+    "learning_rate": 0.05,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_weight": 50,
+    "reg_lambda": 10.0,
+    "tree_method": "hist",
+    "verbosity": 0
+  },
+  "umbrales": {
+    "3": {
+      "rojo_oof": 0.02898150123655796,
+      "amarillo_oof": 0.00673211133107543,
+      "cuantil_rojo": 0.8446375186846039,
+      "cuantil_amarillo": 0.6661995515695067,
+      "rojo_TSS": 0.56,
+      "rojo_POD": 0.77,
+      "rojo_POFD": 0.205,
+      "amarillo_TSS": 0.43,
+      "amarillo_POD": 0.85,
+      "amarillo_POFD": 0.42,
+      "rojo": 0.03180330991744995,
+      "amarillo": 0.005540056619793177
+    },
+    "6": {
+      "rojo_oof": 0.03195253387093544,
+      "amarillo_oof": 0.00673211133107543,
+      "cuantil_rojo": 0.8448477204783259,
+      "cuantil_amarillo": 0.6292507473841554,
+      "rojo_TSS": 0.57,
+      "rojo_POD": 0.77,
+      "rojo_POFD": 0.203,
+      "amarillo_TSS": 0.39,
+      "amarillo_POD": 0.85,
+      "amarillo_POFD": 0.454,
+      "rojo": 0.03281231224536896,
+      "amarillo": 0.005226084031164646
+    },
+    "12": {
+      "rojo_oof": 0.05632493644952774,
+      "amarillo_oof": 0.010695346631109715,
+      "cuantil_rojo": 0.8445674514200299,
+      "cuantil_amarillo": 0.6653353886397608,
+      "rojo_TSS": 0.56,
+      "rojo_POD": 0.77,
+      "rojo_POFD": 0.205,
+      "amarillo_TSS": 0.42,
+      "amarillo_POD": 0.85,
+      "amarillo_POFD": 0.422,
+      "rojo": 0.06622372567653656,
+      "amarillo": 0.009147437289357185
+    },
+    "24": {
+      "rojo_oof": 0.08661961555480957,
+      "amarillo_oof": 0.013162984512746334,
+      "cuantil_rojo": 0.8472767189835575,
+      "cuantil_amarillo": 0.6288536995515696,
+      "rojo_TSS": 0.57,
+      "rojo_POD": 0.77,
+      "rojo_POFD": 0.201,
+      "amarillo_TSS": 0.38,
+      "amarillo_POD": 0.85,
+      "amarillo_POFD": 0.462,
+      "rojo": 0.1073993667960167,
+      "amarillo": 0.011362281627953053
+    }
+  },
+  "nota_umbrales": "rojo = max TSS por evento (puntajes LOSO); amarillo = umbral más alto con POD >= 0.9; trasladados al modelo final por cuantil de las horas de dic-abr. TSS/POD/POFD reportados = los de los puntajes LOSO (fuera de muestra).",
+  "nivel": "de la ZONA (validado); P2 ordena quebradas; indice_0_100 = 100 * min(1, p_zona/umbral_rojo) * p2/max(p2)",
+  "horizonte_prometible": "H = 3 h (anticipación mediana 2 h contra el inicio del huaico); H = 6/12/24 = condición de la zona"
+}

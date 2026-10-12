@@ -31,9 +31,11 @@ DATOS = AQUI.parent / "datos" / "raw"
 NINO = {"2016-17", "2022-23"}
 
 
-def estado_horario():
-    sm = pd.read_parquet(DATOS / "openmeteo" / "era5_land.parquet").groupby("hora").soil_moisture_0_to_7cm.mean().asfreq("h")
-    idx = pd.date_range("2014-12-01", "2026-04-30 23:00", freq="h")
+def estado_horario(idx=None, sm=None):
+    """Estado en las horas `idx` (default dic-2014..abr-2026). `sm`: serie horaria de humedad 0-7 cm (default: el parquet de Open-Meteo)."""
+    if sm is None:
+        sm = pd.read_parquet(DATOS / "openmeteo" / "era5_land.parquet").groupby("hora").soil_moisture_0_to_7cm.mean().asfreq("h")
+    idx = pd.date_range("2014-12-01", "2026-04-30 23:00", freq="h") if idx is None else pd.DatetimeIndex(idx)
     E = pd.DataFrame(index=idx)
     E["hum_suelo_1h"] = sm.reindex(idx - pd.Timedelta(hours=1)).to_numpy()
     E["hum_suelo_5d"] = sm.reindex(idx - pd.Timedelta(days=5)).to_numpy()
