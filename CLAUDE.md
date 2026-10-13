@@ -65,6 +65,9 @@ Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipyn
   de 200 m varía más pero tiene 3–30 píxeles en las cuencas pequeñas, y las dos capas casi no se correlacionan (r ≈ 0.1–0.3).
   Las columnas `vec_*` e `img_*` quedan en `quebradas.csv` para un experimento posterior.
 - `dias_con_evento` / conteos de eventos: NUNCA como feature ni para elegir variables.
+- **Cauces principales** (`terreno/cauces_quebradas.py` -> `cauces_quebradas.geojson` EPSG:4326, `cuencas_y_cauces.kml` para Google Earth, `cauces_quebradas.png`):
+  desde la cabecera (celda de mayor recorrido D8 hasta la salida) siguiendo D8 hasta el cauce principal, más allá de la salida en las de ápice. Las 17 llegan al Rímac
+  (ninguna al Santa Eulalia); largo 1.4 (rosario) a 7.9 km (la_cantuta). Los rasters se leen de la carpeta del proyecto (fuera del repo).
 - Fuentes de referencia descargadas en `terreno/fuentes/` (ANA, INGEMMET, SIGRID 123, 1610, 19950, 6441, 14474); ver `fuentes.csv`.
 
 ## Fuentes útiles (SIGRID / CENEPRED)
