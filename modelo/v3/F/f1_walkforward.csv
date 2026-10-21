@@ -1,0 +1,4 @@
+metodo,TSS,TSS_ic90,POD,POFD,aciertos,fallos,falsas,pct_alertas_2024_25,TSS_sin_2017_2023,positivos_sin_2017_2023
+Walk-forward (prueba 2016-17..2025-26),0.45,"(0.04, 0.68)",0.7,0.246,7,3,332,14,0.17,3
+LOSO en las mismas temporadas,0.41,"(-0.05, 0.67)",0.6,0.193,6,4,260,17,0.18,3
+"LOSO, todas (referencia v3)",0.49,"(0.15, 0.7)",0.69,0.199,9,4,316,14,0.5,6
