@@ -4,7 +4,7 @@ Esta guía reproduce el **modelo final v3** desde el repositorio y verifica que 
 Cubre las dos piezas (P1 = zona; P2 = quebrada) y la entrega al dashboard con el nivel M3.
 Todos los insumos de datos que usa el modelo ya están versionados en git, así que la replicación básica **no necesita descargas ni credenciales**.
 
-## 1. Replicación en 3 comandos (~15 min)
+## 1. Replicación en 3 comandos (~2-5 min)
 ```bash
 git clone <url-del-repo> Hackaton-SAS && cd Hackaton-SAS
 python -m pip install -r requirements.txt        # Python 3.13; las versiones fijadas importan (ver §4)
@@ -21,7 +21,7 @@ RESULTADO: REPLICA OK
 
 | Opción | Qué hace |
 |---|---|
-| `--recalcular` | Recalcula todo desde los insumos. Los cachés de una corrida anterior se mueven a un respaldo; no se borran. |
+| `--recalcular` | Recalcula todo desde los insumos (en un clon nuevo no hay cachés: siempre se recalcula todo). Los cachés de una corrida anterior se mueven a un respaldo; no se borran. |
 | `--desde-partes` | Reconstruye también el catálogo y las etiquetas v1 desde las partes del catálogo. |
 | `--descargar` | Vuelve a bajar los insumos (§3). |
 | `--solo-verificar` | Solo compara las salidas actuales con `replicacion_referencia.json`. |
@@ -56,7 +56,8 @@ python modelo/v3_1/entrega/entrega_dashboard.py hora "2023-03-14 13:00" --csv sa
 Si se vuelven a bajar los insumos, los valores pueden cambiar: NASA reprocesa IMERG, IGP revisa el ICEN y Open-Meteo actualiza ERA5. En ese caso `replicar.py` lo informa como NO REPLICA, con el detalle de las diferencias.
 
 ## 4. Determinismo y versiones
-- Con las versiones de `requirements.txt`, la corrida es **idéntica byte a byte**: el modelo `p1_b1.json` y el CSV de ejemplo. Se comprobó en un clon limpio.
+- Con las versiones de `requirements.txt`, la corrida es **idéntica byte a byte**. Se comprobó el 21/10/2026 en un clon limpio con `python replicar.py --desde-partes`: tardó 2 min, terminó en REPLICA OK y el `git status` del clon quedó vacío, es decir, el catálogo, las etiquetas, los resúmenes, el modelo, los umbrales, P2 y el ejemplo salieron iguales a los versionados.
+- Sin las predicciones de los modelos anteriores (no versionadas), la Fase A omite dos filas de comparación y escribe `fase_a_resumen_sin_referencias.csv`. El modelo final no cambia. Con `--con-referencias` se regeneran (~40 min).
 - **xgboost es la versión que más importa.** Con otra versión el modelo cambia; por ejemplo, el TSS de control de B1 sale 0.45 en lugar de 0.49.
 - Los hiperparámetros están fijos en el código: `modelo/arboles.py` (`PARAMS_XGB`) y `modelo/restringido.py` (`CHICO`). Usa semilla 0 y `n_jobs=4`.
 

@@ -28,7 +28,7 @@ Con esa anticipación, **la única promesa honesta es H = 3 h**. Detalle complet
 Todos los insumos de datos del modelo final están versionados en git, así que no hace falta descargar nada ni tener credenciales.
 ```bash
 python -m pip install -r requirements.txt   # Python 3.13; versiones fijadas (xgboost==3.4.1 fija el resultado)
-python replicar.py                          # ~15 min: etiquetas -> eventos -> B1 -> modelo final -> entrega; termina con "REPLICA OK"
+python replicar.py                          # ~2-5 min: etiquetas -> eventos -> B1 -> modelo final -> entrega; termina con "REPLICA OK"
 ```
 Paso a paso, insumos, cómo volver a bajarlos y qué queda fuera: [REPLICAR.md](REPLICAR.md).
 

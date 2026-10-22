@@ -1,7 +1,7 @@
 """Replica el modelo final (v3: P1 = B1 en la zona + P2 por quebrada; nivel M3 de la entrega) y verifica el resultado contra la referencia.
 
 Uso (desde la raíz del repo, con el entorno de requirements.txt):
-  python replicar.py                    # cadena completa con los insumos versionados en git + verificación (~15 min)
+  python replicar.py                    # cadena completa con los insumos versionados en git + verificación (~2-5 min)
   python replicar.py --recalcular       # igual, pero mueve antes los cachés a un respaldo para recalcular TODO desde los insumos
   python replicar.py --desde-partes     # además reconstruye el catálogo y las etiquetas v1 desde las partes del catálogo
   python replicar.py --descargar        # además vuelve a bajar los insumos (IMERG Early requiere cuenta Earthdata en _netrc / .netrc)
