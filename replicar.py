@@ -10,7 +10,8 @@ Uso (desde la raíz del repo, con el entorno de requirements.txt):
   python replicar.py --generar-referencia   # (mantenedor) guarda las salidas actuales como referencia
 Pasos (cada uno es un script que también se puede correr solo; ver REPLICAR.md):
   [0] descargas opcionales  [1] catálogo + etiquetas v1 (opcional)  [2] etiquetas v2  [3] eventos de lluvia y A2 (Fase A)
-  [4] B1 = intensidad + estado (Fase B1)  [5] modelo final: P1, umbrales y P2  [6] entrega al dashboard (ejemplo 2022-23, nivel oficial y nivel_con_lluvia)  [7] verificación
+  [4] B1 = intensidad + estado (Fase B1)  [5] modelo final: P1, umbrales y P2  [6] calibración (Platt, kappa y su rango; validación cruzada)
+  [7] entrega al dashboard (ejemplo 2022-23, nivel oficial y nivel_con_lluvia, probabilidades calibradas)  [8] verificación
 """
 import hashlib
 import json
@@ -68,6 +69,12 @@ def resumen_actual():
     ej = RAIZ / "modelo" / "v3_1" / "entrega" / "ejemplo_2022_23_m3.csv"
     T = pd.read_csv(ej, usecols=["quebrada_id", "H", "nivel", "nivel_con_lluvia"])
     una = T[T.quebrada_id == "quirio"]
+    cal = json.loads((V3 / "final" / "calibracion.json").read_text(encoding="utf-8"))["por_H"]
+    out["calibracion"] = {H: {k: v[k] for k in ("a", "b", "kappa", "kappa_min", "kappa_max", "tasa_base")} for H, v in cal.items()}
+    val = pd.read_csv(V3 / "final" / "calibracion_validacion.csv")
+    out["calibracion_validacion"] = {f"H{r.H} {r.tramo_p_zona}": {k: (int(getattr(r, k)) if k in ("horas", "positivos") else float(getattr(r, k)))
+                                                                  for k in ("horas", "positivos", "p_zona_media", "p_cal_media", "frecuencia_observada", "suma_p_cal")
+                                                                  if pd.notna(getattr(r, k))} for r in val.itertuples()}
     out["ejemplo_2022_23"] = dict(filas=len(T), nivel={f"H{H}": g.nivel.value_counts().to_dict() for H, g in una.groupby("H")},
                                   nivel_con_lluvia={f"H{H}": g.nivel_con_lluvia.value_counts().to_dict() for H, g in una.groupby("H")}, huella=huella(ej))
     return out
@@ -87,7 +94,7 @@ def verificar():
         if not ok:
             fallas.append(f"{nombre}: referencia {a} vs replicado {b}")
 
-    for k in ("etiquetas", "B1", "umbrales", "p2"):
+    for k in ("etiquetas", "B1", "umbrales", "p2", "calibracion", "calibracion_validacion"):
         igual(k, ref[k], act[k])
     igual("ejemplo_2022_23.filas", ref["ejemplo_2022_23"]["filas"], act["ejemplo_2022_23"]["filas"])
     igual("ejemplo_2022_23.nivel", ref["ejemplo_2022_23"]["nivel"], act["ejemplo_2022_23"]["nivel"])
@@ -97,6 +104,8 @@ def verificar():
     print(f"  B1 (validación LOSO por evento): TSS {act['B1']['TSS']} (ref. {ref['B1']['TSS']}), aciertos {act['B1']['aciertos']} de "
           f"{act['B1']['aciertos'] + act['B1']['fallos']}, falsas alarmas {act['B1']['falsas']}")
     print("  Umbral rojo por H: " + ", ".join(f"H={H}: {act['umbrales'][H]['rojo']:.5f}" for H in act["umbrales"]))
+    print("  Calibración por H (a, b, kappa [mín, máx]): " + ", ".join(
+        f"H={H}: {c['a']:.3f}, {c['b']:.3f}, {c['kappa']:.3f} [{c['kappa_min']:.3f}, {c['kappa_max']:.3f}]" for H, c in act["calibracion"].items()))
     print(f"  Modelo P1 y ejemplo idénticos byte a byte (salvo saltos de línea): {'SÍ' if exacto else 'NO'}")
     if fallas:
         print("  DIFERENCIAS:\n   - " + "\n   - ".join(fallas))
@@ -146,7 +155,8 @@ def main():
     correr("[3] Fase A: eventos de lluvia y modelos de intensidad", [V3 / "A" / "fase_a.py"])
     correr("[4] Fase B1: intensidad + estado", [V3 / "B" / "fase_b1.py"])
     correr("[5] modelo final: P1 (todas las temporadas), umbrales por H y P2", [V3 / "final" / "modelo_final.py", "entrenar"])
-    correr("[6] entrega al dashboard: ejemplo 2022-23 fuera de muestra, nivel oficial y nivel_con_lluvia", [RAIZ / "modelo" / "v3_1" / "entrega" / "entrega_dashboard.py", "ejemplo"])
+    correr("[6] calibración: Platt por H, kappa y su rango, validación cruzada por temporada", [V3 / "final" / "calibracion.py"])
+    correr("[7] entrega al dashboard: ejemplo 2022-23 fuera de muestra, niveles y probabilidades calibradas", [RAIZ / "modelo" / "v3_1" / "entrega" / "entrega_dashboard.py", "ejemplo"])
     print(f"\nCadena completa en {(time.time() - t0) / 60:.1f} min")
     sys.exit(0 if verificar() else 1)
 

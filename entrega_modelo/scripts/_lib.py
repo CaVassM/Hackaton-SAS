@@ -299,15 +299,34 @@ def calibrar(oof, p2s, excluir=None):
     return out
 
 
+def con_rango(cal, oof, excluir=None):
+    """[calibracion.py con_rango] agrega kappa_min / kappa_max por H: kappa en los pliegues que dejan fuera UNA temporada más (además de
+    `excluir`), cada uno con su P2; incluye el kappa central, así que prob_min <= prob <= prob_max."""
+    n = pd.read_csv(IN / "quebradas_activadas_por_ventana.csv", parse_dates=["hora"])
+    pos = oof[oof.y == 1].merge(n, on=["hora", "H"], how="left")
+    temps = [s for s in sorted(oof.loc[oof.y.notna(), "temporada"].unique()) if s != excluir]
+    por = {}
+    for s in temps:
+        fuera = [s] + ([excluir] if excluir else [])
+        suma = float(p2(lambda torm: torm.loc[~torm.temporada.isin(fuera), "tormenta"]).sum())
+        g = pos[~pos.temporada.isin(fuera)]
+        por[s] = {H: float(g[g.H == H].n_quebradas.mean()) / suma for H in HS}
+    for H in HS:
+        ks = {s: por[s][H] for s in temps}
+        cal[H].update(kappa_min=min(min(ks.values()), cal[H]["kappa"]), kappa_max=max(max(ks.values()), cal[H]["kappa"]), kappa_por_pliegue=ks)
+    return cal
+
+
 def p_calibrada(cal, pz):
     """{H: p_zona en escala LOSO} -> {H: p_cal}, con máximo acumulado en H."""
     pc = np.maximum.accumulate(np.vstack([sigmoid(cal[H]["a"] + cal[H]["b"] * logit(pz[H])) for H in HS]), axis=0)
     return {H: pc[i] for i, H in enumerate(HS)}
 
 
-def p_zona_kappa(cal, pc):
-    """{H: p_cal} -> {H: p_cal * kappa_H}, con máximo acumulado en H (la probabilidad de la quebrada q es este valor * P2(q))."""
-    zk = np.maximum.accumulate(np.vstack([pc[H] * cal[H]["kappa"] for H in HS]), axis=0)
+def p_zona_kappa(cal, pc, clave="kappa"):
+    """{H: p_cal} -> {H: p_cal * kappa_H}, con máximo acumulado en H (la probabilidad de la quebrada q es este valor * P2(q)).
+    clave = "kappa_min" / "kappa_max" da los extremos del rango (requiere con_rango)."""
+    zk = np.maximum.accumulate(np.vstack([pc[H] * cal[H][clave] for H in HS]), axis=0)
     return {H: zk[i] for i, H in enumerate(HS)}
 
 
@@ -370,10 +389,24 @@ def archivo_b(horas, X, pz, u, pc, cal):
     return B.drop(columns="hora")
 
 
-DESCRIPCION_D = "probabilidad de que la quebrada se active si hay un temporal en la zona"
+DESCRIPCION_D = ("P2: probabilidad de que la quebrada se active si hay un temporal en la zona. prob_min_Hh / prob_max_Hh: rango de la probabilidad "
+                 "de que la quebrada se active en una ventana de H horas en la que hay huaico en la zona (kappa_min_H x P2 y kappa_max_H x P2)")
 
 
-def archivo_d(p2s):
-    """Archivo D: P2 por quebrada = probabilidad de que la quebrada se active si hay un temporal en la zona."""
-    return pd.DataFrame({"quebrada_id": list(QUEBRADAS), "quebrada": list(QUEBRADAS.values()), "P2": [round(float(p2s[q]), 4) for q in QUEBRADAS],
-                         "descripcion": DESCRIPCION_D})
+def archivo_d(p2s, cal):
+    """Archivo D: P2 por quebrada (si hay un temporal en la zona) y, por H, el rango kappa_min_H x P2 .. kappa_max_H x P2 (si hay huaico en la ventana)."""
+    D = pd.DataFrame({"quebrada_id": list(QUEBRADAS), "quebrada": list(QUEBRADAS.values()), "P2": [round(float(p2s[q]), 4) for q in QUEBRADAS]})
+    for H in HS:
+        D[f"prob_min_{H}h"] = [round(min(1.0, cal[H]["kappa_min"] * float(p2s[q])), 4) for q in QUEBRADAS]
+        D[f"prob_max_{H}h"] = [round(min(1.0, cal[H]["kappa_max"] * float(p2s[q])), 4) for q in QUEBRADAS]
+    D["descripcion"] = DESCRIPCION_D
+    return D
+
+
+def archivo_e(horas, zk, zk_min, zk_max, p2s):
+    """Archivo E (rango por quebrada): Tiempo, quebrada_id, quebrada, H, prob, prob_min, prob_max (prob = prob_ml_Hh del archivo A)."""
+    filas = [[h, q, nombre, H, round(float(zk[H][i] * p2s[q]), 5), round(float(zk_min[H][i] * p2s[q]), 5), round(float(zk_max[H][i] * p2s[q]), 5)]
+             for i, h in enumerate(horas) for q, nombre in QUEBRADAS.items() for H in HS]
+    E = pd.DataFrame(filas, columns=["hora", "quebrada_id", "quebrada", "H", "prob", "prob_min", "prob_max"])
+    E.insert(0, "Tiempo", tiempo(E.hora))
+    return E.drop(columns="hora")

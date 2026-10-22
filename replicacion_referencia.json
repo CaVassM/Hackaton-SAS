@@ -131,6 +131,242 @@
     "rojo": 341
    }
   },
-  "huella": "44e8d584523f3e90397fab382a0dd5f0386e4b1d8576b1b8a5c0bd901208bee7"
+  "huella": "63b4266bedc131ea5255b07dc5f60485fef0791e459ccac704758f4cae667bcb"
+ },
+ "calibracion": {
+  "3": {
+   "a": -3.082012057142577,
+   "b": 1.0579297988424343,
+   "kappa": 0.5921064368182064,
+   "kappa_min": 0.38441166505565727,
+   "kappa_max": 0.8143877475037327,
+   "tasa_base": 0.0007624857033930614
+  },
+  "6": {
+   "a": -2.599755226524304,
+   "b": 1.0061906059002188,
+   "kappa": 0.6114563203743569,
+   "kappa_min": 0.4420734148140059,
+   "kappa_max": 0.7839496672398887,
+   "tasa_base": 0.0016212478840330925
+  },
+  "12": {
+   "a": -2.514182177386688,
+   "b": 0.9119122302735769,
+   "kappa": 0.5973807088761276,
+   "kappa_min": 0.4727873366863295,
+   "kappa_max": 0.7313555219508414,
+   "tasa_base": 0.003769623514816052
+  },
+  "24": {
+   "a": -2.215737826835828,
+   "b": 0.8785667133107131,
+   "kappa": 0.6124218360364634,
+   "kappa_min": 0.5055582734093431,
+   "kappa_max": 0.7341828935829104,
+   "tasa_base": 0.0077871201987387735
+  }
+ },
+ "calibracion_validacion": {
+  "H3 0-50 %": {
+   "horas": 20982,
+   "positivos": 0,
+   "p_zona_media": 0.00085,
+   "p_cal_media": 3e-05,
+   "frecuencia_observada": 0.0
+  },
+  "H3 50-80 %": {
+   "horas": 12569,
+   "positivos": 3,
+   "p_zona_media": 0.00686,
+   "p_cal_media": 0.00024,
+   "frecuencia_observada": 0.00024
+  },
+  "H3 80-90 %": {
+   "horas": 4176,
+   "positivos": 9,
+   "p_zona_media": 0.0286,
+   "p_cal_media": 0.00109,
+   "frecuencia_observada": 0.00216
+  },
+  "H3 90-95 %": {
+   "horas": 2125,
+   "positivos": 1,
+   "p_zona_media": 0.06718,
+   "p_cal_media": 0.00289,
+   "frecuencia_observada": 0.00047
+  },
+  "H3 95-99 %": {
+   "horas": 1663,
+   "positivos": 5,
+   "p_zona_media": 0.10458,
+   "p_cal_media": 0.00545,
+   "frecuencia_observada": 0.00301
+  },
+  "H3 99-100 %": {
+   "horas": 453,
+   "positivos": 14,
+   "p_zona_media": 0.32289,
+   "p_cal_media": 0.03409,
+   "frecuencia_observada": 0.03091
+  },
+  "H3 total": {
+   "horas": 41968,
+   "positivos": 32,
+   "p_zona_media": 0.01636,
+   "p_cal_media": 0.00092,
+   "frecuencia_observada": 0.00076,
+   "suma_p_cal": 38.7
+  },
+  "H6 0-50 %": {
+   "horas": 20971,
+   "positivos": 0,
+   "p_zona_media": 0.00091,
+   "p_cal_media": 7e-05,
+   "frecuencia_observada": 0.0
+  },
+  "H6 50-80 %": {
+   "horas": 12534,
+   "positivos": 8,
+   "p_zona_media": 0.00749,
+   "p_cal_media": 0.00057,
+   "frecuencia_observada": 0.00064
+  },
+  "H6 80-90 %": {
+   "horas": 4231,
+   "positivos": 19,
+   "p_zona_media": 0.03177,
+   "p_cal_media": 0.00247,
+   "frecuencia_observada": 0.00449
+  },
+  "H6 90-95 %": {
+   "horas": 2092,
+   "positivos": 1,
+   "p_zona_media": 0.07595,
+   "p_cal_media": 0.00622,
+   "frecuencia_observada": 0.00048
+  },
+  "H6 95-99 %": {
+   "horas": 1662,
+   "positivos": 17,
+   "p_zona_media": 0.1179,
+   "p_cal_media": 0.01187,
+   "frecuencia_observada": 0.01023
+  },
+  "H6 99-100 %": {
+   "horas": 453,
+   "positivos": 23,
+   "p_zona_media": 0.34487,
+   "p_cal_media": 0.05947,
+   "frecuencia_observada": 0.05077
+  },
+  "H6 total": {
+   "horas": 41943,
+   "positivos": 68,
+   "p_zona_media": 0.01808,
+   "p_cal_media": 0.00187,
+   "frecuencia_observada": 0.00162,
+   "suma_p_cal": 78.6
+  },
+  "H12 0-50 %": {
+   "horas": 20941,
+   "positivos": 5,
+   "p_zona_media": 0.00114,
+   "p_cal_media": 0.00016,
+   "frecuencia_observada": 0.00024
+  },
+  "H12 50-80 %": {
+   "horas": 12584,
+   "positivos": 16,
+   "p_zona_media": 0.01165,
+   "p_cal_media": 0.00143,
+   "frecuencia_observada": 0.00127
+  },
+  "H12 80-90 %": {
+   "horas": 4197,
+   "positivos": 44,
+   "p_zona_media": 0.05668,
+   "p_cal_media": 0.00632,
+   "frecuencia_observada": 0.01048
+  },
+  "H12 90-95 %": {
+   "horas": 1959,
+   "positivos": 1,
+   "p_zona_media": 0.13614,
+   "p_cal_media": 0.01533,
+   "frecuencia_observada": 0.00051
+  },
+  "H12 95-99 %": {
+   "horas": 1797,
+   "positivos": 44,
+   "p_zona_media": 0.20264,
+   "p_cal_media": 0.02679,
+   "frecuencia_observada": 0.02449
+  },
+  "H12 99-100 %": {
+   "horas": 436,
+   "positivos": 48,
+   "p_zona_media": 0.50218,
+   "p_cal_media": 0.11288,
+   "frecuencia_observada": 0.11009
+  },
+  "H12 total": {
+   "horas": 41914,
+   "positivos": 158,
+   "p_zona_media": 0.03002,
+   "p_cal_media": 0.00418,
+   "frecuencia_observada": 0.00377,
+   "suma_p_cal": 175.3
+  },
+  "H24 0-50 %": {
+   "horas": 20843,
+   "positivos": 17,
+   "p_zona_media": 0.00136,
+   "p_cal_media": 0.00032,
+   "frecuencia_observada": 0.00082
+  },
+  "H24 50-80 %": {
+   "horas": 12624,
+   "positivos": 40,
+   "p_zona_media": 0.0161,
+   "p_cal_media": 0.00298,
+   "frecuencia_observada": 0.00317
+  },
+  "H24 80-90 %": {
+   "horas": 4208,
+   "positivos": 88,
+   "p_zona_media": 0.08358,
+   "p_cal_media": 0.01328,
+   "frecuencia_observada": 0.02091
+  },
+  "H24 90-95 %": {
+   "horas": 2049,
+   "positivos": 4,
+   "p_zona_media": 0.20107,
+   "p_cal_media": 0.03383,
+   "frecuencia_observada": 0.00195
+  },
+  "H24 95-99 %": {
+   "horas": 1640,
+   "positivos": 69,
+   "p_zona_media": 0.27951,
+   "p_cal_media": 0.04976,
+   "frecuencia_observada": 0.04207
+  },
+  "H24 99-100 %": {
+   "horas": 500,
+   "positivos": 108,
+   "p_zona_media": 0.60674,
+   "p_cal_media": 0.18324,
+   "frecuencia_observada": 0.216
+  },
+  "H24 total": {
+   "horas": 41864,
+   "positivos": 326,
+   "p_zona_media": 0.04197,
+   "p_cal_media": 0.00819,
+   "frecuencia_observada": 0.00779,
+   "suma_p_cal": 342.7
+  }
  }
 }

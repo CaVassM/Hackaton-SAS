@@ -28,9 +28,9 @@ Todos se corren desde la raíz del repo: `python entrega_modelo/scripts/<script>
 | # | Script | Qué hace | Lee | Escribe | Tiempo |
 |---|---|---|---|---|---|
 | 1 | `01_features.py` | Arma la tabla de zona: una fila por hora × H (3, 6, 12, 24 h), con la etiqueta y las 12 variables + H. | `inputs/` | `salidas/trabajo/tabla_zona.parquet` | 1 s |
-| 2 | `02_entrenar.py` | (a) Predicciones fuera de muestra LOSO (cada temporada la predice un modelo entrenado con las otras 11). (b) P1 final con las 12 temporadas. (c) Umbrales rojo y amarillo por H. (d) P2 por quebrada. (e) Calibración: Platt, `kappa` y tasa base por H. | `tabla_zona.parquet`, `inputs/` | `salidas/trabajo/oof.parquet`, `salidas/modelo/{p1.json, umbrales.csv, p2.csv, calibracion.json, calibracion_escala_final.csv, modelo.json}` | 12 s |
+| 2 | `02_entrenar.py` | (a) Predicciones fuera de muestra LOSO (cada temporada la predice un modelo entrenado con las otras 11). (b) P1 final con las 12 temporadas. (c) Umbrales rojo y amarillo por H. (d) P2 por quebrada. (e) Calibración: Platt, `kappa` con su rango y tasa base por H. | `tabla_zona.parquet`, `inputs/` | `salidas/trabajo/oof.parquet`, `salidas/modelo/{p1.json, umbrales.csv, p2.csv, calibracion.json, calibracion_escala_final.csv, modelo.json}` | 12 s |
 | 3 | `03_validar.py` | Validación por evento de lluvia (TSS, IC 90 %) y comparación con `salidas/referencia/`. | `oof.parquet`, `salidas/modelo/` | `salidas/metricas_validacion.csv` | 2 s |
-| 4 | `04_predecir.py` | Predicción para un mes o un rango de horas en el formato del dashboard (archivos A, B y D). | `salidas/modelo/` (o `trabajo/` con `--excluir-temporada`) | `salidas/predicciones/` | 3 s |
+| 4 | `04_predecir.py` | Predicción para un mes o un rango de horas en el formato del dashboard (archivos A, B, D y E). | `salidas/modelo/` (o `trabajo/` con `--excluir-temporada`) | `salidas/predicciones/` | 3 s |
 
 Detalle de lo que hace cada paso:
 
@@ -121,7 +121,7 @@ python entrega_modelo/scripts/01_features.py
 python entrega_modelo/scripts/02_entrenar.py
 python entrega_modelo/scripts/03_validar.py                   # debe terminar en "IGUAL (métricas, IC, umbrales, P2 y calibración)"
 
-# predicción con el modelo final (archivos A, B y D en salidas/predicciones/)
+# predicción con el modelo final (archivos A, B, D y E en salidas/predicciones/)
 python entrega_modelo/scripts/04_predecir.py --mes 2026-03
 python entrega_modelo/scripts/04_predecir.py --desde "2026-03-01 00:00" --hasta "2026-03-02 23:00"
 python entrega_modelo/scripts/04_predecir.py --mes 2026-03 --paso 30            # además la versión cada 30 min
@@ -148,11 +148,12 @@ Formato de los archivos:
 | **A** `probabilidad_huayco_por_quebrada_con_tiempo_<AAAA_MM>.csv` | `Tiempo, quebrada_id, quebrada, prob_ml_3h, prob_ml_6h, prob_ml_12h, prob_ml_24h`. `prob_ml_Hh = p_cal(t, H) × kappa_H × P2(q)`, 5 decimales: probabilidad calibrada de que la quebrada se active en (t, t+H] (sección 6). 17 filas por hora, siempre en el mismo orden. La versión `_30min` repite el valor de su hora en :00 y :30. |
 | **B** `detalle_zona_<AAAA_MM>.csv` | `Tiempo, H, p_zona, umbral_rojo, umbral_amarillo, nivel, nivel_con_lluvia, lluvia_6h_mm, p_zona_calibrada, veces_lo_normal`. 4 filas por hora (una por H). <br>`p_zona` es P1 sin calibrar, el que se compara con los umbrales. <br>`nivel` es el oficial (rojo si `p_zona ≥ umbral_rojo`) y `nivel_con_lluvia` la variante que exige lluvia en las últimas 6 h para el rojo (ver sección 1). <br>`p_zona_calibrada` = `p_cal`: probabilidad de un huaico en alguna de las 17 quebradas en (t, t+H]. <br>`veces_lo_normal` = `p_zona_calibrada` / tasa base del H. |
 | **C** `huaicos_registrados_<AAAA_MM>.csv` (solo en la demo) | `fecha, hora_inicio, hora_fin, quebrada_id`. Catálogo con el rango horario v2; las horas quedan vacías si la fuente no da hora. Una quebrada puede aparecer dos veces el mismo día si el catálogo tiene dos registros (con y sin hora). |
-| **D** `probabilidad_si_hay_evento.csv` | `quebrada_id, quebrada, P2, descripcion`: **probabilidad de que la quebrada se active si hay un temporal en la zona**. <br>En la demo es el P2 calculado sin 2022-23; el de la corrida sin 2016-17 es `probabilidad_si_hay_evento_sin_2016_17.csv`. <br>`04_predecir.py` escribe `probabilidad_si_hay_evento[_sin_<temporada>].csv`. |
+| **D** `probabilidad_si_hay_evento.csv` | `quebrada_id, quebrada, P2, prob_min_3h, prob_max_3h, …, prob_min_24h, prob_max_24h, descripcion`. <br>`P2` = **probabilidad de que la quebrada se active si hay un temporal en la zona**. <br>`prob_min_Hh` / `prob_max_Hh` = `kappa_min_H × P2` / `kappa_max_H × P2`: rango de la probabilidad de que la quebrada se active en una ventana de H horas en la que hay huaico en la zona. <br>En la demo, P2 y el rango se calculan sin 2022-23; el de la corrida sin 2016-17 es `probabilidad_si_hay_evento_sin_2016_17.csv`. <br>`04_predecir.py` escribe `probabilidad_si_hay_evento[_sin_<temporada>].csv`. |
+| **E** `rango_por_quebrada_<AAAA_MM>.csv` | `Tiempo, quebrada_id, quebrada, H, prob, prob_min, prob_max`, en formato largo (17 × 4 filas por hora). <br>`prob` = `p_cal × kappa_H × P2` (igual a `prob_ml_Hh` del archivo A). <br>`prob_min` / `prob_max` = `p_cal × kappa_min_H × P2` / `p_cal × kappa_max_H × P2`. <br>En la demo, los `kappa` se calculan sin la temporada excluida. |
 
 Orden de las quebradas en el archivo A: Carossio, Corrales, Pedregal, California, La Ronda, Quirio, Santa María, Chacrasana, Libertad, Mariscal Castilla, Rosario, El Vallecito, La Cantuta, Santo Domingo, Alto Perú, Huampaní, Buenos Aires.
 
-**Demo** (`salidas/demo/`, generada con `predecir_demo.py`): marzo 2017 (sin 2016-17) y marzo 2023 (sin 2022-23), fuera de muestra, con los archivos A (horario y 30 min), B, C y D.
+**Demo** (`salidas/demo/`, generada con `predecir_demo.py`): marzo 2017 (sin 2016-17) y marzo 2023 (sin 2022-23), fuera de muestra, con los archivos A (horario y 30 min), B, C, D y E.
 
 Horas de cada color con H = 3 (744 h por mes):
 
@@ -183,6 +184,8 @@ Horas de cada color con H = 3 (744 h por mes):
 | Calibración: `a` (H = 3 / 6 / 12 / 24) | −3.082 / −2.600 / −2.514 / −2.216 |
 | Calibración: `b` (H = 3 / 6 / 12 / 24) | 1.058 / 1.006 / 0.912 / 0.879 |
 | Calibración: `kappa` (H = 3 / 6 / 12 / 24) | 0.592 / 0.611 / 0.597 / 0.612 |
+| Calibración: `kappa_min` (H = 3 / 6 / 12 / 24) | 0.384 / 0.442 / 0.473 / 0.506 |
+| Calibración: `kappa_max` (H = 3 / 6 / 12 / 24) | 0.814 / 0.784 / 0.731 / 0.734 |
 | Calibración: tasa base (H = 3 / 6 / 12 / 24) | 0.00076 / 0.00162 / 0.00377 / 0.00779 |
 
 `salidas/referencia/` contiene las cifras del modelo final del repo (`p2.csv`, `umbrales.csv`, `metricas_validacion.csv`, `calibracion.json`, `calibracion_escala_final.csv`), y `03` las compara una por una.
@@ -217,6 +220,12 @@ Qué significan estas cifras:
 - **Modelo final:** su `p_zona` se lleva antes a la escala LOSO por cuantil, igual que los umbrales.
   - Hace falta porque, aplicado tal cual, sobrestima: suma 379 contra 326 positivos en H = 24.
 - **Orden en H:** se toma el máximo acumulado en H para garantizar `p(3 h) ≤ … ≤ p(24 h)`. En 2016-17 y 2022-23 no corrigió ninguna hora.
+
+**Rango por quebrada (archivo E y columnas `prob_min_Hh` / `prob_max_Hh` del D).** `kappa_min_H` y `kappa_max_H` son el mínimo y el máximo de `kappa_H` entre los 12 pliegues que dejan fuera una temporada, cada uno con su P2.
+
+- **Valores con todas las temporadas:** `kappa_min_H` va de 0.38 a 0.51 y `kappa_max_H` de 0.73 a 0.81 según el H; ver la tabla de la sección 5.
+- **El rango incluye siempre el `kappa` central**, así que `prob_min ≤ prob ≤ prob_max`.
+- **En la demo y con `--excluir-temporada`** se calculan sin esa temporada: los pliegues dejan fuera la temporada excluida y una más. Para 2022-23 da, en H = 3, `kappa` 0.81 con rango 0.47–0.88.
 
 **Validación** (`modelo/v3/final/calibracion_validacion.csv`): el calibrador se ajusta sin la temporada s y se aplica a s. Los tramos son cuantiles de `p_zona`. Para H = 3:
 
@@ -258,6 +267,7 @@ Comprobado en este equipo (Windows 11, Python 3.13.9, xgboost 3.4.1), con corrid
 - `04_predecir.py --excluir-temporada` produce archivos A, B y D idénticos byte a byte a los de `predecir_demo.py`.
 - La demo de marzo 2023 coincide con `modelo/v3/final/ejemplo_2022_23.csv`: 2 976 filas, diferencia 0. Por ejemplo, 12/03/2023 18:00, H = 3: `p_zona` = 0.02969.
 - Cada archivo A horario tiene 12 648 filas (744 h × 17). En todas las filas, `prob_ml_3h ≤ 6h ≤ 12h ≤ 24h`, y en el archivo B `p_zona_calibrada` también crece con H.
+- El archivo E tiene 50 592 filas por mes. En todas, `prob_min ≤ prob ≤ prob_max`, y `prob` es igual a `prob_ml_Hh` del archivo A.
 
 Si se cambian los insumos, hay que leer los CSV con `float_precision="round_trip"`, como hace `_lib.py`. El lector rápido por defecto de pandas cambia la última cifra de algunos números, y eso basta para que XGBoost elija otros cortes: el TSS seguía en 0.49, pero los umbrales y una falsa alarma cambiaban.
 
@@ -265,6 +275,7 @@ Si se cambian los insumos, hay que leer los CSV con `float_precision="round_trip
 
 - **Pocos datos:** 13 huaicos evaluables en 9 tormentas y 12 temporadas.
 - **Probabilidades calibradas con pocos casos:** `p_zona` no es una probabilidad; `p_zona_calibrada` y `prob_ml_Hh` sí, pero calibradas con 32–326 ventanas positivas por H y con el reparto por quebrada que da P2.
+- kappa (de tormenta a ventana) es inestable: 0.59 con todas las temporadas, y entre 0.38 y 0.81 según la temporada que se deje fuera, porque pocas tormentas activan muchas quebradas a la vez. Por eso la probabilidad por quebrada se entrega con un rango (prob_min, prob_max) y es menos confiable que la de la zona, que no lo necesita. Por quebrada, el modelo subestima a Quirio y Chacrasana y sobrestima a Santa María; La Ronda y Alto Perú no tienen huaicos con hora registrada y su P2 viene del terreno. La probabilidad por quebrada mantiene exactamente el ranking de P2.
 - **Escala por temporada:** el modelo pone mucha alerta en temporadas muy lluviosas según IMERG. 2024-25 no tiene huaicos catalogados.
 - **El catálogo viene de prensa:** puede faltar algún huaico y las horas pueden ser vagas.
 - Más detalle en `modelo/v3/model_card_datos.md` y `modelo/v3/RESUMEN.md` del repo.

@@ -28,7 +28,7 @@ Con esa anticipación, **la única promesa honesta es H = 3 h**. Detalle complet
 Todos los insumos de datos del modelo final están versionados en git, así que no hace falta descargar nada ni tener credenciales.
 ```bash
 python -m pip install -r requirements.txt   # Python 3.13; versiones fijadas (xgboost==3.4.1 fija el resultado)
-python replicar.py                          # ~2-5 min: etiquetas -> eventos -> B1 -> modelo final -> entrega; termina con "REPLICA OK"
+python replicar.py                          # ~2-5 min: etiquetas -> eventos -> B1 -> modelo final -> calibración -> entrega; termina con "REPLICA OK"
 ```
 Paso a paso, insumos, cómo volver a bajarlos y qué queda fuera: [REPLICAR.md](REPLICAR.md).
 
@@ -56,6 +56,12 @@ Columnas de salida:
 | `lluvia_6h_mm` | lluvia IMERG de las últimas 6 h disponibles (máximo entre celdas) |
 | `nivel` | **nivel por defecto (oficial, el validado)**: rojo si p_zona ≥ umbral rojo |
 | `nivel_con_lluvia` | variante opcional: el rojo exige además lluvia en las últimas 6 h |
+| `p_zona_calibrada` | `p_cal` = `sigmoid(a_H + b_H · logit(p_zona))`: probabilidad calibrada de huaico en la zona en (t, t+H] (ver "Probabilidad calibrada por quebrada") |
+| `veces_lo_normal` | `p_zona_calibrada` / tasa base del H: cuántas veces más probable que lo habitual |
+| `prob_quebrada` | `p_cal × kappa_H × P2`: probabilidad calibrada de que la quebrada se active en (t, t+H] (= `prob_ml_Hh` de `entrega_modelo`) |
+| `prob_quebrada_min`, `prob_quebrada_max` | lo mismo con `kappa_min_H` y `kappa_max_H` (rango por la incertidumbre de `kappa`) |
+
+En el modo `hora`, que usa el modelo final, `p_zona` se lleva a la escala LOSO por cuantil antes de calibrar. En el modo `ejemplo`, que es fuera de muestra, la calibración y el rango de `kappa` se ajustan sin la temporada.
 
 ### Los dos niveles
 El nivel se calcula para la **zona**, que es lo validado. Las quebradas comparten nivel y se ordenan por `score` o `indice_0_100`.
@@ -101,18 +107,19 @@ python entrega_modelo/scripts/04_predecir.py --mes 2026-03 --paso 30
   - `..._30min.csv` (por media hora)
   - `detalle_zona_2023_03_sin_2022_23.csv`
   - `probabilidad_si_hay_evento_sin_2022_23.csv` (archivo D)
+  - `rango_por_quebrada_2023_03_sin_2022_23.csv` (archivo E)
 - **Sin `--paso 30`** solo se genera la versión horaria.
 - **En lugar de `--mes`** se puede pedir un rango: `--desde "2023-03-12 00:00" --hasta "2023-03-12 23:00"`.
 - **Rutas largas en Windows:** la ruta completa de cada salida no debe pasar de 260 caracteres.
 
-**Demo ya generada** (`entrega_modelo/salidas/demo/`): marzo 2017 y marzo 2023, fuera de muestra, con los archivos A, B, C y D. Se regenera con:
+**Demo ya generada** (`entrega_modelo/salidas/demo/`): marzo 2017 y marzo 2023, fuera de muestra, con los archivos A, B, C, D y E. Se regenera con:
 
 ```bash
 python entrega_modelo/scripts/predecir_demo.py --temporada 2022-23 --mes 2023-03 --paso 30
 python entrega_modelo/scripts/predecir_demo.py --temporada 2016-17 --mes 2017-03 --paso 30
 ```
 
-`predecir_demo.py` sí usa el repo (`modelo/v3/final/modelo_final.py` y `calibracion.py`) y da los mismos archivos A, B y D que `04_predecir.py --excluir-temporada`, más el archivo C.
+`predecir_demo.py` sí usa el repo (`modelo/v3/final/modelo_final.py` y `calibracion.py`) y da los mismos archivos A, B, D y E que `04_predecir.py --excluir-temporada`, más el archivo C.
 
 Los archivos son UTF-8 con BOM. `Tiempo` va en formato `d/mm/yyyy HH:MM`, en hora de Lima, y marca el inicio de la hora.
 
@@ -121,12 +128,14 @@ Los archivos son UTF-8 con BOM. `Tiempo` va en formato `d/mm/yyyy HH:MM`, en hor
 | **A** `probabilidad_huayco_por_quebrada_con_tiempo_<AAAA_MM>[_sin_<temporada>][_30min].csv` | `Tiempo, quebrada_id, quebrada, prob_ml_3h, prob_ml_6h, prob_ml_12h, prob_ml_24h`. Son 17 filas por hora, en orden fijo. La versión de 30 min repite el valor de su hora. |
 | **B** `detalle_zona_<AAAA_MM>[_sin_<temporada>].csv` | `Tiempo, H, p_zona, umbral_rojo, umbral_amarillo, nivel, nivel_con_lluvia, lluvia_6h_mm, p_zona_calibrada, veces_lo_normal`, con 4 filas por hora (una por H). <br>`nivel` es el **oficial**: rojo si `p_zona ≥ umbral_rojo`, como en la validación. <br>`nivel_con_lluvia` es la variante en la que el rojo exige además lluvia IMERG > 0.1 mm en las últimas 6 h; si no la hay, queda en amarillo. <br>`p_zona_calibrada` es la probabilidad calibrada de un huaico en la zona, y `veces_lo_normal` = `p_zona_calibrada` / tasa base del H. |
 | **C** `huaicos_registrados_<AAAA_MM>.csv` (solo la demo) | `fecha, hora_inicio, hora_fin, quebrada_id`: los huaicos del catálogo en las 17 quebradas. Las horas son el rango v2 y quedan vacías si la fuente no da hora. |
-| **D** `probabilidad_si_hay_evento.csv` | `quebrada_id, quebrada, P2, descripcion`: probabilidad de que la quebrada se active si hay un temporal en la zona. En la demo es el P2 calculado sin 2022-23. |
+| **D** `probabilidad_si_hay_evento.csv` | `quebrada_id, quebrada, P2, prob_min_3h, prob_max_3h, …, prob_min_24h, prob_max_24h, descripcion`. <br>`P2` = **probabilidad de que la quebrada se active si hay un temporal en la zona**. <br>`prob_min_Hh` / `prob_max_Hh` = `kappa_min_H × P2` / `kappa_max_H × P2`: rango de la probabilidad de que la quebrada se active en una ventana de H horas en la que hay huaico en la zona. En la demo es el P2 calculado sin 2022-23. |
+| **E** `rango_por_quebrada_<AAAA_MM>.csv` | `Tiempo, quebrada_id, quebrada, H, prob, prob_min, prob_max`, en formato largo (17 × 4 filas por hora). <br>`prob` = `p_cal × kappa_H × P2` (igual a `prob_ml_Hh` del archivo A). <br>`prob_min` / `prob_max` = `p_cal × kappa_min_H × P2` / `p_cal × kappa_max_H × P2`. <br>En la demo, los `kappa` se calculan sin la temporada excluida. |
 
 - **Qué es `prob_ml_Hh`:** `p_cal(t, H) × kappa_H × P2(q)`, con 5 decimales. Es la **probabilidad calibrada** de que la quebrada se active en (t, t+H] (ver abajo). El nivel de alerta es de la **zona** y está en el archivo B.
-- **Mismo dato que `entrega_dashboard.py`, en formato ancho, salvo `prob_ml_Hh`:**
-  - `p_zona`, `nivel`, `nivel_con_lluvia` y `lluvia_6h_mm` del archivo B son los de cada (hora, H). Comprobado con marzo 2023 de `ejemplo_2022_23_m3.csv`: son idénticos.
-  - `prob_ml_Hh` ya **no** es el `score` (`p_zona × P2`) de `entrega_dashboard.py`, sino su versión calibrada. El orden de las quebradas dentro de una hora y un H es el mismo.
+- **Es el mismo dato que `entrega_dashboard.py`, en formato ancho:**
+  - `prob_ml_Hh` (archivo A) es `prob_quebrada`, y `prob_min` / `prob_max` (archivo E) son `prob_quebrada_min` / `prob_quebrada_max`.
+  - `p_zona`, `p_zona_calibrada`, `veces_lo_normal`, `nivel`, `nivel_con_lluvia` y `lluvia_6h_mm` del archivo B son los de cada (hora, H).
+  - Comprobado con marzo 2023 de `ejemplo_2022_23_m3.csv`: son idénticos. `score` (`p_zona × P2`) sigue en el dashboard como puntaje sin calibrar.
 
 ### Probabilidad calibrada por quebrada
 
@@ -138,6 +147,9 @@ El script es `modelo/v3/final/calibracion.py`. P1, P2 y los umbrales del v3 no c
   - Se ajusta por H sobre las predicciones fuera de muestra de P1 (`_cache/oof_b1.parquet`) y la etiqueta de zona.
   - Para el modelo final, `p_zona` se lleva antes a la escala LOSO por cuantil, como los umbrales.
 - **`kappa_H`** = quebradas activadas en promedio en las ventanas con huaico (3.4–3.5) / suma de P2 (5.70), es decir ≈ 0.6.
+- **Rango** (`kappa_min_H`, `kappa_max_H`): son el mínimo y el máximo de `kappa_H` entre los 12 pliegues que dejan fuera una temporada, cada uno con su P2.
+  - Valen 0.38–0.81 en H = 3, 0.44–0.78 en H = 6, 0.47–0.73 en H = 12 y 0.51–0.73 en H = 24.
+  - Con ellos se calculan `prob_min` y `prob_max`.
 
 Supuestos:
 - **La calibración de Platt corrige el peso de los positivos.** El modelo se entrena con `scale_pos_weight`, que infla `p_zona`; Platt no cambia el orden de las horas.
@@ -198,5 +210,6 @@ Las credenciales (`_netrc` de Earthdata, `.cdsapirc`) nunca van en el código ni
 - **IMERG no ve el golpe corto de lluvia** que dispara los huaicos en zona árida. El umbral de pluviómetro de ISAAC no funciona con IMERG (TSS −0.13).
 - Parte de la señal viene de las **rachas**: días desde la última activación. Sin esa variable, el TSS baja a 0.34.
 - La humedad del suelo es la variable que más aporta (sin ella, el TSS baja a 0.23), pero cuando el suelo pasa semanas saturado, como en El Niño costero 2017, el modelo queda en alerta casi continua (82 % de las horas de marzo de 2017).
+- kappa (de tormenta a ventana) es inestable: 0.59 con todas las temporadas, y entre 0.38 y 0.81 según la temporada que se deje fuera, porque pocas tormentas activan muchas quebradas a la vez. Por eso la probabilidad por quebrada se entrega con un rango (prob_min, prob_max) y es menos confiable que la de la zona, que no lo necesita. Por quebrada, el modelo subestima a Quirio y Chacrasana y sobrestima a Santa María; La Ronda y Alto Perú no tienen huaicos con hora registrada y su P2 viene del terreno. La probabilidad por quebrada mantiene exactamente el ranking de P2.
 - **Muchas horas en alerta.** Usarlo como **índice de prioridad**, no como alarma pública automática.
 - **Lo que más lo mejoraría:** pluviómetros de SENAMHI/ISAAC (solicitud en `experiments/precipitation_source_comparison/docs/solicitud_senamhi.md`) y CAPE/K/TT de ERA5 (CDS).

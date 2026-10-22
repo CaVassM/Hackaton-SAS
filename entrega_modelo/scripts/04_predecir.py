@@ -1,14 +1,15 @@
-"""04 - Predicción para un periodo, en el formato del dashboard (archivos A, B y D; ver predecir_demo.py).
+"""04 - Predicción para un periodo, en el formato del dashboard (archivos A, B, D y E; ver predecir_demo.py).
 
 Modos:
   - por defecto: modelo final (salidas/modelo/: p1.json, umbrales.csv, p2.csv, calibracion.json, calibracion_escala_final.csv; requiere
     02_entrenar.py). Para fechas del histórico es DENTRO de muestra. Su p_zona se lleva a la escala LOSO por cuantil antes de la calibración.
-  - --excluir-temporada AAAA-AA: FUERA DE MUESTRA, como predecir_demo.py: P1 entrenado sin esa temporada, umbrales y calibración (Platt, kappa,
-    tasa base) ajustados sin ella con los puntajes LOSO, y P2 con las otras tormentas. Requiere salidas/trabajo/oof.parquet (02_entrenar.py).
+  - --excluir-temporada AAAA-AA: FUERA DE MUESTRA, como predecir_demo.py: P1 entrenado sin esa temporada, umbrales y calibración (Platt, kappa y
+    su rango, tasa base) ajustados sin ella con los puntajes LOSO, y P2 con las otras tormentas. Requiere salidas/trabajo/oof.parquet (02_entrenar.py).
 Uso: python entrega_modelo/scripts/04_predecir.py --mes 2023-03 [--excluir-temporada 2022-23] [--paso 30]
      python entrega_modelo/scripts/04_predecir.py --desde "2023-03-12 00:00" --hasta "2023-03-12 23:00"
 Salidas en salidas/predicciones/: probabilidad_huayco_por_quebrada_con_tiempo_<etiqueta>[_30min].csv (A), detalle_zona_<etiqueta>.csv (B) y
-  probabilidad_si_hay_evento[_sin_<temporada>].csv (D: P2 = probabilidad de que la quebrada se active si hay un temporal en la zona)
+  probabilidad_si_hay_evento[_sin_<temporada>].csv (D: P2 = probabilidad de que la quebrada se active si hay un temporal en la zona, y por H el
+  rango kappa_min_H x P2 .. kappa_max_H x P2) y rango_por_quebrada_<etiqueta>.csv (E: Tiempo, quebrada_id, quebrada, H, prob, prob_min, prob_max)
   A: prob_ml_Hh = p_cal(t, H) * kappa_H * P2(q): probabilidad calibrada de que la quebrada se active en (t, t+H] (ver modelo/v3/final/calibracion.py).
   B: p_zona (P1 sin calibrar, el que se compara con los umbrales), p_zona_calibrada y veces_lo_normal (= p_zona_calibrada / tasa base del H).
   detalle_zona: nivel (OFICIAL, el validado) = rojo si p_zona >= umbral_rojo, amarillo si umbral_amarillo <= p_zona < umbral_rojo, si no verde;
@@ -47,7 +48,8 @@ def main():
         for H in L.HS:
             u[H]["rojo"], u[H]["amarillo"] = u[H]["rojo_oof"], u[H]["amarillo_oof"]
         p2 = L.p2(lambda torm: torm.loc[torm.temporada != s, "tormenta"])
-        cal = L.calibrar(pd.read_parquet(L.TRABAJO / "oof.parquet"), p2, excluir=s)
+        oof = pd.read_parquet(L.TRABAJO / "oof.parquet")
+        cal = L.con_rango(L.calibrar(oof, p2, excluir=s), oof, excluir=s)
         etiqueta += f"_sin_{s.replace('-', '_')}"
     else:
         m = xgb.XGBClassifier()
@@ -62,7 +64,7 @@ def main():
         print(f"AVISO: faltan datos en inputs/ para {faltan} en parte del periodo (el modelo los trata como faltantes).")
     pz = {H: m.predict_proba(X.assign(H=H)[L.VARIABLES])[:, 1] for H in L.HS}
     pc = L.p_calibrada(cal, pz if a.excluir_temporada else L.a_escala_loso(esc, pz))
-    zk = L.p_zona_kappa(cal, pc)
+    zk, zk_min, zk_max = (L.p_zona_kappa(cal, pc, k) for k in ("kappa", "kappa_min", "kappa_max"))
     out = L.SALIDAS / "predicciones"
     out.mkdir(parents=True, exist_ok=True)
     rutas = [out / f"probabilidad_huayco_por_quebrada_con_tiempo_{etiqueta}.csv"]
@@ -73,7 +75,9 @@ def main():
     rutas.append(out / f"detalle_zona_{etiqueta}.csv")
     L.archivo_b(horas, X, pz, u, pc, cal).to_csv(rutas[-1], index=False, encoding="utf-8-sig")
     rutas.append(out / ("probabilidad_si_hay_evento" + (f"_sin_{a.excluir_temporada.replace('-', '_')}" if a.excluir_temporada else "") + ".csv"))
-    L.archivo_d(p2).to_csv(rutas[-1], index=False, encoding="utf-8-sig")
+    L.archivo_d(p2, cal).to_csv(rutas[-1], index=False, encoding="utf-8-sig")
+    rutas.append(out / f"rango_por_quebrada_{etiqueta}.csv")
+    L.archivo_e(horas, zk, zk_min, zk_max, p2).to_csv(rutas[-1], index=False, encoding="utf-8-sig")
     for r in rutas:
         print(f"  {r.relative_to(L.ENTREGA)}: {sum(1 for _ in open(r, encoding='utf-8-sig')) - 1} filas")
 

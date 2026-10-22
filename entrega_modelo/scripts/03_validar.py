@@ -46,7 +46,7 @@ def main():
     cal = json.loads((L.MODELO / "calibracion.json").read_text(encoding="utf-8"))["por_H"]
     cal_r = json.loads((L.REFERENCIA / "calibracion.json").read_text(encoding="utf-8"))["por_H"]
     for H in cal_r:
-        for k in ("a", "b", "kappa", "tasa_base"):
+        for k in ("a", "b", "kappa", "kappa_min", "kappa_max", "tasa_base"):
             if not np.isclose(cal[H][k], cal_r[H][k], rtol=1e-9, atol=0):
                 fallas.append(f"calibración H={H} {k}: {cal[H][k]} vs referencia {cal_r[H][k]}")
     E, Er = pd.read_csv(L.MODELO / "calibracion_escala_final.csv"), pd.read_csv(L.REFERENCIA / "calibracion_escala_final.csv")

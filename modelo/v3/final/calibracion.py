@@ -13,6 +13,8 @@ Modelo final (p1_b1.json): puntúa en otra escala que los modelos LOSO (igual qu
   escala LOSO POR CUANTIL (misma fracción de horas por debajo; rejilla en calibracion_escala_final.csv). Para un modelo de pliegue (la demo fuera de
   muestra) no hace falta: su p_zona ya está en la escala LOSO.
 Orden en H: Platt y kappa se ajustan por separado en cada H; para que p(3 h) <= p(6 h) <= p(12 h) <= p(24 h) se toma el máximo acumulado en H.
+Rango de kappa (incertidumbre del reparto por quebrada): kappa_min_H / kappa_max_H = mínimo / máximo de kappa_H entre los pliegues que dejan fuera
+  una temporada (cada uno con su P2), incluido el kappa central; prob_min / prob_max = p_cal * kappa_min / max_H * P2(q).
 Validación: calibrador ajustado SIN la temporada s y aplicado a s (por cuantiles de p_zona y suma de p_cal vs. positivos), y por quebrada
   (suma de p_cal * kappa * P2(q) vs. horas con y_q = 1).
 Salidas: calibracion.json, calibracion_escala_final.csv, calibracion_validacion.csv, calibracion_por_quebrada.csv
@@ -72,15 +74,34 @@ def ajustar(d, p2, excluir=None):
     return out
 
 
+def kappa_pliegue(d, fuera):
+    """kappa_H sin las temporadas `fuera` (con el P2 de ese mismo pliegue)."""
+    p2 = mf.p2_tabla(lambda torm: torm.loc[~torm.temporada.isin(fuera), "tormenta"])
+    g = d[~d.temporada.isin(fuera) & (d.y == 1)]
+    return {H: float(g[g.H == H].n_y1.mean()) / float(p2.sum()) for H in HS}
+
+
+def con_rango(cal, d, excluir=None):
+    """Agrega a cal[H] kappa_min, kappa_max (y kappa_por_pliegue): kappa en los pliegues que dejan fuera UNA temporada más (además de `excluir`).
+    El rango incluye siempre el kappa central, así que prob_min <= prob <= prob_max."""
+    temps = [t for t in sorted(d.temporada.unique()) if t != excluir]
+    por = {t: kappa_pliegue(d, [t] + ([excluir] if excluir else [])) for t in temps}
+    for H in HS:
+        ks = {t: por[t][H] for t in temps}
+        cal[H].update(kappa_min=min(min(ks.values()), cal[H]["kappa"]), kappa_max=max(max(ks.values()), cal[H]["kappa"]), kappa_por_pliegue=ks)
+    return cal
+
+
 def p_calibrada(cal, pz):
     """pz: {H: p_zona en la escala LOSO} -> {H: p_cal}, con máximo acumulado en H (p(3 h) <= ... <= p(24 h))."""
     pc = np.maximum.accumulate(np.vstack([sigmoid(cal[H]["a"] + cal[H]["b"] * logit(pz[H])) for H in HS]), axis=0)
     return {H: pc[i] for i, H in enumerate(HS)}
 
 
-def p_zona_kappa(cal, pc):
-    """{H: p_cal} -> {H: p_cal * kappa_H} con máximo acumulado en H. La probabilidad de la quebrada q es este valor * P2(q)."""
-    zk = np.maximum.accumulate(np.vstack([pc[H] * cal[H]["kappa"] for H in HS]), axis=0)
+def p_zona_kappa(cal, pc, clave="kappa"):
+    """{H: p_cal} -> {H: p_cal * kappa_H} con máximo acumulado en H. La probabilidad de la quebrada q es este valor * P2(q).
+    clave = "kappa_min" / "kappa_max" da los extremos del rango (requiere con_rango)."""
+    zk = np.maximum.accumulate(np.vstack([pc[H] * cal[H][clave] for H in HS]), axis=0)
     return {H: zk[i] for i, H in enumerate(HS)}
 
 
@@ -152,7 +173,7 @@ def main():
     pd.set_option("display.width", 200)
     d = datos()
     p2 = pd.read_csv(AQUI / "p2_final.csv", index_col=0).iloc[:, 0]
-    cal = ajustar(d, p2)
+    cal = con_rango(ajustar(d, p2), d)
     m = xgb.XGBClassifier()
     m.load_model(AQUI / "p1_b1.json")
     esc = escala_final(m, d)
@@ -161,13 +182,15 @@ def main():
                 ajuste="Platt con LogisticRegression(C=1e6) sobre logit(p_zona OOF) recortado a [1e-6, 1-1e-6]; filas de zona con etiqueta v2, dic-abr",
                 modelo_final="p_zona de p1_b1.json se traslada antes a la escala LOSO por cuantil (calibracion_escala_final.csv)",
                 orden_en_H="máximo acumulado en H de p_cal y de p_cal * kappa_H",
+                rango_kappa="kappa_min_H / kappa_max_H = mínimo / máximo de kappa_H entre los 12 pliegues que dejan fuera una temporada (cada uno con su P2), "
+                            "incluyendo el kappa central; prob_min/prob_max = p_cal * kappa_min/max_H * P2(q)",
                 por_H={int(H): v for H, v in cal.items()})
     (AQUI / "calibracion.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False), encoding="utf-8")
     V, dv = validar(d, p2)
     V.to_csv(AQUI / "calibracion_validacion.csv", index=False)
     Q = por_quebrada(dv, cal, p2)
     Q.to_csv(AQUI / "calibracion_por_quebrada.csv", index=False)
-    print(pd.DataFrame(cal).T.round(5).to_string())
+    print(pd.DataFrame(cal).T.drop(columns="kappa_por_pliegue").round(5).to_string())
     print(V.to_string(index=False))
     print(Q.pivot(index="quebrada_id", columns="H", values=["esperado", "observado"]).to_string())
 

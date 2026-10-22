@@ -4,7 +4,7 @@ Uso (desde la raíz del repo):
   python entrega_modelo/scripts/predecir_demo.py --temporada 2022-23 --mes 2023-03            # paso horario
   python entrega_modelo/scripts/predecir_demo.py --temporada 2022-23 --mes 2023-03 --paso 30  # además la versión cada 30 min (repite el valor de su hora)
 Usa del repo: modelo/v3/final/modelo_final.py (tabla_zona, ajustar, umbrales_oof, p2_tabla, variables_horarias), modelo/v3/final/calibracion.py
-  (datos, ajustar, p_calibrada, p_zona_kappa) y modelo/v3/comun_v3.py (huaicos_v2); el formato de los archivos A, B y D sale de _lib.py.
+  (datos, ajustar, con_rango, p_calibrada, p_zona_kappa) y modelo/v3/comun_v3.py (huaicos_v2); el formato de los archivos A, B, D y E sale de _lib.py.
 Requiere los cachés de la cadena v3 (modelo/v3/_cache/oof_b1.parquet, modelo/v3/B/fase_b1_eventos.parquet): si faltan, correr antes `python replicar.py`.
 
 Salidas en entrega_modelo/salidas/demo/ (UTF-8 con BOM, coma, punto decimal; Tiempo = d/mm/yyyy HH:MM, hora de Lima, inicio de la hora):
@@ -17,8 +17,13 @@ Salidas en entrega_modelo/salidas/demo/ (UTF-8 con BOM, coma, punto decimal; Tie
       nivel_con_lluvia (variante): igual, pero el rojo exige además lluvia IMERG > 0.1 mm en las últimas 6 h disponibles (lluvia_6h_mm); si no la hay, amarillo.
       El nivel de alerta es de la ZONA (lo validado), no de cada quebrada.
   C huaicos_registrados_<AAAA_MM>.csv : fecha, hora_inicio, hora_fin, quebrada_id (catálogo, 17 quebradas; horas = rango v2; vacías si no hay hora)
-  D probabilidad_si_hay_evento.csv (temporada 2022-23; otras: probabilidad_si_hay_evento_sin_<temporada>.csv): quebrada_id, quebrada, P2, descripcion
-      P2 del pliegue (sin la temporada) = probabilidad de que la quebrada se active si hay un temporal en la zona.
+  D probabilidad_si_hay_evento.csv (temporada 2022-23; otras: probabilidad_si_hay_evento_sin_<temporada>.csv):
+      quebrada_id, quebrada, P2, prob_min_Hh, prob_max_Hh (H = 3, 6, 12, 24), descripcion
+      P2 del pliegue (sin la temporada) = probabilidad de que la quebrada se active si hay un temporal en la zona; prob_min/max_Hh = kappa_min/max_H x P2 =
+      rango de la probabilidad de que se active en una ventana de H horas con huaico en la zona.
+  E rango_por_quebrada_<AAAA_MM>.csv : Tiempo, quebrada_id, quebrada, H, prob, prob_min, prob_max
+      prob = prob_ml_Hh del archivo A; prob_min / prob_max = p_cal x kappa_min_H / kappa_max_H x P2 (kappa de los pliegues que dejan fuera, además de la
+      temporada de la demo, una temporada más).
 """
 import argparse
 import sys
@@ -44,7 +49,8 @@ def modelo_sin_temporada(temporada):
     for H in mf.HS:
         u[H]["rojo"], u[H]["amarillo"] = u[H]["rojo_oof"], u[H]["amarillo_oof"]
     p2 = mf.p2_tabla(lambda torm: torm.loc[torm.temporada != temporada, "tormenta"])
-    cal = cb.ajustar(cb.datos(), p2, excluir=temporada)
+    d = cb.datos()
+    cal = cb.con_rango(cb.ajustar(d, p2, excluir=temporada), d, excluir=temporada)
     return m, u, p2, cal
 
 
@@ -87,14 +93,16 @@ def main():
     m, u, p2, cal = modelo_sin_temporada(a.temporada)
     horas, X, pz = predecir_mes(m, u, p2, a.mes)
     pc = cb.p_calibrada(cal, pz)  # modelo del pliegue: p_zona ya está en la escala LOSO
-    zk = cb.p_zona_kappa(cal, pc)
+    zk, zk_min, zk_max = (cb.p_zona_kappa(cal, pc, k) for k in ("kappa", "kappa_min", "kappa_max"))
     rutas = [guardar(L.archivo_a(horas, zk, p2, 60), f"probabilidad_huayco_por_quebrada_con_tiempo_{suf}.csv")]
     if a.paso == 30:
         rutas.append(guardar(L.archivo_a(horas, zk, p2, 30), f"probabilidad_huayco_por_quebrada_con_tiempo_{suf}_30min.csv"))
     rutas.append(guardar(L.archivo_b(horas, X, pz, u, pc, cal), f"detalle_zona_{suf}.csv"))
     rutas.append(guardar(archivo_c(a.mes), f"huaicos_registrados_{suf}.csv"))
     nombre_d = "probabilidad_si_hay_evento.csv" if a.temporada == "2022-23" else f"probabilidad_si_hay_evento_sin_{a.temporada.replace('-', '_')}.csv"
-    rutas.append(guardar(L.archivo_d(p2), nombre_d))
+    rutas.append(guardar(L.archivo_d(p2, cal), nombre_d))
+    rutas.append(guardar(L.archivo_e(horas, zk, zk_min, zk_max, p2), f"rango_por_quebrada_{suf}.csv"))
+    print("kappa (sin la temporada) por H: " + ", ".join(f"H={H}: {cal[H]['kappa']:.3f} [{cal[H]['kappa_min']:.3f}, {cal[H]['kappa_max']:.3f}]" for H in mf.HS))
     print(f"Temporada fuera: {a.temporada} | umbral rojo por H: " + ", ".join(f"H={H}: {u[H]['rojo']:.5f}" for H in mf.HS))
     for r in rutas:
         print(f"  {r.relative_to(RAIZ)}: {sum(1 for _ in open(r, encoding='utf-8-sig')) - 1} filas")
