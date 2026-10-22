@@ -10,3 +10,8 @@ modelo/etiquetas_v2/*.parquet
 modelo/v3/datos/raw/
 modelo/v3/**/*.parquet
 modelo/v3_1/**/*.parquet
+# archivos que generan los scripts del catálogo (versión anterior por nombre: no usar)
+catalogo_huaicos_chosica/etiquetas_diarias.parquet
+catalogo_huaicos_chosica/v0_por_nombre/
+# respaldos de cachés de replicar.py --recalcular
+modelo/v3/_respaldo_cache_*/

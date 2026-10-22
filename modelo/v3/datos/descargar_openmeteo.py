@@ -8,6 +8,8 @@ Convención: Open-Meteo marca cada hora al FINAL del intervalo (lluvia de la hor
 local (hora = timestamp - 1 h), como el resto del proyecto. Las variables instantáneas (humedad, TCWV) también se corren 1 h (quedan como el valor
 al final de la hora etiquetada: conocido en t+1 h; las features deben usarlas con retraso >= 1 h).
 Salida: datos/raw/openmeteo/{era5_land,era5}.parquet (hora, lat, lon, variables). Reanuda por (punto, periodo).
+Uso: python modelo/v3/datos/descargar_openmeteo.py [--solo era5_land | --solo era5]
+(La copia de era5_land.parquet usada para entrenar el modelo v3 está versionada en git.)
 """
 import json
 import time
@@ -55,10 +57,15 @@ def bajar(nombre, puntos, periodos, variables, modelo):
 
 
 def main():
+    import sys
+
+    solo = sys.argv[sys.argv.index("--solo") + 1] if "--solo" in sys.argv else None   # --solo era5_land: lo único que usa el modelo final v3
     land = [(f"{a}-01-01" if a > 2014 else "2014-11-01", f"{a}-12-31" if a < 2026 else "2026-04-30") for a in range(2014, 2027)]
     era5 = [(f"{a}-11-25", f"{a + 1}-04-30") for a in range(2014, 2026)]
-    bajar("era5_land", CELDAS, land, V_LAND, "era5_land")
-    bajar("era5", GRILLA, era5, V_ERA5, "era5")
+    if solo in (None, "era5_land"):
+        bajar("era5_land", CELDAS, land, V_LAND, "era5_land")
+    if solo in (None, "era5"):
+        bajar("era5", GRILLA, era5, V_ERA5, "era5")
     print("TERMINADO", flush=True)
 
 

@@ -1,1 +1,31 @@
+# Entorno con el que se entrenó y validó el modelo final v3 (Python 3.13.9, Windows 11).
+# Instalar:  python -m pip install -r requirements.txt
+# xgboost fija los resultados: con otra versión el modelo cambia (p. ej. el TSS de B1 pasa de 0.49 a 0.45).
+
+# --- modelo (necesario para replicar el modelo final)
 xgboost==3.4.1
+scikit-learn==1.7.2
+numpy==2.3.5
+pandas==2.3.3
+scipy==1.16.3
+pyarrow==21.0.0
+xarray==2025.10.1
+h5netcdf==1.8.1
+h5py==3.15.1
+netCDF4==1.7.4
+geopandas==1.1.4
+shapely==2.1.2
+pyproj==3.8.0
+rasterio==1.5.2
+matplotlib==3.10.6
+
+# --- descargas (solo si se vuelven a bajar los insumos)
+earthaccess==0.19.0
+fsspec==2025.10.0
+aiohttp==3.13.2
+requests==2.32.5
+psutil==7.0.0
+
+# --- camino del terreno (notebooks de terreno/notebooks; requiere FABDEM)
+whitebox==2.3.6
+pypdf==6.19.0

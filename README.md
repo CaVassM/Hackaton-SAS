@@ -24,6 +24,14 @@ Este repositorio contiene el modelo predictivo. El dashboard, el bot de Telegram
 
 Con esa anticipación, **la única promesa honesta es H = 3 h**. Detalle completo en [modelo/v3/model_card_datos.md](modelo/v3/model_card_datos.md).
 
+## Replicar el modelo
+Todos los insumos de datos del modelo final están versionados en git, así que no hace falta descargar nada ni tener credenciales.
+```bash
+python -m pip install -r requirements.txt   # Python 3.13; versiones fijadas (xgboost==3.4.1 fija el resultado)
+python replicar.py                          # ~15 min: etiquetas -> eventos -> B1 -> modelo final -> entrega; termina con "REPLICA OK"
+```
+Paso a paso, insumos, cómo volver a bajarlos y qué queda fuera: [REPLICAR.md](REPLICAR.md).
+
 ## Entrega al dashboard (nivel por defecto: M3)
 Script: `modelo/v3_1/entrega/entrega_dashboard.py`. Usa el modelo v3 **sin cambios** (`modelo/v3/final/`) y añade el nivel M3.
 
@@ -75,18 +83,30 @@ El nivel se calcula para la **zona**, que es lo validado. Las quebradas comparte
 | Días desde la última activación | registro de activaciones (catálogo; en operación, INDECI o municipio) | tiempo real (requerido) |
 
 ## Estructura
+**Vigente (lo que forma el modelo final y la entrega):**
+
+| Carpeta / archivo | Contenido |
+|---|---|
+| `replicar.py`, `REPLICAR.md`, `replicacion_referencia.json` | replicación del modelo final y su verificación |
+| `terreno/` | cuencas de las 17 quebradas (FABDEM, D8): `quebradas.csv` / `.geojson` / `.kml`, cauces principales, alias del catálogo; `notebooks/` con la delimitación |
+| `catalogo_huaicos_chosica/` | catálogo de huaicos (partes, constructor), etiquetas horarias v1 y v2 (horas vagas como rango) |
+| `lluvia/` | descarga de IMERG Early (60 meses en `datos/early/`) y variables de lluvia |
+| `modelo/v3/` | enfoque por evento: Fase A (eventos e intensidad), Fase B1 (estado), **modelo final** (`final/`), ficha del modelo, `RESUMEN.md` |
+| `modelo/v3/datos/` | descargadores (Open-Meteo, ICEN, IMERG diario) e insumos versionados (`raw/openmeteo/era5_land.parquet`, `raw/icen/ICEN.txt`) |
+| `modelo/v3_1/entrega/` | **entrega al dashboard** (nivel M3 por defecto) y ejemplo 2022-23 |
+| `docs/` | diccionario de datos (.docx, generado con `docs/fuente_diccionario/gen.js`), informe de resultados |
+
+**Histórico y exploratorio** (cada carpeta tiene su script y su resumen; no hace falta para replicar):
+
 | Carpeta | Contenido |
 |---|---|
-| `terreno/` | cuencas de las 17 quebradas (FABDEM), `quebradas.csv`, alias del catálogo |
-| `catalogo_huaicos_chosica/` | catálogo de huaicos y etiquetas horarias (v1 y v2: horas vagas como rango) |
-| `lluvia/` | descarga de IMERG Early y variables de lluvia |
-| `modelo/` | modelos anteriores (v1, dos piezas, etiquetas v2): historial en `CLAUDE.md` |
-| `modelo/v3/` | enfoque por evento: fases A–E, verificaciones, **modelo final** (`final/`), ficha del modelo, `RESUMEN.md` |
-| `modelo/v3_1/` | mejoras pre-registradas (M1 zona ampliada, M3 nivel), `RESUMEN.md` y la **entrega al dashboard** (`entrega/`) |
-| `docs/` | diccionario de datos (.docx, generado con `docs/fuente_diccionario/gen.js`), informe de resultados |
+| `modelo/` (raíz), `modelo/dos_piezas/`, `modelo/mejoras/`, `modelo/etiquetas_v2/` | modelos anteriores al v3: por quebrada (v1), dos piezas, mejoras R0–R3, re-corrida con etiquetas v2 |
+| `modelo/v3/{B (B2), C, D, E, F}` | fases del v3 probadas y descartadas o diagnósticas: ERA5, ficha de similitud, catálogo multizona, modelo diario multizona, walk-forward |
+| `modelo/v3_1/{M1, M3}` | mejoras pre-registradas (zona ampliada; nivel con lluvia reciente) |
 | `experiments/` | comparación de fuentes de lluvia (PERSIANN-CCS) y solicitud de pluviómetros a SENAMHI (`precipitation_source_comparison/docs/`) |
+| `imerg_data/`, `era5_data/`, `PISCOp_h/` | datos de las primeras pruebas de validación |
 
-Los datos pesados (IMERG, ERA5, parquets) **no van a git**: se regeneran con los scripts de descarga.
+Los insumos que usa el modelo final están en git. Lo regenerable no se versiona: cachés y parquets intermedios (`modelo/v3/_cache/`, `lluvia/*.parquet`) y los datos de las fases exploratorias (`modelo/v3/datos/raw/`, salvo ERA5-Land e ICEN).
 Las credenciales (`_netrc` de Earthdata, `.cdsapirc`) nunca van en el código ni en el repositorio.
 
 ## Limitaciones principales
