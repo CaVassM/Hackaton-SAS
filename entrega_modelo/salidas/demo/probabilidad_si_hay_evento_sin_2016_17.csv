@@ -1,0 +1,18 @@
+﻿quebrada_id,quebrada,P2,descripcion
+carossio,Carossio,0.2499,probabilidad de que la quebrada se active si hay un temporal en la zona
+corrales,Corrales,0.2643,probabilidad de que la quebrada se active si hay un temporal en la zona
+pedregal,Pedregal,0.4833,probabilidad de que la quebrada se active si hay un temporal en la zona
+california,California,0.5744,probabilidad de que la quebrada se active si hay un temporal en la zona
+la_ronda,La Ronda,0.2176,probabilidad de que la quebrada se active si hay un temporal en la zona
+quirio,Quirio,0.5639,probabilidad de que la quebrada se active si hay un temporal en la zona
+santa_maria,Santa María,0.5557,probabilidad de que la quebrada se active si hay un temporal en la zona
+chacrasana,Chacrasana,0.5595,probabilidad de que la quebrada se active si hay un temporal en la zona
+libertad,Libertad,0.2577,probabilidad de que la quebrada se active si hay un temporal en la zona
+mariscal_castilla,Mariscal Castilla,0.4213,probabilidad de que la quebrada se active si hay un temporal en la zona
+rosario,Rosario,0.3197,probabilidad de que la quebrada se active si hay un temporal en la zona
+el_vallecito,El Vallecito,0.2858,probabilidad de que la quebrada se active si hay un temporal en la zona
+la_cantuta,La Cantuta,0.3157,probabilidad de que la quebrada se active si hay un temporal en la zona
+santo_domingo,Santo Domingo,0.3803,probabilidad de que la quebrada se active si hay un temporal en la zona
+alto_peru,Alto Perú,0.1659,probabilidad de que la quebrada se active si hay un temporal en la zona
+huampani,Huampaní,0.2163,probabilidad de que la quebrada se active si hay un temporal en la zona
+buenos_aires,Buenos Aires,0.1685,probabilidad de que la quebrada se active si hay un temporal en la zona

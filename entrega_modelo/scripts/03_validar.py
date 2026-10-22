@@ -8,6 +8,8 @@ Equivale a modelo/v3/comun_v3.py evaluar_loso y bootstrap (repo).
 Salida: salidas/metricas_validacion.csv      Uso: python entrega_modelo/scripts/03_validar.py
 Resultado esperado: TSS 0.49 (IC 90 % 0.15-0.70), 9 de 13 huaicos, POFD 0.199.
 """
+import json
+
 import numpy as np
 import pandas as pd
 
@@ -41,7 +43,16 @@ def main():
     p2, p2r = pd.read_csv(L.MODELO / "p2.csv").set_index("quebrada_id").p2, pd.read_csv(L.REFERENCIA / "p2.csv").set_index("quebrada_id").p2
     if not np.allclose(p2.sort_index(), p2r.sort_index(), rtol=1e-9, atol=0):
         fallas.append("P2 distinto de la referencia")
-    print("\nComparación con salidas/referencia/ (modelo final del repo): " + ("IGUAL (métricas, IC, umbrales y P2)" if not fallas else "DIFERENCIAS:"))
+    cal = json.loads((L.MODELO / "calibracion.json").read_text(encoding="utf-8"))["por_H"]
+    cal_r = json.loads((L.REFERENCIA / "calibracion.json").read_text(encoding="utf-8"))["por_H"]
+    for H in cal_r:
+        for k in ("a", "b", "kappa", "tasa_base"):
+            if not np.isclose(cal[H][k], cal_r[H][k], rtol=1e-9, atol=0):
+                fallas.append(f"calibración H={H} {k}: {cal[H][k]} vs referencia {cal_r[H][k]}")
+    E, Er = pd.read_csv(L.MODELO / "calibracion_escala_final.csv"), pd.read_csv(L.REFERENCIA / "calibracion_escala_final.csv")
+    if not np.allclose(E[["p_final", "p_loso"]], Er[["p_final", "p_loso"]], rtol=1e-9, atol=0):
+        fallas.append("rejilla de escala del modelo final distinta de la referencia")
+    print("\nComparación con salidas/referencia/ (modelo final del repo): " + ("IGUAL (métricas, IC, umbrales, P2 y calibración)" if not fallas else "DIFERENCIAS:"))
     for f in fallas:
         print("  - " + f)
 

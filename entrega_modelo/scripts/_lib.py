@@ -264,6 +264,75 @@ def p2(entrenar=None):
     return ((n_act + K_P2 * pt) / (n + K_P2)).rename("p2")
 
 
+# --------------------------------------------------------------------------- calibración  [modelo/v3/final/calibracion.py]
+# P(quebrada q se activa en (t, t+H]) = p_cal(t, H) * kappa_H * P2(q); p_cal = sigmoid(a_H + b_H logit(p_zona)) (Platt sobre las predicciones LOSO);
+# kappa_H = quebradas activadas en promedio en las ventanas con huaico / suma(P2). Orden en H: máximo acumulado.
+EPS = 1e-6
+
+
+def logit(p):
+    p = np.clip(np.asarray(p, float), EPS, 1 - EPS)
+    return np.log(p / (1 - p))
+
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
+def calibrar(oof, p2s, excluir=None):
+    """[calibracion.py ajustar] por H: a, b, kappa, tasa base; con las predicciones LOSO (oof: hora, H, y, temporada, p), sin `excluir` si se indica.
+    p2s debe ser el P2 del mismo pliegue (el de todas las tormentas para el modelo final)."""
+    from sklearn.linear_model import LogisticRegression
+
+    n = pd.read_csv(IN / "quebradas_activadas_por_ventana.csv", parse_dates=["hora"])
+    d = oof[oof.y.notna()]
+    if excluir:
+        d = d[d.temporada != excluir]
+    d = d.merge(n, on=["hora", "H"], how="left")
+    out = {}
+    for H in HS:
+        g = d[d.H == H]
+        lr = LogisticRegression(C=1e6, max_iter=1000).fit(logit(g.p)[:, None], g.y.to_numpy())
+        n_medio = float(g.loc[g.y == 1, "n_quebradas"].mean())
+        out[H] = dict(a=float(lr.intercept_[0]), b=float(lr.coef_[0, 0]), kappa=n_medio / float(p2s.sum()), tasa_base=float(g.y.mean()),
+                      n_quebradas_medio=n_medio, suma_p2=float(p2s.sum()), filas=len(g), positivos=int(g.y.sum()))
+    return out
+
+
+def p_calibrada(cal, pz):
+    """{H: p_zona en escala LOSO} -> {H: p_cal}, con máximo acumulado en H."""
+    pc = np.maximum.accumulate(np.vstack([sigmoid(cal[H]["a"] + cal[H]["b"] * logit(pz[H])) for H in HS]), axis=0)
+    return {H: pc[i] for i, H in enumerate(HS)}
+
+
+def p_zona_kappa(cal, pc):
+    """{H: p_cal} -> {H: p_cal * kappa_H}, con máximo acumulado en H (la probabilidad de la quebrada q es este valor * P2(q))."""
+    zk = np.maximum.accumulate(np.vstack([pc[H] * cal[H]["kappa"] for H in HS]), axis=0)
+    return {H: zk[i] for i, H in enumerate(HS)}
+
+
+def escala_final(m, z, oof):
+    """[calibracion.py escala_final] rejilla de cuantiles por H: p_zona del modelo final -> p_zona LOSO (filas con etiqueta)."""
+    q = np.linspace(0, 1, 2001)
+    lab = z.y.notna().to_numpy()
+    filas = []
+    for H in HS:
+        sel = lab & (z.H == H).to_numpy()
+        s_fin = m.predict_proba(z.loc[sel, VARIABLES])[:, 1]
+        filas.append(pd.DataFrame({"H": H, "cuantil": q, "p_final": np.quantile(s_fin, q), "p_loso": np.quantile(oof.p.to_numpy()[sel], q)}))
+    return pd.concat(filas, ignore_index=True)
+
+
+def a_escala_loso(esc, pz_final):
+    """[calibracion.py a_escala_loso] el modelo final puntúa en otra escala que los LOSO: se traslada por cuantil antes de Platt."""
+    out = {}
+    for H in HS:
+        g = esc[esc.H == H]
+        x, i = np.unique(g.p_final.to_numpy(), return_index=True)
+        out[H] = np.interp(pz_final[H], x, g.p_loso.to_numpy()[i])
+    return out
+
+
 # --------------------------------------------------------------------------- salidas  [entrega_modelo/scripts/predecir_demo.py]
 QUEBRADAS = {"carossio": "Carossio", "corrales": "Corrales", "pedregal": "Pedregal", "california": "California", "la_ronda": "La Ronda",
              "quirio": "Quirio", "santa_maria": "Santa María", "chacrasana": "Chacrasana", "libertad": "Libertad",
@@ -275,8 +344,9 @@ def tiempo(h):
     return [f"{t.day}/{t.month:02d}/{t.year} {t:%H:%M}" for t in pd.DatetimeIndex(h)]
 
 
-def archivo_a(horas, pz, p2s, paso=60):
-    filas = [[h, q, nombre] + [round(float(pz[H][i] * p2s[q]), 5) for H in HS] for i, h in enumerate(horas) for q, nombre in QUEBRADAS.items()]
+def archivo_a(horas, zk, p2s, paso=60):
+    """prob_ml_Hh = p_cal(t, H) * kappa_H * P2(q) = zk[H] * P2(q) (zk de p_zona_kappa), 5 decimales."""
+    filas = [[h, q, nombre] + [round(float(zk[H][i] * p2s[q]), 5) for H in HS] for i, h in enumerate(horas) for q, nombre in QUEBRADAS.items()]
     A = pd.DataFrame(filas, columns=["hora", "quebrada_id", "quebrada"] + [f"prob_ml_{H}h" for H in HS])
     if paso == 30:
         A = pd.concat([A, A.assign(hora=A.hora + pd.Timedelta(minutes=30))]).sort_values("hora", kind="stable").reset_index(drop=True)
@@ -284,7 +354,8 @@ def archivo_a(horas, pz, p2s, paso=60):
     return A.drop(columns="hora")
 
 
-def archivo_b(horas, X, pz, u):
+def archivo_b(horas, X, pz, u, pc, cal):
+    """nivel y nivel_con_lluvia (sin cambios) + p_zona_calibrada (p_cal) y veces_lo_normal (= p_cal / tasa base del H)."""
     filas = []
     for H in HS:
         r, a, p, lluvia = u[H]["rojo"], u[H]["amarillo"], pz[H], X.i6h.to_numpy()
@@ -292,7 +363,17 @@ def archivo_b(horas, X, pz, u):
         oficial = np.where(supera, "rojo", np.where(p >= a, "amarillo", "verde"))                                   # nivel (validado)
         con_lluvia = np.where(supera & (lluvia > NIVEL_LLUVIA_MIN), "rojo", np.where(supera | (p >= a), "amarillo", "verde"))  # variante
         filas.append(pd.DataFrame({"hora": horas, "H": H, "p_zona": np.round(p, 5), "umbral_rojo": round(r, 5), "umbral_amarillo": round(a, 5),
-                                   "nivel": oficial, "nivel_con_lluvia": con_lluvia, "lluvia_6h_mm": np.round(lluvia, 2)}))
+                                   "nivel": oficial, "nivel_con_lluvia": con_lluvia, "lluvia_6h_mm": np.round(lluvia, 2),
+                                   "p_zona_calibrada": np.round(pc[H], 5), "veces_lo_normal": np.round(pc[H] / cal[H]["tasa_base"], 2)}))
     B = pd.concat(filas).sort_values(["hora", "H"], kind="stable").reset_index(drop=True)
     B.insert(0, "Tiempo", tiempo(B.hora))
     return B.drop(columns="hora")
+
+
+DESCRIPCION_D = "probabilidad de que la quebrada se active si hay un temporal en la zona"
+
+
+def archivo_d(p2s):
+    """Archivo D: P2 por quebrada = probabilidad de que la quebrada se active si hay un temporal en la zona."""
+    return pd.DataFrame({"quebrada_id": list(QUEBRADAS), "quebrada": list(QUEBRADAS.values()), "P2": [round(float(p2s[q]), 4) for q in QUEBRADAS],
+                         "descripcion": DESCRIPCION_D})

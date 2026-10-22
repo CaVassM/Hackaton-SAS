@@ -1,10 +1,12 @@
 """(Mantenedor) Exporta los insumos del paquete a entrega_modelo/inputs/ (CSV) y la referencia a entrega_modelo/salidas/referencia/, DESDE EL REPO.
 El equipo NO necesita correrlo: los CSV ya vienen en inputs/. Usa del repo:
   modelo/v3/comun_v3.py (lluvia_celdas, etiquetar, eventos_lluvia, lluvia_zona, huaicos_v2), modelo/dos_piezas/base.py (etiquetas_zona, activaciones),
-  modelo/v3/B/fase_b1_eventos.parquet y fase_b1_resumen.csv, modelo/v3/final/metadatos_final.json y p2_final.csv, modelo/v3/datos/raw/ (ERA5-Land, ICEN).
+  modelo/v3/B/fase_b1_eventos.parquet y fase_b1_resumen.csv, modelo/v3/final/metadatos_final.json, p2_final.csv, calibracion.json y
+  calibracion_escala_final.csv (correr antes modelo/v3/final/calibracion.py), modelo/v3/datos/raw/ (ERA5-Land, ICEN).
 Uso (desde la raíz del repo): python entrega_modelo/scripts/00_exportar_inputs.py
 """
 import json
+import shutil
 import sys
 from pathlib import Path
 
@@ -56,7 +58,11 @@ def main():
     q[["quebrada_id", "nombre", "area_km2", "log10_area_km2", "pendiente_media", "salida_tipo", "salida_lat", "salida_lon"]].to_csv(IN / "quebradas_terreno.csv", index=False)
     # 6. etiquetas de zona v2 (hora, H, y): y = 1 si alguna de las 17 quebradas tiene huaico en (t, t+H]
     base.cargar_etiquetas = lambda H: pd.read_parquet(RAIZ / "catalogo_huaicos_chosica" / f"etiquetas_horarias_v2_H{H}.parquet")
-    base.etiquetas_zona()[["hora", "H", "y"]].to_csv(IN / "etiquetas_zona.csv", index=False)
+    ez = base.etiquetas_zona()
+    ez[["hora", "H", "y"]].to_csv(IN / "etiquetas_zona.csv", index=False)
+    # 6b. quebradas activadas en cada ventana de zona con huaico (y = 1): para kappa de la calibración (modelo/v3/final/calibracion.py)
+    ez.loc[ez.y == 1, ["hora", "H", "n_y1"]].rename(columns={"n_y1": "n_quebradas"}).astype({"n_quebradas": int}).to_csv(
+        IN / "quebradas_activadas_por_ventana.csv", index=False)
     # 7. eventos de lluvia (los evaluados: sin los "desconocidos") + días ciegos
     ev = pd.read_parquet(V3 / "B" / "fase_b1_eventos.parquet")
     cols = ["inicio", "fin", "duracion_h", "total_mm", "max1", "max3", "max6", "temporada", "disparador", "huaico_fin", "tormenta"]
@@ -70,6 +76,8 @@ def main():
     pd.read_csv(V3 / "final" / "p2_final.csv").rename(columns={"Unnamed: 0": "quebrada_id", "p2_mezcla": "p2"}).to_csv(REF / "p2.csv", index=False)
     b1 = pd.read_csv(V3 / "B" / "fase_b1_resumen.csv")
     b1[b1.metodo.str.startswith("(a) A2 + estado (humedad 5 d)")].assign(metodo="B1 (P1 del modelo final), LOSO por evento").to_csv(REF / "metricas_validacion.csv", index=False)
+    shutil.copy(V3 / "final" / "calibracion.json", REF / "calibracion.json")
+    shutil.copy(V3 / "final" / "calibracion_escala_final.csv", REF / "calibracion_escala_final.csv")
     for f in sorted(IN.glob("*.csv")):
         print(f"  {f.relative_to(RAIZ)}: {sum(1 for _ in open(f, encoding='utf-8')) - 1} filas")
 

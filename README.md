@@ -78,9 +78,9 @@ El nivel se calcula para la **zona**, que es lo validado. Las quebradas comparte
 ## Paquete para el equipo y formato de simulación (entrega_modelo/)
 `entrega_modelo/` es el modelo final v3 empaquetado para el equipo (detalle en [entrega_modelo/README.md](entrega_modelo/README.md)):
 
-- **Insumos en CSV** (`inputs/`): lluvia IMERG por celda, humedad del suelo, ICEN, activaciones, terreno de las 17 quebradas, etiquetas de zona y eventos de lluvia.
+- **Insumos en CSV** (`inputs/`): lluvia IMERG por celda, humedad del suelo, ICEN, activaciones, terreno de las 17 quebradas, etiquetas de zona, eventos de lluvia y quebradas activadas por ventana (para la calibración).
 - **Scripts `01`–`04`** (`scripts/`): características, entrenamiento, validación y predicción. **No dependen del repo**: solo leen `inputs/` y funcionan con la carpeta copiada sola.
-- **Resultados de referencia** (`salidas/referencia/`): P2, umbrales y métricas del modelo final. `03_validar.py` los compara y debe terminar en `IGUAL (métricas, IC, umbrales y P2)`, con TSS 0.49 (IC 90 % 0.15–0.70).
+- **Resultados de referencia** (`salidas/referencia/`): P2, umbrales, calibración y métricas del modelo final. `03_validar.py` los compara y debe terminar en `IGUAL (métricas, IC, umbrales, P2 y calibración)`, con TSS 0.49 (IC 90 % 0.15–0.70).
 
 Comandos, desde la raíz del repo (verificados; ~20 s en total):
 
@@ -90,7 +90,7 @@ python entrega_modelo/scripts/01_features.py
 python entrega_modelo/scripts/02_entrenar.py
 python entrega_modelo/scripts/03_validar.py
 
-# tabla de simulación de un mes FUERA DE MUESTRA (P1, umbrales y P2 sin esa temporada), por hora y por media hora
+# tabla de simulación de un mes FUERA DE MUESTRA (P1, umbrales, P2 y calibración sin esa temporada), por hora y por media hora
 python entrega_modelo/scripts/04_predecir.py --mes 2023-03 --excluir-temporada 2022-23 --paso 30
 # lo mismo con el modelo final (dentro de muestra para meses del histórico)
 python entrega_modelo/scripts/04_predecir.py --mes 2026-03 --paso 30
@@ -100,34 +100,63 @@ python entrega_modelo/scripts/04_predecir.py --mes 2026-03 --paso 30
   - `probabilidad_huayco_por_quebrada_con_tiempo_2023_03_sin_2022_23.csv` (por hora)
   - `..._30min.csv` (por media hora)
   - `detalle_zona_2023_03_sin_2022_23.csv`
+  - `probabilidad_si_hay_evento_sin_2022_23.csv` (archivo D)
 - **Sin `--paso 30`** solo se genera la versión horaria.
 - **En lugar de `--mes`** se puede pedir un rango: `--desde "2023-03-12 00:00" --hasta "2023-03-12 23:00"`.
 - **Rutas largas en Windows:** la ruta completa de cada salida no debe pasar de 260 caracteres.
 
-**Demo ya generada** (`entrega_modelo/salidas/demo/`): marzo 2017 y marzo 2023, fuera de muestra, con los archivos A, B y C. Se regenera con:
+**Demo ya generada** (`entrega_modelo/salidas/demo/`): marzo 2017 y marzo 2023, fuera de muestra, con los archivos A, B, C y D. Se regenera con:
 
 ```bash
 python entrega_modelo/scripts/predecir_demo.py --temporada 2022-23 --mes 2023-03 --paso 30
 python entrega_modelo/scripts/predecir_demo.py --temporada 2016-17 --mes 2017-03 --paso 30
 ```
 
-`predecir_demo.py` sí usa el repo (`modelo/v3/final/modelo_final.py`) y da los mismos archivos A y B que `04_predecir.py --excluir-temporada`, más el archivo C.
+`predecir_demo.py` sí usa el repo (`modelo/v3/final/modelo_final.py` y `calibracion.py`) y da los mismos archivos A, B y D que `04_predecir.py --excluir-temporada`, más el archivo C.
 
 Los archivos son UTF-8 con BOM. `Tiempo` va en formato `d/mm/yyyy HH:MM`, en hora de Lima, y marca el inicio de la hora.
 
 | Archivo | Columnas |
 |---|---|
 | **A** `probabilidad_huayco_por_quebrada_con_tiempo_<AAAA_MM>[_sin_<temporada>][_30min].csv` | `Tiempo, quebrada_id, quebrada, prob_ml_3h, prob_ml_6h, prob_ml_12h, prob_ml_24h`. Son 17 filas por hora, en orden fijo. La versión de 30 min repite el valor de su hora. |
-| **B** `detalle_zona_<AAAA_MM>[_sin_<temporada>].csv` | `Tiempo, H, p_zona, umbral_rojo, umbral_amarillo, nivel, nivel_con_lluvia, lluvia_6h_mm`, con 4 filas por hora (una por H). `nivel` es el **oficial**: rojo si `p_zona ≥ umbral_rojo`, como en la validación. `nivel_con_lluvia` es la variante en la que el rojo exige además lluvia IMERG > 0.1 mm en las últimas 6 h; si no la hay, queda en amarillo. |
+| **B** `detalle_zona_<AAAA_MM>[_sin_<temporada>].csv` | `Tiempo, H, p_zona, umbral_rojo, umbral_amarillo, nivel, nivel_con_lluvia, lluvia_6h_mm, p_zona_calibrada, veces_lo_normal`, con 4 filas por hora (una por H). <br>`nivel` es el **oficial**: rojo si `p_zona ≥ umbral_rojo`, como en la validación. <br>`nivel_con_lluvia` es la variante en la que el rojo exige además lluvia IMERG > 0.1 mm en las últimas 6 h; si no la hay, queda en amarillo. <br>`p_zona_calibrada` es la probabilidad calibrada de un huaico en la zona, y `veces_lo_normal` = `p_zona_calibrada` / tasa base del H. |
 | **C** `huaicos_registrados_<AAAA_MM>.csv` (solo la demo) | `fecha, hora_inicio, hora_fin, quebrada_id`: los huaicos del catálogo en las 17 quebradas. Las horas son el rango v2 y quedan vacías si la fuente no da hora. |
+| **D** `probabilidad_si_hay_evento.csv` | `quebrada_id, quebrada, P2, descripcion`: probabilidad de que la quebrada se active si hay un temporal en la zona. En la demo es el P2 calculado sin 2022-23. |
 
-- **Qué es `prob_ml_Hh`:** `p_zona(H) × P2(quebrada)`, con 5 decimales.
-  - Es un **puntaje de riesgo por quebrada, no una probabilidad calibrada**.
-  - El nivel de alerta es de la **zona** y está en el archivo B.
-- **Es el mismo dato que `entrega_dashboard.py`, en formato ancho:**
-  - `prob_ml_Hh` = `score` de la fila (quebrada, hora, H).
-  - `p_zona`, `nivel`, `nivel_con_lluvia` y `lluvia_6h_mm` del archivo B son los de cada (hora, H).
-  - Comprobado con marzo 2023 de `ejemplo_2022_23_m3.csv`: los niveles y `p_zona` son idénticos. En el puntaje solo cambia el redondeo del quinto decimal, en 3 de 50 592 filas.
+- **Qué es `prob_ml_Hh`:** `p_cal(t, H) × kappa_H × P2(q)`, con 5 decimales. Es la **probabilidad calibrada** de que la quebrada se active en (t, t+H] (ver abajo). El nivel de alerta es de la **zona** y está en el archivo B.
+- **Mismo dato que `entrega_dashboard.py`, en formato ancho, salvo `prob_ml_Hh`:**
+  - `p_zona`, `nivel`, `nivel_con_lluvia` y `lluvia_6h_mm` del archivo B son los de cada (hora, H). Comprobado con marzo 2023 de `ejemplo_2022_23_m3.csv`: son idénticos.
+  - `prob_ml_Hh` ya **no** es el `score` (`p_zona × P2`) de `entrega_dashboard.py`, sino su versión calibrada. El orden de las quebradas dentro de una hora y un H es el mismo.
+
+### Probabilidad calibrada por quebrada
+
+> P(quebrada q se activa en (t, t+H]) = `p_cal(t, H) × kappa_H × P2(q)`
+
+El script es `modelo/v3/final/calibracion.py`. P1, P2 y los umbrales del v3 no cambian.
+
+- **`p_cal`** = `sigmoid(a_H + b_H · logit(p_zona))`: calibración de Platt.
+  - Se ajusta por H sobre las predicciones fuera de muestra de P1 (`_cache/oof_b1.parquet`) y la etiqueta de zona.
+  - Para el modelo final, `p_zona` se lleva antes a la escala LOSO por cuantil, como los umbrales.
+- **`kappa_H`** = quebradas activadas en promedio en las ventanas con huaico (3.4–3.5) / suma de P2 (5.70), es decir ≈ 0.6.
+
+Supuestos:
+- **La calibración de Platt corrige el peso de los positivos.** El modelo se entrena con `scale_pos_weight`, que infla `p_zona`; Platt no cambia el orden de las horas.
+- **`kappa` lleva P2 de la tormenta a la ventana** (t, t+H].
+- **Dado un evento en la zona, qué quebradas se activan no depende de la lluvia de la hora.** Solo depende de P2.
+
+Validación cruzada por temporada (calibrador ajustado sin la temporada s y aplicado a s; tabla completa en `modelo/v3/final/calibracion_validacion.csv`):
+
+| H | `p_cal` media en el 1 % más alto de `p_zona` | Frecuencia observada ahí | Suma de `p_cal` | Positivos |
+|---|---|---|---|---|
+| 3 | 0.034 | 0.031 | 38.7 | 32 |
+| 6 | 0.059 | 0.051 | 78.6 | 68 |
+| 12 | 0.113 | 0.110 | 175.3 | 158 |
+| 24 | 0.183 | 0.216 | 342.7 | 326 |
+
+- **Por quebrada:** la suma de `p_cal · kappa · P2(q)` da 131 frente a 108 horas activas en H = 3, y 1 197 frente a 1 138 en H = 24 (`calibracion_por_quebrada.csv`).
+- **Las probabilidades son bajas porque los huaicos son raros.** Hay un huaico en alguna de las 17 quebradas en el 0.08 % de las ventanas de 3 h.
+  - Ejemplo: el 14/03/2023 a las 12:00, Quirio tiene 1.8 % en las próximas 3 h, pero eso es **63 veces lo normal** y la zona está en **rojo**.
+  - Para comunicar conviene usar `veces_lo_normal` y el nivel.
 
 ## Datos en operación (qué hay que actualizar cada hora)
 | Variable | Fuente | Retraso |
