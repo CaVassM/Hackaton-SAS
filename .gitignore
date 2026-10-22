@@ -15,3 +15,4 @@ catalogo_huaicos_chosica/etiquetas_diarias.parquet
 catalogo_huaicos_chosica/v0_por_nombre/
 # respaldos de cachés de replicar.py --recalcular
 modelo/v3/_respaldo_cache_*/
+modelo/v3/A/fase_a_resumen_sin_referencias.csv

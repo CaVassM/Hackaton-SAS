@@ -5,6 +5,7 @@ Uso (desde la raíz del repo, con el entorno de requirements.txt):
   python replicar.py --recalcular       # igual, pero mueve antes los cachés a un respaldo para recalcular TODO desde los insumos
   python replicar.py --desde-partes     # además reconstruye el catálogo y las etiquetas v1 desde las partes del catálogo
   python replicar.py --descargar        # además vuelve a bajar los insumos (IMERG Early requiere cuenta Earthdata en _netrc / .netrc)
+  python replicar.py --con-referencias  # además regenera los modelos ANTERIORES que la Fase A usa solo como comparación (~40 min más)
   python replicar.py --solo-verificar   # solo compara las salidas actuales con la referencia
   python replicar.py --generar-referencia   # (mantenedor) guarda las salidas actuales como referencia
 Pasos (cada uno es un script que también se puede correr solo; ver REPLICAR.md):
@@ -140,6 +141,8 @@ def main():
         correr("[1] catálogo desde las partes", [CAT / "construir_catalogo.py"], cwd=CAT)
         correr("[1] etiquetas v1 por quebrada", [CAT / "etiquetas_por_quebrada.py"], cwd=CAT)
     correr("[2] etiquetas v2 (verifica que reproduce v1 bit a bit)", [CAT / "etiquetas_v2.py"])
+    if "--con-referencias" in a:
+        correr("[2b] modelos anteriores (solo comparación en la Fase A)", [RAIZ / "modelo" / "etiquetas_v2" / "correr.py"])
     correr("[3] Fase A: eventos de lluvia y modelos de intensidad", [V3 / "A" / "fase_a.py"])
     correr("[4] Fase B1: intensidad + estado", [V3 / "B" / "fase_b1.py"])
     correr("[5] modelo final: P1 (todas las temporadas), umbrales por H y P2", [V3 / "final" / "modelo_final.py", "entrenar"])

@@ -12,7 +12,7 @@ en los no disparadores, todo el evento + 3 h):
                     en las últimas 6 h disponibles (latencia 4 h). A2_mas_72h: además lluvia de 24, 48 y 72 h. Sin 14 d ni lluvia efectiva. LOSO, H como columna.
 Umbral de cada temporada = el que maximiza el TSS en las otras (por evento). IC 90 %: bootstrap de tormentas.
 % alertas 2024-25: de los eventos con alerta (fuera de muestra), qué % es de 2024-25 (temporada sin huaicos catalogados).
-Salidas: modelo/v3/A/fase_a_resumen.csv, fase_a_eventos.parquet
+Salidas: modelo/v3/A/fase_a_resumen.csv (o fase_a_resumen_sin_referencias.csv si faltan las referencias de modelos anteriores), fase_a_eventos.parquet
 """
 import sys
 from pathlib import Path
@@ -117,13 +117,20 @@ def main():
     for lat, suf in ((0, "sin_lat"), (LAT, "lat4")):
         ev[f"id_{suf}"] = [score_id(z, r.inicio, ventana(r, lat)) for r in ev.itertuples()]
     # modelos (puntaje horario de la zona, H = 3)
-    act = pd.read_parquet(ETQ / "oof_actual_v2.parquet")
-    act = act[act.H == H_EV].groupby("hora").p.max()
-    zo = pd.read_parquet(ETQ / "oof_zona_v2.parquet")
-    zo = zo[zo.H == H_EV].set_index("hora").p_xgb0_loso
+    # Referencias de modelos ANTERIORES (solo para la tabla comparativa; el modelo final no las usa). Son regenerables y no van a git
+    # (modelo/etiquetas_v2/correr.py, ~40 min). Si faltan, se omiten esas dos filas y el resumen va a fase_a_resumen_sin_referencias.csv.
+    con_ref = (ETQ / "oof_actual_v2.parquet").exists() and (ETQ / "oof_zona_v2.parquet").exists()
+    series = {}
+    if con_ref:
+        act = pd.read_parquet(ETQ / "oof_actual_v2.parquet")
+        series["actual"] = act[act.H == H_EV].groupby("hora").p.max()
+        zo = pd.read_parquet(ETQ / "oof_zona_v2.parquet")
+        series["dos_piezas"] = zo[zo.H == H_EV].set_index("hora").p_xgb0_loso
+    else:
+        print("AVISO: faltan modelo/etiquetas_v2/oof_{actual,zona}_v2.parquet (modelos anteriores): se omiten esas dos referencias.", flush=True)
     a2 = oof_a2()
     a2 = a2[a2.H == H_EV].set_index("hora")
-    series = {"actual": act, "dos_piezas": zo, "A2_intensidad": a2.A2_intensidad, "A2_mas_72h": a2.A2_mas_72h}
+    series.update({"A2_intensidad": a2.A2_intensidad, "A2_mas_72h": a2.A2_mas_72h})
     for k, s in series.items():
         ev[k] = [score_model_safe(s, r) for r in ev.itertuples()]
     ev.to_parquet(AQUI / "fase_a_eventos.parquet", index=False)
@@ -132,6 +139,7 @@ def main():
                "I-D calibrado, sin latencia": ("id_sin_lat", None), "I-D calibrado, latencia 4 h": ("id_lat4", None),
                "modelo actual (por quebrada)": ("actual", None), "dos piezas (P1)": ("dos_piezas", None),
                "A2 solo intensidad": ("A2_intensidad", None), "A2 + 24-72 h": ("A2_mas_72h", None)}
+    metodos = {k: v for k, v in metodos.items() if v[0] in ev.columns}
     filas = []
     for nombre, (col, fijo) in metodos.items():
         r, taus, (t, pod, pofd, tp, fn, fp, tn) = evaluar_loso(ev, ciegos, col, fijo)
@@ -142,9 +150,9 @@ def main():
                           pct_alertas_2024_25=round(100 * (al.temporada == "2024-25").mean(), 0) if len(al) else np.nan,
                           umbral_mediano=float(np.median(list(taus.values())))))
     res = pd.DataFrame(filas)
-    res.to_csv(AQUI / "fase_a_resumen.csv", index=False)
+    res.to_csv(AQUI / ("fase_a_resumen.csv" if con_ref else "fase_a_resumen_sin_referencias.csv"), index=False)
     print(res.to_string(index=False))
-    d = ev[ev.disparador == 1][["inicio", "huaico_fin", "tormenta", "id_sin_lat", "id_lat4", "actual", "dos_piezas", "A2_intensidad"]]
+    d = ev[ev.disparador == 1][[c for c in ["inicio", "huaico_fin", "tormenta", "id_sin_lat", "id_lat4", "actual", "dos_piezas", "A2_intensidad"] if c in ev.columns]]
     print("\nEventos disparadores (puntajes)\n" + d.round(3).to_string(index=False))
     print("\nPercentiles 50/90/99 de los NO disparadores:\n" + ev[ev.disparador == 0][list(series) + ["id_sin_lat", "id_lat4"]].quantile([.5, .9, .99]).round(3).to_string())
 
