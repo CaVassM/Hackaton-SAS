@@ -1,0 +1,31 @@
+﻿nombre_catalogo,n_eventos,quebrada_id,motivo
+Huaycoloro,7,,en_piloto = False: cuenca grande fuera del recorte; trabajo futuro
+Rioseco,4,,en_piloto = False: cuenca grande fuera del recorte; trabajo futuro
+Los Laureles,1,,sin ubicación; en_piloto = False (probable Chaclacayo)
+Los Molles,1,,sin ubicación
+Lechuceros,1,,sin ubicación
+La Trinchera,1,,sin ubicación
+Alto Perú,1,alto_peru,
+Buenos Aires,1,buenos_aires,
+California,5,california,
+Carossio,5,carossio,
+Inca Kola,2,carossio,alias de Carossio: su cuenca (P08) cae entera dentro de la 41; área 0.44 km² y cota 1679 m vs Cuadro 04 0.4 km² y 1675 m
+Moyopampa,1,carossio,alias (fase 3) de Carossio
+Chacrasana,8,chacrasana,
+Corrales,4,corrales,
+Rayos de Sol,1,corrales,alias (fase 3) de Corrales
+El Vallecito,2,el_vallecito,
+Huampaní,1,huampani,
+La Cantuta,3,la_cantuta,
+La Ronda,1,la_ronda,
+Libertad,4,libertad,
+Mariscal Castilla,4,mariscal_castilla,
+San Antonio de Pedregal,6,pedregal,alias (fase 3) de Pedregal
+Pedregal,4,pedregal,
+Quirio,8,quirio,
+Nicolás de Piérola,3,quirio,alias (fase 3) de Quirio
+Tarazona,2,quirio,"alias de Quirio: punto dentro de su cuenca, a 117 m de la salida"
+Rosario,3,rosario,
+Yanacoto,6,santa_maria,fusionada con Santa María (Yanacoto): su cuenca (P02) es el 78 % de la 30 y cae entera dentro
+Santa María,2,santa_maria,
+Santo Domingo,3,santo_domingo,

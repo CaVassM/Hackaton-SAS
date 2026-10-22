@@ -1,0 +1,226 @@
+# Proyecto: alerta temprana de huaicos — Lurigancho-Chosica (SAS Hackathon 2026)
+
+## Contexto
+- Equipo de Gerardo Salazar. Hackatón 1–31 oct 2026 (entornos SAS cierran a fin de octubre; video 2 nov).
+- Camilo (yo) hace el **modelo predictivo**: probabilidad de huaico por quebrada, por hora y horizonte H (3, 6, 12, 24 h).
+  Riesgo/exposición, dashboard, Telegram y RAG los hacen otros.
+- Una fila del modelo = una quebrada en una hora. Etiqueta y_H = 1 si hay huaico en (t, t+H].
+- Lluvia de entrada: IMERG Early (0.1°, 30 min, ~4 h de latencia). PISCOp_h y ERA5 solo para validar (no entran al modelo).
+
+## Cómo trabajar conmigo
+- Explica paso a paso, en español, con viñetas cortas. Define los términos técnicos antes de usarlos, pero usa su nombre formal (p. ej. *flow accumulation*, *pour point*).
+- Nada de ejercicios de práctica: estamos resolviendo el problema.
+- Ve de a una tarea; muestra resultados con pocos números clave y como mucho una imagen.
+
+## Entorno
+- Windows, VS Code. Python: entorno conda `base` (tiene whitebox, rasterio, geopandas, pypdf). `conda` no está en el PATH de la terminal: usa `C:\Users\Camil\anaconda3\python.exe` o el kernel `python3` (base) del notebook.
+- WhiteboxTools: llama siempre `wbt.set_verbose_mode(False)` (los logs "Progress: x%" son enormes).
+- No imprimas arrays ni rasters completos.
+- Guarda las salidas nuevas del camino del terreno en la subcarpeta `terreno/`. No borres archivos existentes.
+
+## Archivos existentes
+- `fabdem_chosica.tif`: FABDEM original (EPSG:4326).
+- `fabdem_chosica_utm18s.tif`: reproyectado a EPSG:32718, 30 m, NoData = -9999, 1097 x 930 px. Elevación 472–3874 m.
+- `fabdem_chosica_hydro.tif`: el anterior con `breach_depressions`.
+- `flow_direction_d8.tif` (D8 pointer, convención Whitebox) y `flow_accumulation_d8.tif` (en celdas; 1 celda = 900 m²).
+- `streams_{100,500,1000,2500,5000,10000}.tif`: redes por umbral. 1000 celdas = 0.9 km².
+- `revision_fabdem_chosica.ipynb`: notebook donde se hizo todo lo anterior.
+- `catalogo_huaicos_chosica/`: catálogo de eventos (`catalogo_huaicos_chosica.csv`, 130 filas; 99 en Chosica, 30 nombres).
+  La columna `quebrada` mezcla quebradas con barrios/sectores: **usa siempre `terreno/alias_catalogo.csv`** (nombre del catálogo → `quebrada_id`).
+  - Etiquetas finales: `etiquetas_horarias_H{3,6,12,24}.parquet` (columnas hora, quebrada_id, H, y), generadas con `etiquetas_por_quebrada.py`.
+  - `v0_por_nombre/etiquetas_horarias_H6.parquet` y `etiquetas_diarias.parquet` son la versión anterior por nombre (no usar).
+
+## Decisiones tomadas
+- DEM: FABDEM (sin edificios ni árboles), no Copernicus DSM. 30 m es suficiente.
+- Preparación hidrológica: `breach_depressions` (no `fill`), D8.
+- **El umbral de acumulación NO define las cuencas**: la cuenca depende solo de la dirección de flujo + el punto de salida (*pour point*). El umbral sirve para ver cauces candidatos y para ajustar (*snap*) los puntos de salida.
+- La red de ANA y la lámina de SIGRID son **referencias**, no verdad absoluta. La lámina de SIGRID (PDF) se usa solo visualmente; no georreferenciar.
+- Capa de ANA correcta: ALA **Chillón-Rímac-Lurín** (no Huallaga Central).
+
+## Problemas conocidos
+- Ríos grandes (Rímac, Santa Eulalia) vienen de fuera del recorte: su acumulación está truncada. No importa, pero **ninguna cuenca de quebrada debe tocar el borde del raster** (si toca, está incompleta: agrandar el recorte).
+- Esquina inferior izquierda: líneas paralelas densas = zona plana/urbana, cauces poco confiables.
+
+## Camino del terreno: TERMINADO (oct 2026)
+Notebooks: `terreno/cuencas.ipynb` (fase 1), `terreno/referencia_validacion.ipynb` (fases 2–3), `terreno/quebradas_finales.ipynb` (fases 4–5 y cierre).
+
+- **Red y cuencas:** `UMBRAL_CAUCE = 500` celdas (0.45 km²; mayor F1 contra ANA Estudios con buffer de 90 m). Cauce principal = Rímac + Santa Eulalia
+  (corte 50 000 celdas + "drena a la salida del Rímac" + trazo D8 desde las entradas). 89 cuencas candidatas (`terreno/cuencas_candidatas.*`).
+- **17 quebradas finales del piloto** → `terreno/quebradas.csv` / `.geojson` / `.kml`:
+  quirio, santa_maria (incluye Yanacoto), california, la_cantuta, la_ronda, pedregal, carossio, corrales, chacrasana, santo_domingo,
+  libertad, mariscal_castilla, rosario, el_vallecito, alto_peru, buenos_aires, huampani.
+  - Ubicación: ANA (5), Cuadro Nº 04 de SIGRID 123 por km/margen/área/cota (Pedregal, Carossio, Corrales) y puntos a mano (`pendientes_ubicar.csv`).
+  - Alias en `alias_catalogo.csv`: Inca Kola y Moyopampa → carossio; Tarazona y Nicolás de Piérola → quirio; Yanacoto → santa_maria;
+    San Antonio de Pedregal → pedregal; Rayos de Sol → corrales.
+  - `salida_tipo`: "confluencia" (10) o "apice" (7, punto a mano; la cuenca excluye el cono). Chacrasana y Santo Domingo usan la candidata
+    (25, 36); sus cuencas de ápice están en `cuencas_apice_alternativas.geojson`.
+  - `confianza_cuenca = "baja"` solo en huampani (snap de 206 m > 150 m). `cuenca_pequena` (< 0.3 km²): rosario, alto_peru, buenos_aires.
+- **Excluidas:** Huaycoloro y Río Seco (cuenca grande fuera del recorte; trabajo futuro), Los Laureles (probable Chaclacayo),
+  La Trinchera, Lechuceros y Los Molles (sin ubicación). En las etiquetas: Huaycoloro, Río Seco y Los Laureles se ignoran;
+  las sin ubicar y los eventos sin nombre ponen NaN ese día en las 17 quebradas.
+- **Variables de terreno de la v1:** `log10(area_km2)` (tamaño) y `pendiente_media` (grados).
+  Correlación entre ambas: Pearson −0.69, Spearman −0.62 (criterio |r| ≤ 0.7). Melton queda fuera: r = −0.92 con log10(área) y depende de
+  `salida_tipo` (ápice vs confluencia), lo que es un artefacto de la delimitación. `largo_cauce_km` es redundante con el área (r = 0.95).
+- **Susceptibilidad INGEMMET: FUERA de la v1.** La capa vectorial regional satura (87–100 % de clase ≥ 4 en todas las cuencas); la imagen nacional
+  de 200 m varía más pero tiene 3–30 píxeles en las cuencas pequeñas, y las dos capas casi no se correlacionan (r ≈ 0.1–0.3).
+  Las columnas `vec_*` e `img_*` quedan en `quebradas.csv` para un experimento posterior.
+- `dias_con_evento` / conteos de eventos: NUNCA como feature ni para elegir variables.
+- **Cauces principales** (`terreno/cauces_quebradas.py` -> `cauces_quebradas.geojson` EPSG:4326, `cuencas_y_cauces.kml` para Google Earth, `cauces_quebradas.png`):
+  desde la cabecera (celda de mayor recorrido D8 hasta la salida) siguiendo D8 hasta el cauce principal, más allá de la salida en las de ápice. Las 17 llegan al Rímac
+  (ninguna al Santa Eulalia); largo 1.4 (rosario) a 7.9 km (la_cantuta). Los rasters se leen de la carpeta del proyecto (fuera del repo).
+- Fuentes de referencia descargadas en `terreno/fuentes/` (ANA, INGEMMET, SIGRID 123, 1610, 19950, 6441, 14474); ver `fuentes.csv`.
+
+## Fuentes útiles (SIGRID / CENEPRED)
+- Mapa de Peligros Ciudad de Chosica (lámina de hidrografía): sigrid.cenepred.gob.pe/sigridv3/documento/123
+- ANA, 7 puntos críticos Lurigancho-Chosica: sigrid.cenepred.gob.pe/sigridv3/documento/14474
+- Evaluación de riesgo por flujo de detritos, CP Lurigancho: sigrid.cenepred.gob.pe/sigridv3/documento/6441
+- Evaluación de riesgos, quebradas Carossio y Libertad: sigrid.cenepred.gob.pe/sigridv3/documento/1610
+- Faja marginal de la quebrada Santo Domingo (R.D. ANA): sigrid.cenepred.gob.pe/sigridv3/storage/biblioteca/19950_resolucion_directoral.pdf
+- FABDEM: data.bris.ac.uk/data/dataset/s5hqmjcdj8yo2ibzi9b4ew3sn (CC BY-NC-SA 4.0, citar)
+
+## Camino de la lluvia (en curso, oct 2026)
+- Scripts en `lluvia/`: `pesos_imerg.py` (-> `pesos_imerg.csv`), `imerg_utils.py`, `descargar_imerg.py` (prueba y `--inspect`),
+  `prueba_23mar2015.py` (Early vs Final vs PISCOp_h vs ERA5), `descargar_masivo.py` (dic 2014 – abr 2026, un .nc por mes en `lluvia/datos/early/`, no va a git; caché por día en `_cache/`, reintentos, rondas y bitácora `descarga.log`; `--verificar` revisa los meses; un vigilante mata procesos sin avance en 20 min y aparta días que se cuelgan 3 veces).
+- Las 17 quebradas tocan solo **5 celdas** IMERG (0.1°): quebradas con las mismas celdas comparten la serie de lluvia (el modelo las distingue por terreno).
+- Recorte de descarga = polígonos + 0.1° (12 celdas). IMERG: tasa mm/h por media hora -> mm = valor x 0.5; hora etiquetada = inicio de la hora local (UTC-5).
+- **Lectura remota:** con el bloque por defecto de fsspec (5 MB) se baja el gránulo ENTERO (7.5 MB; ~650 GB en total). Con `block_size=64 KB, cache_type="blockcache"` baja ~5 % (medido con gránulos reales). No quitar esa configuración.
+- PISCOp_h: desfase de +7 h respecto a hora local (coherente con el ciclo diurno, no probado); su hora exacta es poco confiable (referencia gruesa). ERA5: solo validación (en 2015 sus 2 puntos dan 500–1400 mm/año vs 70 mm de PISCOp_h en la celda de Quirio: una celda y un año, escalas distintas; indicio, no conclusión).
+- Prueba 23/03/2015: Early marca 0 mm a las 15:00 y 1.62 mm a las 16:00; el huaico fue 15:10. Comparado con Final solo en 3 h (Final: 0 / 0.79 / 1.96 mm a las 14/15/16 h): indicio de que Early llega ~1 h tarde y más débil, no concluyente. Con la latencia de 4 h, eventos así no se anticipan con lluvia reciente.
+- Entorno Windows: el `dask` de `base` está dañado (`Invalid version: 'unknown'`): no usar `print(ds)` de xarray; si molesta, `python -m pip install --upgrade dask`.
+
+## Camino del modelo (en curso, oct 2026)
+- Decisiones: `lluvia_efectiva` con k = 0.84 por DÍA aplicado por hora (0.84**(1/24)); `anomalia_14d` queda FUERA de la v1 (columna en la tabla, no es feature; ver `FEATURES_V1` en `modelo/tabla3.py`).
+- `lluvia/features_lluvia.py`: fila t usa lluvia con etiqueta <= t-5 (latencia 4 h). Ventanas incompletas = NaN. Prueba anti-futuro con `--prueba`.
+- `modelo/diagnostico_senal.py`: QC (no selección de variables): a las 12:00 locales, con huaico vs sin huaico; medianas lluvia_24h 1.9 vs 0.24 mm, lluvia_14d 38 vs 17 mm; solo 15 fechas con huaico. Señal modesta y ruidosa.
+- `modelo/tabla3.py` -> `modelo/tabla3_modelo.parquet` (no va a git): 2 882 561 filas; positivos H3/6/12/24 = 160/316/619/1219; 6 de 12 temporadas con eventos (2014-15 aporta 22 de 51 bloques de H=6).
+- `modelo/auditoria.py`: 12 chequeos independientes (pesos, unidades y huso, features contra sumas directas, convención de etiquetas contra el catálogo, integridad de la tabla). Correr tras cualquier cambio en lluvia/ o modelo/.
+- Aviso de diseño: log10(area) y pendiente identifican la quebrada (hay 17); con validación por temporada el modelo puede aprender la frecuencia histórica de cada quebrada. Es un a priori legítimo, no un conteo explícito, pero hay que tenerlo presente al interpretar.
+- Resultados LOSO (6 temporadas con eventos; alertas 1 cada 100 h por quebrada; bloques detectados H=3/6/12/24 de 53/51/50/50): logística 2/2/4/5; logística+log1p (C=0.1) 3/3/4/10;
+  XGBoost (H como columna, monótono en H) 2/2/3/4; Random Forest 1/3/3/5; `lluvia_efectiva` cruda sin modelo 4/4/4/7. Al azar se esperarían ~3/6/12/22 (optimista: las alertas reales se agrupan en tormentas).
+  Ningún modelo supera con claridad al azar; con 2-10 bloques detectados las diferencias entre modelos son ruido. Hiperparámetros fijados de antemano, sin ajustar.
+- AVISO DE METODOLOGÍA: `lluvia_efectiva` cruda tuvo AUPRC medio por temporada 3-6 veces mayor que cualquier modelo entrenado (0.006/0.014/0.021/0.027 vs 0.001-0.017). Era una de 4 referencias elegidas de antemano,
+  pero es la mejor mirando los resultados: NO se puede declarar "la mejor variable" ni construir un modelo sobre ella sin validarla en datos nuevos o con selección DENTRO de cada pliegue (regla: no elegir variables mirando eventos).
+  Los modelos entrenados (13 variables, ~15 fechas con huaico) probablemente sobreajustan; el límite de los datos y el sobreajuste no se pueden separar con la evidencia actual.
+- `modelo/metricas.py` (métricas comunes), `modelo/baseline_logistica.py [base|log1p]`, `modelo/arboles.py xgb|rf`, `modelo/referencias_simples.py`, `modelo/comparar_modelos.py` (tabla y figura finales).
+- Paso 5, ingeniería de variables (`lluvia/features_lluvia.py` TODAS = 25 de lluvia, `modelo/tabla3.py` FEATURES_V2 = 30; auditoría 14/14; `modelo/ingenieria*.py`, XGBoost con PARAMS_XGB fijos, LOSO):
+  piso de ruido entre semillas ±0.3 de lift (V1 3.43, V2 3.45): AGREGAR las 17 variables nuevas NO mejora. Por grupo (agregar a V1 / quitar de V2, en lift): D regional (reg_max_24h, reg_max_3h_24h) +2.9 / -0.9, CONFIRMADO con 3 semillas
+  (V1 3.4 -> V1+D 6.1; bloques 9 -> 26 de 204) y en logística (4.4 -> 5.1) y Random Forest (2.8 -> 3.6), pero la detección de bloques solo sube en XGBoost y sigue cerca del azar (~11 %); B humedad previa PERJUDICA (-1.0 / +2.3; el modelo se apoya
+  en ella, permutación alta, y no generaliza entre temporadas: confiar en importancia != utilidad); E ciclo diario +0.5..0.8 dentro del ruido; A, C, F sin efecto claro. Selección interna top-10: 3.76, sin ganancia.
+  CUIDADO: D y B se destacaron entre 6 grupos mirando las MISMAS 6 temporadas de prueba; la confirmación descarta suerte de semilla/modelo, no el efecto de selección. Validar con una temporada nueva o contra SILVIA.
+  Variables sin efecto (permutación <= 0): lluvia_3h, lluvia_6h, int_max_24h, tendencia_3h, tendencia_24h, lluvia_14d, horas_desde_lluvia_fuerte (coherente con la latencia de 4 h). El ciclo diario (hora) es la única variable no basada en lluvia: pendiente de confirmar con Camilo.
+- Paso 6, modelo restringido (`modelo/restringido.py`, `restringido_reporte.py`; XGBoost, variables V1 + D, 3 semillas por variante, parámetros fijados antes de correr): restricciones físicas de monotonía en la lluvia (+1; horas_desde_lluvia -1; H +1; sin restricción tendencia_3h y terreno)
+  y árboles pequeños (profundidad 2, 150 árboles, min_child_weight 50). Lift medio / bloques detectados (N=100, de 204): V1 3.4 / 9; V1+D sin restricciones 6.1 / 26; solo monotonía 9.6 / 33; solo árboles pequeños 7.4 / 14; AMBAS (el pre-especificado) 10.0 ± 2.8 / 31.
+  La MONOTONÍA es lo que pesa; los árboles pequeños no aportan de forma medible (AMBAS no se distingue de MONO). Brecha de sobreajuste: lift entrenamiento/prueba 1120/6.4 sin restricciones -> 56/13.2 con AMBAS (semilla 0).
+  Por horizonte (AMBAS): detecta 14.5/13.7/14.7/18 % de los bloques (H=3/6/12/24) frente a un azar esperado de 3/6/12/22 %: mejora clara en H=3 y 6, ninguna en H=24. Muy desigual por temporada: lift 27 (2016-17), 12 (2018-19), 11 (2022-23), pero ~3 en 2014-15 (la de más eventos), 2019-20 y 2025-26.
+  Salvedad vigente: el grupo D se eligió mirando las mismas 6 temporadas; falta validar con una temporada nueva o contra SILVIA.
+- Paso 7.1, diagnóstico por tormenta (`modelo/oof.py` -> `modelo/oof_restringido.parquet`, no va a git; `modelo/diagnostico_eventos.py`; modelo restringido AMBAS semilla 0, H=6): los 51 bloques son 14 tormentas (2014-15: 22 bloques pero solo 3 tormentas, varias quebradas por tormenta).
+  El modelo SÍ pone las horas de huaico arriba (percentil mediano ~88 de la temporada) pero 1 alerta/100 h (top 1 %) solo cubre ~12 % de los bloques; 1/50 h 16 %, 1/20 h 33 %, 1/10 h 39 %, 1/5 h 67 % (20 % de las horas en alerta).
+  CAUSAS: (a) IMERG no ve lluvia en la quebrada en las 6 h previas al huaico (<0.1 mm, incluso SIN retraso) en 32 de 51 bloques, y en 17 de 51 hay <1 mm en las 24 h previas: límite de la fuente; (b) de los 19 bloques con lluvia real en las 6 h previas, el modelo (retraso de 4 h) la veía en solo 4: efecto de la latencia.
+- Paso 7.2, calibración, niveles y anticipación (`modelo/oof.py oof_todas()` -> `oof_restringido_todas.parquet`, 12 temporadas fuera de muestra; `modelo/umbrales.py`; salidas `modelo/salida/umbrales_*`):
+  Calibración Platt por H con UNA recta global (2 parámetros): la versión anidada por temporada es inestable (al dejar fuera 2014-15 la pendiente sale 2.2 en vez de ~0.3) y mezclar rectas rompe el orden entre temporadas. Se impone p(H=3)<=p(H=6)<=p(H=12)<=p(H=24).
+  Las probabilidades calibradas son MUY bajas (percentil 99: 0.1–0.5 %); el tramo alto del puntaje casi no discrimina (frecuencia observada plana entre tramos). Sirven para ordenar, no como probabilidad operativa.
+  Niveles con UMBRAL FIJO entre temporadas (sin mirar etiquetas): amarillo 1 alerta/20 h, naranja 1/50 h, rojo 1/100 h por quebrada. Bloques detectados (de 53/51/50/50 en H=3/6/12/24): amarillo 6/9/6/8 (11–18 %), naranja 5/5/5/5 (~10 %), rojo 1/1/2/2 (2–4 %).
+  Es MUCHO peor que el 12 % del paso 7.1, porque allá el 1/100 se aplicaba dentro de cada temporada (impracticable: exige conocer la temporada). Con umbral fijo el puntaje depende de la temporada: 2024-25 (sin eventos en el catálogo) concentra en H=6 el 51 % de las horas amarillas (18 367 de 36 098), el 83 % de las naranjas y el 88 % de las rojas (6 598 de 7 457);
+  2014-15 (22 bloques) y 2018-19 no generan ninguna alerta. IMERG Early en 2024-25: 433 mm dic–abr (otras 106–299) y máx. 15 mm/h (otras ≤ 9): temporada muy lluviosa según el satélite sin huaicos catalogados (posible sobreestimación de IMERG o eventos sin registrar; sin verificar).
+  Anticipación (tope = H por construcción): mediana 2.5 / 5.5 / 11.5 / 22 h al nivel amarillo (H=3/6/12/24), pero con 6–9 bloques por celda es indicativa, no una estimación.
+  Falsos episodios por temporada: amarillo ~75–80, naranja ~30, rojo ~18 (cota pesimista: y=0 es "sin noticia"). Conclusión: no hay umbrales operativos defendibles con estos datos; los niveles solo valen como regla de priorización relativa DENTRO de una temporada/tormenta.
+  VERIFICADO (`modelo/verificar_umbrales.py`): OOF íntegro (claves, y y temporada iguales a la tabla; una temporada re-entrenada da p idéntico, sin fuga); detección/anticipación recalculadas con otro código coinciden con el CSV. AZAR con el mismo reparto de horas de alerta por temporada (baraja dentro de cada temporada, 100 repeticiones), H=3/6/12/24: amarillo 2.7/6.0/8.6/16.3 detectados vs modelo 6/9/6/8 (≈ azar o peor); naranja 0.6/1.2/2.6/4.6 vs 5/5/5/5 (mejor en H=3-12, no en 24); rojo 0.2/0.4/0.8/1.5 vs 1/1/2/2 (ruido).
+  El amarillo NO supera al azar con umbral fijo. La calibración Platt global usa las etiquetas de todas las temporadas (2 parámetros; no cambia el orden ni los cortes por cuantil). Con corte dentro de cada temporada esta misma tabla da 7–8 de ~51 bloques al 1/100 (~15 %), coherente con el 12 % del paso 7.1.
+- Paso 8.1, techo sin latencia (`modelo/techo_sin_latencia.py` -> `modelo/salida/techo_sin_latencia.csv`; DIAGNÓSTICO, no modelo usable): mismo modelo restringido (V1+D, AMBAS, LOSO, 3 semillas) cambiando solo el retraso de la lluvia IMERG. Latencia 4 h (actual) / 2 h / 1 h / 0 h:
+  bloques detectados N=100 de 204: 31 (15 %) / 33 / 37 / 38 (19 %); lift 10.0±2.8 / 8.8±1.9 / 7.6±0.4 / 7.7±0.1 (el lift BAJA porque 2016-17 cae de 27 a 11; las demás temporadas casi no cambian).
+  CONCLUSIÓN: quitar TODA la latencia sube solo ~7 bloques (+4 pp). La latencia no es el cuello de botella con IMERG; lo es que IMERG no ve la lluvia en la quebrada en muchos huaicos (32/51 bloques sin lluvia <0.1 mm en las 6 h previas, incluso sin retraso).
+  Una fuente más rápida con la MISMA información no ayudaría mucho; solo ayudaría una fuente que vea lluvia que IMERG no ve (pluviómetros, GOES, radar). Esto NO prueba que otra fuente la vea.
+- Paso 8.2, ¿ERA5 ve los huaicos que IMERG no ve? (`modelo/diagnostico_era5_ciegos.py` -> `modelo/salida/diagnostico_era5_ciegos.csv`; ERA5 SOLO validación, no entra al modelo; 51 bloques de H=6 = 14 tormentas, no independientes):
+  En las 6 h hasta el huaico, mediana del percentil de la lluvia frente a ventanas que terminan a la MISMA hora del día (control del ciclo diario): ERA5 92, IMERG 80; ERA5 >= p90 en 26/51 bloques, IMERG en 10/51 (azar ~5). A 24 h: ERA5 30/51, IMERG 13/51.
+  El umbral de 0.1 mm NO sirve para comparar (ERA5 supera 0.1 mm en el 51 % de las ventanas de 6 h, IMERG en el 26 %). Correlación Spearman entre ambas fuentes en las 24 h previas por bloque: ~0.
+  LECTURA: sí hay señal de lluvia en la fecha del huaico que IMERG Early pierde o subestima y ERA5 (reanálisis, 0.25°, solo 2 puntos, tiende a sobreestimar en la sierra) recoge mejor. ERA5 NO es usable (retraso de días). No prueba que ERA5 esté "bien": falta un pluviómetro.
+  ALERTA de deriva: total dic-abr medio IMERG/ERA5 por temporada: 0.29 0.34 0.37 0.39 0.28 0.38 0.37 0.55 0.86 1.54 1.34 0.97 (2014-15 ... 2025-26). La razón sube de ~0.35 a ~1-1.5 desde 2021-22 (ERA5 baja a 158-344 mm y IMERG sube a 244-433 mm). Una de las dos fuentes no es estacionaria. RESUELTO en el paso 8.3: la deriva viene de ERA5, no de IMERG Early (4 meses de Final).
+- Paso 9.1, auditoría de etiquetas (`modelo/auditoria_etiquetas.py` -> `modelo/salida/auditoria_etiquetas_fechas_catalogo.csv` y `auditoria_etiquetas_candidatos.csv`). DECISIÓN del usuario: seguir a nivel QUEBRADA (no "huaico en Chosica"); la comparación IMERG Final se descartó (no se descarga).
+  (a) El catálogo tiene 26 fechas en 12 temporadas, sin ninguna en 2015-16, 2017-18, 2021-22 ni 2024-25; la cobertura es por prensa y muy desigual (2015, 2017 y 2023 concentran 19 de 26). Eso, más que una temporada "sin huaicos", puede ser temporada sin buscar.
+  (b) 7 fechas tienen huaico SOLO en distritos vecinos (2017-01-15, 2017-01-21, 2020-01-29, 2021-03-07, 2023-02-17, 2023-03-17, 2024-02-08): en las 17 quebradas esos días quedan y=0 (0 positivos, 0 NaN) aunque llovió fuerte a pocos km (las mismas celdas IMERG). Son negativos dudosos; 2020-21 y 2023-24 quedan como temporadas "sin evento" por eso.
+      PROPUESTA (no aplicada): poner y=NaN esos días en las 17 quebradas, igual que la regla de eventos sin ubicar. Pendiente de aprobación; cambia entrenamiento y evaluación (hay que re-correr tabla3, OOF y métricas).
+  (c) 44 días con lluvia extrema en ERA5/IMERG (top 1.5 %) sin evento a ±1 día: son candidatos a eventos no registrados. Prensa (búsqueda web por fecha) NO confirmó ninguno: devuelve notas sin día claro. Pistas sin confirmar: 2025-02-11/14 (alerta roja del Rímac a 120.54 m3/s, 21 quebradas "en riesgo", IMERG 30.6 mm el 12/02, sin activación confirmada), marzo 2017 (varios huaicos; el catálogo solo tiene el 15/03),
+      2019-02-27 (nota de Exitosa con maquinaria tras huaico en Chosica/Chaclacayo; el catálogo tiene el 25/02).
+  (d) La lluvia sí ordena los días del catálogo: 3 de los 30 días más lluviosos de ERA5 tienen evento (10 %, base 1.4 %); 2 de 30 en IMERG.
+  PRÓXIMO PASO para etiquetas: registro oficial por fecha (INDECI/COEN SINPAD, informes diarios COEN, alertas SENAMHI); no encontré descarga pública (CSV); hay que pedirlo a INDECI (oet@indeci.gob.pe) o revisar los resúmenes de emergencias del Congreso (PDF).
+- Paso 8.3, ¿deriva IMERG Early? (`lluvia/comparar_early_final.py` -> `lluvia/salida/comparar_early_final.csv`; 4 meses de IMERG Final descargados por el usuario: 2019-02, 2021-02, 2023-03, 2024-02; los datos no van a git; tabla pegada por el usuario):
+  Early/Final (total del mes, media de las 17 quebradas) = 2.29 / 0.76 / 2.22 / 2.34; en los 3 meses lluviosos Early da ~2.3 veces lo de Final y la razón NO crece con los años (2019 2.29, 2024 2.34). En 2021-02 (mes seco, ~20 mm) Early/Final = 0.76.
+  Final/ERA5 = 0.14 / 0.27 / 0.37 / 0.65: sube porque ERA5 cae (235 -> 82 -> 141 -> 51 mm) mientras Final se mantiene (33 / 22 / 53 / 33 mm). Correlación diaria Early-Final 0.81-0.97 (mismo satélite); Final-ERA5 0.15-0.55.
+  LECTURA: con 4 meses NO hay evidencia de deriva de Early respecto a Final; Early sobrestima de forma consistente (~2.3x en meses lluviosos), lo que un factor constante no rompe entre temporadas. La deriva de la razón IMERG/ERA5 se debe a ERA5 (o a clima que Final no ve): ERA5 no sirve como referencia de NIVEL; sus percentiles dentro de la misma hora (paso 8.2) no dependen de la escala.
+  LÍMITES: solo meses de feb-mar, uno por temporada, y NO se revisó febrero 2025 (temporada 2024-25, la más lluviosa en Early: 433 mm, sin huaicos catalogados): sigue sin explicarse. Final tampoco es un pluviómetro (calibra con GPCC mensual, pocos pluviómetros en la sierra).
+- Paso 9.2, etiquetas corregidas y re-corrida (`comun.py: poner_nan_dias_fuera_del_piloto`, aplicado en `tabla3.py`; `modelo/correr_rapido.sh`; resultados en `modelo/salida/ingenieria_nan/`; los anteriores quedan en `modelo/salida/ingenieria/` y `modelo/salida_antes_nan/`):
+  REGLA: los y=0 cuya ventana (t, t+H] toca una de 10 fechas con huaico solo FUERA de las 17 quebradas (distritos vecinos o Huaycoloro/Río Seco: 2015-02-20, 2017-01-15, 2017-01-21, 2017-02-01, 2020-01-29, 2021-03-07, 2023-02-17, 2023-03-15, 2023-03-17, 2024-02-08) pasan a NaN; los y=1 se conservan. Tabla 3: 2 882 561 -> 2 861 040 filas; positivos y bloques sin cambio (160/316/619/1219; 53/51/50/50). Auditoría 14/14.
+  Se re-corrió solo la versión rápida (V1, V1+D, restringido, OOF, niveles, diagnósticos). NO se re-corrieron las ablaciones de ingeniería (V2, grupos A-F), la confirmación con logística/RF, las referencias simples de los pasos 3-4 ni el techo sin latencia (8.1); sus cifras en este archivo son con las etiquetas anteriores. `bash modelo/correr_todo.sh` las repite (~2 h).
+  RESULTADOS NUEVOS (LOSO, 6 temporadas con eventos, 3 semillas, N=100, de 204 bloques), lift medio / bloques detectados (antes -> ahora): V1 3.4/9 -> 8.9±3.0/21; V1+D 6.1/26 -> 10.9±2.3/26; solo monotonía 9.6/33 -> 19.6±1.7/39; solo árboles pequeños 7.4/14 -> 12.3±1.9/21; AMBAS 10.0±2.8/31 -> 18.7±0.5/39 (19 %).
+  CUIDADO AL COMPARAR: el lift NO es comparable con el de antes. Quitar los negativos dudosos sube el AUPRC de forma mecánica: los días de huaico vecino eran de los negativos mejor puntuados (2016-17 pasa de lift 27 a 76 solo por eso). La mejora es de MEDICIÓN (etiquetas menos ruidosas), no del modelo. Lo más comparable son los bloques detectados.
+  AMBAS por horizonte: 18.2 / 18.3 / 18.7 / 22.0 % de los bloques (H=3/6/12/24) frente a un azar esperado de 3 / 6 / 12 / 22 %: mejora clara en H=3 y 6, leve en H=12, ninguna en H=24. Brecha de sobreajuste (lift entrenamiento -> prueba): sin restricciones 1056 -> 8.7; AMBAS 55 -> 18.4. La monotonía sigue siendo lo que pesa; los árboles pequeños no aportan.
+  NIVELES con umbral fijo (amarillo 1/20 h, naranja 1/50 h, rojo 1/100 h), detectados de 53/51/50/50 (H=3/6/12/24) y azar con el mismo reparto de alertas por temporada: amarillo 8/8/9/9 (azar 2.4/4.8/9.1/13.5: mejor en H=3-6, igual en H=12, PEOR en H=24); naranja 7/7/7/7 (azar 0.7/1.4/2.6/4.6: mejor en todos); rojo 2/2/4/3 (azar 0.1-0.6; pocos casos). Antes: amarillo 6/9/6/8, naranja 5/5/5/5, rojo 1/1/2/2.
+  Sigue el problema de escala por temporada: 2024-25 (sin eventos catalogados) acapara el 49 % de las horas amarillas, el 74 % de las naranjas y el 87 % de las rojas (H=6). Con corte dentro de cada temporada: 10/9/9 bloques de 53/51/50 al 1/100 (~18 %). Anticipación mediana (amarillo) 2.5 / 5.5 / 11.5 / 23.5 h. Falsos episodios por temporada: amarillo ~75-79, naranja ~30, rojo ~16.
+  Diagnóstico por tormenta (H=6): 9 de 51 bloques detectados al 1/100 en la temporada; percentil mediano del mejor puntaje por temporada 77-95; 23 de 51 huaicos con lluvia real en las 6 h previas (antes 19) y el modelo la vio en 7.
+  Pendiente: re-correr correr_todo.sh completo, revisar la corrida `V2_sin_C` (lift 46, probable artefacto de una temporada con pocos eventos tras el cambio de etiquetas).
+- Paso 10, experimento de fuentes de precipitación (`experiments/precipitation_source_comparison/`; NO modifica el modelo, las variables ni los resultados; no entrena nada). LEER `informe_final.md` de esa carpeta.
+  BLOQUEO: el entorno de nube deniega (403 de la política de red) persiann.eng.uci.edu, chrsdata.eng.uci.edu, www.senamhi.gob.pe y datosabiertos.gob.pe: no se descargó NI un archivo de PERSIANN-CCS ni de pluviómetros, ni se leyó el README horario. Para destrabar: añadir esos hosts en Network access del entorno, o correr los scripts en otra máquina.
+  Hecho: cobertura espacial con los polígonos reales (`03_cobertura_espacial.py`): IMERG 5 celdas y 7 series exactamente distintas (3 grupos de quebradas con la misma serie: 7, 4 y 2 quebradas); PERSIANN-CCS (0.04°, grilla de los READMEs diario/6-horario, por confirmar) 11 celdas y 17 series distintas, 8 celdas dominantes vs 3. Las 17 cuencas son menores que un píxel de ambos productos; 7 miden menos del 5 % de un píxel de PERSIANN. Más series distintas NO prueba más precisión.
+  Procedimiento de descarga (`02_descargar_persiann_ccs.py`) y comparación temporal (`04_comparar_temporal.py`) escritos y probados solo con datos sintéticos. Archivos horarios de PERSIANN-CCS son globales y gzip (no se recortan por red): dic-abr 2014-2025 = 43 512 archivos; medir tamaño antes (`--medir`).
+  ISAAC = "Plataforma Espacial de Monitoreo de Lluvias Intensas en la Región Lima frente a la Activación de Quebradas" (SENAMHI; 14 pluviómetros en tiempo real según una sola nota del MINAM; SILVIA es otro sistema). Sin confirmar en SENAMHI. Ninguna de las 9 estaciones pedidas (Carosio, Castilla, Libertad, Pedregal Koica, La Cantuta, Río Seco, Quebrada Molle, Los Cóndores, Vizcachera) apareció por nombre en fuentes públicas.
+  Datos horarios de estaciones automáticas: por solicitud (TUSNE S/ 348.45 por año/variable/estación en 2021 y extracto 2024, vigencia sin confirmar; vía gratuita para estudiantes/investigadores según la directiva, 15 días hábiles, sin confirmar). El portal de descarga entrega series DIARIAS. Solicitud preparada en `docs/solicitud_senamhi.md`.
+  Recomendación: mantener IMERG Early; pedir los pluviómetros; si se consiguen, fusión/corrección de sesgo satélite-estación antes que cambiar de satélite.
+- Paso 10.1, README horario de PERSIANN-CCS (lo corrió el usuario en su PC; el entorno de nube sigue sin alcanzar persiann.eng.uci.edu, 403 al CONNECT, también tras actualizar la lista de dominios): nombre `rgccs1h`+YYDDDHH.bin.gz en subcarpetas por año (el prefijo cambia entre años: 2000 usa `rgccs…`), int16 big-endian en mm/h x 100, 3000x9000, primer píxel 0.02E/59.98N, HH = INICIO de la hora (zona horaria NO declarada: verificar que es UTC con el ciclo diario), índice 2000-02-07 -> hoy, latencia observada ~40 min, datos «realtime» reprocesados tras 2 días. `02_descargar_persiann_ccs.py` corregido (explora subcarpetas, prefijo por año, `--crudo`); probado con réplica sintética de esa estructura. Pendiente: `--medir` y `--prueba` en el PC del usuario.
+- Paso 10.2, prueba real de PERSIANN-CCS (PC del usuario, 12/10/2026): `--medir` = 1.94 MB por archivo (1.83-2.08 según el año) -> dic-abr 2014-2025 = 43 488 archivos = ~84 GB a bajar (se recortan al llegar). `--prueba` bajó sin errores las 3 ventanas (Quirio 2015-03-23/24, 2024-12-02, 2025-02-12, 2026-10-10/11): 4 .nc de 5x7 píxeles en `experiments/precipitation_source_comparison/datos/persiann_ccs/` (solo en el PC del usuario; subir con `git add -f`). Pendiente: `05_verificar_prueba_persiann.py` (zona horaria por desfase de correlación con IMERG + QC + Quirio 23/03/2015); NO se descargaron las 12 temporadas.
+- Paso 10.3, PERSIANN-CCS con datos REALES (descargados en el PC del usuario con `--eventos`: 63 días alrededor de las 26 fechas del catálogo + 3 ventanas; 16 .nc de 5x7 píxeles, subidos con `git add -f` a `experiments/precipitation_source_comparison/datos/persiann_ccs/`; las 12 temporadas NO se bajaron). Verificado: int16 mm/h x 100, sin NaN, zona horaria = UTC (inicio de hora; mejor desfase vs IMERG 0 h en 6 de 15 ventanas, ±1 h en 6, nunca ±5/6 h).
+  `06_ciegos_persiann.py` (51 bloques de H=6 = 14 tormentas, sin retraso): PERSIANN-CCS 6 h >= 0.1 mm en 10/51 (IMERG 19/51); de los 32 bloques ciegos de IMERG, PERSIANN-CCS ve >= 0.1 mm en solo 1 (24 h >= 1 mm en 13); IMERG o PERSIANN: 20/51 (IMERG solo 19); Spearman 24 h entre ambos 0.78. Quirio 23/03/2015: ambos marcan 0 mm a las 20 UTC (huaico 20:10 UTC) y ven lluvia 1 h después.
+  CONCLUSIÓN: PERSIANN-CCS NO recupera la lluvia que IMERG pierde en los huaicos; mantener IMERG Early; no bajar las 84 GB por ahora; lo que podría cambiar el resultado son los pluviómetros de SENAMHI (solicitud en docs/solicitud_senamhi.md) y, si llegan, corrección de sesgo/fusión satélite-estación. Límites: 14 tormentas, sin pluviómetros, sin estadísticas de temporada completa. Ver `experiments/precipitation_source_comparison/informe_final.md`.
+- Paso 11 = FASE R1, modelo en DOS PIEZAS (`modelo/dos_piezas/`: `base.py`, `pieza1.py`, `pieza2.py`, `evaluar.py`; salidas en `modelo/dos_piezas/salida/`; parquets no van a git). Riesgo(q, t, H) = P1(zona, t, H) x P2(q). El modelo actual NO se tocó.
+  Arreglo previo: `comun.cargar_features()` no pasaba la lluvia por celda -> reg_max_* 100 % NaN al regenerar en local (corregido; auditoría 14/14 pero NO revisa eso). xgboost 3.4.1 instalado en `base` con pip; el modelo actual se reproduce (corte por temporada 10/9/9/11 vs 10/9/9/10).
+  DISEÑO (fijado antes de correr): tormenta = fechas con activación en las 17 (mismo criterio que las etiquetas, incluye 25/02/2019) a <= 2 días -> 10 tormentas (T01-T10; T07 = 19/02/2023 sin hora útil, solo pieza 2).
+  Pieza 1: tabla de zona 42 816 h x 4 H; y=1 si alguna quebrada y=1, NaN si alguna NaN y ninguna 1 (positivos 56/102/189/357). 23 variables = 11 de lluvia v1 por celda IMERG agregadas con máx y media (horas_desde_lluvia: mín y media) + reg_max_3h_24h (reg_max_24h == lluvia_24h_max).
+  Mismo XGBoost restringido (PARAMS_XGB + CHICO, monotonía, 3 semillas) + logística log1p C=0.1. Validación LOSTO (16 pliegues: tramos de temporada por tormenta cortados a mitad de camino + 6 temporadas sin tormenta) y LOSO.
+  Pieza 2: filas (tormenta de entrenamiento, quebrada); p_terreno = logística C=1 con log10(área) y pendiente; P2 = (n_act + 4 p_terreno)/(n_tormentas + 4), SOLO con tormentas de entrenamiento del pliegue. EXCEPCIÓN DECIDIDA POR EL USUARIO a la regla "conteos de eventos nunca como feature": aquí la historia es un a priori por pliegue, sin fuga.
+  RESULTADOS: Pieza 1 sola (zona, H=6): AUPRC 6.6x la base; con umbral fijo detecta 2 de 9 tormentas al 1/100 y 2-3 al 1/50 (azar 0.4-0.8): solo T04 (15/03/2017) y T08 (marzo 2023); pone 5 de 9 tormentas en el 3 % superior de SU temporada, pero 2024-25 se lleva 300 de 421 horas de alerta (mismo problema de escala).
+  Pieza 2 sola (LOSTO): 51 % de las activaciones en el top 5 (29 de 57; azar 29 %, p < 0.001 por hipergeométrica, tormentas no independientes), AUC medio 0.62. Historia sola 49 %, terreno solo 39 %; img_media NO mejora (51 % / 0.62). Falla en tormentas de 1 quebrada (T06 el_vallecito, T07 santo_domingo).
+  Riesgo final, bloques detectados al 1/100 por quebrada (H=3/6/12/24; azar con el mismo reparto): corte DENTRO de temporada: actual 10/9/9/11 = 39 (azar 1.8/3.5/6.6/12.1); dos piezas LOSO 14/12/12/16 = 54 (azar 1.6/3.1/5.9/11.0); LOSTO 13/12/12/13 = 50. Rango 3 semillas ±1-2.
+  UMBRAL FIJO (operativo): actual 4/4/5/5; dos piezas LOSO 2/4/4/5, LOSTO 1/4/4/4 (azar 0.2-3.0): NO mejora. Lift medio NO sirve aquí (lo domina 2018-19 con 634). "Solo P1" (todas las quebradas a la vez) es inestable (H=24: 28 LOSO vs 15 LOSTO): los bloques de una misma tormenta no son independientes.
+  LECTURA: las dos piezas mejoran el ORDEN dentro de una temporada (+11-15 bloques, 19 % -> 25-26 %; la mejora viene sobre todo de H=3-12) y P2 sí aporta señal de "dónde" (casi toda por historia). NO resuelven el problema operativo (escala de IMERG por temporada, 2024-25). R3 queda condicionada a decidir si esto cuenta como "funciona".
+- Paso 12 = MEJORAS R0/R2/R3 (`modelo/mejoras/{R0,R2,R3}/`). MÉTRICA PRINCIPAL desde ahora: umbral FIJO (12 temporadas) o umbral de ENTRENAMIENTO (cuantil 1-1/N de los puntajes del modelo en sus horas de entrenamiento); el corte por temporada usa info del futuro (solo secundario).
+  OJO: el umbral de entrenamiento emite ~1/100 en la zona pero 1.1-1.5x más alertas a nivel quebrada (P1xP2 se distribuye distinto dentro y fuera de muestra): comparar variantes con detectados / azar (columna veces_azar de r3_resumen.csv).
+  R0 (`R0/dias_alerta_2024_25.py`, `candidatos_2024_25.csv`): los 10 días con más alerta en 2024-25 son 3 rachas (3-4 ene, 13-15 feb, 20-26 feb 2025), alerta 24 h seguidas (pesan variables lentas). Prensa/INDECI: SOLO alertas (Senamhi/COEN rojo 11-13 feb, Rímac 120.54 m3/s; aviso 22-24 feb); NINGÚN huaico confirmado en las 17 quebradas. Las notas de activación halladas eran de 2017, 2019, 2023 y 2026 (ya en el catálogo). No se tocaron etiquetas.
+  R2 (`R2/descargar_mergir.py` por OPeNDAP ~1 s/hora; leer el archivo entero tarda 166 s; `nubes_frias.py`, `despues_t0.py`): 14 tormentas vs 500 controles (misma hora del día). Principal = Tb mín sobre quebradas en las 6 h previas: AUC 0.61 (todas), 0.45 (8 ciegas), 0 ciegas detectadas al 5 % -> NO-GO. Ninguna de las 12 variables pasa.
+  HALLAZGO: en 6 de las 8 ciegas SÍ hay nubes muy frías (205-226 K, < p5 de controles) entre t0 y t0+8 h (14:30-18:30 local). Varias horas del catálogo son vagas y quedaron al INICIO de la ventana ("la tarde" -> 12:00; 25/02/2019 "primeras horas" -> 05:00): la ventana de 6 h previas cae de mañana para MERGIR y para IMERG. Parte de la "ceguera" de IMERG (paso 7.1/8) puede ser hora mal asignada. Pendiente: revisar la hora de los eventos conf_temporal B.
+  MERGIR en GES DISC llega con ~24 h de retraso (no operativo); para operar haría falta GOES-East banda 13 (GOES-19, imágenes cada 10 min).
+  R3a (`R3/escala.py`, `evaluar_r3.py`; pieza 1 con XGBoost restringido, 3 semillas): normalización causal por celda (percentil climatológico del mes con horas de entrenamiento + percentil vs 30 días previos) de lluvia 3/6/24 h, int_max_24h y 7 d. Bloques de 204 (N=100, LOSTO) fijo / entrenamiento y veces el azar: V0 13.7 / 33.3 (2.5x / 2.4x); A_reemplazo 11.3 / 27.3 (1.3x / 2.2x); A_agregado 9.0 / 29.7 (1.4x / 2.5x).
+  El reemplazo baja la parte de 2024-25 en las horas de alerta (~60-70 % -> ~40 %) pero las alertas pasan a 2017-18 y 2025-26 sin más detecciones: NO mejora. V0 reproduce exactamente la pieza 1 de R1 (diferencia 0).
+  R3b: descarga IMERG Early AMPLIADA (lat -12.3..-11.5, lon -77.0..-76.0; `--destino early_ampliado --bbox`, nuevas opciones de descargar_masivo.py) en `lluvia/datos/early_ampliado/` (no toca early/). Al terminar: `python lluvia/verificar_ampliado.py` (las 12 celdas originales deben salir IDÉNTICAS), luego `python modelo/mejoras/R3/escala.py B AB` y `evaluar_r3.py`.
+  (`lluvia/datos/early_amplio/` = descarga parcial con un recuadro menor, detenida a los 10 min; se puede borrar.)
+  R3b HECHO: descarga ampliada terminada (4.8 h, 60 meses, 8 x 10 celdas, 0 fallos); `verificar_ampliado.py`: las 12 celdas originales IDÉNTICAS (1 045 440 valores, dif. 0).
+  Cuenca alta = 48 celdas (lon >= -76.55), máx de 3/6/12 h. Bloques de 204 (LOSTO) fijo / entrenamiento (veces azar): B 11.7 / 33.0 (2.2x / 2.4x); AB 9.0 / 29.3 (1.4x / 2.5x) vs V0 13.7 / 33.3 (2.5x / 2.4x). LOSO igual. NO mejora; 2024-25 sigue con ~60-70 % de las horas de alerta.
+  CONCLUSIÓN R0-R3: ninguna mejora supera a V0 (pieza 1 de R1) con umbral sin información de la prueba. Modelo a congelar: dos piezas V0 + P2 mezcla. La palanca pendiente es la HORA de los eventos (R2) y el catálogo, no más variables de lluvia.
+- Paso 13 = ETIQUETAS v2 (horas vagas B como rango). Commit previo e676497. `catalogo_huaicos_chosica/horas_B_v2.csv` (27 eventos B que generan positivos: id, texto, rango v1 y v2, decisión, url, cita) y
+  `etiquetas_v2.py` -> `etiquetas_horarias_v2_H{3,6,12,24}.parquet` (v1 intactas; el script reproduce v1 bit a bit). Regla v2: y=1 si (t, t+H] contiene TODO el rango; NaN si lo toca parcialmente (y hasta 24 h después); 0 si no lo toca.
+  Rangos: hora concreta de la fuente se mantiene; vaga -> mañana 06-11:59 / tarde 12-18:59 / noche 19-23:59 / primeras horas 00-05:59, cortado en la hora de PUBLICACIÓN de la fuente; "reporte/alerta a las X" -> [X-1 h, X].
+  Fuentes releídas: ninguna dio hora más precisa; 17 de 27 cambian de rango (sobre todo por cortes en la publicación). Perú21 (EV026) 403. Prohibido usar MERGIR/IMERG para decidir horas (no se usó).
+  Bloques v1 -> v2 (H=3/6/12/24): 53/51/50/50 -> 41/43/50/50 (rangos vagos no caben en ventanas cortas -> NaN). Ceguera H=6: 32/51 -> 24/43 (los 8 bloques perdidos eran todos ciegos).
+  `modelo/etiquetas_v2/correr.py` (mismo código para v1 y v2; v1 reproduce las cifras previas): detectados N=100 sumando los 4 H (% de bloques; veces el azar con el mismo reparto):
+    UMBRAL FIJO: actual v1 18 (8.8 %, 7.8x) -> v2 26 (14.1 %, 6.6x); dos piezas LOSTO 13.7 (6.7 %, 2.5x) -> 17.0 (9.2 %, 2.9x); LOSO 15.7 -> 15.3 (8.3 %, 2.8x). En H=12/24 (mismos bloques): actual 5/5 -> 7/7; dos piezas LOSTO 4/4 -> 4/4.
+    UMBRAL DE ENTRENAMIENTO (ojo, volumen != 1/100: actual 1.7-2.1x, dos piezas 1.2-1.5x): actual 28 -> 32 (17.4 %, 2.6x); dos piezas LOSTO 33.3 -> 31.3 (17.0 %, 3.0x).
+    POR TEMPORADA (secundario): actual 39 -> 30; dos piezas LOSTO 47.7 -> 46.0 (25 %).
+  CON UMBRAL FIJO EL MODELO ACTUAL (por quebrada) SUPERA A DOS PIEZAS en v1 y v2. 2024-25 sigue con 73-83 % de las filas de alerta (fijo, H=6) y 58-69 % (entrenamiento).
+  Paso 3, avisos Senamhi (`modelo/etiquetas_v2/avisos.py`, `avisos_senamhi_2021_2026.csv`): el listado público de senamhi.gob.pe solo tiene 2021-2026 (2 080 avisos; nada de 2015-2020) y NO dice departamentos (están en el mapa de la ficha).
+  Proxy "lluvia en la sierra (no solo norte/sur)": cubre el 64 % de las horas dic-abr y solo la mitad de los bloques (30 de 58 en 2022-23/2025-26): no discrimina. Ranking V0+P2 dentro de días con aviso: 5-8 de 58 bloques (azar 1-2), números demasiado chicos.
+  Para un encuadre operativo real hace falta el aviso por departamento/provincia (Lima, Huarochirí) o los avisos de corto plazo del COEN: pedirlos a Senamhi/INDECI.
+- Paso 14 = v3 (enfoque por EVENTO, estado, multizona). TODO en `modelo/v3/` y resumido en `modelo/v3/RESUMEN.md` (tabla final en `modelo/v3/tabla_final.csv`).
+  Commit previo b3ad964. NO se congeló el modelo (decisión del usuario). Métrica: TSS por evento de lluvia IMERG (>= 6 h secas; disparador = huaico durante o
+  hasta 3 h después), umbral = máx. TSS en entrenamiento, LOSO, IC 90 % por bootstrap de tormentas; en disparadores solo cuenta lo ANTERIOR al huaico.
+  Resultados: ISAAC (1.57 D^-0.047) sobre IMERG TSS -0.13 (peor que azar); modelo actual 0.15; dos piezas 0.13; A2 solo intensidad 0.01; A2 + 24-72 h 0.23;
+  **B1 = A2 + estado (humedad ERA5-Land 5 d, días desde la última activación, ICEN publicado) 0.49 (0.15-0.70)**, estable entre semillas y sin depender de
+  2017/2023; a nivel día 0.69 (0.53-0.81). ERA5 pasado no suma; techo de pronóstico perfecto 0.51. Modelo diario multizona (IMERG diario + donantes INDECI
+  por similitud Mahalanobis/MESS): los donantes no mejoran (0.32-0.48 vs solo Chosica 0.44).
+  Datos nuevos (no van a git): `modelo/v3/datos/raw/` (IMERG Early DIARIO 2001-2026 lat -30..-8 lon -81..-67; Open-Meteo ERA5/ERA5-Land; ICEN; catálogos).
+  Pendiente del usuario: `.cdsapirc` (CAPE/K/TT) y Earth Engine (AlphaEarth, Sentinel-2). SERNAGEOMIN/Zenodo no responden desde esta red.
+- Paso 15 = verificación y modelo final v3 (commits 95b4a6a, f99427b, 673ced5). B1 sin "días desde activación" 0.34 (IC ~0.00-0.54); primeros huaicos (8) 0.30
+  (0.04-0.56); persistencia trivial 0.07 -> B1 le gana. Anticipación mediana 2 h (>= 3 h en 3 de 9): solo H = 3 es promesa. Modelo final = P1 (B1, zona)
+  + P2 en `modelo/v3/final/` (p1_b1.json, metadatos_final.json, p2_final.csv, predecir.py, ejemplo_2022_23.csv fuera de muestra). Rojo = máx. TSS (POD 0.77,
+  POFD 0.20, ~15 % de horas en rojo); amarillo = máx. POD alcanzable (0.85; POD >= 0.9 imposible). Ficha: `modelo/v3/model_card_datos.md`.
+- Paso 16 = v3.1 (`modelo/v3_1/`): M1 (zona ampliada con vecinas + INDECI) no mejora; M2 no hecha (sin `.cdsapirc`); M3 (rojo solo con lluvia IMERG > 0.1 mm en
+  las últimas 6 h) baja horas en rojo 15 % -> 11 % a cambio de 1 acierto (queda en amarillo). DECISIÓN DEL USUARIO: modelo = v3 sin cambios y **nivel M3 por
+  defecto en la entrega al dashboard** (`modelo/v3_1/entrega/entrega_dashboard.py`, columnas `nivel` = M3 y `nivel_v3`). README de la raíz y diccionario de
+  datos (versión 3, tablas 4-6) actualizados. Para regenerar el .docx: `npm install docx` (no está global) y `node gen.js` en `docs/fuente_diccionario/`.

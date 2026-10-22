@@ -1,0 +1,18 @@
+﻿quebrada_id,nombre,cuenca_id,origen,fuente,alias,en_piloto
+carossio,Carossio,41,candidata,"SIGRID 123, Cuadro 04",Inca Kola; Moyopampa,True
+corrales,Corrales,42,candidata,"SIGRID 123, Cuadro 04",Rayos de Sol,True
+pedregal,Pedregal,37,candidata,"SIGRID 123, Cuadro 04",San Antonio de Pedregal,True
+california,California,29,candidata,ANA Carta IGN,,True
+la_cantuta,La Cantuta,33,candidata,ANA Carta IGN,,True
+la_ronda,La Ronda,40,candidata,ANA Carta IGN,,True
+quirio,Quirio,34,candidata,ANA Estudios,Nicolás de Piérola; Tarazona,True
+santa_maria,Santa María,30,candidata,ANA Carta IGN,,True
+chacrasana,Chacrasana,P01,ubicada,manual (pendientes_ubicar.csv),,True
+yanacoto,Yanacoto,P02,ubicada,manual (pendientes_ubicar.csv),,True
+libertad,Libertad,P03,ubicada,manual (pendientes_ubicar.csv),,True
+mariscal_castilla,Mariscal Castilla,P04,ubicada,manual (pendientes_ubicar.csv),,True
+rosario,Rosario,P05,ubicada,manual (pendientes_ubicar.csv),,True
+santo_domingo,Santo Domingo,P06,ubicada,manual (pendientes_ubicar.csv),,True
+el_vallecito,El Vallecito,P07,ubicada,manual (pendientes_ubicar.csv),,True
+alto_peru,Alto Perú,P09,ubicada,manual (pendientes_ubicar.csv),,True
+buenos_aires,Buenos Aires,P10,ubicada,manual (pendientes_ubicar.csv),,True

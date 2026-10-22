@@ -1,0 +1,73 @@
+variable,principal,controles,n_controles,grupo,AUC,AUC_ic90,detectadas_5pct,de
+tbmin_quebradas_3h,False,todos,500,todas (14),0.628,0.51-0.75,2,14
+tbmin_quebradas_3h,False,todos,500,ciegas (8),0.485,0.37-0.58,0,8
+tbmin_quebradas_3h,False,todos,500,ciegas estrictas (5),0.488,0.40-0.57,0,5
+tbmin_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.345,0.22-0.50,1,14
+tbmin_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.148,0.08-0.22,0,8
+tbmin_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.136,0.07-0.21,0,5
+f235_quebradas_3h,False,todos,500,todas (14),0.584,0.48-0.68,0,14
+f235_quebradas_3h,False,todos,500,ciegas (8),0.426,0.37-0.52,0,8
+f235_quebradas_3h,False,todos,500,ciegas estrictas (5),0.376,0.36-0.39,0,5
+f235_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.324,0.22-0.44,0,14
+f235_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.178,0.13-0.23,0,8
+f235_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.155,0.11-0.19,0,5
+f220_quebradas_3h,False,todos,500,todas (14),0.534,0.46-0.62,1,14
+f220_quebradas_3h,False,todos,500,ciegas (8),0.462,0.45-0.47,0,8
+f220_quebradas_3h,False,todos,500,ciegas estrictas (5),0.462,0.45-0.47,0,5
+f220_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.426,0.35-0.51,0,14
+f220_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.355,0.32-0.39,0,8
+f220_quebradas_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.355,0.32-0.39,0,5
+tbmin_quebradas_6h,True,todos,500,todas (14),0.606,0.48-0.72,2,14
+tbmin_quebradas_6h,True,todos,500,ciegas (8),0.454,0.35-0.56,0,8
+tbmin_quebradas_6h,True,todos,500,ciegas estrictas (5),0.461,0.38-0.55,0,5
+tbmin_quebradas_6h,True,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.316,0.18-0.46,1,14
+tbmin_quebradas_6h,True,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.121,0.06-0.19,0,8
+tbmin_quebradas_6h,True,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.114,0.06-0.17,0,5
+f235_quebradas_6h,False,todos,500,todas (14),0.574,0.46-0.69,0,14
+f235_quebradas_6h,False,todos,500,ciegas (8),0.419,0.36-0.51,0,8
+f235_quebradas_6h,False,todos,500,ciegas estrictas (5),0.369,0.35-0.39,0,5
+f235_quebradas_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.292,0.19-0.42,0,14
+f235_quebradas_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.156,0.10-0.22,0,8
+f235_quebradas_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.135,0.10-0.17,0,5
+f220_quebradas_6h,False,todos,500,todas (14),0.529,0.46-0.61,1,14
+f220_quebradas_6h,False,todos,500,ciegas (8),0.457,0.45-0.47,0,8
+f220_quebradas_6h,False,todos,500,ciegas estrictas (5),0.457,0.45-0.47,0,5
+f220_quebradas_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.406,0.33-0.50,0,14
+f220_quebradas_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.335,0.30-0.38,0,8
+f220_quebradas_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.335,0.30-0.37,0,5
+tbmin_alta_3h,False,todos,500,todas (14),0.491,0.37-0.63,1,14
+tbmin_alta_3h,False,todos,500,ciegas (8),0.321,0.23-0.42,0,8
+tbmin_alta_3h,False,todos,500,ciegas estrictas (5),0.307,0.25-0.37,0,5
+tbmin_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.293,0.16-0.43,1,14
+tbmin_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.114,0.05-0.19,0,8
+tbmin_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.096,0.05-0.15,0,5
+f235_alta_3h,False,todos,500,todas (14),0.473,0.34-0.61,1,14
+f235_alta_3h,False,todos,500,ciegas (8),0.292,0.22-0.41,0,8
+f235_alta_3h,False,todos,500,ciegas estrictas (5),0.228,0.21-0.25,0,5
+f235_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.291,0.16-0.42,1,14
+f235_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.122,0.07-0.20,0,8
+f235_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.085,0.05-0.11,0,5
+f220_alta_3h,False,todos,500,todas (14),0.499,0.41-0.59,1,14
+f220_alta_3h,False,todos,500,ciegas (8),0.38,0.36-0.40,0,8
+f220_alta_3h,False,todos,500,ciegas estrictas (5),0.38,0.36-0.40,0,5
+f220_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.361,0.25-0.47,1,14
+f220_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.24,0.20-0.28,0,8
+f220_alta_3h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.24,0.20-0.28,0,5
+tbmin_alta_6h,False,todos,500,todas (14),0.49,0.37-0.62,1,14
+tbmin_alta_6h,False,todos,500,ciegas (8),0.311,0.21-0.40,0,8
+tbmin_alta_6h,False,todos,500,ciegas estrictas (5),0.302,0.25-0.37,0,5
+tbmin_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.279,0.15-0.41,1,14
+tbmin_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.103,0.05-0.16,0,8
+tbmin_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.091,0.05-0.14,0,5
+f235_alta_6h,False,todos,500,todas (14),0.474,0.35-0.59,1,14
+f235_alta_6h,False,todos,500,ciegas (8),0.285,0.21-0.41,0,8
+f235_alta_6h,False,todos,500,ciegas estrictas (5),0.222,0.20-0.24,0,5
+f235_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.276,0.16-0.40,0,14
+f235_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.118,0.07-0.19,0,8
+f235_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.085,0.05-0.11,0,5
+f220_alta_6h,False,todos,500,todas (14),0.52,0.42-0.64,1,14
+f220_alta_6h,False,todos,500,ciegas (8),0.369,0.35-0.39,0,8
+f220_alta_6h,False,todos,500,ciegas estrictas (5),0.369,0.35-0.38,0,5
+f220_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,todas (14),0.342,0.24-0.48,1,14
+f220_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas (8),0.195,0.15-0.24,0,8
+f220_alta_6h,False,con lluvia IMERG >= 0.1 mm en 6 h,100,ciegas estrictas (5),0.195,0.15-0.23,0,5

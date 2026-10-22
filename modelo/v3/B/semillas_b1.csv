@@ -1,0 +1,4 @@
+metodo,TSS,TSS_ic90,POD,POFD,aciertos,fallos,falsas,pct_alertas_2024_25,TSS_sin_2017_2023,positivos_sin_2017_2023
+B1(a) semilla 0,0.49,"(0.15, 0.7)",0.69,0.199,9,4,316,14,0.5,6
+B1(a) semilla 1,0.48,"(0.14, 0.69)",0.69,0.209,9,4,333,14,0.49,6
+B1(a) semilla 2,0.47,"(0.13, 0.68)",0.69,0.218,9,4,346,14,0.48,6

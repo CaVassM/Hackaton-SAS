@@ -1,0 +1,74 @@
+2001: 365 días
+2002: 365 días
+2003: 365 días
+2004: 366 días
+2005: 365 días
+2006: 365 días
+2007: 365 días
+2008: 366 días
+2009: 365 días
+2010: 365 días
+2011: 365 días
+2012: 366 días
+2013: 365 días
+2014: 365 días
+2015: 365 días
+2016: 366 días
+2017: 365 días
+2018: 365 días
+2019: 365 días
+2020: 366 días
+2021: 365 días
+2022: 365 días
+2023: 365 días
+2024: 366 días
+2025: 365 días
+2026: 120 días
+9251 días; pendientes 9249
+200/9249 días | 2 min | ~97 min restantes | fallos 0
+400/9249 días | 4 min | ~88 min restantes | fallos 0
+600/9249 días | 6 min | ~84 min restantes | fallos 0
+800/9249 días | 12 min | ~125 min restantes | fallos 0
+1000/9249 días | 14 min | ~112 min restantes | fallos 0
+1200/9249 días | 15 min | ~104 min restantes | fallos 0
+1400/9249 días | 17 min | ~97 min restantes | fallos 0
+1600/9249 días | 19 min | ~92 min restantes | fallos 0
+1800/9249 días | 21 min | ~87 min restantes | fallos 0
+2000/9249 días | 23 min | ~83 min restantes | fallos 0
+2200/9249 días | 25 min | ~79 min restantes | fallos 0
+2400/9249 días | 27 min | ~76 min restantes | fallos 0
+2600/9249 días | 28 min | ~73 min restantes | fallos 0
+2800/9249 días | 30 min | ~70 min restantes | fallos 0
+3000/9249 días | 32 min | ~67 min restantes | fallos 0
+3200/9249 días | 34 min | ~65 min restantes | fallos 0
+3400/9249 días | 36 min | ~63 min restantes | fallos 0
+3600/9249 días | 38 min | ~60 min restantes | fallos 0
+3800/9249 días | 40 min | ~58 min restantes | fallos 0
+4000/9249 días | 42 min | ~56 min restantes | fallos 0
+4200/9249 días | 44 min | ~53 min restantes | fallos 0
+4400/9249 días | 46 min | ~51 min restantes | fallos 0
+4600/9249 días | 48 min | ~49 min restantes | fallos 0
+4800/9249 días | 50 min | ~46 min restantes | fallos 0
+5000/9249 días | 52 min | ~44 min restantes | fallos 0
+5200/9249 días | 54 min | ~42 min restantes | fallos 0
+5400/9249 días | 56 min | ~40 min restantes | fallos 0
+5600/9249 días | 57 min | ~37 min restantes | fallos 0
+5800/9249 días | 59 min | ~35 min restantes | fallos 0
+6000/9249 días | 61 min | ~33 min restantes | fallos 0
+6200/9249 días | 63 min | ~31 min restantes | fallos 0
+6400/9249 días | 65 min | ~29 min restantes | fallos 0
+6600/9249 días | 67 min | ~27 min restantes | fallos 0
+6800/9249 días | 69 min | ~25 min restantes | fallos 0
+7000/9249 días | 71 min | ~23 min restantes | fallos 0
+7200/9249 días | 72 min | ~21 min restantes | fallos 0
+7400/9249 días | 74 min | ~19 min restantes | fallos 0
+7600/9249 días | 76 min | ~17 min restantes | fallos 0
+7800/9249 días | 78 min | ~15 min restantes | fallos 0
+8000/9249 días | 80 min | ~12 min restantes | fallos 0
+8200/9249 días | 82 min | ~10 min restantes | fallos 0
+8400/9249 días | 84 min | ~8 min restantes | fallos 0
+8600/9249 días | 85 min | ~6 min restantes | fallos 0
+8800/9249 días | 87 min | ~4 min restantes | fallos 0
+9000/9249 días | 89 min | ~2 min restantes | fallos 0
+9200/9249 días | 91 min | ~0 min restantes | fallos 0
+TERMINADO en 91 min; fallos 0: []

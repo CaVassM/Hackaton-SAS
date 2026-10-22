@@ -1,0 +1,90 @@
+﻿nombre,alias,salida_lat,salida_lon,area_ref_km2,fuente,fuente_area,largo_ref_km,en_catalogo,en_piloto,nombres_catalogo,tipo,cuenca_ana,regla_salida,dist_salida_principal_m,nota
+Alto Perú,,,,,,,,True,True,Alto Perú,,,,,Alto Perú: sector/barrio; quebrada no identificada
+Buenos Aires (Chosica),Buenos Aires,,,,,,,True,True,Buenos Aires,,,,,"Buenos Aires: resuelto por ubicación: el catálogo la ubica en Chosica (Don Bosco, km 36 de la Carretera Central); la 'Quebrada Buenos Aires' de ANA desemboca ~13 km aguas arriba de Quirio, junto al río Canchacalla (homónima)"
+Carossio,Moyopampa,-11.926375,-76.685636,0.4,"SIGRID 123, Cuadro 04","SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), Cuadro Nº 04, PDF p. 64 (según JICA 1988)",1.3,True,True,Carossio; Moyopampa,,,"pour point de la cuenca asignada por km, margen, área y cota (Cuadro 04)",30.0,Carossio: no está en ANA; Cuadro Nº 04: 'Carosio (Moyopampa)' | Moyopampa: sector: Cuadro Nº 04 'Carosio (Moyopampa)'
+Chacrasana,,,,,,,,True,True,Chacrasana,,,,,no está en ANA
+Corrales,Rayos de Sol,-11.92424,-76.679839,1.4,"SIGRID 123, Cuadro 04","SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), Cuadro Nº 04, PDF p. 64 (según JICA 1988)",2.4,True,True,Corrales; Rayos de Sol,,,"pour point de la cuenca asignada por km, margen, área y cota (Cuadro 04)",30.0,Corrales: no está en ANA; Cuadro Nº 04: 'Corrales (Rayos de Sol)' | Rayos de Sol: sector: Cuadro Nº 04 'Corrales (Rayos de Sol)'
+El Vallecito,,,,,,,,True,True,El Vallecito,,,,,no está en ANA
+Huampaní,,,,,,,,True,True,Huampaní,,,,,no está en ANA
+Inca Kola,,,,,,,,True,True,Inca Kola,,,,,Inca Kola: sector/barrio; quebrada no identificada | Inca Kola: alias de Carossio (fase 4: su cuenca cae entera dentro de la 41)
+La Trinchera,,,,,,,,True,True,La Trinchera,,,,,no está en ANA
+Lechuceros,,,,,,,,True,True,Lechuceros,,,,,no está en ANA
+Libertad,,,,,,,,True,True,Libertad,,,,,no está en ANA
+Los Laureles,,,,,,,,True,False,Los Laureles,,,,,no está en ANA | Los Laureles: sin ubicación; en_piloto = False (probable Chaclacayo)
+Los Molles,,,,,,,,True,True,Los Molles,,,,,no está en ANA
+Mariscal Castilla,,,,,,,,True,True,Mariscal Castilla,,,,,no está en ANA
+Pedregal,San Antonio de Pedregal,-11.938786,-76.696178,10.6,"SIGRID 123, Cuadro 04","SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), Cuadro Nº 04, PDF p. 64 (según JICA 1988)",6.1,True,True,Pedregal; San Antonio de Pedregal,,,"pour point de la cuenca asignada por km, margen, área y cota (Cuadro 04)",30.0,Pedregal: no está en ANA; Cuadro Nº 04: 'Pedregal (San Antonio)' | San Antonio de Pedregal: sector en la desembocadura de la Qda. Pedregal (Cuadro Nº 04 y PDF p. 147) | otras cifras del mismo estudio: 10 km² (PDF p. 52) y 10.6 km² (PDF p. 147)
+Quebrada California,,-11.960038,-76.717924,,ANA Carta IGN,,,True,True,California,Quebrada,Cuenca Rímac,más cercano al cauce principal,906.0,"California: mismo nombre en ANA; margen izquierda como en SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005)"
+Quebrada La Cantuta,,-11.951243,-76.702932,15.0,ANA Carta IGN,"SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), Cuadro Nº 04, PDF p. 64 (según JICA 1988)",6.7,True,True,La Cantuta,Quebrada,Cuenca Rímac,más cercano al cauce principal,693.0,La Cantuta: mismo nombre en ANA; margen izquierda; posición coincide con el Cuadro Nº 04 | el texto del mismo estudio también da 15 km² (PDF p. 50)
+Quebrada La Ronda,,-11.931733,-76.676206,9.0,ANA Carta IGN,"SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), Cuadro Nº 04, PDF p. 64 (según JICA 1988)",5.6,True,True,La Ronda,Quebrada,Cuenca Rímac,más cercano al cauce principal,855.0,La Ronda: mismo nombre en ANA; margen izquierda; posición coincide con el Cuadro Nº 04
+Quebrada Quirio,Nicolás de Piérola,-11.926105,-76.720584,10.4,ANA Estudios,"SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), Cuadro Nº 04, PDF p. 64 (según JICA 1988)",5.6,True,True,Nicolás de Piérola; Quirio,Quebrada,Cuenca Rímac,más cercano al cauce principal,2475.0,"Nicolás de Piérola: sector: el AA.HH. Nicolás de Piérola está en el curso de la Qda. Quirio (SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), PDF p. 147) | Quirio: mismo nombre en ANA; margen derecha como en SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005) | otras cifras del mismo estudio: 11 km² (PDF p. 51) y 9.1 km² (PDF p. 147)"
+Quebrada Santa María,,-11.954722,-76.728385,4.6,ANA Carta IGN,"SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005), Cuadro Nº 04, PDF p. 64 (según JICA 1988)",5.0,True,True,Santa María,Quebrada,Cuenca Rímac,más cercano al cauce principal,85.0,"Santa María: resuelto por ubicación: ANA Santa María en margen derecha, ~2.4 km aguas abajo de Quirio; Cuadro Nº 04: 2.6 km, margen derecha"
+Rosario,,,,,,,,True,True,Rosario,,,,,no está en ANA
+Santo Domingo (Chosica),Santo Domingo,,,,,,,True,True,Santo Domingo,,,,,"Santo Domingo: no está en ANA: la 'Quebrada Santo Domingo' de ANA está en el valle del Santa Eulalia (homónima); la del catálogo está en la margen izquierda del Rímac en Chosica (SIGRID doc 123 (Mapa de Peligros de Chosica, INDECI-PNUD 2005))"
+Tarazona,,,,,,,,True,True,Tarazona,,,,,"no está en ANA | Tarazona: alias de Quebrada Quirio (fase 4: punto dentro de su cuenca, a < 300 m de la salida)"
+Yanacoto,,,,,,,,True,True,Yanacoto,,,,,"Yanacoto: quebrada aparte, pendiente de ubicar: el catálogo la sitúa en la Carretera Central km 25-27 (EV067), lejos de Santa María (a 2.4 km de Quirio); la 'Quebrada Yanacoto' de ANA Carta IGN está en la cuenca del Lurín (homónima) | Yanacoto: fusionada con Santa María (Yanacoto), cuenca 30 (fase 4)"
+Quebrada Huaycoloro,,-11.882192,-76.850158,,ANA Carta IGN,,,True,False,Huaycoloro,Quebrada,Cuenca Rímac,más cercano al cauce principal,11791.0,"Huaycoloro: fuera del recorte, decidir si se agranda | cuenca grande fuera del recorte; trabajo futuro"
+Quebrada Río Seco,Rioseco,-11.935157,-76.850241,,ANA Carta IGN,,,True,False,Rioseco,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),6366.0,"Rioseco: mismo nombre en ANA Carta IGN, en el sistema de Huaycoloro (el catálogo la cita junto a 'Huaycoloro 1 y 2'); fuera de las cuencas candidatas | cuenca grande fuera del recorte; trabajo futuro"
+Quebrada Agua Salada,,-11.921711,-76.552606,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,636.0,
+Quebrada Alcula,,-11.851012,-76.633494,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,37.0,
+Quebrada Antioquía,,-11.937385,-76.550059,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),2391.0,
+Quebrada Antivales,,-12.050303,-76.709138,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),9935.0,
+Quebrada Aqnchucaya,,-12.050206,-76.680511,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),11385.0,
+Quebrada Balconcillo de Avivay,,-12.027352,-76.669624,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),9677.0,
+Quebrada Batán,,-11.83416,-76.817884,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,16165.0,
+Quebrada Blanca,,-11.900831,-76.758508,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,6693.0,
+Quebrada Buenos Aires,,-11.903893,-76.584533,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más cercano al cauce principal,790.0,homónima: no es la Buenos Aires del catálogo (desemboca ~13 km aguas arriba de Quirio)
+Quebrada Canturia,,-12.022734,-76.655526,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),10046.0,
+Quebrada Capilla,,-12.050143,-76.598947,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),14494.0,
+Quebrada Carrizal,,-11.822975,-76.809171,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),16915.0,
+Quebrada Cashahuacra,,-11.907982,-76.669129,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,669.0,
+Quebrada Cayamaran,Quebrada Cayamatan,-11.856902,-76.612136,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,2399.0,
+Quebrada Chamallanca,,-12.029264,-76.632919,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),11578.0,
+Quebrada Chauca,,-11.819896,-76.589053,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,4062.0,
+Quebrada Chillón,,-11.857669,-76.549883,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,6216.0,
+Quebrada Colca,,-11.937354,-76.844089,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,5903.0,
+Quebrada Corral de Nieve,,-11.854739,-76.824123,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),14094.0,
+Quebrada Cupiche,,-11.913189,-76.613275,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,15.0,
+Quebrada Guayabo,,-11.912082,-76.569214,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,14.0,
+Quebrada Higuera,,-11.875646,-76.727875,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,7273.0,
+Quebrada Huacangoy,,-11.832103,-76.550014,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),7977.0,
+Quebrada Huamancancha,,-11.813147,-76.567171,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,6302.0,
+Quebrada Huarahuara,,-11.976762,-76.550007,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más cercano al cauce principal,6644.0,
+Quebrada Huarangal,,-12.050229,-76.630973,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),13907.0,
+Quebrada Huayabal,,-12.032371,-76.706517,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8244.0,
+Quebrada Huayco,,-11.924921,-76.63243,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,311.0,
+Quebrada Huichica,,-11.851131,-76.708485,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),7130.0,
+Quebrada Infiernillo,,-11.851619,-76.633342,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,38.0,
+Quebrada La Laguna,,-11.985423,-76.837373,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,672.0,
+Quebrada Lúcuma,,-11.817974,-76.628224,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,70.0,
+Quebrada Mallupay,,-11.804252,-76.552172,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,7835.0,
+Quebrada Molino,,-11.825709,-76.686166,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,6217.0,
+Quebrada Molle,,-11.891045,-76.556077,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,2586.0,¿'Los Molles' del catálogo? El catálogo no la ubica: no se asocia
+Quebrada Nieve Nieve,,-12.0,-76.703274,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),5464.0,
+Quebrada Pachas,,-11.875646,-76.727875,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,7273.0,
+Quebrada Pacsa,,-11.831213,-76.698469,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),7197.0,
+Quebrada Pampa Redonda,,-11.872736,-76.644454,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,57.0,
+Quebrada Pampa de Lara,,-12.050052,-76.567283,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),14664.0,
+Quebrada Pampay,,-11.825831,-76.850053,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Chillón,más bajo (no drena al Rímac/Santa Eulalia en el recorte),17814.0,
+Quebrada Piedra Blanca,,-11.858895,-76.707038,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),6617.0,
+Quebrada Recracancha,,-11.803627,-76.549854,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8086.0,
+Quebrada Saltaderas,,-11.856987,-76.742763,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,9897.0,
+Quebrada San Benito,,-12.05024,-76.846566,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),4975.0,
+Quebrada San Francisco,,-12.050256,-76.760289,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8423.0,
+Quebrada San Isidro,,-12.045102,-76.727969,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8736.0,
+Quebrada San José,,-12.0,-76.619999,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8626.0,
+Quebrada San Juan,,-11.91596,-76.621444,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,275.0,
+Quebrada San Vicente,,-12.047721,-76.738621,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8688.0,
+Quebrada Santa Ana,,-11.927702,-76.63151,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,626.0,
+Quebrada Santo Domingo,,-11.816459,-76.627572,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,75.0,homónima: no es la Santo Domingo del catálogo (esta está en el valle del Santa Eulalia)
+Quebrada Seca,,-11.870834,-76.741621,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,8659.0,
+Quebrada Siclica,,-11.995292,-76.600612,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8599.0,
+Quebrada Silencio,,-11.937354,-76.844089,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,5903.0,
+Quebrada Singuna,,-11.855876,-76.605072,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,2953.0,
+Quebrada Sisigaya,,-11.929706,-76.550015,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),1558.0,
+Quebrada Tambo Pardo,,-11.853473,-76.824114,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,14229.0,
+Quebrada Urme,,-11.870403,-76.549954,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,4808.0,
+Quebrada Vizcachera,,-11.967978,-76.793976,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Rímac,más cercano al cauce principal,1146.0,
+Quebrada Yanacoto,,-12.030362,-76.702464,,ANA Carta IGN,,,False,False,,Quebrada,Cuenca Lurín,más bajo (no drena al Rímac/Santa Eulalia en el recorte),8268.0,homónima: no es la Yanacoto del catálogo (esta está en la cuenca del Lurín)
+Quebrada Yananta,,-11.808161,-76.563059,,ANA Estudios,,,False,False,,Quebrada,Cuenca Rímac,más bajo (no drena al Rímac/Santa Eulalia en el recorte),6680.0,
+Río Canchacalla,,-11.90802,-76.593875,,ANA Carta IGN,,,False,False,,Río,Cuenca Rímac,más cercano al cauce principal,12.0,

@@ -1,0 +1,21 @@
+V1 = 13 variables | V2 = 30 variables
+  V1_semilla0: lift medio 3.58 | detectados 11/204 (N=100) | 1.3 min
+  V1_semilla1: lift medio 3.39 | detectados 9/204 (N=100) | 1.3 min
+  V1_semilla2: lift medio 3.31 | detectados 7/204 (N=100) | 1.2 min
+  V2_semilla0: lift medio 2.99 | detectados 6/204 (N=100) | 4.1 min
+  V2_semilla1: lift medio 3.53 | detectados 18/204 (N=100) | 1.9 min
+  V2_semilla2: lift medio 3.84 | detectados 9/204 (N=100) | 1.9 min
+  V2_sin_A: lift medio 4.14 | detectados 13/204 (N=100) | 1.8 min
+  V2_sin_B: lift medio 5.73 | detectados 26/204 (N=100) | 1.7 min
+  V2_sin_C: lift medio 3.91 | detectados 18/204 (N=100) | 1.9 min
+  V2_sin_D: lift medio 2.53 | detectados 3/204 (N=100) | 1.8 min
+  V2_sin_E: lift medio 2.98 | detectados 6/204 (N=100) | 1.9 min
+  V2_sin_F: lift medio 3.55 | detectados 6/204 (N=100) | 1.7 min
+  V1_mas_A: lift medio 3.89 | detectados 14/204 (N=100) | 1.3 min
+  V1_mas_B: lift medio 2.40 | detectados 9/204 (N=100) | 1.5 min
+  V1_mas_C: lift medio 3.24 | detectados 10/204 (N=100) | 1.4 min
+  V1_mas_D: lift medio 6.37 | detectados 24/204 (N=100) | 1.4 min
+  V1_mas_E: lift medio 4.22 | detectados 16/204 (N=100) | 1.4 min
+  V1_mas_F: lift medio 3.78 | detectados 13/204 (N=100) | 1.4 min
+  V2_seleccion_top10: lift medio 3.76 | detectados 11/204 (N=100) | 2.9 min
+Listo.

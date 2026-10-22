@@ -1,0 +1,6 @@
+fuente,estado,registros_crudos,eventos
+D1a INGEMMET PERU_ALERTA,ok,1585,27
+D1b INDECI SINPAD,ok,911,911
+D3 NASA GLC,ok,65,65
+D2 SERNAGEOMIN,"NO RESPONDE desde esta red: RuntimeError(""URLError(TimeoutError(10060, 'Se produjo un error durante el intento de conexión ya que la parte conectada",0,0
+D2 Matus et al. (Zenodo),"NO RESPONDE: RuntimeError(""<HTTPError 403: 'Forbidden'>"")",0,0

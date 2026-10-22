@@ -1,0 +1,52 @@
+Entrenamiento y evaluación LOSO terminados en 78 s
+
+RESUMEN POR H (1 alerta cada N=100 horas por quebrada)
+ H  temporadas_evaluadas  filas_evaluadas  positivos  AUPRC   base  veces_la_base  AUPRC_media_por_temporada  bloques  detectados  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3                     6           350818        160 0.0011 0.0005            2.4                     0.0022       53           3             5.7            3.0                            82.2                         584
+ 6                     6           350583        316 0.0021 0.0009            2.4                     0.0038       51           3             5.9            6.0                            68.2                         582
+12                     6           350113        619 0.0078 0.0018            4.4                     0.0080       50           4             8.0           11.7                            49.0                         576
+24                     6           349191       1219 0.0172 0.0035            4.9                     0.0160       50          10            20.0           21.7                            69.2                         567
+
+SENSIBILIDAD A N
+ H   N  pct_detectados  pct_aleatorio  falsos_episodios_por_temporada  falsas_horas_por_temporada
+ 3  50             7.5            5.9                           147.2                        1168
+ 3 100             5.7            3.0                            82.2                         584
+ 3 200             5.7            1.5                            42.0                         292
+ 3 500             0.0            0.6                            22.0                         117
+ 6  50            11.8           11.8                           125.0                        1166
+ 6 100             5.9            6.0                            68.2                         582
+ 6 200             5.9            3.1                            34.7                         290
+ 6 500             2.0            1.2                            17.0                         117
+12  50            16.0           22.1                            94.0                        1157
+12 100             8.0           11.7                            49.0                         576
+12 200             6.0            6.0                            29.8                         287
+12 500             2.0            2.4                            13.8                         117
+24  50            30.0           38.9                           124.2                        1139
+24 100            20.0           21.7                            69.2                         567
+24 200            10.0           11.5                            44.8                         281
+24 500             4.0            4.8                            21.3                         114
+
+POR TEMPORADA (H=6, N=100)
+temporada  bloques  detectados  AUPRC   base  falsos_episodios  falsas_horas
+  2014-15       22           0 0.0046 0.0029                45           463
+  2016-17        6           0 0.0005 0.0006                79           605
+  2018-19        4           0 0.0030 0.0005                70           608
+  2019-20        1           0 0.0001 0.0001                58           620
+  2022-23       15           3 0.0122 0.0015                80           588
+  2025-26        3           0 0.0022 0.0003                77           607
+
+COEFICIENTES ESTANDARIZADOS (H=6, media de los pliegues)
+                    media  signos_iguales
+lluvia_3h           0.143           False
+lluvia_6h          -0.306           False
+lluvia_24h         -1.929           False
+int_max_24h         1.009            True
+tendencia_3h       -0.176           False
+horas_lluvia_24h    2.106           False
+lluvia_7d           1.036           False
+lluvia_14d         -0.164           False
+lluvia_efectiva    -0.040           False
+horas_desde_lluvia  0.200           False
+lluvia_temporada    0.820            True
+log10_area_km2      0.443            True
+pendiente_media    -0.147           False

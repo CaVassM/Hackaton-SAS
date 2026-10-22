@@ -1,0 +1,40 @@
+Archivos: ['persiann_ccs_2015-02.nc', 'persiann_ccs_2015-03.nc', 'persiann_ccs_2017-01.nc', 'persiann_ccs_2017-02.nc', 'persiann_ccs_2017-03.nc', 'persiann_ccs_2019-02.nc', 'persiann_ccs_2020-01.nc', 'persiann_ccs_2021-03.nc', 'persiann_ccs_2023-02.nc', 'persiann_ccs_2023-03.nc', 'persiann_ccs_2023-04.nc', 'persiann_ccs_2024-02.nc', 'persiann_ccs_2024-12.nc', 'persiann_ccs_2025-02.nc', 'persiann_ccs_2026-02.nc', 'persiann_ccs_2026-10.nc'] | horas PERSIANN: 1608 | rango UTC 2015-02-08 00:00:00 -> 2026-10-11 23:00:00
+QC: mínimo 0.00, máximo 38.36 mm/h | NaN 0.0 % | múltiplos de 0.01: True | horas-píxel con >= 0.1 mm/h: 9.3 %
+
+ZONA HORARIA: correlación PERSIANN(t+lag) vs IMERG(t), promedio de las 17 cuencas; lag > 0 = PERSIANN está atrasado respecto a IMERG
+  2015-02-08 a 2015-02-10 (72 h): lluvia total media PERSIANN 5.9 mm, IMERG 1.5 mm | mejor desfase -1 h (r=0.79; r a 0 h = 0.25) | SIN lluvia suficiente: no concluyente
+  2015-02-19 a 2015-02-21 (72 h): lluvia total media PERSIANN 0.6 mm, IMERG 0.2 mm | mejor desfase 1 h (r=0.06; r a 0 h = -0.02) | SIN lluvia suficiente: no concluyente
+  2015-03-19 a 2015-03-24 (144 h): lluvia total media PERSIANN 3.5 mm, IMERG 20.5 mm | mejor desfase 0 h (r=0.35; r a 0 h = 0.35) | con lluvia
+  2017-01-14 a 2017-01-16 (72 h): lluvia total media PERSIANN 14.9 mm, IMERG 18.1 mm | mejor desfase 0 h (r=0.25; r a 0 h = 0.25) | con lluvia
+  2017-01-20 a 2017-01-22 (72 h): lluvia total media PERSIANN 3.1 mm, IMERG 7.1 mm | mejor desfase 1 h (r=0.13; r a 0 h = -0.03) | con lluvia
+  2017-01-24 a 2017-01-26 (72 h): lluvia total media PERSIANN 25.3 mm, IMERG 10.5 mm | mejor desfase 1 h (r=0.62; r a 0 h = 0.47) | con lluvia
+  2017-01-31 a 2017-02-02 (72 h): lluvia total media PERSIANN 12.1 mm, IMERG 6.4 mm | mejor desfase 1 h (r=0.88; r a 0 h = 0.32) | con lluvia
+  2017-03-14 a 2017-03-16 (72 h): lluvia total media PERSIANN 16.7 mm, IMERG 21.7 mm | mejor desfase -3 h (r=0.55; r a 0 h = 0.40) | con lluvia
+  2019-02-24 a 2019-02-26 (72 h): lluvia total media PERSIANN 16.5 mm, IMERG 10.5 mm | mejor desfase 0 h (r=0.90; r a 0 h = 0.90) | con lluvia
+  2020-01-22 a 2020-01-24 (72 h): lluvia total media PERSIANN 10.6 mm, IMERG 5.1 mm | mejor desfase 0 h (r=0.62; r a 0 h = 0.62) | con lluvia
+  2020-01-28 a 2020-01-30 (72 h): lluvia total media PERSIANN 3.2 mm, IMERG 2.5 mm | mejor desfase 0 h (r=0.34; r a 0 h = 0.34) | con lluvia
+  2021-03-06 a 2021-03-08 (72 h): lluvia total media PERSIANN 18.2 mm, IMERG 10.5 mm | mejor desfase -1 h (r=0.36; r a 0 h = 0.33) | con lluvia
+  2023-02-16 a 2023-02-20 (120 h): lluvia total media PERSIANN 33.2 mm, IMERG 21.4 mm | mejor desfase 2 h (r=0.25; r a 0 h = 0.23) | con lluvia
+  2023-03-11 a 2023-03-19 (216 h): lluvia total media PERSIANN 61.0 mm, IMERG 86.9 mm | mejor desfase 1 h (r=0.45; r a 0 h = 0.42) | con lluvia
+  2023-04-05 a 2023-04-07 (72 h): lluvia total media PERSIANN 0.0 mm, IMERG 1.8 mm | mejor desfase -6 h (r=-0.03; r a 0 h = nan) | SIN lluvia suficiente: no concluyente
+  2024-02-07 a 2024-02-09 (72 h): lluvia total media PERSIANN 0.1 mm, IMERG 0.6 mm | mejor desfase 0 h (r=0.24; r a 0 h = 0.24) | SIN lluvia suficiente: no concluyente
+  2024-12-02 a 2024-12-02 (24 h): lluvia total media PERSIANN 22.9 mm, IMERG 31.9 mm | mejor desfase -3 h (r=0.95; r a 0 h = 0.79) | con lluvia
+  2025-02-12 a 2025-02-12 (24 h): lluvia total media PERSIANN 16.3 mm, IMERG 24.6 mm | mejor desfase 0 h (r=0.60; r a 0 h = 0.60) | con lluvia
+  2026-02-23 a 2026-02-26 (96 h): lluvia total media PERSIANN 41.4 mm, IMERG 26.3 mm | mejor desfase -1 h (r=0.78; r a 0 h = 0.47) | con lluvia
+  2026-10-10 a 2026-10-11: IMERG Early no cubre esas fechas (se omite)
+
+Quirio 23/03/2015 (huaico a las 15:10 locales = 20:10 UTC):
+  UTC local  PERSIANN_mm  IMERG_Early_mm
+12:00 07:00         0.00            0.00
+13:00 08:00         0.00            0.00
+14:00 09:00         0.00            0.00
+15:00 10:00         0.00            0.00
+16:00 11:00         0.00            0.00
+17:00 12:00         0.00            0.00
+18:00 13:00         0.00            0.00
+19:00 14:00         0.00            0.00
+20:00 15:00         0.00            0.00
+21:00 16:00         1.02            1.62
+22:00 17:00         0.00            0.44
+23:00 18:00         0.00            0.37
+00:00 19:00         0.00            0.57

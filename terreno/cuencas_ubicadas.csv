@@ -1,0 +1,12 @@
+﻿quebrada,cuenca,area_km2,cota_max_m,igual_a_candidata,distancia_snap_m,toca_borde,dist_cauce_principal_m,candidata_que_contiene,pct_de_la_candidata,igual_a_otra_con_nombre,problemas,nota
+Chacrasana,P01,4.561,1804,,134,False,448,25,91.0,,,
+Yanacoto,P02,3.28,1856,,60,False,1097,30,78.0,,contenida en Quebrada Santa María (30) (78 % de ella),
+Libertad,P03,0.408,1527,,2,False,632,38,67.0,,,
+Mariscal Castilla,P04,0.77,1723,,51,False,664,39,58.0,,,
+Rosario,P05,0.135,1576,,23,False,462,,,,área < 0.3 km²,
+Santo Domingo (Chosica),P06,3.554,1922,,21,False,852,36,94.0,,,
+El Vallecito,P07,0.942,1502,,112,False,2405,13,6.0,,contenida en Quebrada Vizcachera (13) (6 % de ella),salida_lon 76.78432 corregida a -76.78432 (signo)
+Inca Kola,P08,0.444,1679,,16,False,409,41,84.0,,contenida en Carossio (41) (84 % de ella),
+Alto Perú,P09,0.209,1070,,87,False,735,7,35.0,,área < 0.3 km²,
+Buenos Aires (Chosica),P10,0.149,1348,,14,False,574,39,11.0,,área < 0.3 km²,
+Huampaní,P11,3.482,1499,,206,False,935,11,40.0,,"snap > 150 m (aceptado, confianza baja)",snap 206 m > 150 m aceptado (excepción); confianza baja

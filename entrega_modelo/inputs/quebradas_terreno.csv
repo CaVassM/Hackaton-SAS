@@ -1,0 +1,18 @@
+quebrada_id,nombre,area_km2,log10_area_km2,pendiente_media,salida_tipo,salida_lat,salida_lon
+carossio,Carossio,0.528,-0.27736607746618774,35.6,confluencia,-11.926375,-76.685636
+corrales,Corrales,1.259,0.10002573010786256,34.4,confluencia,-11.92424,-76.679839
+pedregal,Pedregal,9.982,0.9992175655301035,29.0,confluencia,-11.938786,-76.696178
+california,California,8.43,0.9258275746247423,27.0,confluencia,-11.955935,-76.730162
+la_cantuta,La Cantuta,13.888,1.1426397078324166,30.1,confluencia,-11.948189,-76.710834
+la_ronda,La Ronda,8.818,0.9453700944903037,31.8,confluencia,-11.929073,-76.687855
+quirio,Quirio,9.824,0.9922883537970925,29.5,confluencia,-11.944949,-76.70861
+santa_maria,Santa María (Yanacoto),4.2,0.6232492903979004,28.8,confluencia,-11.953502,-76.729045
+chacrasana,Chacrasana,4.991,0.6981875698661224,28.5,confluencia,-11.964548,-76.740684
+libertad,Libertad,0.408,-0.3893398369101201,32.9,apice,-11.929027,-76.695566
+mariscal_castilla,Mariscal Castilla,0.77,-0.11350927482751812,35.4,apice,-11.935326,-76.685415
+rosario,Rosario,0.135,-0.8696662315049939,35.6,apice,-11.939362,-76.690673
+santo_domingo,Santo Domingo,3.795,0.5792117802314991,30.3,confluencia,-11.943638,-76.701166
+el_vallecito,El Vallecito,0.942,-0.025949097207122653,28.8,apice,-11.953427,-76.784404
+alto_peru,Alto Perú,0.209,-0.679853713888946,33.2,apice,-11.978683,-76.820927
+buenos_aires,Buenos Aires,0.149,-0.826813731587726,31.6,apice,-11.931542,-76.683189
+huampani,Huampaní,3.482,0.5418287667813124,29.5,apice,-11.973081,-76.806568

@@ -1,0 +1,13 @@
+evaluacion,metodo,positivos,TSS,TSS_ic90,POD,POFD,aciertos,fallos,falsas
+"(a) 13 positivos originales, por evento",v3 (B1),13,0.49,"(0.15, 0.7)",0.69,0.199,9,4,316
+"(a) 13 positivos originales, por evento",M1 semilla 0,13,0.44,"(0.16, 0.63)",0.62,0.178,8,5,283
+"(a) 13 positivos originales, por evento",M1 semilla 1,13,0.53,"(0.18, 0.73)",0.69,0.167,9,4,266
+"(a) 13 positivos originales, por evento",M1 semilla 2,13,0.53,"(0.19, 0.73)",0.69,0.16,9,4,254
+"(b1) todos los positivos con hora de la zona, por evento",v3 (B1),18,0.4,"(0.12, 0.58)",0.67,0.263,12,6,414
+"(b1) todos los positivos con hora de la zona, por evento",M1 semilla 0,18,0.33,"(0.06, 0.51)",0.5,0.17,9,9,268
+"(b1) todos los positivos con hora de la zona, por evento",M1 semilla 1,18,0.38,"(0.05, 0.59)",0.56,0.178,10,8,280
+"(b1) todos los positivos con hora de la zona, por evento",M1 semilla 2,18,0.4,"(0.08, 0.62)",0.56,0.153,10,8,240
+"(b2) todos los positivos de la zona, por día",v3 (B1),35,0.69,"(0.59, 0.78)",0.89,0.192,31,4,335
+"(b2) todos los positivos de la zona, por día",M1 semilla 0,35,0.47,"(0.28, 0.61)",0.66,0.185,23,12,324
+"(b2) todos los positivos de la zona, por día",M1 semilla 1,35,0.65,"(0.52, 0.74)",0.86,0.211,30,5,368
+"(b2) todos los positivos de la zona, por día",M1 semilla 2,35,0.62,"(0.48, 0.72)",0.83,0.206,29,6,360

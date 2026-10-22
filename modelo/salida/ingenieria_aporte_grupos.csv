@@ -1,0 +1,7 @@
+grupo,variables,efecto_al_AGREGAR_a_V1,efecto_al_QUITAR_de_V2,detectados_V1_mas,detectados_V2_sin,coinciden,supera_2x_ruido
+A intensidad,3,0.47,-0.69,14,13,no coinciden,False
+B humedad previa,5,-1.03,-2.28,9,26,sí: perjudica,True
+C contraste,3,-0.19,-0.45,10,18,sí: perjudica,False
+D regional,2,2.94,0.92,24,3,sí: ayuda,True
+E ciclo diario,2,0.8,0.47,16,6,sí: ayuda,False
+F lluvia x terreno,2,0.36,-0.09,13,6,no coinciden,False

@@ -1,0 +1,36 @@
+celdas candidatas: 285 (eventos del catálogo en el recuadro: 972)
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 25/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 50/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 75/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 100/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 125/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 150/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 175/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 200/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 225/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 250/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:80: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pd.concat([hechas, pd.DataFrame(filas)]).to_csv(ruta, index=False)
+  relieve: 275/285
+C:\Users\Camil\Desktop\CV u otras vainas\Hackaton SAS\proyecto\Hackaton-SAS\modelo\v3\C\ficha.py:82: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  out = pd.concat([hechas, pd.DataFrame(filas)])

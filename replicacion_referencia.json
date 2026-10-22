@@ -1,0 +1,136 @@
+{
+ "etiquetas": {
+  "v1_H3": {
+   "filas": 1713192,
+   "positivos": 160,
+   "nan": 6590
+  },
+  "v1_H6": {
+   "filas": 1713192,
+   "positivos": 316,
+   "nan": 6825
+  },
+  "v1_H12": {
+   "filas": 1713192,
+   "positivos": 619,
+   "nan": 7295
+  },
+  "v1_H24": {
+   "filas": 1713192,
+   "positivos": 1219,
+   "nan": 8217
+  },
+  "v2_H3": {
+   "filas": 1713192,
+   "positivos": 108,
+   "nan": 6646
+  },
+  "v2_H6": {
+   "filas": 1713192,
+   "positivos": 237,
+   "nan": 6908
+  },
+  "v2_H12": {
+   "filas": 1713192,
+   "positivos": 538,
+   "nan": 7380
+  },
+  "v2_H24": {
+   "filas": 1713192,
+   "positivos": 1138,
+   "nan": 8302
+  }
+ },
+ "B1": {
+  "TSS": 0.49,
+  "aciertos": 9,
+  "fallos": 4,
+  "falsas": 316
+ },
+ "umbrales": {
+  "3": {
+   "rojo": 0.03180330991744995,
+   "amarillo": 0.005540056619793177,
+   "rojo_TSS": 0.56
+  },
+  "6": {
+   "rojo": 0.03281231224536896,
+   "amarillo": 0.005226084031164646,
+   "rojo_TSS": 0.57
+  },
+  "12": {
+   "rojo": 0.06622372567653656,
+   "amarillo": 0.009147437289357185,
+   "rojo_TSS": 0.56
+  },
+  "24": {
+   "rojo": 0.1073993667960167,
+   "amarillo": 0.011362281627953053,
+   "rojo_TSS": 0.57
+  }
+ },
+ "p2": {
+  "alto_peru": 0.132605,
+  "buenos_aires": 0.129649,
+  "california": 0.482056,
+  "carossio": 0.285726,
+  "chacrasana": 0.471075,
+  "corrales": 0.299473,
+  "el_vallecito": 0.228721,
+  "huampani": 0.178042,
+  "la_cantuta": 0.344919,
+  "la_ronda": 0.191992,
+  "libertad": 0.284397,
+  "mariscal_castilla": 0.36266,
+  "pedregal": 0.554386,
+  "quirio": 0.624985,
+  "rosario": 0.268583,
+  "santa_maria": 0.53916,
+  "santo_domingo": 0.321561
+ },
+ "huella_modelo_p1": "e662a11e4061d6eecca81b2e0120daeed020bb649dc4b616d49f0f21c41600af",
+ "ejemplo_2022_23": {
+  "filas": 246432,
+  "nivel_con_lluvia": {
+   "H3": {
+    "verde": 3274,
+    "rojo": 275,
+    "amarillo": 75
+   },
+   "H6": {
+    "verde": 3327,
+    "rojo": 238,
+    "amarillo": 59
+   },
+   "H12": {
+    "verde": 3282,
+    "rojo": 273,
+    "amarillo": 69
+   },
+   "H24": {
+    "verde": 3283,
+    "rojo": 274,
+    "amarillo": 67
+   }
+  },
+  "nivel": {
+   "H3": {
+    "verde": 3274,
+    "rojo": 350
+   },
+   "H6": {
+    "verde": 3327,
+    "rojo": 297
+   },
+   "H12": {
+    "verde": 3282,
+    "rojo": 342
+   },
+   "H24": {
+    "verde": 3283,
+    "rojo": 341
+   }
+  },
+  "huella": "44e8d584523f3e90397fab382a0dd5f0386e4b1d8576b1b8a5c0bd901208bee7"
+ }
+}

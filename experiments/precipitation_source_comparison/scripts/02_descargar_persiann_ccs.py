@@ -1,0 +1,388 @@
+"""Descarga y recorte de PERSIANN-CCS HORARIO (CHRS, UC Irvine) para la zona de las 17 quebradas. Se corre en una máquina con acceso a persiann.eng.uci.edu.
+
+ESTADO: escrito y probado SOLO contra archivos sintéticos locales (ver salida/prueba_sintetica_decodificador.txt). Nunca se ejecutó contra el servidor real: el entorno
+donde se escribió bloquea persiann.eng.uci.edu (error 403 de la política de red). Lo NO confirmado está marcado con [CONFIRMAR] y se resuelve con los modos --readme e --indice.
+
+Lo que SÍ se sabe (readmes diario y 6-horario de CHRS, que comparten grilla con el horario):
+  - grilla global 0.04°, 3000 filas x 9000 columnas, 60N-60S, 0-360E; primer valor = píxel noroeste centrado en 0.02E y 59.98N; filas hacia el sur, columnas hacia el este.
+  - diario: float32 big-endian en mm/día, NODATA -9999 (archivo rgccs1d + YYDDD, .bin.gz). 6-horario: int16 big-endian en mm/6h x 100, NODATA -9999 (YYDDDHH).
+README HORARIO LEÍDO el 12/10/2026 (lo pegó el usuario; el servidor no es accesible desde el entorno de nube): CONFIRMA nombre rgccs1h + YYDDDHH, subcarpetas por año,
+int16 big-endian en mm/h x 100, 3000 x 9000, primer píxel NW en 0.02E/59.98N, HH = INICIO de la hora (HH:00 a HH:59; el README no dice la zona horaria: se asume UTC y se
+verifica con el ciclo diario), datos «realtime» que se reprocesan tras 2 días (el reprocesado puede tardar hasta 24 h). El prefijo cambia entre años (2000: 'rgccs…').
+(Lo que sigue en este párrafo era la lista de dudas ANTES de leer el README: queda como referencia.) Lo que NO se pudo confirmar antes del README horario: tipo de dato y escala del horario, patrón del nombre (se asume rgccs1h + YYDDDHH), si la hora del nombre marca
+el INICIO o el FIN de la hora acumulada, y la latencia declarada. Se resuelven leyendo el README (--readme) y pasando --dtype/--escala/--convencion si hace falta.
+
+Los archivos son globales y gzip: NO se puede leer solo un recorte por red; cada archivo se baja entero y se recorta al llegar (guarda solo ~10 x 10 píxeles).
+Usa --medir antes de bajar nada para ver cuánto pesan.
+
+Uso (desde la raíz del repositorio):
+  python experiments/precipitation_source_comparison/scripts/02_descargar_persiann_ccs.py --readme
+   ... --indice                      # primer/último archivo y fecha del último (¿se sigue actualizando?)
+  ... --medir 6                     # tamaño de 6 archivos de ejemplo y estimación del total
+  ... --prueba                      # 3 ventanas: Quirio 23/03/2015, 2024-25 (2 días), reciente (2 últimos días del índice)
+  ... --temporadas 2014 2025        # dic-abr de cada temporada (la 2014 es dic-2014 a abr-2015); reanuda lo ya guardado
+  ... --solo 2015-03                # un solo mes (~1.4 GB): úsalo para MEDIR tu velocidad real antes de lo grande
+  ... --eventos                     # solo los días del catálogo de huaicos ±1 día (~3 GB)
+Salida: datos/persiann_ccs/persiann_ccs_AAAA-MM.nc (mm por hora, UTC, etiqueta = convención declarada) y caché diaria en datos/persiann_ccs/_cache/.
+"""
+import argparse
+import gzip
+import io
+import re
+import sys
+import time
+from concurrent.futures import ThreadPoolExecutor
+from datetime import date, datetime, timedelta, timezone
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+import requests
+
+AQUI = Path(__file__).resolve().parents[1]
+RAIZ = AQUI.parents[1]
+CARPETA = AQUI / "datos" / "persiann_ccs"
+BASE_DEFECTO = "https://persiann.eng.uci.edu/CHRSdata/PERSIANN-CCS/hrly/"
+NFIL, NCOL, PASO, LAT0, LON0 = 3000, 9000, 0.04, 59.98, 0.02     # lat del centro de la fila i = LAT0 - PASO*i ; lon (0-360) de la columna j = LON0 + PASO*j
+NODATA = -9999
+PATRON = re.compile(r"^(?P<pref>[A-Za-z0-9_]*?)(?P<yy>\d{2})(?P<ddd>\d{3})(?P<hh>\d{2})?\.bin(?:\.gz)?$")
+MARGEN = 0.05   # grados de margen alrededor del bbox de las cuencas
+
+
+def bbox():
+    import geopandas as gpd
+    x0, y0, x1, y1 = gpd.read_file(RAIZ / "terreno" / "quebradas.geojson").total_bounds
+    return x0 - MARGEN, y0 - MARGEN, x1 + MARGEN, y1 + MARGEN
+
+
+def indices_recorte(bb):
+    """Filas y columnas de la grilla global cuyos centros caen dentro del bbox (lon negativa -> 0-360)."""
+    x0, y0, x1, y1 = bb
+    filas = [i for i in range(NFIL) if y0 <= LAT0 - PASO * i <= y1]
+    cols = [j for j in range(NCOL) if x0 + 360 <= LON0 + PASO * j <= x1 + 360]
+    lat = np.round(LAT0 - PASO * np.array(filas), 4)
+    lon = np.round(LON0 + PASO * np.array(cols) - 360, 4)
+    return slice(filas[0], filas[-1] + 1), slice(cols[0], cols[-1] + 1), lat, lon
+
+
+# ------------------------------------------------------------------ red
+def get(url, intentos=5, espera=3, **kw):
+    for k in range(intentos):
+        try:
+            r = requests.get(url, timeout=kw.pop("timeout", 90), **kw)
+            if r.status_code == 200:
+                return r
+            if r.status_code in (403, 404):      # no se reintenta una denegación ni un archivo inexistente
+                return r
+        except requests.RequestException as e:
+            err = e
+        time.sleep(espera * (k + 1))
+    raise RuntimeError(f"no se pudo obtener {url}: {err if 'err' in dir() else 'reintentos agotados'}")
+
+
+def _hrefs(html):
+    return re.findall(r"""href=["']([^"'#?]+)""", html)
+
+
+def _nombre(h):
+    return h.rstrip("/").split("/")[-1]
+
+
+def diagnostico(base, r, n=40):
+    hs = _hrefs(r.text)
+    print(f"--- DIAGNÓSTICO del índice {base}\nestado {r.status_code} | content-type {r.headers.get('Content-Type')} | {len(r.content):,} bytes | {len(hs)} enlaces")
+    print("primeros enlaces:", hs[:n])
+    print("primeros 1500 caracteres del HTML:\n" + r.text[:1500])
+
+
+def explorar(base):
+    """Devuelve dict(nombres=[...], capa='' | '{yyyy}/' | '{yy}/', primero=nombre, ultimo=nombre). Entiende archivos en la carpeta o en subcarpetas por año.
+    Si no reconoce ningún archivo, imprime el contenido real del índice y se detiene (para adaptar PATRON)."""
+    r = get(base)
+    if r.status_code != 200:
+        raise SystemExit(f"El índice {base} respondió {r.status_code}.")
+    hs = _hrefs(r.text)
+    nombres = sorted({_nombre(h) for h in hs if PATRON.match(_nombre(h))})
+    if nombres:
+        return dict(nombres=nombres, capa="", primero=nombres[0], ultimo=nombres[-1])
+    dirs = sorted({_nombre(h) for h in hs if h.endswith("/")})
+    for fmt, rx in (("{yyyy}/", r"(19|20)\d{2}"), ("{yy}/", r"\d{2}")):
+        anios = [d for d in dirs if re.fullmatch(rx, d)]
+        if anios:
+            ext = {}
+            for d in (anios[0], anios[-1]):
+                r2 = get(base + d + "/")
+                ext[d] = sorted({_nombre(h) for h in _hrefs(r2.text) if PATRON.match(_nombre(h))}) if r2.status_code == 200 else []
+            if ext[anios[-1]]:
+                return dict(nombres=ext[anios[-1]], capa=fmt, primero=(ext[anios[0]] or ext[anios[-1]])[0], ultimo=ext[anios[-1]][-1], subcarpetas=anios)
+    diagnostico(base, r)
+    raise SystemExit("No reconozco ningún archivo con el patrón esperado (prefijo + YYDDD[HH] + .bin[.gz]) ni subcarpetas por año. Pégame el DIAGNÓSTICO de arriba y adapto el script.")
+
+
+def info_anio(cfg, year):
+    """(prefijo, nombre_con_hora) de los archivos de UN año, leído del listado de su subcarpeta. El prefijo cambia entre años
+    (p. ej. 2000 usa 'rgccs…' y 2015 'rgccs1h…'): nunca se asume el del primer archivo del índice."""
+    cache = cfg.setdefault("_anios", {})
+    if year not in cache:
+        capa = cfg["capa"].format(yyyy=year, yy=f"{year % 100:02d}") if cfg["capa"] else ""
+        r = get(cfg["base"] + capa)
+        nombres = sorted({_nombre(h) for h in _hrefs(r.text) if PATRON.match(_nombre(h))}) if r.status_code == 200 else []
+        if nombres:
+            _, pref, con_hora = fecha_de(nombres[len(nombres) // 2])
+            cache[year] = (pref, con_hora, len(nombres))
+        else:
+            cache[year] = (cfg["pref"], cfg["con_hora"], 0)
+    return cache[year]
+
+
+def url_archivo(cfg, t):
+    capa = cfg["capa"].format(yyyy=t.year, yy=f"{t.year % 100:02d}") if cfg["capa"] else ""
+    pref, con_hora, _ = info_anio(cfg, t.year)
+    return cfg["base"] + capa + nombre_de(t, pref, con_hora)
+
+
+def fecha_de(nombre):
+    m = PATRON.match(nombre)
+    yy = int(m["yy"])
+    anio = 2000 + yy
+    hh = int(m["hh"]) if m["hh"] else None
+    return datetime(anio, 1, 1) + timedelta(days=int(m["ddd"]) - 1, hours=hh or 0), m["pref"], hh is not None
+
+
+def nombre_de(t, pref, con_hora=True, gz=True):
+    ddd = (t.date() - date(t.year, 1, 1)).days + 1
+    return f"{pref}{t.year % 100:02d}{ddd:03d}{t.hour:02d}.bin" + (".gz" if gz else "") if con_hora else f"{pref}{t.year % 100:02d}{ddd:03d}.bin.gz"
+
+
+# ------------------------------------------------------------------ decodificación
+def inferir_formato(readme):
+    """Intenta leer tipo y escala del README. Devuelve (dtype, escala) o (None, None) si no es concluyente."""
+    t = readme.lower()
+    escala = 100 if re.search(r"(\*|x|×)\s*100|mm/\w+\s*(\*|x|×)\s*100", t) else 1
+    if "short" in t or "int16" in t or "2-byte" in t or "2 byte" in t:
+        return ">i2", escala
+    if "float" in t or "4-byte" in t or "4 byte" in t:
+        return ">f4", 1
+    return None, None
+
+
+def decodificar(datos, dtype, escala):
+    """Bytes (ya sin gzip) -> arreglo (3000, 9000) float32 en mm; NODATA -> NaN. Verifica el tamaño contra la grilla documentada."""
+    esperado = NFIL * NCOL * np.dtype(dtype).itemsize
+    if len(datos) != esperado:
+        raise ValueError(f"tamaño {len(datos)} B != {esperado} B esperados para {dtype} en {NFIL}x{NCOL}: el tipo de dato o la grilla no coinciden con lo supuesto")
+    a = np.frombuffer(datos, dtype=dtype).reshape(NFIL, NCOL)
+    out = np.where(a == NODATA, np.nan, a.astype("float32") / escala).astype("float32")
+    return out
+
+
+def bajar_hora(url, dtype, escala, sl_f, sl_c):
+    r = get(url)
+    if r.status_code != 200:
+        return None, r.status_code, 0
+    crudo = gzip.decompress(r.content)
+    return decodificar(crudo, dtype, escala)[sl_f, sl_c], 200, len(r.content)
+
+
+def dia_a_npz(base, dia, cfg, hilos):
+    """Un día UTC completo (24 horas) -> caché .npz. Devuelve (ok, faltantes)."""
+    ruta = CARPETA / "_cache" / f"{dia:%Y-%m}" / f"{dia:%Y%m%d}.npz"
+    if ruta.exists():
+        return True, []
+    horas = [datetime(dia.year, dia.month, dia.day, h) for h in range(24)]
+    info_anio(cfg, dia.year)   # antes de lanzar los hilos: así el listado del año se lee una sola vez
+    with ThreadPoolExecutor(hilos) as ex:
+        res = list(ex.map(lambda t: bajar_hora(url_archivo(cfg, t), cfg["dtype"], cfg["escala"], cfg["sl_f"], cfg["sl_c"]), horas))
+    cfg["_bytes"] = cfg.get("_bytes", 0) + sum(r[2] for r in res)
+    ny, nx = cfg["sl_f"].stop - cfg["sl_f"].start, cfg["sl_c"].stop - cfg["sl_c"].start
+    arr = np.stack([r[0] if r[0] is not None else np.full((ny, nx), np.nan, "float32") for r in res])
+    faltan = [f"{t:%H}" for t, r in zip(horas, res) if r[0] is None]
+    ruta.parent.mkdir(parents=True, exist_ok=True)
+    np.savez_compressed(ruta, mm=arr, horas=np.array([f"{t:%Y-%m-%dT%H}" for t in horas]), faltan=np.array(faltan))
+    return not faltan, faltan
+
+
+def ensamblar_mes(anio, mes, cfg):
+    import xarray as xr
+    dias = pd.date_range(f"{anio}-{mes:02d}-01", periods=pd.Period(f"{anio}-{mes:02d}").days_in_month).date
+    partes = []
+    for d in dias:
+        ruta = CARPETA / "_cache" / f"{d:%Y-%m}" / f"{d:%Y%m%d}.npz"
+        if not ruta.exists():
+            continue
+        z = np.load(ruta)
+        partes.append(xr.DataArray(z["mm"], dims=("time", "lat", "lon"), coords=dict(time=pd.to_datetime(z["horas"], format="%Y-%m-%dT%H"), lat=cfg["lat"], lon=cfg["lon"])))
+    if not partes:
+        return None
+    da = xr.concat(partes, "time").sortby("time")
+    da.name = "mm_h"
+    da.attrs.update(units="mm por intervalo horario", producto="PERSIANN-CCS hourly (CHRS, UCI)", tiempo_utc=f"marca de tiempo = hora del nombre del archivo (UTC); convención {cfg['convencion']} [CONFIRMAR con README]",
+                    formato_origen=f"{cfg['dtype']} escala {cfg['escala']} NODATA {NODATA}", grilla="0.04 grados; centro de fila i = 59.98 - 0.04 i; centro de columna j = 0.02 + 0.04 j (0-360E); lon aquí en -180..180")
+    ruta = CARPETA / f"persiann_ccs_{anio}-{mes:02d}.nc"
+    da.to_dataset().to_netcdf(ruta)
+    return ruta, da.sizes["time"]
+
+
+# ------------------------------------------------------------------ modos
+def configurar(a):
+    base = a.url_base.rstrip("/") + "/"
+    sl_f, sl_c, lat, lon = indices_recorte(bbox())
+    cfg = dict(base=base, sl_f=sl_f, sl_c=sl_c, lat=lat, lon=lon, convencion=a.convencion)
+    dtype, escala = a.dtype, a.escala
+    ex = explorar(base)
+    t0, pref, con_hora = fecha_de(ex["primero"])
+    cfg.update(pref=pref, con_hora=con_hora, capa=ex["capa"], primero=t0, ultimo=fecha_de(ex["ultimo"])[0], nombres_muestra=ex["nombres"])
+    if dtype is None:
+        r = get(base + "readme.hrly")
+        if r.status_code == 200:
+            dtype, escala_r = inferir_formato(r.text)
+            escala = escala if escala is not None else escala_r
+    if dtype is None:
+        raise SystemExit("No pude inferir el tipo de dato del README horario. Léelo con --readme y pasa --dtype '>i2' (int16 big-endian) o '>f4' (float32 big-endian) y --escala (p. ej. 100).")
+    cfg.update(dtype=dtype, escala=escala if escala is not None else 1)
+    print(f"Formato: {cfg['dtype']} escala {cfg['escala']} | prefijo {cfg['pref']} | nombre con hora: {cfg['con_hora']} | recorte {cfg['sl_f']} x {cfg['sl_c']} ({len(cfg['lat'])} x {len(cfg['lon'])} píxeles)")
+    return cfg
+
+
+def modo_readme(a):
+    base = a.url_base.rstrip("/") + "/"
+    for n in ("readme.hrly", "README", "readme.txt"):
+        r = get(base + n, intentos=2)
+        if r.status_code == 200:
+            print(f"--- {base + n}\n{r.text}")
+            return
+    print("No encontré el README en", base, "(probé readme.hrly, README, readme.txt). Revísalo en el portal.")
+
+
+def modo_indice(a):
+    ex = explorar(a.url_base.rstrip("/") + "/")
+    f0, f1 = fecha_de(ex["primero"])[0], fecha_de(ex["ultimo"])[0]
+    print(f"Estructura: {'archivos en la carpeta' if not ex['capa'] else 'subcarpetas por año (' + ex['capa'] + ') ' + str(ex.get('subcarpetas', [])[:3]) + '…'}")
+    print(f"Archivos leídos en el último listado: {len(ex['nombres'])} | muestra: {ex['nombres'][:3]} … {ex['nombres'][-3:]}")
+    print(f"Primero: {ex['primero']} ({f0}) | último: {ex['ultimo']} ({f1})")
+    print(f"Hoy (UTC) es {datetime.now(timezone.utc).replace(tzinfo=None):%Y-%m-%d %H:%M}: el último archivo tiene {(datetime.now(timezone.utc).replace(tzinfo=None) - f1).total_seconds() / 3600:.0f} h de antigüedad (latencia aparente, a verificar contra el README).")
+
+
+def modo_crudo(a):
+    base = a.url_base.rstrip("/") + "/"
+    diagnostico(base, get(base))
+
+
+def modo_medir(a, cfg):
+    """HEAD de un archivo por año de muestra (febrero, 18 UTC) para estimar el peso total. El tamaño puede variar entre años."""
+    anios = [2014, 2016, 2019, 2022, 2025][:max(a.medir, 1)]
+    tam = []
+    for y in anios:
+        t = datetime(y, 2, 15, 18)
+        url = url_archivo(cfg, t)
+        r = requests.head(url, timeout=60, allow_redirects=True)
+        tam.append(int(r.headers.get("Content-Length", 0)))
+        print(f"  {url.rsplit('/', 1)[-1]} ({t:%Y-%m-%d %H} UTC) -> HTTP {r.status_code}, {tam[-1] / 1e6:.2f} MB")
+    ok = [x for x in tam if x]
+    if not ok:
+        raise SystemExit("Ningún HEAD devolvió Content-Length. Prueba con --prueba (descarga 2 días) y mira el tamaño real.")
+    mb = np.mean(ok) / 1e6
+    horas = 12 * 151 * 24
+    print(f"Promedio {mb:.2f} MB/archivo. Dic-abr de 12 temporadas = {horas:,} archivos = {mb * horas / 1e3:.0f} GB a bajar (se descartan al recortar).")
+
+
+def modo_prueba(a, cfg):
+    pasos = [("Quirio 2015-03-23 (08:00-24:00 local = 13:00 UTC del 23 a 05:00 UTC del 24)", [date(2015, 3, 23), date(2015, 3, 24)]),
+             ("Temporada 2024-25: 2024-12-02 y 2025-02-12 (días anómalos de IMERG)", [date(2024, 12, 2), date(2025, 2, 12)]),
+             ("Reciente: los 2 últimos días completos del índice", [cfg["ultimo"].date() - timedelta(days=2), cfg["ultimo"].date() - timedelta(days=1)] if "ultimo" in cfg else [])]
+    for titulo, dias in pasos:
+        print("\n" + titulo)
+        for d in dias:
+            ok, faltan = dia_a_npz(cfg["base"], d, cfg, a.hilos)
+            print(f"  {d}: {'ok' if ok else 'INCOMPLETO, faltan horas UTC ' + ','.join(faltan)}")
+    for ym in sorted({(d.year, d.month) for _, ds in pasos for d in ds}):
+        r = ensamblar_mes(*ym, cfg)
+        if r:
+            print("  guardado", r[0].name, f"({r[1]} horas)")
+
+
+def progreso(cfg, t0, hechos, total):
+    seg = time.time() - t0
+    mb = cfg.get("_bytes", 0) / 1e6
+    if hechos and seg > 0:
+        resta = seg / hechos * (total - hechos)
+        print(f"   [{hechos}/{total} días] {mb / 1e3:.1f} GB bajados en {seg / 60:.1f} min ({mb / seg:.1f} MB/s = {mb * 8 / seg:.0f} Mbit/s) | faltan ~{resta / 60:.0f} min", flush=True)
+
+
+def modo_eventos(a, cfg):
+    """Solo los días UTC alrededor de cada fecha del catálogo de huaicos (día anterior, día y día siguiente). Las 26 fechas dan ~3 GB en vez de 84 GB."""
+    cat = pd.read_csv(RAIZ / "catalogo_huaicos_chosica" / "catalogo_huaicos_chosica.csv", parse_dates=["fecha"])
+    dias = sorted({(f + timedelta(days=k)).date() for f in cat.fecha for k in (-1, 0, 1)})
+    print(f"{len(cat.fecha.unique())} fechas del catálogo -> {len(dias)} días ({len(dias) * 24:,} archivos, ~{len(dias) * 24 * 1.94 / 1000:.1f} GB a bajar)")
+    t0, malos = time.time(), []
+    for k, d in enumerate(dias, 1):
+        ok, faltan = dia_a_npz(cfg["base"], d, cfg, a.hilos)
+        if not ok:
+            malos.append(f"{d}({','.join(faltan)})")
+        if k % 5 == 0 or k == len(dias):
+            progreso(cfg, t0, k, len(dias))
+    for ym in sorted({(d.year, d.month) for d in dias}):
+        r = ensamblar_mes(*ym, cfg)
+        print(f"{ym[0]}-{ym[1]:02d}: {r[1] if r else 0} horas guardadas")
+    if malos:
+        print("Días incompletos:", malos)
+
+
+def modo_temporadas(a, cfg):
+    meses = [(y, 12) for y in range(a.temporadas[0], a.temporadas[1] + 1)] + [(y + 1, m) for y in range(a.temporadas[0], a.temporadas[1] + 1) for m in (1, 2, 3, 4)]
+    if a.solo:
+        meses = [tuple(map(int, a.solo.split("-")))]
+    total = sum(pd.Period(f"{y}-{m:02d}").days_in_month for y, m in meses)
+    t0, hechos = time.time(), 0
+    for anio, mes in sorted(meses):
+        dias = pd.date_range(f"{anio}-{mes:02d}-01", periods=pd.Period(f"{anio}-{mes:02d}").days_in_month).date
+        malos = []
+        for d in dias:
+            ok, faltan = dia_a_npz(cfg["base"], d, cfg, a.hilos)
+            hechos += 1
+            if not ok:
+                malos.append(f"{d}({','.join(faltan)})")
+        r = ensamblar_mes(anio, mes, cfg)
+        print(f"{anio}-{mes:02d}: {r[1] if r else 0} horas guardadas" + (f" | días incompletos: {malos}" if malos else ""), flush=True)
+        progreso(cfg, t0, hechos, total)
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("--url-base", default=BASE_DEFECTO)
+    ap.add_argument("--readme", action="store_true")
+    ap.add_argument("--indice", action="store_true")
+    ap.add_argument("--crudo", action="store_true", help="imprime el HTML real del índice (para diagnosticar si el script no entiende su formato)")
+    ap.add_argument("--medir", type=int, default=0)
+    ap.add_argument("--prueba", action="store_true")
+    ap.add_argument("--temporadas", type=int, nargs=2, metavar=("PRIMERA", "ULTIMA"))
+    ap.add_argument("--solo")
+    ap.add_argument("--eventos", action="store_true", help="solo los días alrededor de las fechas del catálogo de huaicos (±1 día): ~3 GB en vez de ~84 GB")
+    ap.add_argument("--hilos", type=int, default=6)
+    ap.add_argument("--dtype", help="tipo del binario si el README no se puede leer: '>i2' o '>f4'")
+    ap.add_argument("--escala", type=float)
+    ap.add_argument("--prefijo", default="rgccs1h")
+    ap.add_argument("--convencion", choices=["inicio", "fin"], default="inicio", help="la hora del nombre marca el inicio o el fin de la hora acumulada [CONFIRMAR]")
+    a = ap.parse_args()
+    CARPETA.mkdir(parents=True, exist_ok=True)
+    if a.readme:
+        return modo_readme(a)
+    if a.crudo:
+        return modo_crudo(a)
+    if a.indice:
+        return modo_indice(a)
+    cfg = configurar(a)
+    if a.medir:
+        return modo_medir(a, cfg)
+    if a.prueba:
+        return modo_prueba(a, cfg)
+    if a.eventos:
+        return modo_eventos(a, cfg)
+    if a.temporadas or a.solo:
+        a.temporadas = a.temporadas or (2014, 2025)
+        return modo_temporadas(a, cfg)
+    ap.print_help()
+
+
+if __name__ == "__main__":
+    main()
