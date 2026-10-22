@@ -1,4 +1,4 @@
-"""Replica el modelo final (v3: P1 = B1 en la zona + P2 por quebrada; nivel M3 de la entrega) y verifica el resultado contra la referencia.
+"""Replica el modelo final (v3: P1 = B1 en la zona + P2 por quebrada; niveles de la entrega) y verifica el resultado contra la referencia.
 
 Uso (desde la raíz del repo, con el entorno de requirements.txt):
   python replicar.py                    # cadena completa con los insumos versionados en git + verificación (~2-5 min)
@@ -10,7 +10,7 @@ Uso (desde la raíz del repo, con el entorno de requirements.txt):
   python replicar.py --generar-referencia   # (mantenedor) guarda las salidas actuales como referencia
 Pasos (cada uno es un script que también se puede correr solo; ver REPLICAR.md):
   [0] descargas opcionales  [1] catálogo + etiquetas v1 (opcional)  [2] etiquetas v2  [3] eventos de lluvia y A2 (Fase A)
-  [4] B1 = intensidad + estado (Fase B1)  [5] modelo final: P1, umbrales y P2  [6] entrega al dashboard (ejemplo 2022-23, nivel M3)  [7] verificación
+  [4] B1 = intensidad + estado (Fase B1)  [5] modelo final: P1, umbrales y P2  [6] entrega al dashboard (ejemplo 2022-23, nivel oficial y nivel_con_lluvia)  [7] verificación
 """
 import hashlib
 import json
@@ -66,10 +66,10 @@ def resumen_actual():
     out["p2"] = pd.read_csv(V3 / "final" / "p2_final.csv", index_col=0).iloc[:, 0].round(6).to_dict()
     out["huella_modelo_p1"] = huella(V3 / "final" / "p1_b1.json")
     ej = RAIZ / "modelo" / "v3_1" / "entrega" / "ejemplo_2022_23_m3.csv"
-    T = pd.read_csv(ej, usecols=["quebrada_id", "H", "nivel", "nivel_v3"])
+    T = pd.read_csv(ej, usecols=["quebrada_id", "H", "nivel", "nivel_con_lluvia"])
     una = T[T.quebrada_id == "quirio"]
-    out["ejemplo_2022_23"] = dict(filas=len(T), m3={f"H{H}": g.nivel.value_counts().to_dict() for H, g in una.groupby("H")},
-                                  v3={f"H{H}": g.nivel_v3.value_counts().to_dict() for H, g in una.groupby("H")}, huella=huella(ej))
+    out["ejemplo_2022_23"] = dict(filas=len(T), nivel={f"H{H}": g.nivel.value_counts().to_dict() for H, g in una.groupby("H")},
+                                  nivel_con_lluvia={f"H{H}": g.nivel_con_lluvia.value_counts().to_dict() for H, g in una.groupby("H")}, huella=huella(ej))
     return out
 
 
@@ -90,8 +90,8 @@ def verificar():
     for k in ("etiquetas", "B1", "umbrales", "p2"):
         igual(k, ref[k], act[k])
     igual("ejemplo_2022_23.filas", ref["ejemplo_2022_23"]["filas"], act["ejemplo_2022_23"]["filas"])
-    igual("ejemplo_2022_23.m3", ref["ejemplo_2022_23"]["m3"], act["ejemplo_2022_23"]["m3"])
-    igual("ejemplo_2022_23.v3", ref["ejemplo_2022_23"]["v3"], act["ejemplo_2022_23"]["v3"])
+    igual("ejemplo_2022_23.nivel", ref["ejemplo_2022_23"]["nivel"], act["ejemplo_2022_23"]["nivel"])
+    igual("ejemplo_2022_23.nivel_con_lluvia", ref["ejemplo_2022_23"]["nivel_con_lluvia"], act["ejemplo_2022_23"]["nivel_con_lluvia"])
     exacto = act["huella_modelo_p1"] == ref["huella_modelo_p1"] and act["ejemplo_2022_23"]["huella"] == ref["ejemplo_2022_23"]["huella"]
     print("\n=== VERIFICACIÓN contra replicacion_referencia.json")
     print(f"  B1 (validación LOSO por evento): TSS {act['B1']['TSS']} (ref. {ref['B1']['TSS']}), aciertos {act['B1']['aciertos']} de "
@@ -146,7 +146,7 @@ def main():
     correr("[3] Fase A: eventos de lluvia y modelos de intensidad", [V3 / "A" / "fase_a.py"])
     correr("[4] Fase B1: intensidad + estado", [V3 / "B" / "fase_b1.py"])
     correr("[5] modelo final: P1 (todas las temporadas), umbrales por H y P2", [V3 / "final" / "modelo_final.py", "entrenar"])
-    correr("[6] entrega al dashboard: ejemplo 2022-23 fuera de muestra, nivel M3", [RAIZ / "modelo" / "v3_1" / "entrega" / "entrega_dashboard.py", "ejemplo"])
+    correr("[6] entrega al dashboard: ejemplo 2022-23 fuera de muestra, nivel oficial y nivel_con_lluvia", [RAIZ / "modelo" / "v3_1" / "entrega" / "entrega_dashboard.py", "ejemplo"])
     print(f"\nCadena completa en {(time.time() - t0) / 60:.1f} min")
     sys.exit(0 if verificar() else 1)
 

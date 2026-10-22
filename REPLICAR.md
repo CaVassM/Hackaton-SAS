@@ -1,7 +1,7 @@
 # Cómo replicar el modelo
 
 Esta guía reproduce el **modelo final v3** desde el repositorio y verifica que el resultado coincide con el entregado.
-Cubre las dos piezas (P1 = zona; P2 = quebrada) y la entrega al dashboard con el nivel M3.
+Cubre las dos piezas (P1 = zona; P2 = quebrada) y la entrega al dashboard (nivel oficial por defecto; `nivel_con_lluvia` opcional).
 Todos los insumos de datos que usa el modelo ya están versionados en git, así que la replicación básica **no necesita descargas ni credenciales**.
 
 ## 1. Replicación en 3 comandos (~2-5 min)
@@ -36,7 +36,7 @@ RESULTADO: REPLICA OK
 | 3 | `modelo/v3/A/fase_a.py` | IMERG Early (`lluvia/datos/early/`), pesos IMERG, etiquetas v2 | eventos de lluvia (`A/fase_a_eventos.parquet`), `A/fase_a_resumen.csv` |
 | 4 | `modelo/v3/B/fase_b1.py` | lo anterior + ERA5-Land, ICEN, catálogo | predicciones fuera de muestra de B1 (`_cache/oof_b1.parquet`), `B/fase_b1_resumen.csv` (**TSS 0.49**) |
 | 5 | `modelo/v3/final/modelo_final.py entrenar` | lo anterior | **`p1_b1.json`** (modelo P1), **`metadatos_final.json`** (variables, fuentes, umbrales por H), **`p2_final.csv`** |
-| 6 | `modelo/v3_1/entrega/entrega_dashboard.py ejemplo` | modelo final | `ejemplo_2022_23_m3.csv` (temporada 2022-23 fuera de muestra, nivel M3 por defecto) |
+| 6 | `modelo/v3_1/entrega/entrega_dashboard.py ejemplo` | modelo final | `ejemplo_2022_23_m3.csv` (temporada 2022-23 fuera de muestra; `nivel` oficial por defecto y `nivel_con_lluvia` opcional) |
 | 7 | verificación | `replicacion_referencia.json` | REPLICA OK / NO REPLICA |
 
 Una vez replicado, el modelo se usa así:

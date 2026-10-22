@@ -32,8 +32,8 @@ python replicar.py                          # ~2-5 min: etiquetas -> eventos -> 
 ```
 Paso a paso, insumos, cómo volver a bajarlos y qué queda fuera: [REPLICAR.md](REPLICAR.md).
 
-## Entrega al dashboard (nivel por defecto: M3)
-Script: `modelo/v3_1/entrega/entrega_dashboard.py`. Usa el modelo v3 **sin cambios** (`modelo/v3/final/`) y añade el nivel M3.
+## Entrega al dashboard (nivel por defecto: el oficial, validado)
+Script: `modelo/v3_1/entrega/entrega_dashboard.py`. Usa el modelo v3 **sin cambios** (`modelo/v3/final/`). Da el nivel oficial y, como opción, la variante `nivel_con_lluvia`.
 
 ```bash
 # tabla operativa de una hora (17 quebradas x 4 horizontes)
@@ -54,23 +54,24 @@ Columnas de salida:
 | `score` | `p_zona × p2_quebrada` (para ordenar) |
 | `indice_0_100` | `100 × min(1, p_zona / umbral rojo) × p2 / max(p2)`; 100 = zona en umbral rojo y la quebrada más propensa |
 | `lluvia_6h_mm` | lluvia IMERG de las últimas 6 h disponibles (máximo entre celdas) |
-| `nivel` | **nivel por defecto (M3)** |
-| `nivel_v3` | nivel original de v3 (referencia) |
+| `nivel` | **nivel por defecto (oficial, el validado)**: rojo si p_zona ≥ umbral rojo |
+| `nivel_con_lluvia` | variante opcional: el rojo exige además lluvia en las últimas 6 h |
 
 ### Los dos niveles
 El nivel se calcula para la **zona**, que es lo validado. Las quebradas comparten nivel y se ordenan por `score` o `indice_0_100`.
 
-| | `nivel` = M3 (por defecto) | `nivel_v3` (original) |
+| | `nivel` (oficial, por defecto) | `nivel_con_lluvia` (variante opcional) |
 |---|---|---|
-| Rojo | p_zona ≥ umbral rojo **y** lluvia IMERG > 0.1 mm en las últimas 6 h | p_zona ≥ umbral rojo |
-| Amarillo | p_zona ≥ umbral rojo **sin** lluvia reciente ("condiciones favorables"), o umbral amarillo ≤ p_zona < umbral rojo | umbral amarillo ≤ p_zona < umbral rojo |
+| Rojo | p_zona ≥ umbral rojo | p_zona ≥ umbral rojo **y** lluvia IMERG > 0.1 mm en las últimas 6 h |
+| Amarillo | umbral amarillo ≤ p_zona < umbral rojo | p_zona ≥ umbral rojo **sin** lluvia reciente ("condiciones favorables"), o umbral amarillo ≤ p_zona < umbral rojo |
 | Verde | el resto | el resto |
-| TSS del rojo (IC 90 %) | 0.44 (0.16–0.63) | 0.49 (0.15–0.70) |
-| Acierto del rojo | 0.62 (8 de 13) | 0.69 (9 de 13) |
-| Falsas alarmas del rojo | 0.17 | 0.20 |
-| Horas en rojo (dic–abr) | 11.4 % | 15.0 % |
+| TSS del rojo (IC 90 %) | 0.49 (0.15–0.70) | 0.44 (0.16–0.63) |
+| Acierto del rojo | 0.69 (9 de 13) | 0.62 (8 de 13) |
+| Falsas alarmas del rojo | 0.20 | 0.17 |
+| Horas en rojo (dic–abr) | 15.0 % | 11.4 % |
 
-- **Por qué M3 es el nivel por defecto:** quita ~24 % de las horas en rojo. El único huaico que deja de estar en rojo pasa a amarillo, así que "rojo o amarillo" alerta los mismos huaicos en ambas versiones.
+- **Por qué el oficial es el nivel por defecto:** es exactamente la regla validada (TSS 0.49). La condición de lluvia se agregó después (`modelo/v3_1/M3`).
+- **Cuándo usar `nivel_con_lluvia`:** quita ~24 % de las horas en rojo a cambio de un acierto. El huaico que deja de estar en rojo pasa a amarillo, así que "rojo o amarillo" alerta los mismos huaicos en las dos columnas.
 - **Umbrales:** están en `modelo/v3/final/metadatos_final.json`. El rojo maximiza el TSS por evento; el amarillo es el de máximo acierto alcanzable (0.85).
 - **Cómo leer H = 6, 12 y 24:** describen la **condición de la zona**, no la anticipación de un huaico concreto.
 
@@ -93,7 +94,7 @@ El nivel se calcula para la **zona**, que es lo validado. Las quebradas comparte
 | `lluvia/` | descarga de IMERG Early (60 meses en `datos/early/`) y variables de lluvia |
 | `modelo/v3/` | enfoque por evento: Fase A (eventos e intensidad), Fase B1 (estado), **modelo final** (`final/`), ficha del modelo, `RESUMEN.md` |
 | `modelo/v3/datos/` | descargadores (Open-Meteo, ICEN, IMERG diario) e insumos versionados (`raw/openmeteo/era5_land.parquet`, `raw/icen/ICEN.txt`) |
-| `modelo/v3_1/entrega/` | **entrega al dashboard** (nivel M3 por defecto) y ejemplo 2022-23 |
+| `modelo/v3_1/entrega/` | **entrega al dashboard** (nivel oficial por defecto; `nivel_con_lluvia` opcional) y ejemplo 2022-23 |
 | `docs/` | diccionario de datos (.docx, generado con `docs/fuente_diccionario/gen.js`), informe de resultados |
 
 **Histórico y exploratorio** (cada carpeta tiene su script y su resumen; no hace falta para replicar):

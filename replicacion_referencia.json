@@ -91,7 +91,7 @@
  "huella_modelo_p1": "e662a11e4061d6eecca81b2e0120daeed020bb649dc4b616d49f0f21c41600af",
  "ejemplo_2022_23": {
   "filas": 246432,
-  "m3": {
+  "nivel_con_lluvia": {
    "H3": {
     "verde": 3274,
     "rojo": 275,
@@ -113,7 +113,7 @@
     "amarillo": 67
    }
   },
-  "v3": {
+  "nivel": {
    "H3": {
     "verde": 3274,
     "rojo": 350
@@ -131,6 +131,6 @@
     "rojo": 341
    }
   },
-  "huella": "f73e45a4a1be2258845003240eb2f371d8ac2092f17197d06f97e46c5126a5c0"
+  "huella": "44e8d584523f3e90397fab382a0dd5f0386e4b1d8576b1b8a5c0bd901208bee7"
  }
 }
