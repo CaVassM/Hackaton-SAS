@@ -16,3 +16,6 @@ catalogo_huaicos_chosica/v0_por_nombre/
 # respaldos de cachés de replicar.py --recalcular
 modelo/v3/_respaldo_cache_*/
 modelo/v3/A/fase_a_resumen_sin_referencias.csv
+# cachés y archivos intermedios (se regeneran)
+_cache/
+entrega_modelo/salidas/trabajo/

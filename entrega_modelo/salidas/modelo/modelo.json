@@ -1,0 +1,46 @@
+{
+ "variables_en_orden": [
+  "i1h",
+  "i3h",
+  "i6h",
+  "i1h_max6",
+  "i3h_max6",
+  "i6h_max6",
+  "p24h",
+  "p48h",
+  "p72h",
+  "hum_suelo_5d",
+  "dias_activ",
+  "icen",
+  "H"
+ ],
+ "parametros": {
+  "n_estimators": 150,
+  "max_depth": 2,
+  "learning_rate": 0.05,
+  "subsample": 0.8,
+  "colsample_bytree": 0.8,
+  "min_child_weight": 50,
+  "reg_lambda": 10.0,
+  "tree_method": "hist",
+  "n_jobs": 4,
+  "verbosity": 0
+ },
+ "monotonia": [
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  1,
+  0,
+  1,
+  1
+ ],
+ "filas_entrenamiento": 167689,
+ "semilla": 0
+}

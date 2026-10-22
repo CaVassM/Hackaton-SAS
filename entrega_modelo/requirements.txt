@@ -1,0 +1,20 @@
+# Paquete del modelo final v3 (entrega_modelo/). Versiones EXACTAS con las que se entrenó y validó.
+# Python 3.13.9 (Windows 11). Instalar:  python -m pip install -r entrega_modelo/requirements.txt
+# xgboost fija los resultados: con otra versión los árboles cambian (p. ej. el TSS de la validación pasa de 0.49 a 0.45).
+
+# --- usados por scripts/01_features.py ... 04_predecir.py
+xgboost==3.4.1
+pandas==2.3.3
+numpy==2.3.5
+scikit-learn==1.7.2
+pyarrow==21.0.0
+scipy==1.16.3
+
+# --- dependencias de las anteriores (versiones del entorno de validación)
+joblib==1.5.2
+threadpoolctl==3.5.0
+python-dateutil==2.9.0.post0
+pytz==2025.2
+tzdata==2025.2
+
+# scripts/00_exportar_inputs.py y scripts/predecir_demo.py importan el repo: necesitan además requirements.txt de la raíz.
