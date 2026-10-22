@@ -75,6 +75,60 @@ El nivel se calcula para la **zona**, que es lo validado. Las quebradas comparte
 - **Umbrales:** están en `modelo/v3/final/metadatos_final.json`. El rojo maximiza el TSS por evento; el amarillo es el de máximo acierto alcanzable (0.85).
 - **Cómo leer H = 6, 12 y 24:** describen la **condición de la zona**, no la anticipación de un huaico concreto.
 
+## Paquete para el equipo y formato de simulación (entrega_modelo/)
+`entrega_modelo/` es el modelo final v3 empaquetado para el equipo (detalle en [entrega_modelo/README.md](entrega_modelo/README.md)):
+
+- **Insumos en CSV** (`inputs/`): lluvia IMERG por celda, humedad del suelo, ICEN, activaciones, terreno de las 17 quebradas, etiquetas de zona y eventos de lluvia.
+- **Scripts `01`–`04`** (`scripts/`): características, entrenamiento, validación y predicción. **No dependen del repo**: solo leen `inputs/` y funcionan con la carpeta copiada sola.
+- **Resultados de referencia** (`salidas/referencia/`): P2, umbrales y métricas del modelo final. `03_validar.py` los compara y debe terminar en `IGUAL (métricas, IC, umbrales y P2)`, con TSS 0.49 (IC 90 % 0.15–0.70).
+
+Comandos, desde la raíz del repo (verificados; ~20 s en total):
+
+```bash
+python -m pip install -r entrega_modelo/requirements.txt
+python entrega_modelo/scripts/01_features.py
+python entrega_modelo/scripts/02_entrenar.py
+python entrega_modelo/scripts/03_validar.py
+
+# tabla de simulación de un mes FUERA DE MUESTRA (P1, umbrales y P2 sin esa temporada), por hora y por media hora
+python entrega_modelo/scripts/04_predecir.py --mes 2023-03 --excluir-temporada 2022-23 --paso 30
+# lo mismo con el modelo final (dentro de muestra para meses del histórico)
+python entrega_modelo/scripts/04_predecir.py --mes 2026-03 --paso 30
+```
+
+- **Dónde quedan:** en `entrega_modelo/salidas/predicciones/`, por ejemplo:
+  - `probabilidad_huayco_por_quebrada_con_tiempo_2023_03_sin_2022_23.csv` (por hora)
+  - `..._30min.csv` (por media hora)
+  - `detalle_zona_2023_03_sin_2022_23.csv`
+- **Sin `--paso 30`** solo se genera la versión horaria.
+- **En lugar de `--mes`** se puede pedir un rango: `--desde "2023-03-12 00:00" --hasta "2023-03-12 23:00"`.
+- **Rutas largas en Windows:** la ruta completa de cada salida no debe pasar de 260 caracteres.
+
+**Demo ya generada** (`entrega_modelo/salidas/demo/`): marzo 2017 y marzo 2023, fuera de muestra, con los archivos A, B y C. Se regenera con:
+
+```bash
+python entrega_modelo/scripts/predecir_demo.py --temporada 2022-23 --mes 2023-03 --paso 30
+python entrega_modelo/scripts/predecir_demo.py --temporada 2016-17 --mes 2017-03 --paso 30
+```
+
+`predecir_demo.py` sí usa el repo (`modelo/v3/final/modelo_final.py`) y da los mismos archivos A y B que `04_predecir.py --excluir-temporada`, más el archivo C.
+
+Los archivos son UTF-8 con BOM. `Tiempo` va en formato `d/mm/yyyy HH:MM`, en hora de Lima, y marca el inicio de la hora.
+
+| Archivo | Columnas |
+|---|---|
+| **A** `probabilidad_huayco_por_quebrada_con_tiempo_<AAAA_MM>[_sin_<temporada>][_30min].csv` | `Tiempo, quebrada_id, quebrada, prob_ml_3h, prob_ml_6h, prob_ml_12h, prob_ml_24h`. Son 17 filas por hora, en orden fijo. La versión de 30 min repite el valor de su hora. |
+| **B** `detalle_zona_<AAAA_MM>[_sin_<temporada>].csv` | `Tiempo, H, p_zona, umbral_rojo, umbral_amarillo, nivel, nivel_con_lluvia, lluvia_6h_mm`, con 4 filas por hora (una por H). `nivel` es el **oficial**: rojo si `p_zona ≥ umbral_rojo`, como en la validación. `nivel_con_lluvia` es la variante en la que el rojo exige además lluvia IMERG > 0.1 mm en las últimas 6 h; si no la hay, queda en amarillo. |
+| **C** `huaicos_registrados_<AAAA_MM>.csv` (solo la demo) | `fecha, hora_inicio, hora_fin, quebrada_id`: los huaicos del catálogo en las 17 quebradas. Las horas son el rango v2 y quedan vacías si la fuente no da hora. |
+
+- **Qué es `prob_ml_Hh`:** `p_zona(H) × P2(quebrada)`, con 5 decimales.
+  - Es un **puntaje de riesgo por quebrada, no una probabilidad calibrada**.
+  - El nivel de alerta es de la **zona** y está en el archivo B.
+- **Es el mismo dato que `entrega_dashboard.py`, en formato ancho:**
+  - `prob_ml_Hh` = `score` de la fila (quebrada, hora, H).
+  - `p_zona`, `nivel`, `nivel_con_lluvia` y `lluvia_6h_mm` del archivo B son los de cada (hora, H).
+  - Comprobado con marzo 2023 de `ejemplo_2022_23_m3.csv`: los niveles y `p_zona` son idénticos. En el puntaje solo cambia el redondeo del quinto decimal, en 3 de 50 592 filas.
+
 ## Datos en operación (qué hay que actualizar cada hora)
 | Variable | Fuente | Retraso |
 |---|---|---|
@@ -114,5 +168,6 @@ Las credenciales (`_netrc` de Earthdata, `.cdsapirc`) nunca van en el código ni
 - Solo hay **13 casos positivos** (10 tormentas): los intervalos de confianza son anchos.
 - **IMERG no ve el golpe corto de lluvia** que dispara los huaicos en zona árida. El umbral de pluviómetro de ISAAC no funciona con IMERG (TSS −0.13).
 - Parte de la señal viene de las **rachas**: días desde la última activación. Sin esa variable, el TSS baja a 0.34.
+- La humedad del suelo es la variable que más aporta (sin ella, el TSS baja a 0.23), pero cuando el suelo pasa semanas saturado, como en El Niño costero 2017, el modelo queda en alerta casi continua (82 % de las horas de marzo de 2017).
 - **Muchas horas en alerta.** Usarlo como **índice de prioridad**, no como alarma pública automática.
 - **Lo que más lo mejoraría:** pluviómetros de SENAMHI/ISAAC (solicitud en `experiments/precipitation_source_comparison/docs/solicitud_senamhi.md`) y CAPE/K/TT de ERA5 (CDS).
